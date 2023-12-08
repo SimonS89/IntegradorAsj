@@ -14,12 +14,17 @@ window.addEventListener("load", () => {
     formData.forEach((valor, clave) => {
       productoServicio[clave] = valor;
     });
-    productosServicios.push(productoServicio);
-    guardarDatosEnLocalStorage("productosServicios", productosServicios);
-    this.reset();
-    alert(
-      `El producto ${productoServicio.nombre} se ha creado/editado satisfactoriamente.`
+    let confirmar = confirm(
+      "¿Desea confirmar la creación del producto/servico?"
     );
-    window.location.href = "./../productosServicios.html";
+    if (confirmar) {
+      productosServicios.push(productoServicio);
+      guardarDatosEnLocalStorage("productosServicios", productosServicios);
+      this.reset();
+      alert(
+        `El producto ${productoServicio.nombre} se ha creado satisfactoriamente.`
+      );
+      window.location.href = "./../productosServicios.html";
+    }
   });
 });

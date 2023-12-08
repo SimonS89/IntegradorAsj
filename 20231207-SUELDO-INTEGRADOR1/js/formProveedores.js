@@ -8,13 +8,16 @@ window.addEventListener("load", () => {
     e.preventDefault();
     const formData = new FormData(this);
     const proveedor = crearProveedor(formData);
-    proveedores.push(proveedor);
-    guardarDatosEnLocalStorage("proveedores", proveedores);
-    this.reset();
-    alert(
-      `El proveedor ${proveedor.razonSocial} se ha creado/editado satisfactoriamente.`
-    );
-    window.location.href = "./../proveedores.html";
+    let confirmar = confirm("¿Desea confirmar la creación del proveedor?");
+    if (confirmar) {
+      proveedores.push(proveedor);
+      guardarDatosEnLocalStorage("proveedores", proveedores);
+      this.reset();
+      alert(
+        `El proveedor ${proveedor.razonSocial} se ha creadosatisfactoriamente.`
+      );
+      window.location.href = "./../proveedores.html";
+    }
   });
 });
 
