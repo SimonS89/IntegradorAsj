@@ -1,0 +1,58 @@
+<div class="row">
+    <h1 class="my-5">Formulario Orden de Compra</h1>
+  </div>
+  <form class="row g-3 p-3 col-6 offset-3 border border-dark" id="myForm">
+    <div class="col-md-6">
+      <label for="inputProducto" class="form-label">Producto</label>
+      <select
+        required
+        id="inputProducto"
+        class="form-select border border-dark"
+        name="producto"
+      >
+        <option selected>Smartphone X</option>
+        <option>Pack de Galletas</option>
+        <option>Camisa Elegante</option>
+        <option>Kit de Primeros Auxilios</option>
+        <option>Curso de Programación</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="inputQuantity" class="form-label">Cantidad</label>
+      <input
+        required
+        type="number"
+        class="form-control border border-dark"
+        id="inputQuantity"
+        name="cantidad"
+        min="1"
+      />
+    </div>
+    <div class="col-6">
+      <label for="inputDescription" class="form-label"
+        >Recibido por</label
+      >
+      <input
+        required
+        type="text"
+        class="form-control border border-dark"
+        id="inputDescription"
+        placeholder="e.g. Juan Perez"
+        name="informacionRecepcion"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="inputDate" class="form-label">Fecha Entrega</label>
+      <input
+        min="2023-12-11"
+        required
+        type="date"
+        class="form-control border border-dark"
+        id="inputDate"
+        name="fechaEntrega"
+      />
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+    </div>
+  </form>

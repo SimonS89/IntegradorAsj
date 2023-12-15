@@ -1,0 +1,70 @@
+<div class="row">
+  <h1 class="my-5">Formulario creación productos y servicios</h1>
+</div>
+<form class="row g-3 p-3 col-6 offset-3 border border-dark" id="myForm">
+  <div class="col-md-6">
+    <label for="inputName" class="form-label">Nombre</label>
+    <input
+      required
+      type="text"
+      class="form-control border border-dark"
+      id="inputName"
+      name="nombre"
+    />
+  </div>
+  <div class="col-md-6">
+    <label for="inputPrice" class="form-label">Precio</label>
+    <input
+      required
+      type="number"
+      class="form-control border border-dark"
+      id="inputPrice"
+      name="precio"
+      min="1"
+    />
+  </div>
+  <div class="col-12">
+    <label for="inputDescription" class="form-label">Descripción</label>
+    <input
+      required
+      type="text"
+      class="form-control border border-dark"
+      id="inputDescription"
+      placeholder="e.g. Telefono inteligente Android 13"
+      name="descripcion"
+    />
+  </div>
+  <div class="col-md-6">
+    <label for="inputCategory" class="form-label">Categoria</label>
+    <select
+      required
+      id="inputCategory"
+      class="form-select border border-dark"
+      name="categoria"
+    >
+      <option selected>Electrónica</option>
+      <option>Alimentos</option>
+      <option>Ropa</option>
+      <option>Salud</option>
+      <option>Educacion</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="inputProvider" class="form-label">Proveedor</label>
+    <select
+      required
+      id="inputProvider"
+      class="form-select border border-dark"
+      name="proveedor"
+    >
+      <option selected>ByteCraft Solutions</option>
+      <option>FreshBite Delights</option>
+      <option>VogueHarbor Boutique</option>
+      <option>Revitalize Med Group</option>
+      <option>IntellectJunction Institute</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+  </div>
+</form>

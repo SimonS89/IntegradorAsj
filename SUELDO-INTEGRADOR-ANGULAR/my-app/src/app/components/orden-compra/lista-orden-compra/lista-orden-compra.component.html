@@ -1,0 +1,73 @@
+<div class="row">
+  <h1 class="my-5">Ordenes de Compra</h1>
+</div>
+<div class="row justify-content-center mb-3 align-items-center">
+  <a
+    type="button"
+    class="btnAdd fw-bolder col-3 btn btn-success"
+    routerLink="/form-ordenes-compra"
+    routerLinkActive="router-link-active"
+  >
+    <fa-icon [icon]="faCreditCard" class="me-3"></fa-icon
+    ><span>Realizar Compra</span>
+  </a>
+</div>
+<table class="table table-secondary table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#N° Orden</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Total Abonado</th>
+      <th scope="col">Información Recepción</th>
+      <th scope="col">Funcionalidades</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr class="align-middle">
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td class="d-flex justify-content-around">
+        <button type="button" class="deleteBtn btn btn-outline-danger">
+          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
+        </button>
+        <button type="button" class="editBtn btn btn-outline-primary">
+          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
+        </button>
+      </td>
+    </tr>
+    <tr class="align-middle">
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td class="d-flex justify-content-around">
+        <button type="button" class="deleteBtn btn btn-outline-danger">
+          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
+        </button>
+        <button type="button" class="editBtn btn btn-outline-primary">
+          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
+        </button>
+      </td>
+    </tr>
+    <tr class="align-middle">
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td>Lorem ipsum dolor sit amet.</td>
+      <td class="d-flex justify-content-around">
+        <button type="button" class="deleteBtn btn btn-outline-danger">
+          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
+        </button>
+        <button type="button" class="editBtn btn btn-outline-primary">
+          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
