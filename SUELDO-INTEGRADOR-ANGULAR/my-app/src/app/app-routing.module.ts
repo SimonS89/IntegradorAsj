@@ -10,7 +10,18 @@ import { FormOrdenCompraComponent } from './components/orden-compra/form-orden-c
 const routes: Routes = [
   {
     path: 'proveedores',
-    component: ListaProveedoresComponent,
+    children: [
+      {
+        path: '',
+        component: ListaProveedoresComponent,
+        title: 'Lista Proveedores',
+      },
+      {
+        path: 'form-proveedores',
+        component: FormProveedoresComponent,
+        title: 'Form Proveedores',
+      },
+    ],
   },
   {
     path: 'productos',
@@ -20,10 +31,10 @@ const routes: Routes = [
     path: 'ordenes-compra',
     component: ListaOrdenCompraComponent,
   },
-  {
-    path: 'form-proveedores',
-    component: FormProveedoresComponent,
-  },
+  // {
+  //   path: 'form-proveedores',
+  //   component: FormProveedoresComponent,
+  // },
   {
     path: 'form-productos',
     component: FormProductosComponent,

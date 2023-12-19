@@ -5,7 +5,7 @@
   <a
     type="button"
     class="btnAdd fw-bolder col-3 btn btn-success"
-    routerLink="/form-proveedores"
+    routerLink="/proveedores/form-proveedores"
   >
     <fa-icon [icon]="faUser" class="me-3"></fa-icon
     ><span>Agregar Proveedor</span>
@@ -23,44 +23,18 @@
     </tr>
   </thead>
   <tbody class="table-group-divider">
-    <tr class="align-middle">
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
+    <tr class="align-middle" *ngFor="let proveedor of proveedores">
+      <td>{{ proveedor.id }}</td>
+      <td>{{ proveedor.razonSocial }}</td>
+      <td>{{ proveedor.tipoIva }}.</td>
+      <td>{{ proveedor.rubro }}</td>
+      <td>{{ proveedor.sitioWeb }}</td>
       <td class="d-flex justify-content-around">
-        <button type="button" class="deleteBtn btn btn-outline-danger">
-          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-        </button>
-        <button type="button" class="editBtn btn btn-outline-primary">
-          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr class="align-middle">
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td class="d-flex justify-content-around">
-        <button type="button" class="deleteBtn btn btn-outline-danger">
-          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-        </button>
-        <button type="button" class="editBtn btn btn-outline-primary">
-          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr class="align-middle">
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td class="d-flex justify-content-around">
-        <button type="button" class="deleteBtn btn btn-outline-danger">
+        <button
+          type="button"
+          class="deleteBtn btn btn-outline-danger"
+          (click)="eliminarProveedor(proveedor.id)"
+        >
           <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
         </button>
         <button type="button" class="editBtn btn btn-outline-primary">

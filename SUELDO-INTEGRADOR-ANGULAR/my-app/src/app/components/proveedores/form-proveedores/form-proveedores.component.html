@@ -1,7 +1,11 @@
 <div class="row">
   <h1 class="my-5">Formulario creación de Proveedores</h1>
 </div>
-<form class="row g-3 p-3 col-6 offset-3 border border-dark mb-5" id="myForm">
+<form
+  class="row g-3 p-3 col-6 offset-3 border border-dark mb-5"
+  (ngSubmit)="onSubmit()"
+  #proveedorForm="ngForm"
+>
   <h5 class="text-start text-danger mt-0">Empresa</h5>
   <div class="col-md-12">
     <label for="inputRazonSocial" class="form-label">Razon social</label>
@@ -11,6 +15,7 @@
       class="form-control border border-dark"
       id="inputRazonSocial"
       name="razonSocial"
+      [(ngModel)]="razonSocial"
     />
   </div>
   <div class="col-md-6">
@@ -20,6 +25,7 @@
       id="inputTipoIva"
       class="form-select border border-dark"
       name="tipoIva"
+      [(ngModel)]="tipoIva"
     >
       <option selected>Responsable Inscripto</option>
       <option>Monotributista</option>
@@ -34,6 +40,7 @@
       id="inputRubro"
       class="form-select border border-dark"
       name="rubro"
+      [(ngModel)]="rubro"
     >
       <option selected>Tecnología</option>
       <option>Alimentación</option>
@@ -51,6 +58,7 @@
       id="inputSitioWeb"
       placeholder="https://example.com"
       name="sitioWeb"
+      [(ngModel)]="sitioWeb"
     />
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Domicilio</h5>
@@ -63,6 +71,7 @@
       id="inputDireccion"
       placeholder="1234 Main St"
       name="direccion"
+      [(ngModel)]="direccion"
     />
   </div>
   <div class="col-6">
@@ -74,6 +83,7 @@
       id="inputCP"
       placeholder="1900"
       name="codigoPostal"
+      [(ngModel)]="codigoPostal"
     />
   </div>
   <div class="col-6">
@@ -85,6 +95,7 @@
       id="inputLocalidad"
       placeholder="La Plata"
       name="localidad"
+      [(ngModel)]="localidad"
     />
   </div>
   <div class="col-6">
@@ -96,6 +107,7 @@
       id="inputProvincia"
       placeholder="Buenos Aires"
       name="provincia"
+      [(ngModel)]="provincia"
     />
   </div>
   <div class="col-12">
@@ -107,6 +119,7 @@
       id="inputPais"
       placeholder="Argentina"
       name="pais"
+      [(ngModel)]="pais"
     />
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Datos de Contacto</h5>
@@ -119,6 +132,7 @@
       id="inputNombreCompleto"
       placeholder="Simón"
       name="nombreCompleto"
+      [(ngModel)]="nombreCompleto"
     />
   </div>
   <div class="col-6">
@@ -130,6 +144,7 @@
       id="inputTelefono"
       placeholder="555-5678"
       name="telefono"
+      [(ngModel)]="telefono"
     />
   </div>
   <div class="col-6">
@@ -141,6 +156,7 @@
       id="inputEmail"
       placeholder="juanperez@gmail.com"
       name="email"
+      [(ngModel)]="email"
     />
   </div>
   <div class="col-6">
@@ -152,6 +168,7 @@
       id="inputRol"
       placeholder="Director Ejecutivo"
       name="rol"
+      [(ngModel)]="rol"
     />
   </div>
   <div class="col-12">

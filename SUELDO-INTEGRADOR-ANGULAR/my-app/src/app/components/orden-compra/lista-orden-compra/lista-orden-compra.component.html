@@ -24,44 +24,18 @@
     </tr>
   </thead>
   <tbody class="table-group-divider">
-    <tr class="align-middle">
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
+    <tr class="align-middle" *ngFor="let orden of ordenesCompra">
+      <td>{{ orden.id }}</td>
+      <td>{{ orden.producto }}</td>
+      <td>{{ orden.cantidad }}</td>
+      <td>{{ orden.total }}</td>
+      <td>{{ orden.informacionRecepcion }}</td>
       <td class="d-flex justify-content-around">
-        <button type="button" class="deleteBtn btn btn-outline-danger">
-          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-        </button>
-        <button type="button" class="editBtn btn btn-outline-primary">
-          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr class="align-middle">
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td class="d-flex justify-content-around">
-        <button type="button" class="deleteBtn btn btn-outline-danger">
-          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-        </button>
-        <button type="button" class="editBtn btn btn-outline-primary">
-          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr class="align-middle">
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td>Lorem ipsum dolor sit amet.</td>
-      <td class="d-flex justify-content-around">
-        <button type="button" class="deleteBtn btn btn-outline-danger">
+        <button
+          type="button"
+          class="deleteBtn btn btn-outline-danger"
+          (click)="eliminarOrden(orden.id)"
+        >
           <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
         </button>
         <button type="button" class="editBtn btn btn-outline-primary">
