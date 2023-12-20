@@ -1,22 +1,31 @@
 <div class="row">
-  <h1 class="my-5">Formulario creación de Proveedores</h1>
+  <h1 class="my-5">Formulario Proveedores</h1>
 </div>
 <form
-  class="row g-3 p-3 col-6 offset-3 border border-dark mb-5"
-  (ngSubmit)="onSubmit()"
   #proveedorForm="ngForm"
+  class="row g-3 p-3 col-6 offset-3 border border-dark mb-5"
+  (ngSubmit)="onSubmit(proveedorForm)"
 >
   <h5 class="text-start text-danger mt-0">Empresa</h5>
   <div class="col-md-12">
     <label for="inputRazonSocial" class="form-label">Razon social</label>
     <input
-      required
       type="text"
       class="form-control border border-dark"
       id="inputRazonSocial"
       name="razonSocial"
-      [(ngModel)]="razonSocial"
+      [(ngModel)]="proveedor.razonSocial"
+      #razonSocial="ngModel"
+      required
+      minlength="8"
+      [ngClass]="razonSocial.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="razonSocial.errors?.['minlength'] || razonSocial.errors"
+    >
+      <span class="form-text"> Debe tener al menos 8 caracteres. </span>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="inputTipoIva" class="form-label">Tipo IVA</label>
@@ -25,13 +34,18 @@
       id="inputTipoIva"
       class="form-select border border-dark"
       name="tipoIva"
-      [(ngModel)]="tipoIva"
+      [(ngModel)]="proveedor.tipoIva"
+      #tipoIva="ngModel"
+      [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
     >
       <option selected>Responsable Inscripto</option>
       <option>Monotributista</option>
       <option>Exento</option>
       <option>Consumidor Final</option>
     </select>
+    <div class="col-auto" *ngIf="tipoIva.errors">
+      <span class="form-text"> Seleccione una opción. </span>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="inputRubro" class="form-label">Rubro</label>
@@ -40,7 +54,9 @@
       id="inputRubro"
       class="form-select border border-dark"
       name="rubro"
-      [(ngModel)]="rubro"
+      [(ngModel)]="proveedor.rubro"
+      #rubro="ngModel"
+      [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
     >
       <option selected>Tecnología</option>
       <option>Alimentación</option>
@@ -48,6 +64,9 @@
       <option>Salud</option>
       <option>Educación</option>
     </select>
+    <div class="col-auto" *ngIf="rubro.errors">
+      <span class="form-text"> Seleccione una opción. </span>
+    </div>
   </div>
   <div class="col-md-12">
     <label for="inputSitioWeb" class="form-label">Sitio Web</label>
@@ -58,120 +77,214 @@
       id="inputSitioWeb"
       placeholder="https://example.com"
       name="sitioWeb"
-      [(ngModel)]="sitioWeb"
+      [(ngModel)]="proveedor.sitioWeb"
+      pattern="https?://.+"
+      #sitioWeb="ngModel"
+      [ngClass]="sitioWeb.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="sitioWeb.errors?.['pattern'] || sitioWeb.errors"
+    >
+      <span class="form-text">Debe ser una URL válida.</span>
+    </div>
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Domicilio</h5>
   <div class="col-6">
     <label for="inputDireccion" class="form-label">Dirección</label>
     <input
       required
+      minlength="4"
       type="text"
       class="form-control border border-dark"
       id="inputDireccion"
       placeholder="1234 Main St"
       name="direccion"
-      [(ngModel)]="direccion"
+      [(ngModel)]="proveedor.domicilio.direccion"
+      #direccion="ngModel"
+      [ngClass]="direccion.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="direccion.errors?.['minlength'] || direccion.errors"
+    >
+      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+    </div>
   </div>
   <div class="col-6">
     <label for="inputCP" class="form-label">Código Postal</label>
     <input
       required
+      minlength="4"
       type="text"
       class="form-control border border-dark"
       id="inputCP"
       placeholder="1900"
       name="codigoPostal"
-      [(ngModel)]="codigoPostal"
+      [(ngModel)]="proveedor.domicilio.codigoPostal"
+      #codigoPostal="ngModel"
+      [ngClass]="codigoPostal.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="codigoPostal.errors?.['minlength']||codigoPostal.errors"
+    >
+      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+    </div>
   </div>
   <div class="col-6">
     <label for="inputLocalidad" class="form-label">Localidad</label>
     <input
       required
+      minlength="4"
       type="text"
       class="form-control border border-dark"
       id="inputLocalidad"
       placeholder="La Plata"
       name="localidad"
-      [(ngModel)]="localidad"
+      [(ngModel)]="proveedor.domicilio.localidad"
+      #localidad="ngModel"
+      [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="localidad.errors?.['minlength']||localidad.errors"
+    >
+      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+    </div>
   </div>
   <div class="col-6">
     <label for="inputProvincia" class="form-label">Provincia</label>
     <input
       required
+      minlength="4"
       type="text"
       class="form-control border border-dark"
       id="inputProvincia"
       placeholder="Buenos Aires"
       name="provincia"
-      [(ngModel)]="provincia"
+      [(ngModel)]="proveedor.domicilio.provincia"
+      #provincia="ngModel"
+      [ngClass]="provincia.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="provincia.errors?.['minlength']||provincia.errors"
+    >
+      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+    </div>
   </div>
   <div class="col-12">
     <label for="inputPais" class="form-label">País</label>
     <input
       required
+      minlength="4"
       type="text"
       class="form-control border border-dark"
       id="inputPais"
       placeholder="Argentina"
       name="pais"
-      [(ngModel)]="pais"
+      [(ngModel)]="proveedor.domicilio.pais"
+      #pais="ngModel"
+      [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
+      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+    </div>
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Datos de Contacto</h5>
   <div class="col-6">
     <label for="inputNombreCompleto" class="form-label">Nombre Completo</label>
     <input
       required
+      pattern="^[A-Za-zÁ-ú\s]{3,}(?:\s[A-Za-zÁ-ú\s]{3,})+$"
       type="text"
       class="form-control border border-dark"
       id="inputNombreCompleto"
-      placeholder="Simón"
+      placeholder="Simón Sueldo"
       name="nombreCompleto"
-      [(ngModel)]="nombreCompleto"
+      [(ngModel)]="proveedor.datosContacto.nombreCompleto"
+      #nombreCompleto="ngModel"
+      [ngClass]="nombreCompleto.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div
+      class="col-auto"
+      *ngIf="nombreCompleto.errors?.['pattern']||nombreCompleto.errors"
+    >
+      <span class="form-text"
+        >Debe contener al menos 2 palabras de 3 caracteres cada una.</span
+      >
+    </div>
   </div>
   <div class="col-6">
     <label for="inputTelefono" class="form-label">Teléfono</label>
     <input
       required
+      pattern="^[0-9\-]+$"
       type="text"
       class="form-control border border-dark"
       id="inputTelefono"
       placeholder="555-5678"
       name="telefono"
-      [(ngModel)]="telefono"
+      [(ngModel)]="proveedor.datosContacto.telefono"
+      #telefono="ngModel"
+      [ngClass]="telefono.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div class="col-auto" *ngIf="telefono.errors?.['pattern']||telefono.errors">
+      <span class="form-text">Debe contener solo números.</span>
+    </div>
   </div>
   <div class="col-6">
     <label for="inputEmail" class="form-label">Correo Electrónico</label>
     <input
       required
       type="email"
+      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
       class="form-control border border-dark"
       id="inputEmail"
       placeholder="juanperez@gmail.com"
       name="email"
-      [(ngModel)]="email"
+      [(ngModel)]="proveedor.datosContacto.email"
+      #email="ngModel"
+      [ngClass]="email.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div class="col-auto" *ngIf="email.errors?.['pattern']||email.errors">
+      <span class="form-text"
+        >Debe tener un formato de correo electrónico válido.</span
+      >
+    </div>
   </div>
   <div class="col-6">
     <label for="inputRol" class="form-label">Rol</label>
     <input
       required
+      minlength="4"
       type="text"
       class="form-control border border-dark"
       id="inputRol"
       placeholder="Director Ejecutivo"
       name="rol"
-      [(ngModel)]="rol"
+      [(ngModel)]="proveedor.datosContacto.rol"
+      #rol="ngModel"
+      [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
     />
+    <div class="col-auto" *ngIf="rol.errors?.['minlength']">
+      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+    </div>
   </div>
   <div class="col-12">
-    <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+    <button
+      type="submit"
+      class="btn btn-success btn-lg me-3"
+      [disabled]="!proveedorForm.valid"
+    >
+      Enviar
+    </button>
+    <button
+      class="btn btn-outline-danger btn-lg"
+      (click)="proveedorForm.reset()"
+    >
+      Vaciar
+    </button>
   </div>
 </form>

@@ -37,7 +37,11 @@
         >
           <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
         </button>
-        <button type="button" class="editBtn btn btn-outline-primary">
+        <button
+          type="button"
+          class="editBtn btn btn-outline-primary"
+          (click)="editarProveedor(proveedor.id)"
+        >
           <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
         </button>
       </td>

@@ -19,29 +19,44 @@ const routes: Routes = [
       {
         path: 'form-proveedores',
         component: FormProveedoresComponent,
-        title: 'Form Proveedores',
+        title: 'Crear Proveedor',
+      },
+      {
+        path: 'form-proveedores/:id',
+        component: FormProveedoresComponent,
+        title: 'Editar Proveedor',
       },
     ],
   },
   {
     path: 'productos',
-    component: ListaProductosComponent,
+    children: [
+      {
+        path: '',
+        component: ListaProductosComponent,
+        title: 'Lista Productos',
+      },
+      {
+        path: 'form-productos',
+        component: FormProductosComponent,
+        title: 'Form Productos',
+      },
+    ],
   },
   {
     path: 'ordenes-compra',
-    component: ListaOrdenCompraComponent,
-  },
-  // {
-  //   path: 'form-proveedores',
-  //   component: FormProveedoresComponent,
-  // },
-  {
-    path: 'form-productos',
-    component: FormProductosComponent,
-  },
-  {
-    path: 'form-ordenes-compra',
-    component: FormOrdenCompraComponent,
+    children: [
+      {
+        path: '',
+        component: ListaOrdenCompraComponent,
+        title: 'Lista Ordenes Compra',
+      },
+      {
+        path: 'form-ordenes-compra',
+        component: FormOrdenCompraComponent,
+        title: 'Form Ordenes Compra',
+      },
+    ],
   },
 ];
 

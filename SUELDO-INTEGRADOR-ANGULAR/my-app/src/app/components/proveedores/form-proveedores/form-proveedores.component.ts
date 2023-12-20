@@ -1,62 +1,69 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProveedorService } from 'src/app/services/proveedor.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Proveedor } from 'src/app/models/Proveedor';
 
 @Component({
   selector: 'app-form-proveedores',
   templateUrl: './form-proveedores.component.html',
   styleUrls: ['./form-proveedores.component.css'],
 })
-export class FormProveedoresComponent {
-  razonSocial: string = '';
-  tipoIva: string = '';
-  rubro: string = '';
-  sitioWeb: string = '';
-  direccion: string = '';
-  codigoPostal: string = '';
-  localidad: string = '';
-  provincia: string = '';
-  pais: string = '';
-  nombreCompleto: string = '';
-  telefono: string = '';
-  email: string = '';
-  rol: string = '';
-
-  @ViewChild('proveedorForm')
-  proveedorForm!: NgForm;
+export class FormProveedoresComponent implements OnInit {
+  proveedor: Proveedor = {
+    id: '',
+    razonSocial: '',
+    tipoIva: '',
+    rubro: '',
+    sitioWeb: '',
+    domicilio: {
+      direccion: '',
+      codigoPostal: '',
+      localidad: '',
+      provincia: '',
+      pais: '',
+    },
+    datosContacto: {
+      nombreCompleto: '',
+      telefono: '',
+      email: '',
+      rol: '',
+    },
+  };
 
   constructor(
     public proveedorService: ProveedorService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  onSubmit() {
-    if (this.proveedorForm.valid) {
-      this.proveedorService.create({
-        id: `ID-${new Date().getTime().toString().slice(-6)}`,
-        razonSocial: this.razonSocial,
-        tipoIva: this.tipoIva,
-        rubro: this.rubro,
-        sitioWeb: this.sitioWeb,
-        domicilio: {
-          direccion: this.direccion,
-          codigoPostal: this.codigoPostal,
-          localidad: this.localidad,
-          provincia: this.provincia,
-          pais: this.pais,
-        },
-        datosContacto: {
-          nombreCompleto: this.nombreCompleto,
-          telefono: this.telefono,
-          email: this.email,
-          rol: this.rol,
-        },
-      });
-      this.router.navigate(['/proveedores']);
-    } else {
-      // Form is invalid, handle accordingly (show error messages, etc.)
-      console.log('Form is invalid. Please check all fields.');
+  ngOnInit(): void {
+    this.route.params.subscribe((data) => {
+      const id = data['id'];
+      const proveedorExistente = this.proveedorService.getById(id);
+      if (proveedorExistente) {
+        this.proveedor = { ...proveedorExistente };
+      }
+    });
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      if (this.proveedor.id) {
+        let confirmar = confirm(
+          `¿Desea editar el proveedor ${this.proveedor.id}?`
+        );
+        if (confirmar) {
+          this.proveedorService.update(this.proveedor);
+          this.router.navigate(['/proveedores']);
+        }
+      } else {
+        let confirmar = confirm('¿Desea dar de alta al nuevo proveedor?');
+        if (confirmar) {
+          this.proveedorService.create(this.proveedor);
+          this.router.navigate(['/proveedores']);
+        }
+      }
     }
   }
 }

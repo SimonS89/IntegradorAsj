@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { proveedoresEjemplo } from '../data/data';
+import { Proveedor } from '../models/Proveedor';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProveedorService {
-  private proveedores: any[] = [];
+  private proveedores: Proveedor[] = [];
   constructor() {
     this.proveedores = proveedoresEjemplo;
   }
@@ -14,7 +15,7 @@ export class ProveedorService {
     return this.proveedores;
   }
 
-  public getById(id: string) {
+  public getById(id: string): Proveedor | undefined {
     return this.proveedores.find((proveedor) => proveedor.id == id);
   }
 
@@ -25,7 +26,17 @@ export class ProveedorService {
     return this.proveedores;
   }
 
-  public create(proveedor: any) {
+  public create(proveedor: Proveedor) {
+    proveedor.id = `ID-A${new Date().getTime().toString().slice(-6)}`;
     return this.proveedores.push(proveedor);
+  }
+
+  update(proveedor: Proveedor) {
+    const index = this.proveedores.findIndex((p) => p.id == proveedor.id);
+    if (index !== 1) this.proveedores[index] = proveedor;
+    else
+      console.error(
+        `Proveedor con ID ${proveedor.id} no encontrado para actualizar.`
+      );
   }
 }

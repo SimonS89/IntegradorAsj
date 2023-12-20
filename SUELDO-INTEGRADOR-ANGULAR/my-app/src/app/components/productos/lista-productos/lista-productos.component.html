@@ -3,7 +3,7 @@
 </div>
 <div class="row justify-content-center mb-3 align-items-center">
   <a
-    [routerLink]="['/form-productos']"
+    routerLink="/productos/form-productos"
     routerLinkActive="router-link-active"
     type="button"
     class="btnAdd fw-bolder col-3 btn btn-success"
@@ -27,7 +27,7 @@
     <tr class="align-middle" *ngFor="let producto of productos">
       <td>{{ producto.id }}</td>
       <td>{{ producto.nombre }}</td>
-      <td>{{ producto.Precio }}</td>
+      <td>{{ producto.precio }}</td>
       <td>{{ producto.descripcion }}</td>
       <td>{{ producto.categoria }}</td>
       <td class="d-flex justify-content-around">

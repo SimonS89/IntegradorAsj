@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faUser,
   faPenToSquare,
@@ -11,20 +12,32 @@ import { ProveedorService } from 'src/app/services/proveedor.service';
   templateUrl: './lista-proveedores.component.html',
   styleUrls: ['./lista-proveedores.component.css'],
 })
-export class ListaProveedoresComponent {
+export class ListaProveedoresComponent implements OnInit {
   faUser = faUser;
   faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
 
   proveedores: any[] = [];
 
-  constructor(public proveedorService: ProveedorService) {}
+  constructor(
+    public proveedorService: ProveedorService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.list();
+  }
+
+  list() {
     this.proveedores = this.proveedorService.getData();
   }
 
   eliminarProveedor(id: string) {
-    this.proveedores = this.proveedorService.deleteById(id);
+    let confirmar = confirm('¿Desea eliminar el proveedor?');
+    if (confirmar) this.proveedores = this.proveedorService.deleteById(id);
+  }
+
+  editarProveedor(id: string) {
+    this.router.navigate(['/proveedores/form-proveedores', id]);
   }
 }
