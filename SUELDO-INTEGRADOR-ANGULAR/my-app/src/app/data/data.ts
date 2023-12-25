@@ -18,7 +18,7 @@ const proveedoresEjemplo = [
       nombreCompleto: 'Juan Pérez',
       telefono: '555-1234',
       email: 'juan.perez@empresaA.com',
-      rol: 'Gerente General',
+      rol: 'Representante de Ventas',
     },
   },
   {
@@ -40,7 +40,7 @@ const proveedoresEjemplo = [
       nombreCompleto: 'Ana García',
       telefono: '555-5678',
       email: 'ana.garcia@empresaB.com',
-      rol: 'Directora de Ventas',
+      rol: 'Especialista en Marketing Digital',
     },
   },
   {
@@ -62,7 +62,7 @@ const proveedoresEjemplo = [
       nombreCompleto: 'Martín López',
       telefono: '555-9876',
       email: 'martin.lopez@empresaC.com',
-      rol: 'Gerente de Marketing',
+      rol: 'Asistente de Servicio al Cliente',
     },
   },
   {
@@ -84,7 +84,7 @@ const proveedoresEjemplo = [
       nombreCompleto: 'Laura Rodríguez',
       telefono: '555-1111',
       email: 'laura.rodriguez@empresaD.com',
-      rol: 'Director Médico',
+      rol: 'Coordinador de Logística',
     },
   },
   {
@@ -106,7 +106,7 @@ const proveedoresEjemplo = [
       nombreCompleto: 'Carlos Pérez',
       telefono: '555-1212',
       email: 'carlos.perez@empresaE.com',
-      rol: 'Director Académico',
+      rol: 'Analista de Datos Comerciales',
     },
   },
 ];
