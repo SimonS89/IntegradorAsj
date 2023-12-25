@@ -57,10 +57,12 @@
       #tipoIva="ngModel"
       [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
     >
-      <option selected>Responsable Inscripto</option>
-      <option>Monotributista</option>
-      <option>Exento</option>
-      <option>Consumidor Final</option>
+      <option selected value="Responsable Inscripto">
+        Responsable Inscripto
+      </option>
+      <option value="Monotributista">Monotributista</option>
+      <option value="Exento">Exento</option>
+      <option value="Consumidor Final">Consumidor Final</option>
     </select>
     <div class="col-auto" *ngIf="tipoIva.errors">
       <span class="form-text"> Seleccione una opción. </span>
@@ -77,11 +79,11 @@
       #rubro="ngModel"
       [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
     >
-      <option selected>Tecnología</option>
-      <option>Alimentación</option>
-      <option>Moda</option>
-      <option>Salud</option>
-      <option>Educación</option>
+      <option selected value="Tecnología">Tecnología</option>
+      <option value="Alimentación">Alimentación</option>
+      <option value="Moda">Moda</option>
+      <option value="Salud">Salud</option>
+      <option value="Educación">Educación</option>
     </select>
     <div class="col-auto" *ngIf="rubro.errors">
       <span class="form-text"> Seleccione una opción. </span>
@@ -302,11 +304,19 @@
       #rol="ngModel"
       [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
     >
-      <option selected>Representante de Ventas</option>
-      <option>Especialista en Marketing Digital</option>
-      <option>Asistente de Servicio al Cliente</option>
-      <option>Coordinador de Logística</option>
-      <option>Analista de Datos Comerciales</option>
+      <option selected value="Representante de Ventas">
+        Representante de Ventas
+      </option>
+      <option value="Especialista en Marketing Digital">
+        Especialista en Marketing Digital
+      </option>
+      <option value="Asistente de Servicio al Cliente">
+        Asistente de Servicio al Cliente
+      </option>
+      <option value="Coordinador de Logística">Coordinador de Logística</option>
+      <option value="Analista de Datos Comerciales">
+        Analista de Datos Comerciales
+      </option>
     </select>
     <div class="col-auto" *ngIf="rol.errors">
       <span class="form-text"> Seleccione una opción. </span>
