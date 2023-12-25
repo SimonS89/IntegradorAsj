@@ -29,15 +29,21 @@ export class ListaProveedoresComponent implements OnInit {
   }
 
   list() {
-    this.proveedores = this.proveedorService.getData();
+    this.proveedores = this.proveedorService.findAll();
   }
 
   eliminarProveedor(id: string) {
     let confirmar = confirm('¿Desea eliminar el proveedor?');
     if (confirmar) this.proveedores = this.proveedorService.deleteById(id);
+    alert(`Proveedor ${id}, eliminado exitosamente.`);
   }
 
   editarProveedor(id: string) {
     this.router.navigate(['/proveedores/form-proveedores', id]);
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
   }
 }

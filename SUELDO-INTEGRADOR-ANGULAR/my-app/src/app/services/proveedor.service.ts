@@ -12,19 +12,23 @@ export class ProveedorService {
   private API_ARG = 'https://apis.datos.gob.ar/georef/api/';
 
   constructor(private http: HttpClient) {
-    this.proveedores = proveedoresEjemplo;
+    // this.setStorage('proveedores', proveedoresEjemplo);
+    this.proveedores = this.findAll();
   }
 
-  getStorage(key: string) {
-    let proveedoresString = localStorage.getItem('proveedores');
-    if (proveedoresString)
-      this.proveedores = JSON.parse(proveedoresString) || [];
-    return this.proveedores;
+  getStorage(key: string): Proveedor[] | undefined {
+    let proveedoresString = localStorage.getItem(key);
+    if (proveedoresString) return JSON.parse(proveedoresString);
+    return undefined;
   }
 
-  setStorage(key: string, proveedores: Proveedor[]) {}
+  setStorage(key: string, proveedores: Proveedor[]) {
+    localStorage.setItem(key, JSON.stringify(proveedores));
+  }
 
-  public getData() {
+  public findAll() {
+    let proveedores = this.getStorage('proveedores');
+    if (proveedores) this.proveedores = proveedores || [];
     return this.proveedores;
   }
 
@@ -36,18 +40,22 @@ export class ProveedorService {
     this.proveedores = this.proveedores.filter(
       (proveedor) => proveedor.id !== id
     );
+    this.setStorage('proveedores', this.proveedores);
     return this.proveedores;
   }
 
-  public create(proveedor: Proveedor) {
+  public create(proveedor: Proveedor): void {
     proveedor.id = `ID-A${new Date().getTime().toString().slice(-6)}`;
-    return this.proveedores.push(proveedor);
+    this.proveedores.push(proveedor);
+    this.setStorage('proveedores', this.proveedores);
   }
 
-  update(proveedor: Proveedor) {
+  update(proveedor: Proveedor): void {
     const index = this.proveedores.findIndex((p) => p.id == proveedor.id);
-    if (index !== 1) this.proveedores[index] = proveedor;
-    else
+    if (index !== 1) {
+      this.proveedores[index] = proveedor;
+      this.setStorage('proveedores', this.proveedores);
+    } else
       console.error(
         `Proveedor con ID ${proveedor.id} no encontrado para actualizar.`
       );

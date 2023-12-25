@@ -88,7 +88,7 @@ const proveedoresEjemplo = [
     },
   },
   {
-    id: 'ID-A055132',
+    id: 'ID-A05132',
     logo: 'https://e7.pngegg.com/pngimages/361/627/png-clipart-leaf-logo-green-leaves-green-and-teal-leaf-logo-text-maple-leaf.png',
     razonSocial: 'IntellectJunction Institute',
     cuit: '30-12345678-2',
