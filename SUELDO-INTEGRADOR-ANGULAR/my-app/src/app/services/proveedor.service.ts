@@ -1,15 +1,28 @@
 import { Injectable } from '@angular/core';
 import { proveedoresEjemplo } from '../data/data';
 import { Proveedor } from '../models/Proveedor';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProveedorService {
   private proveedores: Proveedor[] = [];
-  constructor() {
+  private API_ARG = 'https://apis.datos.gob.ar/georef/api/';
+
+  constructor(private http: HttpClient) {
     this.proveedores = proveedoresEjemplo;
   }
+
+  getStorage(key: string) {
+    let proveedoresString = localStorage.getItem('proveedores');
+    if (proveedoresString)
+      this.proveedores = JSON.parse(proveedoresString) || [];
+    return this.proveedores;
+  }
+
+  setStorage(key: string, proveedores: Proveedor[]) {}
 
   public getData() {
     return this.proveedores;
@@ -38,5 +51,15 @@ export class ProveedorService {
       console.error(
         `Proveedor con ID ${proveedor.id} no encontrado para actualizar.`
       );
+  }
+
+  public getProvincias(): Observable<any> | undefined {
+    return this.http.get(`${this.API_ARG}provincias?campos=id,nombre`);
+  }
+
+  public getCiudades(id: string): Observable<any> | undefined {
+    return this.http.get(
+      `${this.API_ARG}municipios?provincia=${id}&campos=id,nombre&max=100`
+    );
   }
 }

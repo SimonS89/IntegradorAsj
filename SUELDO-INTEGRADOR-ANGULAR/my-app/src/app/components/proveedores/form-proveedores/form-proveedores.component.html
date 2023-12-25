@@ -3,11 +3,11 @@
 </div>
 <form
   #proveedorForm="ngForm"
-  class="row g-3 p-3 col-6 offset-3 border border-dark mb-5"
+  class="row g-3 p-3 col-md-8 col-sm-12 offset-md-2 offset-sm-0 border border-dark mb-5"
   (ngSubmit)="onSubmit(proveedorForm)"
 >
   <h5 class="text-start text-danger mt-0">Empresa</h5>
-  <div class="col-md-12">
+  <div class="col-md-6">
     <label for="inputRazonSocial" class="form-label">Razon social</label>
     <input
       type="text"
@@ -25,6 +25,25 @@
       *ngIf="razonSocial.errors?.['minlength'] || razonSocial.errors"
     >
       <span class="form-text"> Debe tener al menos 8 caracteres. </span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="inputLogo" class="form-label">Logo</label>
+    <input
+      type="text"
+      class="form-control border border-dark"
+      id="inputLogo"
+      name="logo"
+      [(ngModel)]="proveedor.logo"
+      #logo="ngModel"
+      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*\.png$"
+      required
+      [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
+    />
+    <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
+      <span class="form-text">
+        Debe ser una URL válida con archivo '.png'.</span
+      >
     </div>
   </div>
   <div class="col-md-6">
@@ -68,7 +87,7 @@
       <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-6">
     <label for="inputSitioWeb" class="form-label">Sitio Web</label>
     <input
       required
@@ -87,6 +106,24 @@
       *ngIf="sitioWeb.errors?.['pattern'] || sitioWeb.errors"
     >
       <span class="form-text">Debe ser una URL válida.</span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="inputCuit" class="form-label">CUIT</label>
+    <input
+      required
+      type="text"
+      class="form-control border border-dark"
+      id="inputCuit"
+      placeholder="30-12345678-8"
+      name="cuit"
+      [(ngModel)]="proveedor.cuit"
+      pattern="\d{2}-\d{8}-\d{1}"
+      #cuit="ngModel"
+      [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
+    />
+    <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
+      <span class="form-text">Debe ser un formato de CUIT válido.</span>
     </div>
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Domicilio</h5>
@@ -132,24 +169,21 @@
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>
-  <div class="col-6">
-    <label for="inputLocalidad" class="form-label">Localidad</label>
+  <div class="col-12">
+    <label for="inputPais" class="form-label">País</label>
     <input
       required
       minlength="4"
       type="text"
       class="form-control border border-dark"
-      id="inputLocalidad"
-      placeholder="La Plata"
-      name="localidad"
-      [(ngModel)]="proveedor.domicilio.localidad"
-      #localidad="ngModel"
-      [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
+      id="inputPais"
+      placeholder="Argentina"
+      name="pais"
+      [(ngModel)]="proveedor.domicilio.pais"
+      #pais="ngModel"
+      [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
     />
-    <div
-      class="col-auto"
-      *ngIf="localidad.errors?.['minlength']||localidad.errors"
-    >
+    <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>
@@ -174,21 +208,24 @@
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>
-  <div class="col-12">
-    <label for="inputPais" class="form-label">País</label>
+  <div class="col-6">
+    <label for="inputLocalidad" class="form-label">Localidad</label>
     <input
       required
       minlength="4"
       type="text"
       class="form-control border border-dark"
-      id="inputPais"
-      placeholder="Argentina"
-      name="pais"
-      [(ngModel)]="proveedor.domicilio.pais"
-      #pais="ngModel"
-      [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
+      id="inputLocalidad"
+      placeholder="La Plata"
+      name="localidad"
+      [(ngModel)]="proveedor.domicilio.localidad"
+      #localidad="ngModel"
+      [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
     />
-    <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
+    <div
+      class="col-auto"
+      *ngIf="localidad.errors?.['minlength']||localidad.errors"
+    >
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>

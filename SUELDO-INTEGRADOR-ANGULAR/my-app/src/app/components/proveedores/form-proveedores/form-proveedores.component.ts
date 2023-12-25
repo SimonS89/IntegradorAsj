@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProveedorService } from 'src/app/services/proveedor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Proveedor } from 'src/app/models/Proveedor';
+import { Provincia } from 'src/app/models/Provincia';
+import { Ciudad } from 'src/app/models/Ciudad';
 
 @Component({
   selector: 'app-form-proveedores',
@@ -12,7 +14,9 @@ import { Proveedor } from 'src/app/models/Proveedor';
 export class FormProveedoresComponent implements OnInit {
   proveedor: Proveedor = {
     id: '',
+    logo: '',
     razonSocial: '',
+    cuit: '',
     tipoIva: '',
     rubro: '',
     sitioWeb: '',
@@ -30,6 +34,9 @@ export class FormProveedoresComponent implements OnInit {
       rol: '',
     },
   };
+
+  provincias!: Provincia[];
+  ciudades!: Ciudad[];
 
   constructor(
     public proveedorService: ProveedorService,
@@ -65,5 +72,17 @@ export class FormProveedoresComponent implements OnInit {
         }
       }
     }
+  }
+
+  listarProvincias() {
+    this.proveedorService.getProvincias()?.subscribe((res) => {
+      this.provincias = res;
+    });
+  }
+
+  listarCiudades(id: string) {
+    this.proveedorService.getCiudades(id)?.subscribe((res) => {
+      this.ciudades = res;
+    });
   }
 }

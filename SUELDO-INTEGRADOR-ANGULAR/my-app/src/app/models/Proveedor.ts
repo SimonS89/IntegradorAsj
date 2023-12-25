@@ -1,6 +1,8 @@
 export interface Proveedor {
   id: string;
+  logo: string;
   razonSocial: string;
+  cuit: string;
   tipoIva: string;
   rubro: string;
   sitioWeb: string;

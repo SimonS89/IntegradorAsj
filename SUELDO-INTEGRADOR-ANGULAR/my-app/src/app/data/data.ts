@@ -1,7 +1,9 @@
 const proveedoresEjemplo = [
   {
     id: 'ID-A00132',
+    logo: 'https://e7.pngegg.com/pngimages/779/61/png-clipart-logo-idea-cute-eagle-leaf-logo.png',
     razonSocial: 'ByteCraft Solutions',
+    cuit: '30-12345678-8',
     tipoIva: 'Responsable Inscripto',
     rubro: 'Tecnología',
     sitioWeb: 'http://www.ByteCraftSolutions.com',
@@ -21,7 +23,9 @@ const proveedoresEjemplo = [
   },
   {
     id: 'ID-A00134',
+    logo: 'https://png.pngtree.com/png-vector/20211023/ourmid/pngtree-salon-logo-png-image_4004444.png',
     razonSocial: 'FreshBite Delights',
+    cuit: '30-12345678-9',
     tipoIva: 'Monotributista',
     rubro: 'Alimentación',
     sitioWeb: 'http://www.FreshBiteDelights.com',
@@ -41,7 +45,9 @@ const proveedoresEjemplo = [
   },
   {
     id: 'ID-A09872',
+    logo: 'https://w7.pngwing.com/pngs/786/126/png-transparent-logo-contracting-photography-logo-symbol.png',
     razonSocial: 'VogueHarbor Boutique',
+    cuit: '30-12345678-0',
     tipoIva: 'Responsable Inscripto',
     rubro: 'Moda',
     sitioWeb: 'http://www.VogueHarborBoutique.com',
@@ -61,7 +67,9 @@ const proveedoresEjemplo = [
   },
   {
     id: 'ID-A10132',
+    logo: 'https://w7.pngwing.com/pngs/1008/532/png-transparent-wolf-logo-symbol-thumbnail.png',
     razonSocial: 'Revitalize Med Group',
+    cuit: '30-12345678-1',
     tipoIva: 'Exento',
     rubro: 'Salud',
     sitioWeb: 'http://www.RevitalizeMedGroup.com',
@@ -81,7 +89,9 @@ const proveedoresEjemplo = [
   },
   {
     id: 'ID-A055132',
+    logo: 'https://e7.pngegg.com/pngimages/361/627/png-clipart-leaf-logo-green-leaves-green-and-teal-leaf-logo-text-maple-leaf.png',
     razonSocial: 'IntellectJunction Institute',
+    cuit: '30-12345678-2',
     tipoIva: 'Responsable Inscripto',
     rubro: 'Educación',
     sitioWeb: 'http://www.IntellectJunctionInstitute.com',
