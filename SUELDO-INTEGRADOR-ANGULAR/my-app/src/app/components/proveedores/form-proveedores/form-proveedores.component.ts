@@ -35,6 +35,8 @@ export class FormProveedoresComponent implements OnInit {
     },
   };
 
+  id!: string;
+
   provincias!: Provincia[];
   ciudades!: Ciudad[];
 
@@ -46,8 +48,8 @@ export class FormProveedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((data) => {
-      const id = data['id'];
-      const proveedorExistente = this.proveedorService.getById(id);
+      this.id = data['id'];
+      const proveedorExistente = this.proveedorService.getById(this.id);
       if (proveedorExistente) {
         this.proveedor = { ...proveedorExistente };
       }

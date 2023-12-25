@@ -1,5 +1,11 @@
 <div class="row">
-  <h1 class="my-5">Formulario Proveedores</h1>
+  <h1 class="my-5">
+    {{
+      id == null
+        ? "Agregar Proveedor"
+        : "Editar Proveedor: " + proveedor.razonSocial
+    }}
+  </h1>
 </div>
 <form
   #proveedorForm="ngForm"
@@ -174,7 +180,7 @@
   <div class="col-12">
     <label for="inputPais" class="form-label">País</label>
     <input
-      required
+      disabled
       minlength="4"
       type="text"
       class="form-control border border-dark"
@@ -183,6 +189,7 @@
       name="pais"
       [(ngModel)]="proveedor.domicilio.pais"
       #pais="ngModel"
+      value="Argentina"
       [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
     />
     <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
