@@ -36,7 +36,7 @@ export class FormProveedoresComponent implements OnInit {
   };
 
   id!: string;
-
+  razonSocialTitle!: string;
   provincias!: Provincia[];
   ciudades!: Ciudad[];
 
@@ -48,43 +48,51 @@ export class FormProveedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((data) => {
+      this.listarProvincias();
       this.id = data['id'];
       const proveedorExistente = this.proveedorService.getById(this.id);
       if (proveedorExistente) {
+        proveedorExistente.domicilio.pais = 'Argentina';
         this.proveedor = { ...proveedorExistente };
+        this.razonSocialTitle = proveedorExistente.razonSocial;
       }
     });
   }
 
   onSubmit(form: NgForm) {
+    const confirmMessage = this.id
+      ? `¿Desea editar el proveedor ${this.id}?`
+      : '¿Desea dar de alta al nuevo proveedor?';
     if (form.valid) {
-      if (this.proveedor.id) {
-        let confirmar = confirm(
-          `¿Desea editar el proveedor ${this.proveedor.id}?`
-        );
-        if (confirmar) {
-          this.proveedorService.update(this.proveedor);
-          this.router.navigate(['/proveedores']);
-        }
-      } else {
-        let confirmar = confirm('¿Desea dar de alta al nuevo proveedor?');
-        if (confirmar) {
-          this.proveedorService.create(this.proveedor);
-          this.router.navigate(['/proveedores']);
-        }
+      if (confirm(confirmMessage)) {
+        this.id ? this.editProveedor() : this.addProveedor();
       }
     }
   }
 
+  editProveedor() {
+    this.proveedorService.update(this.proveedor);
+    this.navigateToProveedores();
+  }
+
+  addProveedor() {
+    this.proveedorService.create(this.proveedor);
+    this.navigateToProveedores();
+  }
+
+  navigateToProveedores() {
+    this.router.navigate(['/proveedores']);
+  }
+
   listarProvincias() {
     this.proveedorService.getProvincias()?.subscribe((res) => {
-      this.provincias = res;
+      this.provincias = res.provincias;
     });
   }
 
   listarCiudades(id: string) {
     this.proveedorService.getCiudades(id)?.subscribe((res) => {
-      this.ciudades = res;
+      this.ciudades = res.municipios;
     });
   }
 }

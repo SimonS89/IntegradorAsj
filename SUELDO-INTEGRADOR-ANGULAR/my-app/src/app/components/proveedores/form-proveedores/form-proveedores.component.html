@@ -1,9 +1,7 @@
 <div class="row">
   <h1 class="my-5">
     {{
-      id == null
-        ? "Agregar Proveedor"
-        : "Editar Proveedor: " + proveedor.razonSocial
+      id == null ? "Agregar Proveedor" : "Editar Proveedor: " + razonSocialTitle
     }}
   </h1>
 </div>
@@ -14,7 +12,7 @@
 >
   <h5 class="text-start text-danger mt-0">Empresa</h5>
   <div class="col-md-6">
-    <label for="inputRazonSocial" class="form-label">Razon social</label>
+    <label for="inputRazonSocial" class="form-label">Razón social</label>
     <input
       type="text"
       class="form-control border border-dark"
@@ -36,20 +34,18 @@
   <div class="col-md-6">
     <label for="inputLogo" class="form-label">Logo</label>
     <input
-      type="text"
+      type="url"
       class="form-control border border-dark"
       id="inputLogo"
       name="logo"
       [(ngModel)]="proveedor.logo"
       #logo="ngModel"
-      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*\.png$"
+      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
       required
       [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
     />
     <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
-      <span class="form-text">
-        Debe ser una URL válida con archivo '.png'.</span
-      >
+      <span class="form-text"> Debe ser una URL válida.</span>
     </div>
   </div>
   <div class="col-md-6">
@@ -63,9 +59,8 @@
       #tipoIva="ngModel"
       [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
     >
-      <option selected value="Responsable Inscripto">
-        Responsable Inscripto
-      </option>
+      <option value="" disabled selected>Selecciona un tipo IVA</option>
+      <option value="Responsable Inscripto">Responsable Inscripto</option>
       <option value="Monotributista">Monotributista</option>
       <option value="Exento">Exento</option>
       <option value="Consumidor Final">Consumidor Final</option>
@@ -85,7 +80,8 @@
       #rubro="ngModel"
       [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
     >
-      <option selected value="Tecnología">Tecnología</option>
+      <option value="" disabled selected>Selecciona un rubro</option>
+      <option value="Tecnología">Tecnología</option>
       <option value="Alimentación">Alimentación</option>
       <option value="Moda">Moda</option>
       <option value="Salud">Salud</option>
@@ -189,7 +185,6 @@
       name="pais"
       [(ngModel)]="proveedor.domicilio.pais"
       #pais="ngModel"
-      value="Argentina"
       [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
     />
     <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
@@ -198,44 +193,50 @@
   </div>
   <div class="col-6">
     <label for="inputProvincia" class="form-label">Provincia</label>
-    <input
+    <select
       required
-      minlength="4"
-      type="text"
-      class="form-control border border-dark"
       id="inputProvincia"
-      placeholder="Buenos Aires"
+      class="form-select border border-dark"
       name="provincia"
       [(ngModel)]="proveedor.domicilio.provincia"
       #provincia="ngModel"
       [ngClass]="provincia.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="provincia.errors?.['minlength']||provincia.errors"
+      (change)="listarCiudades(provincia.value)"
     >
-      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+      <option value="" disabled selected>Selecciona una provincia</option>
+      <option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+        {{ provincia.nombre }}
+      </option>
+    </select>
+    <div class="col-auto" *ngIf="provincia.errors">
+      <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
   <div class="col-6">
     <label for="inputLocalidad" class="form-label">Localidad</label>
-    <input
+    <select
       required
-      minlength="4"
-      type="text"
-      class="form-control border border-dark"
       id="inputLocalidad"
-      placeholder="La Plata"
+      class="form-control border border-dark"
       name="localidad"
       [(ngModel)]="proveedor.domicilio.localidad"
       #localidad="ngModel"
       [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="localidad.errors?.['minlength']||localidad.errors"
     >
-      <span class="form-text">Debe tener al menos 4 caracteres.</span>
+      <ng-container *ngIf="ciudades && ciudades.length > 0; else noCiudades">
+        <option value="" disabled selected>Selecciona una localidad</option>
+        <option *ngFor="let ciudad of ciudades" [value]="ciudad.nombre">
+          {{ ciudad.nombre }}
+        </option>
+      </ng-container>
+      <ng-template #noCiudades>
+        <option disabled selected>
+          No hay ciudades disponibles para esta provincia
+        </option>
+      </ng-template>
+    </select>
+    <div class="col-auto" *ngIf="localidad.errors">
+      <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Datos de Contacto</h5>
@@ -311,9 +312,8 @@
       #rol="ngModel"
       [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
     >
-      <option selected value="Representante de Ventas">
-        Representante de Ventas
-      </option>
+      <option value="" disabled selected>Selecciona un rol</option>
+      <option value="Representante de Ventas">Representante de Ventas</option>
       <option value="Especialista en Marketing Digital">
         Especialista en Marketing Digital
       </option>

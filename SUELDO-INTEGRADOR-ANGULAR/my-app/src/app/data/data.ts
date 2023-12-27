@@ -10,8 +10,8 @@ const proveedoresEjemplo = [
     domicilio: {
       direccion: 'Calle A Nº 123',
       codigoPostal: 'CP12345',
-      localidad: 'Ciudad A',
-      provincia: 'Provincia A',
+      localidad: 'La Plata',
+      provincia: 'Buenos Aires',
       pais: 'Argentina',
     },
     datosContacto: {
@@ -32,8 +32,8 @@ const proveedoresEjemplo = [
     domicilio: {
       direccion: 'Avenida B Nº 456',
       codigoPostal: 'CP54321',
-      localidad: 'Ciudad B',
-      provincia: 'Provincia B',
+      localidad: 'Berazategui',
+      provincia: 'Buenos Aires',
       pais: 'Argentina',
     },
     datosContacto: {
@@ -54,8 +54,8 @@ const proveedoresEjemplo = [
     domicilio: {
       direccion: 'Calle C Nº 789',
       codigoPostal: 'CP67890',
-      localidad: 'Ciudad C',
-      provincia: 'Provincia C',
+      localidad: 'Cordoba',
+      provincia: 'Cordoba',
       pais: 'Argentina',
     },
     datosContacto: {
@@ -76,8 +76,8 @@ const proveedoresEjemplo = [
     domicilio: {
       direccion: 'Avenida D Nº 1011',
       codigoPostal: 'CP101112',
-      localidad: 'Ciudad D',
-      provincia: 'Provincia D',
+      localidad: 'Berisso',
+      provincia: 'Buenos Aires',
       pais: 'Argentina',
     },
     datosContacto: {
@@ -98,8 +98,8 @@ const proveedoresEjemplo = [
     domicilio: {
       direccion: 'Calle E Nº 1213',
       codigoPostal: 'CP121314',
-      localidad: 'Ciudad E',
-      provincia: 'Provincia E',
+      localidad: 'Ensenada',
+      provincia: 'Buenos Aires',
       pais: 'Argentina',
     },
     datosContacto: {
@@ -114,14 +114,18 @@ const proveedoresEjemplo = [
 const productosEjemplo = [
   {
     id: 'SKU-A00132',
+    imagen:
+      'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
     nombre: 'Smartphone X',
     precio: 599.99,
-    descripcion: 'Teléfono inteligente de última generación',
+    descripcion: 'Telefono inteligente de ultima generacion',
     categoria: 'Electrónica',
     proveedor: 'ByteCraft Solutions',
   },
   {
     id: 'SKU-B00132',
+    imagen:
+      'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
     nombre: 'Pack de Galletas',
     precio: 12.99,
     descripcion: 'Variado pack de galletas para toda la familia',
@@ -130,6 +134,8 @@ const productosEjemplo = [
   },
   {
     id: 'SKU-C00111',
+    imagen:
+      'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
     nombre: 'Camisa Elegante',
     precio: 49.99,
     descripcion: 'Camisa de alta calidad para ocasiones especiales',
@@ -138,6 +144,8 @@ const productosEjemplo = [
   },
   {
     id: 'SKU-D00143',
+    imagen:
+      'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
     nombre: 'Kit de Primeros Auxilios',
     precio: 29.99,
     descripcion: 'Kit esencial para emergencias médicas',
@@ -146,6 +154,8 @@ const productosEjemplo = [
   },
   {
     id: 'SKU-E00551',
+    imagen:
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
     nombre: 'Curso de Programación',
     precio: 89.99,
     descripcion: 'Curso online para aprender programación',
@@ -157,53 +167,108 @@ const productosEjemplo = [
 const ordenesEjemplo = [
   {
     id: 'OC-104101',
-    producto: 'Smartphone X',
-    cantidad: 3,
     total: 1799.97,
     informacionRecepcion: 'Recepcionado por: Marta Sánchez',
-    proveedor: 'ByteCraft Solutions',
     fechaEntrega: '2023-01-15',
     fechaEmision: '2023-01-10',
+    productos: [
+      {
+        id: 'SKU-A00132',
+        imagen:
+          'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
+        nombre: 'Smartphone X',
+        precio: 599.99,
+        descripcion: 'Telefono inteligente de ultima generacion',
+        categoria: 'Electrónica',
+        proveedor: 'ByteCraft Solutions',
+        cantidad: 3,
+      },
+    ],
+    isActive: true,
   },
   {
     id: 'OC-158002',
-    producto: 'Pack de Galletas',
-    cantidad: 5,
     total: 64.95,
     informacionRecepcion: 'Recepcionado por: Daniel González',
-    proveedor: 'FreshBite Delights',
     fechaEmision: '2023-02-05',
     fechaEntrega: '2023-02-10',
+    productos: [
+      {
+        id: 'SKU-B00132',
+        imagen:
+          'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
+        nombre: 'Pack de Galletas',
+        precio: 12.99,
+        descripcion: 'Variado pack de galletas para toda la familia',
+        categoria: 'Alimentos',
+        proveedor: 'FreshBite Delights',
+        cantidad: 5,
+      },
+    ],
+    isActive: true,
   },
   {
     id: 'OC-169003',
-    producto: 'Camisa Elegante',
-    cantidad: 2,
     total: 99.98,
     informacionRecepcion: 'Recepcionado por: Laura Rodríguez',
-    proveedor: 'VogueHarbor Boutique',
     fechaEmision: '2023-03-20',
     fechaEntrega: '2023-03-25',
+    productos: [
+      {
+        id: 'SKU-C00111',
+        imagen:
+          'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
+        nombre: 'Camisa Elegante',
+        precio: 49.99,
+        descripcion: 'Camisa de alta calidad para ocasiones especiales',
+        categoria: 'Ropa',
+        proveedor: 'VogueHarbor Boutique',
+        cantidad: 2,
+      },
+    ],
+    isActive: true,
   },
   {
     id: 'OC-100454',
-    producto: 'Kit de Primeros Auxilios',
-    cantidad: 1,
     total: 29.99,
     informacionRecepcion: 'Recepcionado por: Alejandro Martínez',
-    proveedor: 'Revitalize Med Group',
     fechaEmision: '2023-04-15',
     fechaEntrega: '2023-04-20',
+    productos: [
+      {
+        id: 'SKU-D00143',
+        imagen:
+          'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
+        nombre: 'Kit de Primeros Auxilios',
+        precio: 29.99,
+        descripcion: 'Kit esencial para emergencias médicas',
+        categoria: 'Salud',
+        proveedor: 'Revitalize Med Group',
+        cantidad: 1,
+      },
+    ],
+    isActive: true,
   },
   {
     id: 'OC-103205',
-    producto: 'Curso de Programación',
-    cantidad: 4,
     total: 4 * 359.96,
     informacionRecepcion: 'Recepcionado por: Carolina Fernández',
-    proveedor: 'IntellectJunction Institute',
     fechaEmision: '2023-05-05',
     fechaEntrega: '2023-05-10',
+    productos: [
+      {
+        id: 'SKU-E00551',
+        imagen:
+          'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
+        nombre: 'Curso de Programación',
+        precio: 89.99,
+        descripcion: 'Curso online para aprender programación',
+        categoria: 'Educación',
+        proveedor: 'IntellectJunction Institute',
+        cantidad: 4,
+      },
+    ],
+    isActive: true,
   },
 ];
 

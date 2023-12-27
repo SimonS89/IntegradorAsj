@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  faTrashCan,
-  faPenToSquare,
+  faBan,
   faCreditCard,
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
+import { OrdenCompra } from 'src/app/models/OrdenCompra';
 import { OrdenCompraService } from 'src/app/services/orden-compra.service';
 
 @Component({
@@ -12,18 +13,26 @@ import { OrdenCompraService } from 'src/app/services/orden-compra.service';
   styleUrls: ['./lista-orden-compra.component.css'],
 })
 export class ListaOrdenCompraComponent implements OnInit {
-  faTrashCan = faTrashCan;
-  faPenToSquare = faPenToSquare;
+  faBan = faBan;
   faCreditCard = faCreditCard;
+  faChartLine = faChartLine;
 
-  ordenesCompra: any[] = [];
+  ordenesCompra: OrdenCompra[] = [];
+  mostrarOrdenesActivas: boolean = false;
 
   constructor(public ordenesCompraService: OrdenCompraService) {}
   ngOnInit(): void {
-    this.ordenesCompra = this.ordenesCompraService.getData();
+    this.listarOrdenes();
   }
 
-  eliminarOrden(id: string) {
-    this.ordenesCompra = this.ordenesCompraService.deleteById(id);
+  listarOrdenes() {
+    this.ordenesCompra = this.ordenesCompraService.findAll();
+  }
+
+  cambiarEstadoOrden(id: string, isActive: boolean) {
+    let msg = `Desea ${isActive ? `cancelar ` : `activar `}la orden: ${id}`;
+    if (confirm(msg))
+      this.ordenesCompra = this.ordenesCompraService.cancelById(id);
+    this.listarOrdenes();
   }
 }

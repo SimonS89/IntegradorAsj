@@ -1,7 +1,7 @@
-<div class="row">
-  <h1 class="my-5">Proveedores</h1>
+<div class="row my-4">
+  <h1>Proveedores</h1>
 </div>
-<div class="row justify-content-end mb-3 align-items-center">
+<div class="row justify-content-center mb-3 align-items-center">
   <a
     type="button"
     class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3"
@@ -56,6 +56,7 @@
             type="button"
             class="deleteBtn btn btn-outline-danger me-3"
             (click)="eliminarProveedor(proveedor.id)"
+            [title]="'Eliminar Proveedor - ' + proveedor.razonSocial"
           >
             <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
           </button>
@@ -63,6 +64,7 @@
             type="button"
             class="editBtn btn btn-outline-primary"
             (click)="editarProveedor(proveedor.id)"
+            [title]="'Editar Proveedor - ' + proveedor.razonSocial"
           >
             <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
           </button>

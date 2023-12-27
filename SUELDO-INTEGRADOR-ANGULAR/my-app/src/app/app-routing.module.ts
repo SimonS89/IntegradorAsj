@@ -39,7 +39,12 @@ const routes: Routes = [
       {
         path: 'form-productos',
         component: FormProductosComponent,
-        title: 'Form Productos',
+        title: 'Crear Producto',
+      },
+      {
+        path: 'form-productos/:id',
+        component: FormProductosComponent,
+        title: 'Editar Producto',
       },
     ],
   },

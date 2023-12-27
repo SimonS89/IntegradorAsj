@@ -1,25 +1,44 @@
 import { Injectable } from '@angular/core';
 import { ordenesEjemplo } from '../data/data';
+import { OrdenCompra } from '../models/OrdenCompra';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdenCompraService {
-  private ordenes: any[];
+  private ordenes: OrdenCompra[];
+
   constructor() {
-    this.ordenes = ordenesEjemplo;
+    // this.setStorage('ordenes', ordenesEjemplo);
+    this.ordenes = this.findAll();
   }
 
-  public getData() {
+  getStorage(key: string): OrdenCompra[] | undefined {
+    let ordenString = localStorage.getItem(key);
+    if (ordenString) return JSON.parse(ordenString);
+    return undefined;
+  }
+
+  setStorage(key: string, ordenes: OrdenCompra[]): void {
+    localStorage.setItem(key, JSON.stringify(ordenes));
+  }
+
+  public findAll(): OrdenCompra[] {
+    let ordenes = this.getStorage('ordenes');
+    if (ordenes) this.ordenes = ordenes || [];
     return this.ordenes;
   }
 
-  public getById(id: string) {
+  public getById(id: string): OrdenCompra | undefined {
     return this.ordenes.find((orden) => orden.id == id);
   }
 
-  public deleteById(id: string) {
-    this.ordenes = this.ordenes.filter((orden) => orden.id !== id);
+  public cancelById(id: string) {
+    const index = this.ordenes.findIndex((o) => o.id == id);
+    if (index !== -1) {
+      this.ordenes[index].isActive = !this.ordenes[index].isActive;
+      this.setStorage('ordenes', this.ordenes);
+    }
     return this.ordenes;
   }
 }

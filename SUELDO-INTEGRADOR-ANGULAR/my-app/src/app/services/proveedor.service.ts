@@ -45,14 +45,14 @@ export class ProveedorService {
   }
 
   public create(proveedor: Proveedor): void {
-    proveedor.id = `ID-A${new Date().getTime().toString().slice(-6)}`;
+    proveedor.id = this.idGenerator();
     this.proveedores.push(proveedor);
     this.setStorage('proveedores', this.proveedores);
   }
 
   update(proveedor: Proveedor): void {
     const index = this.proveedores.findIndex((p) => p.id == proveedor.id);
-    if (index !== 1) {
+    if (index !== -1) {
       this.proveedores[index] = proveedor;
       this.setStorage('proveedores', this.proveedores);
     } else
@@ -65,9 +65,15 @@ export class ProveedorService {
     return this.http.get(`${this.API_ARG}provincias?campos=id,nombre`);
   }
 
-  public getCiudades(id: string): Observable<any> | undefined {
+  public getCiudades(provincia: string): Observable<any> | undefined {
     return this.http.get(
-      `${this.API_ARG}municipios?provincia=${id}&campos=id,nombre&max=100`
+      `${this.API_ARG}municipios?provincia=${provincia}&campos=id,nombre&max=200`
     );
+  }
+
+  idGenerator() {
+    const timestampPart = new Date().getTime().toString().slice(-3);
+    const randomPart = Math.random().toString(36).substring(2, 4).toUpperCase();
+    return `ID-A${timestampPart}${randomPart}`;
   }
 }

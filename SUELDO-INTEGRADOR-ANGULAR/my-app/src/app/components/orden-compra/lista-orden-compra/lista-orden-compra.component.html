@@ -1,47 +1,91 @@
-<div class="row">
-  <h1 class="my-5">Ordenes de Compra</h1>
+<div class="row my-4">
+  <h1>Ordenes de Compra</h1>
 </div>
 <div class="row justify-content-center mb-3 align-items-center">
   <a
     type="button"
-    class="btnAdd fw-bolder col-3 btn btn-success"
+    class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3"
     routerLink="/ordenes-compra/form-ordenes-compra"
-    routerLinkActive="router-link-active"
   >
     <fa-icon [icon]="faCreditCard" class="me-3"></fa-icon
     ><span>Realizar Compra</span>
   </a>
 </div>
-<table class="table table-secondary table-striped table-hover table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#N° Orden</th>
-      <th scope="col">Producto</th>
-      <th scope="col">Cantidad</th>
-      <th scope="col">Total Abonado</th>
-      <th scope="col">Información Recepción</th>
-      <th scope="col">Funcionalidades</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr class="align-middle" *ngFor="let orden of ordenesCompra">
-      <td>{{ orden.id }}</td>
-      <td>{{ orden.producto }}</td>
-      <td>{{ orden.cantidad }}</td>
-      <td>{{ orden.total }}</td>
-      <td>{{ orden.informacionRecepcion }}</td>
-      <td class="d-flex justify-content-around">
-        <button
-          type="button"
-          class="deleteBtn btn btn-outline-danger"
-          (click)="eliminarOrden(orden.id)"
-        >
-          <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-        </button>
-        <button type="button" class="editBtn btn btn-outline-primary">
-          <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="row justify-content-end mb-3">
+  <label
+    class="col-md-2 col-sm-6 form-check-label"
+    for="showActiveOnlyCheckbox"
+    role="button"
+  >
+    Mostrar activas
+    <input
+      class="form-check-input border-black fw-bolder"
+      type="checkbox"
+      id="showActiveOnlyCheckbox"
+      [(ngModel)]="mostrarOrdenesActivas"
+    />
+  </label>
+</div>
+<div *ngIf="ordenesCompra.length > 0; else noOrdenes" class="table-responsive">
+  <table
+    class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
+  >
+    <thead>
+      <tr>
+        <th scope="col">#N° Orden</th>
+        <th scope="col">Total Abonado</th>
+        <th scope="col">Información Recepción</th>
+        <th scope="col">Fecha Emisión</th>
+        <th scope="col">Fecha Entrega</th>
+        <th scope="col">Funcionalidades</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr
+        class="align-middle"
+        *ngFor="
+          let orden of ordenesCompra | filtrarOrdenes : mostrarOrdenesActivas
+        "
+      >
+        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+          {{ orden.id }}
+        </td>
+        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+          {{ orden.total | currency : "USD" }}
+        </td>
+        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+          {{ orden.informacionRecepcion }}
+        </td>
+        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+          {{ orden.fechaEmision }}
+        </td>
+        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+          {{ orden.fechaEntrega }}
+        </td>
+        <td class="d-flex justify-content-around">
+          <button
+            type="button"
+            class="deleteBtn btn"
+            [ngClass]="
+              orden.isActive ? 'btn-outline-danger' : 'btn-outline-primary'
+            "
+            (click)="cambiarEstadoOrden(orden.id, orden.isActive)"
+            [title]="
+              orden.isActive
+                ? 'Cancelar Orden - ID: ' + orden.id
+                : 'Activar Orden - ID: ' + orden.id
+            "
+          >
+            <fa-icon
+              [icon]="orden.isActive ? faBan : faChartLine"
+              class="fw-bolder fs-5"
+            ></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noOrdenes>
+  <h2>No hay Ordenes de compra disponibles.</h2>
+</ng-template>

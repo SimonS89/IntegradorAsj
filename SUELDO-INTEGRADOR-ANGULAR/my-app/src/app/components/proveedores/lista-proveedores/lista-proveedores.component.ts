@@ -5,6 +5,7 @@ import {
   faPenToSquare,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
+import { Proveedor } from 'src/app/models/Proveedor';
 import { ProveedorService } from 'src/app/services/proveedor.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class ListaProveedoresComponent implements OnInit {
   faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
 
-  proveedores: any[] = [];
+  proveedores: Proveedor[] = [];
 
   constructor(
     public proveedorService: ProveedorService,
@@ -25,17 +26,19 @@ export class ListaProveedoresComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.list();
+    this.listarProveedores();
   }
 
-  list() {
+  listarProveedores() {
     this.proveedores = this.proveedorService.findAll();
   }
 
   eliminarProveedor(id: string) {
-    let confirmar = confirm('¿Desea eliminar el proveedor?');
-    if (confirmar) this.proveedores = this.proveedorService.deleteById(id);
-    alert(`Proveedor ${id}, eliminado exitosamente.`);
+    let confirmar = confirm(`¿Desea eliminar el proveedor ${id}?`);
+    if (confirmar) {
+      this.proveedores = this.proveedorService.deleteById(id);
+      alert(`Proveedor ${id}, eliminado exitosamente.`);
+    }
   }
 
   editarProveedor(id: string) {
