@@ -23,6 +23,13 @@ export class OrdenCompraService {
     localStorage.setItem(key, JSON.stringify(ordenes));
   }
 
+  create(ordenCompra: OrdenCompra): string {
+    ordenCompra.id = this.idGenerator();
+    this.ordenes.push(ordenCompra);
+    this.setStorage('ordenes', this.ordenes);
+    return ordenCompra.id;
+  }
+
   public findAll(): OrdenCompra[] {
     let ordenes = this.getStorage('ordenes');
     if (ordenes) this.ordenes = ordenes || [];

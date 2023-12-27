@@ -116,6 +116,7 @@
     <label for="inputCuit" class="form-label">CUIT</label>
     <input
       required
+      [disabled]="id ? true : false"
       type="text"
       class="form-control border border-dark"
       id="inputCuit"
