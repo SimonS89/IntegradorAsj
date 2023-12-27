@@ -62,4 +62,10 @@ export class ProductoService {
     const randomPart = Math.random().toString(36).substring(2, 4).toUpperCase();
     return `SKU-A${timestampPart}${randomPart}`;
   }
+
+  getProductosByProveedor(razonSocial: string): Producto[] {
+    return this.productos.filter(
+      (producto) => producto.proveedor === razonSocial
+    );
+  }
 }

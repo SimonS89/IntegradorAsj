@@ -1,58 +1,114 @@
 <div class="row">
-    <h1 class="my-5">Formulario Orden de Compra</h1>
+  <h1 class="my-5">Formulario Orden de Compra</h1>
+</div>
+<form
+  #ordenCompraForm="ngForm"
+  class="row g-3 p-3 col-md-8 col-sm-12 offset-md-2 offset-sm-0 border border-dark mb-5"
+  (ngSubmit)="onSubmit(ordenCompraForm)"
+>
+  <div class="col-md-6">
+    <label for="inputInformacionRecepcion" class="form-label"
+      >Recibido por</label
+    >
+    <input
+      type="text"
+      class="form-control border border-dark"
+      id="inputInformacionRecepcion"
+      name="informacionRecepcion"
+      [(ngModel)]="ordenCompra.informacionRecepcion"
+      #informacionRecepcion="ngModel"
+      required
+      pattern="^[A-Za-zÁ-ú\s]{3,}(?:\s[A-Za-zÁ-ú\s]{3,})+$"
+      [ngClass]="informacionRecepcion.errors ? 'is-invalid' : 'is-valid'"
+      placeholder="e.g. Juan Perez"
+    />
+    <div
+      class="col-auto"
+      *ngIf="informacionRecepcion.errors?.['pattern'] || informacionRecepcion.errors"
+    >
+      <span class="form-text">
+        Debe ingresar un nombre y apellido válido.
+      </span>
+    </div>
   </div>
-  <form class="row g-3 p-3 col-6 offset-3 border border-dark" id="myForm">
-    <div class="col-md-6">
-      <label for="inputProducto" class="form-label">Producto</label>
-      <select
-        required
-        id="inputProducto"
-        class="form-select border border-dark"
-        name="producto"
-      >
-        <option selected>Smartphone X</option>
-        <option>Pack de Galletas</option>
-        <option>Camisa Elegante</option>
-        <option>Kit de Primeros Auxilios</option>
-        <option>Curso de Programación</option>
-      </select>
+  <div class="col-md-6">
+    <label for="inputDate" class="form-label">Fecha Entrega</label>
+    <input
+      [min]="minFechaEntrega()"
+      required
+      type="date"
+      class="form-control border border-dark"
+      id="inputDate"
+      name="fechaEntrega"
+      [(ngModel)]="ordenCompra.fechaEntrega"
+      #fechaEntrega="ngModel"
+      [ngClass]="fechaEntrega.errors ? 'is-invalid' : 'is-valid'"
+    />
+    <div class="col-auto" *ngIf="fechaEntrega.errors">
+      <span class="form-text"> Debe seleccionar la fecha de entrega. </span>
     </div>
-    <div class="col-md-6">
-      <label for="inputQuantity" class="form-label">Cantidad</label>
-      <input
-        required
-        type="number"
-        class="form-control border border-dark"
-        id="inputQuantity"
-        name="cantidad"
-        min="1"
-      />
+  </div>
+  <div class="col-6">
+    <label for="inputProveedor" class="form-label">Proveedor</label>
+    <select
+      required
+      id="inputProveedor"
+      class="form-select border border-dark"
+      name="proveedorSeleccionado"
+      [(ngModel)]="proveedorSeleccionado"
+      #proveedor="ngModel"
+      [ngClass]="proveedor.errors ? 'is-invalid' : 'is-valid'"
+      (change)="listarProductos(proveedorSeleccionado)"
+    >
+      <option value="" disabled selected>Selecciona un proveedor</option>
+      <option *ngFor="let p of proveedores" [value]="p.razonSocial">
+        {{ p.razonSocial }}
+      </option>
+    </select>
+    <div class="col-auto" *ngIf="proveedor.errors">
+      <span class="form-text"> Seleccione una opción. </span>
     </div>
-    <div class="col-6">
-      <label for="inputDescription" class="form-label"
-        >Recibido por</label
-      >
-      <input
-        required
-        type="text"
-        class="form-control border border-dark"
-        id="inputDescription"
-        placeholder="e.g. Juan Perez"
-        name="informacionRecepcion"
-      />
+  </div>
+  <div class="col-6">
+    <label for="inputProductoSeleccionado" class="form-label">Producto</label>
+    <select
+      required
+      id="inputProductoSeleccionado"
+      class="form-control border border-dark"
+      name="productoSeleccionado"
+      [(ngModel)]="productoSeleccionado"
+      #producto="ngModel"
+      [ngClass]="producto.errors ? 'is-invalid' : 'is-valid'"
+    >
+      <ng-container *ngIf="productos && productos.length > 0; else noProductos">
+        <option value="" disabled selected>Selecciona un producto</option>
+        <option *ngFor="let p of productos" [value]="p">
+          {{ p.nombre }}
+        </option>
+      </ng-container>
+      <ng-template #noProductos>
+        <option disabled selected>
+          No hay productos disponibles para este proveedor
+        </option>
+      </ng-template>
+    </select>
+    <div class="col-auto" *ngIf="producto.errors">
+      <span class="form-text"> Seleccione una opción. </span>
     </div>
-    <div class="col-md-6">
-      <label for="inputDate" class="form-label">Fecha Entrega</label>
-      <input
-        min="2023-12-11"
-        required
-        type="date"
-        class="form-control border border-dark"
-        id="inputDate"
-        name="fechaEntrega"
-      />
-    </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-success btn-lg">Enviar</button>
-    </div>
-  </form>
+  </div>
+  <div class="col-12">
+    <button
+      type="submit"
+      class="btn btn-success btn-lg me-3"
+      [disabled]="!ordenCompraForm.valid"
+    >
+      Comprar
+    </button>
+    <button
+      class="btn btn-outline-danger btn-lg"
+      (click)="ordenCompraForm.reset()"
+    >
+      Vaciar
+    </button>
+  </div>
+</form>

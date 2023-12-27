@@ -59,7 +59,7 @@ const routes: Routes = [
       {
         path: 'form-ordenes-compra',
         component: FormOrdenCompraComponent,
-        title: 'Form Ordenes Compra',
+        title: 'Registrar Orden Compra',
       },
     ],
   },

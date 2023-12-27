@@ -41,4 +41,14 @@ export class OrdenCompraService {
     }
     return this.ordenes;
   }
+
+  idGenerator() {
+    const timestampPart = new Date().getTime().toString().slice(-3);
+    const randomPart = Math.random().toString(36).substring(2, 4).toUpperCase();
+    return `OC-A${timestampPart}${randomPart}`;
+  }
+
+  fechaFormateada(fecha: Date): string {
+    return fecha.toISOString().split('T')[0];
+  }
 }

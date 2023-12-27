@@ -166,7 +166,7 @@ const productosEjemplo = [
 
 const ordenesEjemplo = [
   {
-    id: 'OC-104101',
+    id: 'OC-A04101',
     total: 1799.97,
     informacionRecepcion: 'Recepcionado por: Marta Sánchez',
     fechaEntrega: '2023-01-15',
@@ -187,7 +187,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-158002',
+    id: 'OC-A58002',
     total: 64.95,
     informacionRecepcion: 'Recepcionado por: Daniel González',
     fechaEmision: '2023-02-05',
@@ -208,7 +208,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-169003',
+    id: 'OC-A69003',
     total: 99.98,
     informacionRecepcion: 'Recepcionado por: Laura Rodríguez',
     fechaEmision: '2023-03-20',
@@ -229,7 +229,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-100454',
+    id: 'OC-A00454',
     total: 29.99,
     informacionRecepcion: 'Recepcionado por: Alejandro Martínez',
     fechaEmision: '2023-04-15',
@@ -250,8 +250,8 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-103205',
-    total: 4 * 359.96,
+    id: 'OC-A03205',
+    total: 359.96,
     informacionRecepcion: 'Recepcionado por: Carolina Fernández',
     fechaEmision: '2023-05-05',
     fechaEntrega: '2023-05-10',
