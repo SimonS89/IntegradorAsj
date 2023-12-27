@@ -120,14 +120,14 @@
     <div class="col-sm-6 col-md-6">
       <button
         [disabled]="isValidAgregarButton()"
-        class="btn btn-primary mt-4 fw-bold"
+        class="btn btn-primary mt-5 fw-bold"
         (click)="agregarProducto()"
       >
         Agregar Productos
       </button>
     </div>
   </div>
-  <div class="col-12 mt-4">
+  <div class="col-10 offset-1 mt-4">
     <h3>Productos Agregados</h3>
     <!-- <ul *ngIf="ordenCompra.productos" class="list-unstyled">
       <li *ngFor="let producto of ordenCompra.productos">
@@ -146,7 +146,7 @@
     </ul> -->
     <table
       *ngIf="ordenCompra.productos.length > 0"
-      class="table table-secondary table-striped align-middle"
+      class="table table-secondary table-striped-columns align-middle"
     >
       <thead>
         <tr>
@@ -177,10 +177,18 @@
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="fw-bold">Total a Pagar:</td>
+          <td class="fw-bold">
+            {{ ordenCompra.total | currency : "USD" }}
+          </td>
+        </tr>
+      </tfoot>
     </table>
 
     <p *ngIf="ordenCompra.productos.length == 0">No hay productos agregados.</p>
-    <p>Total a Pagar: {{ ordenCompra.total | currency : "USD" }}</p>
+    <!-- <p>Total a Pagar: {{ ordenCompra.total | currency : "USD" }}</p> -->
   </div>
   <div class="col-12">
     <button

@@ -29,7 +29,7 @@ export class FormOrdenCompraComponent implements OnInit {
   productos: Producto[] = [];
   proveedorSeleccionado!: string;
   productoSeleccionadoName!: string;
-  cantidadProducto: number = 0;
+  cantidadProducto: number = 1;
   productoSeleccionado!: Producto;
   faTrash = faTrash;
 
@@ -94,7 +94,7 @@ export class FormOrdenCompraComponent implements OnInit {
 
   limpiarInputs() {
     this.productoSeleccionadoName = '';
-    this.cantidadProducto = 0;
+    this.cantidadProducto = 1;
   }
 
   actualizarTotal() {
