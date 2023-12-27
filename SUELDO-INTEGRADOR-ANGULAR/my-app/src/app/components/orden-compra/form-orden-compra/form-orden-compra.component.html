@@ -129,21 +129,6 @@
   </div>
   <div class="col-10 offset-1 mt-4">
     <h3>Productos Agregados</h3>
-    <!-- <ul *ngIf="ordenCompra.productos" class="list-unstyled">
-      <li *ngFor="let producto of ordenCompra.productos">
-        {{ producto.nombre }} - Cantidad: {{ producto.cantidad }} - Total:
-        {{
-          (producto.precio || 0) * (producto.cantidad || 0) | currency : "USD"
-        }}
-        <button
-          class="btn btn-sm btn-danger"
-          (click)="eliminarProducto(producto)"
-          [title]="'Eliminar ' + producto.nombre + '?'"
-        >
-          <fa-icon [icon]="faTrash"></fa-icon>
-        </button>
-      </li>
-    </ul> -->
     <table
       *ngIf="ordenCompra.productos.length > 0"
       class="table table-secondary table-striped-columns align-middle"
