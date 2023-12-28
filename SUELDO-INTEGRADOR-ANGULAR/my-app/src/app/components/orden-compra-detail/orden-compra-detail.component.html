@@ -25,6 +25,7 @@
                     [src]="producto.imagen"
                     class="img-fluid"
                     [alt]="producto.nombre"
+                    (error)="handleImageError($event)"
                   />
                 </div>
                 <div

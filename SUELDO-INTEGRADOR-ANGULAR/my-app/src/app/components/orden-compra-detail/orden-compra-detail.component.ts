@@ -25,4 +25,9 @@ export class OrdenCompraDetailComponent implements OnInit {
   esFechaPosteriorHoy(fechaString: string): boolean {
     return new Date() > new Date(fechaString);
   }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
+  }
 }

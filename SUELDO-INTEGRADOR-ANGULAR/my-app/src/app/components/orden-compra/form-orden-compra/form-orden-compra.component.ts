@@ -50,12 +50,23 @@ export class FormOrdenCompraComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.ordenCompra.id = this.ordenCompraService.idGenerator();
-      if (confirm('Desea realizar la compra ?')) {
-        let id = this.ordenCompraService.create(this.ordenCompra);
-        alert(`orden de compra creada - ID : ${id}`);
-        this.router.navigate(['/ordenes-compra']);
-      }
+      this.alertService
+        .question(
+          '¿Desea generar la orden de compra?',
+          true,
+          true,
+          'Aceptar',
+          'Cancelar'
+        )
+        .then((res) => {
+          if (res) {
+            let id = this.ordenCompraService.create(this.ordenCompra);
+            this.alertService.notification(
+              `orden de compra creada - ID : ${id}`
+            );
+            this.router.navigate(['/ordenes-compra']);
+          }
+        });
     }
   }
 
