@@ -6,8 +6,13 @@ import { ListaOrdenCompraComponent } from './components/orden-compra/lista-orden
 import { FormProveedoresComponent } from './components/proveedores/form-proveedores/form-proveedores.component';
 import { FormProductosComponent } from './components/productos/form-productos/form-productos.component';
 import { FormOrdenCompraComponent } from './components/orden-compra/form-orden-compra/form-orden-compra.component';
+import { IndexComponent } from './components/index/index.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: IndexComponent,
+  },
   {
     path: 'proveedores',
     children: [

@@ -79,7 +79,6 @@ export class FormOrdenCompraComponent implements OnInit {
         const productoExistente = this.ordenCompra.productos.find(
           (producto) => producto.nombre === this.productoSeleccionadoName
         );
-
         if (productoExistente?.cantidad) {
           productoExistente.cantidad += this.cantidadProducto;
         } else {
@@ -87,7 +86,6 @@ export class FormOrdenCompraComponent implements OnInit {
           nuevoProducto.cantidad = this.cantidadProducto;
           this.ordenCompra.productos.push(nuevoProducto);
         }
-
         this.limpiarInputs();
         this.actualizarTotal();
       }

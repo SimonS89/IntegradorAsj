@@ -137,8 +137,8 @@ const productosEjemplo = [
     proveedor: 'FreshBite Delights',
   },
   {
-    id: 'SKU-C00111',
-    sku: '3',
+    id: '3',
+    sku: 'SKU-C00111',
     imagen:
       'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
     nombre: 'Camisa Elegante',

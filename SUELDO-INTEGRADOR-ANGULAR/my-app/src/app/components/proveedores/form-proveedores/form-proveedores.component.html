@@ -1,17 +1,19 @@
 <div class="row">
   <h1 class="my-5">
     {{
-      id == null ? "Agregar Proveedor" : "Editar Proveedor: " + razonSocialTitle
+      id == null
+        ? "Agregar Proveedor/a"
+        : "Editar Proveedor/a: " + razonSocialTitle
     }}
   </h1>
 </div>
 <form
   #proveedorForm="ngForm"
-  class="row g-3 p-3 col-md-8 col-sm-12 offset-md-2 offset-sm-0 border border-dark mb-5"
+  class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5"
   (ngSubmit)="onSubmit(proveedorForm)"
 >
   <h5 class="text-start text-danger mt-0">Empresa</h5>
-  <div class="col-md-6">
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputRazonSocial" class="form-label">Razón social</label>
     <input
       type="text"
@@ -31,24 +33,26 @@
       <span class="form-text"> Debe tener al menos 8 caracteres. </span>
     </div>
   </div>
-  <div class="col-md-6">
-    <label for="inputLogo" class="form-label">Logo</label>
+  <div class="col-12 col-sm-6 col-md-4">
+    <label for="inputCuit" class="form-label">CUIT</label>
     <input
-      type="url"
-      class="form-control border border-dark"
-      id="inputLogo"
-      name="logo"
-      [(ngModel)]="proveedor.logo"
-      #logo="ngModel"
-      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
       required
-      [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
+      [disabled]="id ? true : false"
+      type="text"
+      class="form-control border border-dark"
+      id="inputCuit"
+      placeholder="30-12345678-8"
+      name="cuit"
+      [(ngModel)]="proveedor.cuit"
+      pattern="\d{2}-\d{8}-\d{1}"
+      #cuit="ngModel"
+      [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
     />
-    <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
-      <span class="form-text"> Debe ser una URL válida.</span>
+    <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
+      <span class="form-text">Debe ser un formato de CUIT válido.</span>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputTipoIva" class="form-label">Tipo IVA</label>
     <select
       required
@@ -69,7 +73,24 @@
       <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-12 col-sm-6 col-md-4">
+    <label for="inputLogo" class="form-label">Logo</label>
+    <input
+      type="url"
+      class="form-control border border-dark"
+      id="inputLogo"
+      name="logo"
+      [(ngModel)]="proveedor.logo"
+      #logo="ngModel"
+      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
+      required
+      [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
+    />
+    <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
+      <span class="form-text"> Debe ser una URL válida.</span>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputRubro" class="form-label">Rubro</label>
     <select
       required
@@ -91,7 +112,7 @@
       <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputSitioWeb" class="form-label">Sitio Web</label>
     <input
       required
@@ -112,27 +133,8 @@
       <span class="form-text">Debe ser una URL válida.</span>
     </div>
   </div>
-  <div class="col-md-6">
-    <label for="inputCuit" class="form-label">CUIT</label>
-    <input
-      required
-      [disabled]="id ? true : false"
-      type="text"
-      class="form-control border border-dark"
-      id="inputCuit"
-      placeholder="30-12345678-8"
-      name="cuit"
-      [(ngModel)]="proveedor.cuit"
-      pattern="\d{2}-\d{8}-\d{1}"
-      #cuit="ngModel"
-      [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
-      <span class="form-text">Debe ser un formato de CUIT válido.</span>
-    </div>
-  </div>
   <h5 class="text-start text-danger mt-3 mb-0">Domicilio</h5>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-6">
     <label for="inputDireccion" class="form-label">Dirección</label>
     <input
       required
@@ -153,7 +155,7 @@
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-6">
     <label for="inputCP" class="form-label">Código Postal</label>
     <input
       required
@@ -174,7 +176,7 @@
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputPais" class="form-label">País</label>
     <input
       disabled
@@ -192,7 +194,7 @@
       <span class="form-text">Debe tener al menos 4 caracteres.</span>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputProvincia" class="form-label">Provincia</label>
     <select
       required
@@ -213,7 +215,7 @@
       <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-4">
     <label for="inputLocalidad" class="form-label">Localidad</label>
     <select
       required
@@ -241,7 +243,7 @@
     </div>
   </div>
   <h5 class="text-start text-danger mt-3 mb-0">Datos de Contacto</h5>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-6">
     <label for="inputNombreCompleto" class="form-label">Nombre Completo</label>
     <input
       required
@@ -264,7 +266,7 @@
       >
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-6">
     <label for="inputTelefono" class="form-label">Teléfono</label>
     <input
       required
@@ -282,7 +284,7 @@
       <span class="form-text">Debe contener solo números.</span>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-sm-6 col-md-6">
     <label for="inputEmail" class="form-label">Correo Electrónico</label>
     <input
       required
@@ -302,7 +304,7 @@
       >
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-12 col-sm-6 col-md-6">
     <label for="inputRol" class="form-label">Rol</label>
     <select
       required
@@ -330,19 +332,19 @@
       <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
-  <div class="col-12">
+  <div class="row text-center justify-content-center gap-3 mt-4">
     <button
       type="submit"
-      class="btn btn-success btn-lg me-3"
+      class="btn btn-success fw-bold col-md-2"
       [disabled]="!proveedorForm.valid"
     >
-      Enviar
+      {{ id ? "Editar proveedor" : "Generar proveedor" }}
     </button>
     <button
-      class="btn btn-outline-danger btn-lg"
+      class="btn btn-danger fw-bold col-md-2"
       (click)="proveedorForm.reset()"
     >
-      Vaciar
+      Vaciar proveedor
     </button>
   </div>
 </form>

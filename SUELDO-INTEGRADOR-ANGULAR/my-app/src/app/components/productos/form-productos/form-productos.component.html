@@ -92,7 +92,7 @@
       [(ngModel)]="producto.descripcion"
       #descripcion="ngModel"
       required
-      pattern="(\w+\s){4,}\w*"
+      pattern="^([,\wáéíóúüñ]+[.,;]?\s){4,}[,\wáéíóúüñ]+[.,;]?$"
       [ngClass]="descripcion.errors ? 'is-invalid' : 'is-valid'"
       placeholder="e.g. Teléfono inteligente Android 13"
     ></textarea>

@@ -33,8 +33,6 @@ export class OrdenCompraService {
   public findAll(): OrdenCompra[] {
     let ordenes = this.getStorage('ordenes') || [];
     if (ordenes) this.ordenes = ordenes;
-    console.log(this.ordenes);
-
     return this.ordenes;
   }
 

@@ -9,7 +9,7 @@ export class ProductoService {
   private productos: Producto[];
 
   constructor() {
-    this.setStorage('productos', productosEjemplo);
+    // this.setStorage('productos', productosEjemplo);
     this.productos = this.findAll();
   }
 
@@ -57,10 +57,8 @@ export class ProductoService {
     }
   }
 
-  idGenerator() {
-    const timestampPart = new Date().getTime().toString().slice(-3);
-    const randomPart = Math.random().toString(36).substring(2, 4).toUpperCase();
-    return `SKU-A${timestampPart}${randomPart}`;
+  idGenerator(): string {
+    return new Date().getTime().toString();
   }
 
   getProductosByProveedor(razonSocial: string): Producto[] {
