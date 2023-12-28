@@ -30,8 +30,9 @@ export class ListaProductosComponent implements OnInit {
   }
 
   listarProductos() {
-    this.productos = this.productoService.findAll();
-    this.productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    this.productos = this.productoService.findAll() || [];
+    if (this.productos)
+      this.productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   eliminarProducto(id: string) {

@@ -14,6 +14,7 @@ import { Proveedor } from 'src/app/models/Proveedor';
 export class FormProductosComponent implements OnInit {
   producto: Producto = {
     id: '',
+    sku: '',
     imagen: '',
     nombre: '',
     precio: 0.0,

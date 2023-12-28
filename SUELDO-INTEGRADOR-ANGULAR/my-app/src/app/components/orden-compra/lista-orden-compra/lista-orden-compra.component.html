@@ -48,7 +48,7 @@
         "
       >
         <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
-          {{ orden.id }}
+          {{ orden.nroOrden }}
         </td>
         <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
           {{ orden.total | currency : "USD" }}
@@ -62,7 +62,7 @@
         <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
           {{ orden.fechaEntrega }}
         </td>
-        <td class="d-flex justify-content-around">
+        <td class="d-flex justify-content-center gap-3">
           <button
             type="button"
             class="deleteBtn btn"
@@ -80,6 +80,14 @@
               [icon]="orden.isActive ? faBan : faChartLine"
               class="fw-bolder fs-5"
             ></fa-icon>
+          </button>
+          <button
+            type="button"
+            class="deleteBtn btn btn-outline-dark"
+            (click)="mostrarDetalle(orden.id)"
+            [title]="'Mostrar Detalle - ID: ' + orden.id"
+          >
+            <fa-icon [icon]="faCircleInfo" class="fw-bolder fs-5"></fa-icon>
           </button>
         </td>
       </tr>

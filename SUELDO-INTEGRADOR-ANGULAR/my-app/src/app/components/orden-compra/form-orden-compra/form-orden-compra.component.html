@@ -1,5 +1,5 @@
 <div class="row">
-  <h1 class="my-5">Formulario Orden de Compra</h1>
+  <h1 class="mt-4 mb-5">Generar Orden de Compra</h1>
 </div>
 <form
   #ordenCompraForm="ngForm"
@@ -7,7 +7,28 @@
   (ngSubmit)="onSubmit(ordenCompraForm)"
 >
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
+      <label for="inputNroOrden" class="form-label">Nro Orden</label>
+      <input
+        type="text"
+        class="form-control border border-dark"
+        id="inputNroOrden"
+        name="nroOrden"
+        [(ngModel)]="ordenCompra.nroOrden"
+        #nroOrden="ngModel"
+        required
+        pattern="^[A-Z]{2}-[A-Z]\d{4}$"
+        [ngClass]="nroOrden.errors ? 'is-invalid' : 'is-valid'"
+        placeholder="e.g. OC-A1234"
+      />
+      <div
+        class="col-auto"
+        *ngIf="nroOrden.errors?.['pattern'] || nroOrden.errors"
+      >
+        <span class="form-text"> Ingresar formato válido. </span>
+      </div>
+    </div>
+    <div class="col-md-4">
       <label for="inputInformacionRecepcion" class="form-label"
         >Recibido por</label
       >
@@ -32,7 +53,7 @@
         </span>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <label for="inputDate" class="form-label">Fecha Entrega</label>
       <input
         [min]="minFechaEntrega()"
@@ -48,6 +69,19 @@
       <div class="col-auto" *ngIf="fechaEntrega.errors">
         <span class="form-text"> Debe seleccionar la fecha de entrega. </span>
       </div>
+    </div>
+  </div>
+  <div class="row mb-2 mt-4 justify-content-center">
+    <label class="form-label" for="informacionAdicional"
+      >Información Adicional</label
+    >
+    <div class="col-md-10 col-sm-10">
+      <textarea
+        class="form-control border border-dark is-valid"
+        id="informacionAdicional"
+        name="informacionAdicional"
+        [(ngModel)]="ordenCompra.informacionAdicional"
+      ></textarea>
     </div>
   </div>
   <div class="row align-items-start mt-4">
@@ -171,23 +205,21 @@
         </tr>
       </tfoot>
     </table>
-
     <p *ngIf="ordenCompra.productos.length == 0">No hay productos agregados.</p>
-    <!-- <p>Total a Pagar: {{ ordenCompra.total | currency : "USD" }}</p> -->
   </div>
-  <div class="col-12">
+  <div class="row text-center justify-content-center gap-3">
     <button
       type="submit"
-      class="btn btn-success me-3 fw-bold"
+      class="btn btn-success fw-bold col-md-2"
       [disabled]="!ordenCompraForm.valid || ordenCompra.productos.length == 0"
     >
-      Comprar
+      Generar orden
     </button>
     <button
-      class="btn btn-danger fw-bold"
+      class="btn btn-danger fw-bold col-md-2"
       (click)="vaciarOrdenCompra(ordenCompraForm)"
     >
-      Vaciar
+      Vaciar orden
     </button>
   </div>
 </form>

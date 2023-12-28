@@ -3,6 +3,7 @@ import {
   faBan,
   faCreditCard,
   faChartLine,
+  faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import { OrdenCompra } from 'src/app/models/OrdenCompra';
 import { OrdenCompraService } from 'src/app/services/orden-compra.service';
@@ -16,6 +17,7 @@ export class ListaOrdenCompraComponent implements OnInit {
   faBan = faBan;
   faCreditCard = faCreditCard;
   faChartLine = faChartLine;
+  faCircleInfo = faCircleInfo;
 
   ordenesCompra: OrdenCompra[] = [];
   mostrarOrdenesActivas: boolean = false;
@@ -26,7 +28,7 @@ export class ListaOrdenCompraComponent implements OnInit {
   }
 
   listarOrdenes() {
-    this.ordenesCompra = this.ordenesCompraService.findAll();
+    this.ordenesCompra = this.ordenesCompraService.findAll() || [];
   }
 
   cambiarEstadoOrden(id: string, isActive: boolean) {
@@ -34,5 +36,9 @@ export class ListaOrdenCompraComponent implements OnInit {
     if (confirm(msg))
       this.ordenesCompra = this.ordenesCompraService.cancelById(id);
     this.listarOrdenes();
+  }
+
+  mostrarDetalle(id: string) {
+    console.log('mostrando detalle ' + id);
   }
 }

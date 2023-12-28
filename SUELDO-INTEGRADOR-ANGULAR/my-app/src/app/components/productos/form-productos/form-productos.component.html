@@ -2,8 +2,8 @@
   <h1 class="my-5">
     {{
       id == null
-        ? "Agregar productos o Servicio"
-        : "Editar Producto: " + productoTitle
+        ? "Agregar Producto/Servicio"
+        : "Editar Producto/Servicio: " + productoTitle
     }}
   </h1>
 </div>
@@ -12,6 +12,24 @@
   class="row g-3 p-3 col-md-8 col-sm-12 offset-md-2 offset-sm-0 border border-dark mb-5"
   (ngSubmit)="onSubmit(productoForm)"
 >
+  <div class="col-md-6">
+    <label for="inputSku" class="form-label">SKU</label>
+    <input
+      type="text"
+      class="form-control border border-dark"
+      id="inputSku"
+      name="sku"
+      [(ngModel)]="producto.sku"
+      #sku="ngModel"
+      required
+      pattern="^[A-Z]{3}-[A-Z]\d{5}$"
+      [ngClass]="sku.errors ? 'is-invalid' : 'is-valid'"
+      placeholder="e.g. SKU-E00551"
+    />
+    <div class="col-auto" *ngIf="sku.errors?.['pattern'] || sku.errors">
+      <span class="form-text">Ingrese formato válido.</span>
+    </div>
+  </div>
   <div class="col-md-6">
     <label for="inputName" class="form-label">Nombre</label>
     <input
@@ -47,7 +65,7 @@
       <span class="form-text"> El precio debe ser mayor a 0. </span>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-md-6">
     <label for="inputImg" class="form-label">Imagen</label>
     <input
       type="url"
@@ -67,8 +85,7 @@
   </div>
   <div class="col-12">
     <label for="inputDescription" class="form-label">Descripción</label>
-    <input
-      type="text"
+    <textarea
       class="form-control border border-dark"
       id="inputDescription"
       name="descripcion"
@@ -78,7 +95,7 @@
       pattern="(\w+\s){4,}\w*"
       [ngClass]="descripcion.errors ? 'is-invalid' : 'is-valid'"
       placeholder="e.g. Teléfono inteligente Android 13"
-    />
+    ></textarea>
     <div
       class="col-auto"
       *ngIf="descripcion.errors?.['pattern'] || descripcion.errors"
@@ -132,19 +149,19 @@
       <span class="form-text"> Seleccione una opción. </span>
     </div>
   </div>
-  <div class="col-12">
+  <div class="row text-center justify-content-center gap-3 mt-4">
     <button
       type="submit"
-      class="btn btn-success btn-lg me-3"
+      class="btn btn-success fw-bold col-md-3"
       [disabled]="!productoForm.valid"
     >
-      Enviar
+      Enviar Producto
     </button>
     <button
-      class="btn btn-outline-danger btn-lg"
+      class="btn btn-danger fw-bold col-md-3"
       (click)="productoForm.reset()"
     >
-      Vaciar
+      Vaciar Producto
     </button>
   </div>
 </form>

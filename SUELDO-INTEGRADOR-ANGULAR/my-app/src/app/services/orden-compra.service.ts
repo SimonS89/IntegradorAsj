@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ordenesEjemplo } from '../data/data';
 import { OrdenCompra } from '../models/OrdenCompra';
+import { ordenesEjemplo } from '../data/data';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ export class OrdenCompraService {
   private ordenes: OrdenCompra[];
 
   constructor() {
-    // this.setStorage('ordenes', ordenesEjemplo);
+    // this.setStorage('ordenes', ordenesEjemplo as OrdenCompra[]);
     this.ordenes = this.findAll();
   }
 
@@ -31,8 +31,10 @@ export class OrdenCompraService {
   }
 
   public findAll(): OrdenCompra[] {
-    let ordenes = this.getStorage('ordenes');
-    if (ordenes) this.ordenes = ordenes || [];
+    let ordenes = this.getStorage('ordenes') || [];
+    if (ordenes) this.ordenes = ordenes;
+    console.log(this.ordenes);
+
     return this.ordenes;
   }
 
@@ -49,10 +51,8 @@ export class OrdenCompraService {
     return this.ordenes;
   }
 
-  idGenerator() {
-    const timestampPart = new Date().getTime().toString().slice(-3);
-    const randomPart = Math.random().toString(36).substring(2, 4).toUpperCase();
-    return `OC-A${timestampPart}${randomPart}`;
+  idGenerator(): string {
+    return new Date().getTime().toString();
   }
 
   fechaFormateada(fecha: Date): string {

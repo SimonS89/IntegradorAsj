@@ -9,7 +9,7 @@ export class ProductoService {
   private productos: Producto[];
 
   constructor() {
-    // this.setStorage('productos', productosEjemplo);
+    this.setStorage('productos', productosEjemplo);
     this.productos = this.findAll();
   }
 
@@ -64,8 +64,8 @@ export class ProductoService {
   }
 
   getProductosByProveedor(razonSocial: string): Producto[] {
-    return this.productos.filter(
-      (producto) => producto.proveedor === razonSocial
-    );
+    return this.productos
+      ? this.productos.filter((producto) => producto.proveedor === razonSocial)
+      : [];
   }
 }

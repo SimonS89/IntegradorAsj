@@ -17,8 +17,10 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 export class FormOrdenCompraComponent implements OnInit {
   ordenCompra: OrdenCompra = {
     id: '',
+    nroOrden: '',
     total: 0.0,
     informacionRecepcion: '',
+    informacionAdicional: '',
     fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
     fechaEntrega: '',
     productos: [],
@@ -121,8 +123,10 @@ export class FormOrdenCompraComponent implements OnInit {
       form.reset();
       this.ordenCompra = {
         id: '',
+        nroOrden: '',
         total: 0.0,
         informacionRecepcion: '',
+        informacionAdicional: '',
         fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
         fechaEntrega: '',
         productos: [],

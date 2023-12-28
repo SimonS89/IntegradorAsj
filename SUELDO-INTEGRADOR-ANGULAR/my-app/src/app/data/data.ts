@@ -113,52 +113,62 @@ const proveedoresEjemplo = [
 
 const productosEjemplo = [
   {
-    id: 'SKU-A00132',
+    id: '1',
+    sku: 'SKU-A00132',
     imagen:
       'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
     nombre: 'Smartphone X',
     precio: 599.99,
-    descripcion: 'Telefono inteligente de ultima generacion',
+    descripcion:
+      'Descubre la potencia y la elegancia del Smartphone X, el último modelo de tecnología avanzada. Con características innovadoras y un diseño moderno, este teléfono inteligente redefine la experiencia móvil.',
     categoria: 'Electrónica',
     proveedor: 'ByteCraft Solutions',
   },
   {
-    id: 'SKU-B00132',
+    id: '2',
+    sku: 'SKU-B00132',
     imagen:
       'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
     nombre: 'Pack de Galletas',
     precio: 12.99,
-    descripcion: 'Variado pack de galletas para toda la familia',
+    descripcion:
+      'Disfruta de un festín de sabores con nuestro Pack de Galletas. Este variado paquete ofrece una mezcla irresistible de galletas horneadas con ingredientes frescos y de alta calidad. Perfecto para compartir momentos dulces en familia.',
     categoria: 'Alimentos',
     proveedor: 'FreshBite Delights',
   },
   {
     id: 'SKU-C00111',
+    sku: '3',
     imagen:
       'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
     nombre: 'Camisa Elegante',
     precio: 49.99,
-    descripcion: 'Camisa de alta calidad para ocasiones especiales',
+    descripcion:
+      'Eleva tu estilo con nuestra Camisa Elegante. Confeccionada con materiales de primera calidad, esta camisa es perfecta para ocasiones especiales. Su diseño atemporal y elegante te hará destacar en cualquier evento.',
     categoria: 'Ropa',
     proveedor: 'VogueHarbor Boutique',
   },
   {
-    id: 'SKU-D00143',
+    id: '4',
+    sku: 'SKU-D00143',
     imagen:
       'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
     nombre: 'Kit de Primeros Auxilios',
     precio: 29.99,
-    descripcion: 'Kit esencial para emergencias médicas',
+    descripcion:
+      'Prepárate para cualquier emergencia con nuestro Kit de Primeros Auxilios. Este conjunto esencial incluye suministros médicos de calidad para ayudarte a enfrentar situaciones imprevistas. Mantén la seguridad y la tranquilidad con este kit confiable.',
     categoria: 'Salud',
     proveedor: 'Revitalize Med Group',
   },
   {
-    id: 'SKU-E00551',
+    id: '5',
+    sku: 'SKU-E00551',
     imagen:
       'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
     nombre: 'Curso de Programación',
     precio: 89.99,
-    descripcion: 'Curso online para aprender programación',
+    descripcion:
+      'Sumérgete en el fascinante mundo de la programación con nuestro Curso Online. Diseñado para principiantes y entusiastas, este curso te guiará a través de los fundamentos y te proporcionará las habilidades necesarias para convertirte en un experto en programación.',
     categoria: 'Educación',
     proveedor: 'IntellectJunction Institute',
   },
@@ -166,9 +176,11 @@ const productosEjemplo = [
 
 const ordenesEjemplo = [
   {
-    id: 'OC-A04101',
+    id: '1',
+    nroOrden: 'OC-A04101',
     total: 1799.97,
-    informacionRecepcion: 'Recepcionado por: Marta Sánchez',
+    informacionRecepcion: 'Marta Sánchez',
+    informacionAdicional: '',
     fechaEntrega: '2023-01-15',
     fechaEmision: '2023-01-10',
     productos: [
@@ -187,9 +199,11 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-A58002',
+    id: '2',
+    nroOrden: 'OC-A58002',
     total: 64.95,
-    informacionRecepcion: 'Recepcionado por: Daniel González',
+    informacionRecepcion: 'Daniel González',
+    informacionAdicional: '',
     fechaEmision: '2023-02-05',
     fechaEntrega: '2023-02-10',
     productos: [
@@ -208,9 +222,11 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-A69003',
+    id: '3',
+    nroOrden: 'OC-A69003',
     total: 99.98,
-    informacionRecepcion: 'Recepcionado por: Laura Rodríguez',
+    informacionRecepcion: 'Laura Rodríguez',
+    informacionAdicional: '',
     fechaEmision: '2023-03-20',
     fechaEntrega: '2023-03-25',
     productos: [
@@ -229,9 +245,11 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-A00454',
+    id: '4',
+    nroOrden: 'OC-A00454',
     total: 29.99,
-    informacionRecepcion: 'Recepcionado por: Alejandro Martínez',
+    informacionRecepcion: 'Alejandro Martínez',
+    informacionAdicional: '',
     fechaEmision: '2023-04-15',
     fechaEntrega: '2023-04-20',
     productos: [
@@ -250,9 +268,11 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: 'OC-A03205',
+    id: '5',
+    nroOrden: 'OC-A03205',
     total: 359.96,
-    informacionRecepcion: 'Recepcionado por: Carolina Fernández',
+    informacionRecepcion: 'Carolina Fernández',
+    informacionAdicional: '',
     fechaEmision: '2023-05-05',
     fechaEntrega: '2023-05-10',
     productos: [
