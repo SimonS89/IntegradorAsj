@@ -7,6 +7,7 @@ import { FormProveedoresComponent } from './components/proveedores/form-proveedo
 import { FormProductosComponent } from './components/productos/form-productos/form-productos.component';
 import { FormOrdenCompraComponent } from './components/orden-compra/form-orden-compra/form-orden-compra.component';
 import { IndexComponent } from './components/index/index.component';
+import { OrdenCompraDetailComponent } from './components/orden-compra-detail/orden-compra-detail.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,11 @@ const routes: Routes = [
         path: 'form-ordenes-compra',
         component: FormOrdenCompraComponent,
         title: 'Registrar Orden Compra',
+      },
+      {
+        path: 'info/:id',
+        component: OrdenCompraDetailComponent,
+        title: 'Info Orden Compra',
       },
     ],
   },

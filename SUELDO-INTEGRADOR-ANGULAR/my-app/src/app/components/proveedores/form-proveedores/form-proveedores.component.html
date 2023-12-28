@@ -1,350 +1,370 @@
-<div class="row">
-  <h1 class="my-5">
-    {{
-      id == null
-        ? "Agregar Proveedor/a"
-        : "Editar Proveedor/a: " + razonSocialTitle
-    }}
-  </h1>
+<div class="gradient-custom h-100" style="min-height: 80vh">
+  <div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-lg-10">
+      <h1 class="my-5">
+        {{
+          id == null
+            ? "Agregar Proveedor/a"
+            : "Editar Proveedor/a: " + razonSocialTitle
+        }}
+      </h1>
+      <form
+        #proveedorForm="ngForm"
+        class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5"
+        (ngSubmit)="onSubmit(proveedorForm)"
+      >
+        <h5 class="text-start mt-0">Empresa</h5>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputRazonSocial" class="form-label">Razón social</label>
+          <input
+            type="text"
+            class="form-control border border-dark"
+            id="inputRazonSocial"
+            name="razonSocial"
+            [(ngModel)]="proveedor.razonSocial"
+            #razonSocial="ngModel"
+            required
+            minlength="8"
+            [ngClass]="razonSocial.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="razonSocial.errors?.['minlength'] || razonSocial.errors"
+          >
+            <span class="form-text"> Debe tener al menos 8 caracteres. </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputCuit" class="form-label">CUIT</label>
+          <input
+            required
+            [disabled]="id ? true : false"
+            type="text"
+            class="form-control border border-dark"
+            id="inputCuit"
+            placeholder="30-12345678-8"
+            name="cuit"
+            [(ngModel)]="proveedor.cuit"
+            pattern="\d{2}-\d{8}-\d{1}"
+            #cuit="ngModel"
+            [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
+            <span class="form-text">Debe ser un formato de CUIT válido.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputTipoIva" class="form-label">Tipo IVA</label>
+          <select
+            required
+            id="inputTipoIva"
+            class="form-select border border-dark"
+            name="tipoIva"
+            [(ngModel)]="proveedor.tipoIva"
+            #tipoIva="ngModel"
+            [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <option value="" disabled selected>Selecciona un tipo IVA</option>
+            <option value="Responsable Inscripto">Responsable Inscripto</option>
+            <option value="Monotributista">Monotributista</option>
+            <option value="Exento">Exento</option>
+            <option value="Consumidor Final">Consumidor Final</option>
+          </select>
+          <div class="col-auto" *ngIf="tipoIva.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputLogo" class="form-label">Logo</label>
+          <input
+            type="url"
+            class="form-control border border-dark"
+            id="inputLogo"
+            name="logo"
+            [(ngModel)]="proveedor.logo"
+            #logo="ngModel"
+            pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
+            required
+            [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
+            <span class="form-text"> Debe ser una URL válida.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputRubro" class="form-label">Rubro</label>
+          <select
+            required
+            id="inputRubro"
+            class="form-select border border-dark"
+            name="rubro"
+            [(ngModel)]="proveedor.rubro"
+            #rubro="ngModel"
+            [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <option value="" disabled selected>Selecciona un rubro</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Alimentación">Alimentación</option>
+            <option value="Moda">Moda</option>
+            <option value="Salud">Salud</option>
+            <option value="Educación">Educación</option>
+          </select>
+          <div class="col-auto" *ngIf="rubro.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputSitioWeb" class="form-label">Sitio Web</label>
+          <input
+            required
+            type="url"
+            class="form-control border border-dark"
+            id="inputSitioWeb"
+            placeholder="https://example.com"
+            name="sitioWeb"
+            [(ngModel)]="proveedor.sitioWeb"
+            pattern="https?://.+"
+            #sitioWeb="ngModel"
+            [ngClass]="sitioWeb.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="sitioWeb.errors?.['pattern'] || sitioWeb.errors"
+          >
+            <span class="form-text">Debe ser una URL válida.</span>
+          </div>
+        </div>
+        <h5 class="text-start mt-3 mb-0">Domicilio</h5>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputDireccion" class="form-label">Dirección</label>
+          <input
+            required
+            minlength="4"
+            type="text"
+            class="form-control border border-dark"
+            id="inputDireccion"
+            placeholder="1234 Main St"
+            name="direccion"
+            [(ngModel)]="proveedor.domicilio.direccion"
+            #direccion="ngModel"
+            [ngClass]="direccion.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="direccion.errors?.['minlength'] || direccion.errors"
+          >
+            <span class="form-text">Debe tener al menos 4 caracteres.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputCP" class="form-label">Código Postal</label>
+          <input
+            required
+            minlength="4"
+            type="text"
+            class="form-control border border-dark"
+            id="inputCP"
+            placeholder="1900"
+            name="codigoPostal"
+            [(ngModel)]="proveedor.domicilio.codigoPostal"
+            #codigoPostal="ngModel"
+            [ngClass]="codigoPostal.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="codigoPostal.errors?.['minlength']||codigoPostal.errors"
+          >
+            <span class="form-text">Debe tener al menos 4 caracteres.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputPais" class="form-label">País</label>
+          <input
+            disabled
+            minlength="4"
+            type="text"
+            class="form-control border border-dark"
+            id="inputPais"
+            placeholder="Argentina"
+            name="pais"
+            [(ngModel)]="proveedor.domicilio.pais"
+            #pais="ngModel"
+            [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
+            <span class="form-text">Debe tener al menos 4 caracteres.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputProvincia" class="form-label">Provincia</label>
+          <select
+            required
+            id="inputProvincia"
+            class="form-select border border-dark"
+            name="provincia"
+            [(ngModel)]="proveedor.domicilio.provincia"
+            #provincia="ngModel"
+            [ngClass]="provincia.errors ? 'is-invalid' : 'is-valid'"
+            (change)="listarCiudades(provincia.value)"
+          >
+            <option value="" disabled selected>Selecciona una provincia</option>
+            <option
+              *ngFor="let provincia of provincias"
+              [value]="provincia.nombre"
+            >
+              {{ provincia.nombre }}
+            </option>
+          </select>
+          <div class="col-auto" *ngIf="provincia.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputLocalidad" class="form-label">Localidad</label>
+          <select
+            required
+            id="inputLocalidad"
+            class="form-control border border-dark"
+            name="localidad"
+            [(ngModel)]="proveedor.domicilio.localidad"
+            #localidad="ngModel"
+            [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <ng-container
+              *ngIf="ciudades && ciudades.length > 0; else noCiudades"
+            >
+              <option value="" disabled selected>
+                Selecciona una localidad
+              </option>
+              <option *ngFor="let ciudad of ciudades" [value]="ciudad.nombre">
+                {{ ciudad.nombre }}
+              </option>
+            </ng-container>
+            <ng-template #noCiudades>
+              <option disabled selected>
+                No hay ciudades disponibles para esta provincia
+              </option>
+            </ng-template>
+          </select>
+          <div class="col-auto" *ngIf="localidad.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <h5 class="text-start mt-3 mb-0">Datos de Contacto</h5>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputNombreCompleto" class="form-label"
+            >Nombre Completo</label
+          >
+          <input
+            required
+            pattern="^[A-Za-zÁ-ú\s]{3,}(?:\s[A-Za-zÁ-ú\s]{3,})+$"
+            type="text"
+            class="form-control border border-dark"
+            id="inputNombreCompleto"
+            placeholder="Simón Sueldo"
+            name="nombreCompleto"
+            [(ngModel)]="proveedor.datosContacto.nombreCompleto"
+            #nombreCompleto="ngModel"
+            [ngClass]="nombreCompleto.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="nombreCompleto.errors?.['pattern']||nombreCompleto.errors"
+          >
+            <span class="form-text"
+              >Debe contener al menos 2 palabras de 3 caracteres cada una.</span
+            >
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputTelefono" class="form-label">Teléfono</label>
+          <input
+            required
+            pattern="^[0-9\-]+$"
+            type="text"
+            class="form-control border border-dark"
+            id="inputTelefono"
+            placeholder="555-5678"
+            name="telefono"
+            [(ngModel)]="proveedor.datosContacto.telefono"
+            #telefono="ngModel"
+            [ngClass]="telefono.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="telefono.errors?.['pattern']||telefono.errors"
+          >
+            <span class="form-text">Debe contener solo números.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputEmail" class="form-label">Correo Electrónico</label>
+          <input
+            required
+            type="email"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            class="form-control border border-dark"
+            id="inputEmail"
+            placeholder="juanperez@gmail.com"
+            name="email"
+            [(ngModel)]="proveedor.datosContacto.email"
+            #email="ngModel"
+            [ngClass]="email.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="email.errors?.['pattern']||email.errors">
+            <span class="form-text"
+              >Debe tener un formato de correo electrónico válido.</span
+            >
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputRol" class="form-label">Rol</label>
+          <select
+            required
+            id="inputRol"
+            class="form-select border border-dark"
+            name="rol"
+            [(ngModel)]="proveedor.datosContacto.rol"
+            #rol="ngModel"
+            [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <option value="" disabled selected>Selecciona un rol</option>
+            <option value="Representante de Ventas">
+              Representante de Ventas
+            </option>
+            <option value="Especialista en Marketing Digital">
+              Especialista en Marketing Digital
+            </option>
+            <option value="Asistente de Servicio al Cliente">
+              Asistente de Servicio al Cliente
+            </option>
+            <option value="Coordinador de Logística">
+              Coordinador de Logística
+            </option>
+            <option value="Analista de Datos Comerciales">
+              Analista de Datos Comerciales
+            </option>
+          </select>
+          <div class="col-auto" *ngIf="rol.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="row text-center justify-content-center gap-3 mt-4">
+          <button
+            type="submit"
+            class="btn btn-success fw-bold col-md-2"
+            [disabled]="!proveedorForm.valid"
+          >
+            {{ id ? "Editar proveedor" : "Generar proveedor" }}
+          </button>
+          <button
+            class="btn btn-danger fw-bold col-md-2"
+            (click)="proveedorForm.reset()"
+          >
+            Vaciar proveedor
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-<form
-  #proveedorForm="ngForm"
-  class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5"
-  (ngSubmit)="onSubmit(proveedorForm)"
->
-  <h5 class="text-start text-danger mt-0">Empresa</h5>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputRazonSocial" class="form-label">Razón social</label>
-    <input
-      type="text"
-      class="form-control border border-dark"
-      id="inputRazonSocial"
-      name="razonSocial"
-      [(ngModel)]="proveedor.razonSocial"
-      #razonSocial="ngModel"
-      required
-      minlength="8"
-      [ngClass]="razonSocial.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="razonSocial.errors?.['minlength'] || razonSocial.errors"
-    >
-      <span class="form-text"> Debe tener al menos 8 caracteres. </span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputCuit" class="form-label">CUIT</label>
-    <input
-      required
-      [disabled]="id ? true : false"
-      type="text"
-      class="form-control border border-dark"
-      id="inputCuit"
-      placeholder="30-12345678-8"
-      name="cuit"
-      [(ngModel)]="proveedor.cuit"
-      pattern="\d{2}-\d{8}-\d{1}"
-      #cuit="ngModel"
-      [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
-      <span class="form-text">Debe ser un formato de CUIT válido.</span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputTipoIva" class="form-label">Tipo IVA</label>
-    <select
-      required
-      id="inputTipoIva"
-      class="form-select border border-dark"
-      name="tipoIva"
-      [(ngModel)]="proveedor.tipoIva"
-      #tipoIva="ngModel"
-      [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
-    >
-      <option value="" disabled selected>Selecciona un tipo IVA</option>
-      <option value="Responsable Inscripto">Responsable Inscripto</option>
-      <option value="Monotributista">Monotributista</option>
-      <option value="Exento">Exento</option>
-      <option value="Consumidor Final">Consumidor Final</option>
-    </select>
-    <div class="col-auto" *ngIf="tipoIva.errors">
-      <span class="form-text"> Seleccione una opción. </span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputLogo" class="form-label">Logo</label>
-    <input
-      type="url"
-      class="form-control border border-dark"
-      id="inputLogo"
-      name="logo"
-      [(ngModel)]="proveedor.logo"
-      #logo="ngModel"
-      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
-      required
-      [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
-      <span class="form-text"> Debe ser una URL válida.</span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputRubro" class="form-label">Rubro</label>
-    <select
-      required
-      id="inputRubro"
-      class="form-select border border-dark"
-      name="rubro"
-      [(ngModel)]="proveedor.rubro"
-      #rubro="ngModel"
-      [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
-    >
-      <option value="" disabled selected>Selecciona un rubro</option>
-      <option value="Tecnología">Tecnología</option>
-      <option value="Alimentación">Alimentación</option>
-      <option value="Moda">Moda</option>
-      <option value="Salud">Salud</option>
-      <option value="Educación">Educación</option>
-    </select>
-    <div class="col-auto" *ngIf="rubro.errors">
-      <span class="form-text"> Seleccione una opción. </span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputSitioWeb" class="form-label">Sitio Web</label>
-    <input
-      required
-      type="url"
-      class="form-control border border-dark"
-      id="inputSitioWeb"
-      placeholder="https://example.com"
-      name="sitioWeb"
-      [(ngModel)]="proveedor.sitioWeb"
-      pattern="https?://.+"
-      #sitioWeb="ngModel"
-      [ngClass]="sitioWeb.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="sitioWeb.errors?.['pattern'] || sitioWeb.errors"
-    >
-      <span class="form-text">Debe ser una URL válida.</span>
-    </div>
-  </div>
-  <h5 class="text-start text-danger mt-3 mb-0">Domicilio</h5>
-  <div class="col-12 col-sm-6 col-md-6">
-    <label for="inputDireccion" class="form-label">Dirección</label>
-    <input
-      required
-      minlength="4"
-      type="text"
-      class="form-control border border-dark"
-      id="inputDireccion"
-      placeholder="1234 Main St"
-      name="direccion"
-      [(ngModel)]="proveedor.domicilio.direccion"
-      #direccion="ngModel"
-      [ngClass]="direccion.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="direccion.errors?.['minlength'] || direccion.errors"
-    >
-      <span class="form-text">Debe tener al menos 4 caracteres.</span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-6">
-    <label for="inputCP" class="form-label">Código Postal</label>
-    <input
-      required
-      minlength="4"
-      type="text"
-      class="form-control border border-dark"
-      id="inputCP"
-      placeholder="1900"
-      name="codigoPostal"
-      [(ngModel)]="proveedor.domicilio.codigoPostal"
-      #codigoPostal="ngModel"
-      [ngClass]="codigoPostal.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="codigoPostal.errors?.['minlength']||codigoPostal.errors"
-    >
-      <span class="form-text">Debe tener al menos 4 caracteres.</span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputPais" class="form-label">País</label>
-    <input
-      disabled
-      minlength="4"
-      type="text"
-      class="form-control border border-dark"
-      id="inputPais"
-      placeholder="Argentina"
-      name="pais"
-      [(ngModel)]="proveedor.domicilio.pais"
-      #pais="ngModel"
-      [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="pais.errors?.['minlength']||pais.errors">
-      <span class="form-text">Debe tener al menos 4 caracteres.</span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputProvincia" class="form-label">Provincia</label>
-    <select
-      required
-      id="inputProvincia"
-      class="form-select border border-dark"
-      name="provincia"
-      [(ngModel)]="proveedor.domicilio.provincia"
-      #provincia="ngModel"
-      [ngClass]="provincia.errors ? 'is-invalid' : 'is-valid'"
-      (change)="listarCiudades(provincia.value)"
-    >
-      <option value="" disabled selected>Selecciona una provincia</option>
-      <option *ngFor="let provincia of provincias" [value]="provincia.nombre">
-        {{ provincia.nombre }}
-      </option>
-    </select>
-    <div class="col-auto" *ngIf="provincia.errors">
-      <span class="form-text"> Seleccione una opción. </span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-4">
-    <label for="inputLocalidad" class="form-label">Localidad</label>
-    <select
-      required
-      id="inputLocalidad"
-      class="form-control border border-dark"
-      name="localidad"
-      [(ngModel)]="proveedor.domicilio.localidad"
-      #localidad="ngModel"
-      [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
-    >
-      <ng-container *ngIf="ciudades && ciudades.length > 0; else noCiudades">
-        <option value="" disabled selected>Selecciona una localidad</option>
-        <option *ngFor="let ciudad of ciudades" [value]="ciudad.nombre">
-          {{ ciudad.nombre }}
-        </option>
-      </ng-container>
-      <ng-template #noCiudades>
-        <option disabled selected>
-          No hay ciudades disponibles para esta provincia
-        </option>
-      </ng-template>
-    </select>
-    <div class="col-auto" *ngIf="localidad.errors">
-      <span class="form-text"> Seleccione una opción. </span>
-    </div>
-  </div>
-  <h5 class="text-start text-danger mt-3 mb-0">Datos de Contacto</h5>
-  <div class="col-12 col-sm-6 col-md-6">
-    <label for="inputNombreCompleto" class="form-label">Nombre Completo</label>
-    <input
-      required
-      pattern="^[A-Za-zÁ-ú\s]{3,}(?:\s[A-Za-zÁ-ú\s]{3,})+$"
-      type="text"
-      class="form-control border border-dark"
-      id="inputNombreCompleto"
-      placeholder="Simón Sueldo"
-      name="nombreCompleto"
-      [(ngModel)]="proveedor.datosContacto.nombreCompleto"
-      #nombreCompleto="ngModel"
-      [ngClass]="nombreCompleto.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div
-      class="col-auto"
-      *ngIf="nombreCompleto.errors?.['pattern']||nombreCompleto.errors"
-    >
-      <span class="form-text"
-        >Debe contener al menos 2 palabras de 3 caracteres cada una.</span
-      >
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-6">
-    <label for="inputTelefono" class="form-label">Teléfono</label>
-    <input
-      required
-      pattern="^[0-9\-]+$"
-      type="text"
-      class="form-control border border-dark"
-      id="inputTelefono"
-      placeholder="555-5678"
-      name="telefono"
-      [(ngModel)]="proveedor.datosContacto.telefono"
-      #telefono="ngModel"
-      [ngClass]="telefono.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="telefono.errors?.['pattern']||telefono.errors">
-      <span class="form-text">Debe contener solo números.</span>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-6">
-    <label for="inputEmail" class="form-label">Correo Electrónico</label>
-    <input
-      required
-      type="email"
-      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-      class="form-control border border-dark"
-      id="inputEmail"
-      placeholder="juanperez@gmail.com"
-      name="email"
-      [(ngModel)]="proveedor.datosContacto.email"
-      #email="ngModel"
-      [ngClass]="email.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="email.errors?.['pattern']||email.errors">
-      <span class="form-text"
-        >Debe tener un formato de correo electrónico válido.</span
-      >
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-6">
-    <label for="inputRol" class="form-label">Rol</label>
-    <select
-      required
-      id="inputRol"
-      class="form-select border border-dark"
-      name="rol"
-      [(ngModel)]="proveedor.datosContacto.rol"
-      #rol="ngModel"
-      [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
-    >
-      <option value="" disabled selected>Selecciona un rol</option>
-      <option value="Representante de Ventas">Representante de Ventas</option>
-      <option value="Especialista en Marketing Digital">
-        Especialista en Marketing Digital
-      </option>
-      <option value="Asistente de Servicio al Cliente">
-        Asistente de Servicio al Cliente
-      </option>
-      <option value="Coordinador de Logística">Coordinador de Logística</option>
-      <option value="Analista de Datos Comerciales">
-        Analista de Datos Comerciales
-      </option>
-    </select>
-    <div class="col-auto" *ngIf="rol.errors">
-      <span class="form-text"> Seleccione una opción. </span>
-    </div>
-  </div>
-  <div class="row text-center justify-content-center gap-3 mt-4">
-    <button
-      type="submit"
-      class="btn btn-success fw-bold col-md-2"
-      [disabled]="!proveedorForm.valid"
-    >
-      {{ id ? "Editar proveedor" : "Generar proveedor" }}
-    </button>
-    <button
-      class="btn btn-danger fw-bold col-md-2"
-      (click)="proveedorForm.reset()"
-    >
-      Vaciar proveedor
-    </button>
-  </div>
-</form>

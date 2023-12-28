@@ -1,3 +1,7 @@
-.navbar-nav a.router-link-active {
-  color: yellowgreen !important;
+nav {
+  background-color: #f4c266;
+}
+
+a {
+  color: #2e3f4c;
 }

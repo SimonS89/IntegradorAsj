@@ -1,79 +1,84 @@
-<div class="row my-4">
-  <h1>Proveedores</h1>
+<div class="gradient-custom h-100" style="min-height: 80vh">
+  <div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-lg-10">
+      <h1 class="mt-4">Proveedores</h1>
+      <div class="row justify-content-center mb-3 mt-4 align-items-center">
+        <a
+          type="button"
+          class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3 mb-3"
+          routerLink="/proveedores/form-proveedores"
+        >
+          <fa-icon [icon]="faUser" class="me-3"></fa-icon
+          ><span>Agregar Proveedor</span>
+        </a>
+      </div>
+      <div
+        *ngIf="proveedores.length > 0; else noProveedores"
+        class="table-responsive"
+      >
+        <table
+          class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
+        >
+          <thead>
+            <tr>
+              <th scope="col">Logo</th>
+              <th scope="col">#Id</th>
+              <th scope="col">Razón social</th>
+              <th scope="col">Info General</th>
+              <th scope="col">Titular</th>
+              <th scope="col">Rubro</th>
+              <th scope="col">Funcionalidades</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr class="align-middle" *ngFor="let proveedor of proveedores">
+              <td>
+                <img
+                  src="{{ proveedor.logo }}"
+                  class="object-fit-contain"
+                  style="width: 50px"
+                  alt="{{ proveedor.razonSocial }}"
+                  (error)="handleImageError($event)"
+                />
+              </td>
+              <td>{{ proveedor.id }}</td>
+              <td>{{ proveedor.razonSocial }}</td>
+              <td>
+                {{ proveedor.datosContacto.email }}<br />{{
+                  "Tel: " + proveedor.datosContacto.telefono
+                }}
+                <br />{{ proveedor.sitioWeb }}
+              </td>
+              <td>{{ proveedor.datosContacto.nombreCompleto }}</td>
+              <td>{{ proveedor.rubro }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="deleteBtn btn btn-outline-danger me-3"
+                  (click)="eliminarProveedor(proveedor.id)"
+                  [title]="'Eliminar Proveedor - ' + proveedor.razonSocial"
+                >
+                  <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
+                </button>
+                <button
+                  type="button"
+                  class="editBtn btn btn-outline-primary"
+                  (click)="editarProveedor(proveedor.id)"
+                  [title]="'Editar Proveedor - ' + proveedor.razonSocial"
+                >
+                  <fa-icon
+                    [icon]="faPenToSquare"
+                    class="fw-bolder fs-5"
+                  ></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="row justify-content-center mb-3 align-items-center">
-  <a
-    type="button"
-    class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3"
-    routerLink="/proveedores/form-proveedores"
-  >
-    <fa-icon [icon]="faUser" class="me-3"></fa-icon
-    ><span>Agregar Proveedor</span>
-  </a>
-</div>
-<div
-  *ngIf="proveedores.length > 0; else noProveedores"
-  class="table-responsive"
->
-  <table
-    class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
-  >
-    <thead>
-      <tr>
-        <th scope="col">Logo</th>
-        <th scope="col">#Id</th>
-        <th scope="col">Razón social</th>
-        <th scope="col">Info General</th>
-        <th scope="col">Titular</th>
-        <th scope="col">Rubro</th>
-        <th scope="col">Sitio Web</th>
-        <th scope="col">Funcionalidades</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <tr class="align-middle" *ngFor="let proveedor of proveedores">
-        <td>
-          <img
-            src="{{ proveedor.logo }}"
-            class="object-fit-contain"
-            style="width: 50px"
-            alt="{{ proveedor.razonSocial }}"
-            (error)="handleImageError($event)"
-          />
-        </td>
-        <td>{{ proveedor.id }}</td>
-        <td>{{ proveedor.razonSocial }}</td>
-        <td>
-          {{ proveedor.datosContacto.email }}<br />{{
-            "Tel: " + proveedor.datosContacto.telefono
-          }}
-        </td>
-        <td>{{ proveedor.datosContacto.nombreCompleto }}</td>
-        <td>{{ proveedor.rubro }}</td>
-        <td>{{ proveedor.sitioWeb }}</td>
-        <td>
-          <button
-            type="button"
-            class="deleteBtn btn btn-outline-danger me-3"
-            (click)="eliminarProveedor(proveedor.id)"
-            [title]="'Eliminar Proveedor - ' + proveedor.razonSocial"
-          >
-            <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-          </button>
-          <button
-            type="button"
-            class="editBtn btn btn-outline-primary"
-            (click)="editarProveedor(proveedor.id)"
-            [title]="'Editar Proveedor - ' + proveedor.razonSocial"
-          >
-            <fa-icon [icon]="faPenToSquare" class="fw-bolder fs-5"></fa-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 <ng-template #noProveedores>
   <h2>No hay proveedores disponibles.</h2>
 </ng-template>

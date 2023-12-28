@@ -1,167 +1,177 @@
-<div class="row">
-  <h1 class="my-5">
-    {{
-      id == null
-        ? "Agregar Producto/Servicio"
-        : "Editar Producto/Servicio: " + productoTitle
-    }}
-  </h1>
-</div>
-<form
-  #productoForm="ngForm"
-  class="row g-3 p-3 col-md-8 col-sm-12 offset-md-2 offset-sm-0 border border-dark mb-5"
-  (ngSubmit)="onSubmit(productoForm)"
->
-  <div class="col-md-6">
-    <label for="inputSku" class="form-label">SKU</label>
-    <input
-      type="text"
-      class="form-control border border-dark"
-      id="inputSku"
-      name="sku"
-      [(ngModel)]="producto.sku"
-      #sku="ngModel"
-      required
-      pattern="^[A-Z]{3}-[A-Z]\d{5}$"
-      [ngClass]="sku.errors ? 'is-invalid' : 'is-valid'"
-      placeholder="e.g. SKU-E00551"
-    />
-    <div class="col-auto" *ngIf="sku.errors?.['pattern'] || sku.errors">
-      <span class="form-text">Ingrese formato válido.</span>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputName" class="form-label">Nombre</label>
-    <input
-      type="text"
-      class="form-control border border-dark"
-      id="inputName"
-      name="nombre"
-      [(ngModel)]="producto.nombre"
-      #nombre="ngModel"
-      required
-      minlength="5"
-      [ngClass]="nombre.errors ? 'is-invalid' : 'is-valid'"
-      placeholder="e.g. Teléfono inteligente"
-    />
-    <div class="col-auto" *ngIf="nombre.errors?.['minlength'] || nombre.errors">
-      <span class="form-text"> Debe tener al menos 5 caracteres. </span>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputPrice" class="form-label">Precio</label>
-    <input
-      type="number"
-      class="form-control border border-dark"
-      id="inputPrice"
-      name="precio"
-      [(ngModel)]="producto.precio"
-      #precio="ngModel"
-      required
-      min="1"
-      [ngClass]="precio.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="precio.errors?.['min'] || nombre.errors">
-      <span class="form-text"> El precio debe ser mayor a 0. </span>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputImg" class="form-label">Imagen</label>
-    <input
-      type="url"
-      placeholder="e.g. https://www.google.com/image.jgp"
-      class="form-control border border-dark"
-      id="inputImg"
-      name="imagen"
-      [(ngModel)]="producto.imagen"
-      #imagen="ngModel"
-      pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
-      required
-      [ngClass]="imagen.errors ? 'is-invalid' : 'is-valid'"
-    />
-    <div class="col-auto" *ngIf="imagen.errors?.['pattern'] || imagen.errors">
-      <span class="form-text"> Debe ser una URL válida.</span>
-    </div>
-  </div>
-  <div class="col-12">
-    <label for="inputDescription" class="form-label">Descripción</label>
-    <textarea
-      class="form-control border border-dark"
-      id="inputDescription"
-      name="descripcion"
-      [(ngModel)]="producto.descripcion"
-      #descripcion="ngModel"
-      required
-      pattern="^([,\wáéíóúüñ]+[.,;]?\s){4,}[,\wáéíóúüñ]+[.,;]?$"
-      [ngClass]="descripcion.errors ? 'is-invalid' : 'is-valid'"
-      placeholder="e.g. Teléfono inteligente Android 13"
-    ></textarea>
-    <div
-      class="col-auto"
-      *ngIf="descripcion.errors?.['pattern'] || descripcion.errors"
-    >
-      <span class="form-text">Debe tener al menos 5 palabras.</span>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputCategory" class="form-label">Categoria</label>
-    <select
-      required
-      id="inputCategory"
-      class="form-select border border-dark"
-      name="categoria"
-      [(ngModel)]="producto.categoria"
-      #categoria="ngModel"
-      [ngClass]="categoria.errors ? 'is-invalid' : 'is-valid'"
-    >
-      <option value="" disabled selected>Selecciona una categoría</option>
-      <option value="Electrónica">Electrónica</option>
-      <option value="Alimentos">Alimentos</option>
-      <option value="Ropa">Ropa</option>
-      <option value="Salud">Salud</option>
-      <option value="Educación">Educación</option>
-    </select>
-    <div class="col-auto" *ngIf="categoria.errors">
-      <span class="form-text"> Seleccione una opción. </span>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputProvider" class="form-label">Proveedor</label>
-    <select
-      required
-      [disabled]="id"
-      id="inputProvider"
-      class="form-select border border-dark"
-      name="proveedor"
-      [(ngModel)]="producto.proveedor"
-      #proveedor="ngModel"
-      [ngClass]="proveedor.errors ? 'is-invalid' : 'is-valid'"
-    >
-      <option value="" disabled selected>Selecciona un proveedor</option>
-      <option
-        *ngFor="let proveedor of proveedores"
-        [value]="proveedor.razonSocial"
+<div class="gradient-custom h-100" style="min-height: 80vh">
+  <div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-lg-10">
+      <h1 class="my-5">
+        {{
+          id == null
+            ? "Agregar Producto/Servicio"
+            : "Editar Producto/Servicio: " + productoTitle
+        }}
+      </h1>
+      <form
+        #productoForm="ngForm"
+        class="row g-3 p-3 col-md-8 col-sm-12 offset-md-2 offset-sm-0 border border-dark mb-5"
+        (ngSubmit)="onSubmit(productoForm)"
       >
-        {{ proveedor.razonSocial }}
-      </option>
-    </select>
-    <div class="col-auto" *ngIf="proveedor.errors">
-      <span class="form-text"> Seleccione una opción. </span>
+        <div class="col-md-6">
+          <label for="inputSku" class="form-label">SKU</label>
+          <input
+            type="text"
+            class="form-control border border-dark"
+            id="inputSku"
+            name="sku"
+            [(ngModel)]="producto.sku"
+            #sku="ngModel"
+            required
+            pattern="^[A-Z]{3}-[A-Z]\d{5}$"
+            [ngClass]="sku.errors ? 'is-invalid' : 'is-valid'"
+            placeholder="e.g. SKU-E00551"
+          />
+          <div class="col-auto" *ngIf="sku.errors?.['pattern'] || sku.errors">
+            <span class="form-text">Ingrese formato válido.</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control border border-dark"
+            id="inputName"
+            name="nombre"
+            [(ngModel)]="producto.nombre"
+            #nombre="ngModel"
+            required
+            minlength="5"
+            [ngClass]="nombre.errors ? 'is-invalid' : 'is-valid'"
+            placeholder="e.g. Teléfono inteligente"
+          />
+          <div
+            class="col-auto"
+            *ngIf="nombre.errors?.['minlength'] || nombre.errors"
+          >
+            <span class="form-text"> Debe tener al menos 5 caracteres. </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputPrice" class="form-label">Precio</label>
+          <input
+            type="number"
+            class="form-control border border-dark"
+            id="inputPrice"
+            name="precio"
+            [(ngModel)]="producto.precio"
+            #precio="ngModel"
+            required
+            min="1"
+            [ngClass]="precio.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="precio.errors?.['min'] || nombre.errors">
+            <span class="form-text"> El precio debe ser mayor a 0. </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputImg" class="form-label">Imagen</label>
+          <input
+            type="url"
+            placeholder="e.g. https://www.google.com/image.jgp"
+            class="form-control border border-dark"
+            id="inputImg"
+            name="imagen"
+            [(ngModel)]="producto.imagen"
+            #imagen="ngModel"
+            pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
+            required
+            [ngClass]="imagen.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="imagen.errors?.['pattern'] || imagen.errors"
+          >
+            <span class="form-text"> Debe ser una URL válida.</span>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="inputDescription" class="form-label">Descripción</label>
+          <textarea
+            class="form-control border border-dark"
+            id="inputDescription"
+            name="descripcion"
+            [(ngModel)]="producto.descripcion"
+            #descripcion="ngModel"
+            required
+            pattern="^([,\wáéíóúüñ]+[.,;]?\s){4,}[,\wáéíóúüñ]+[.,;]?$"
+            [ngClass]="descripcion.errors ? 'is-invalid' : 'is-valid'"
+            placeholder="e.g. Teléfono inteligente Android 13"
+          ></textarea>
+          <div
+            class="col-auto"
+            *ngIf="descripcion.errors?.['pattern'] || descripcion.errors"
+          >
+            <span class="form-text">Debe tener al menos 5 palabras.</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputCategory" class="form-label">Categoria</label>
+          <select
+            required
+            id="inputCategory"
+            class="form-select border border-dark"
+            name="categoria"
+            [(ngModel)]="producto.categoria"
+            #categoria="ngModel"
+            [ngClass]="categoria.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <option value="" disabled selected>Selecciona una categoría</option>
+            <option value="Electrónica">Electrónica</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Salud">Salud</option>
+            <option value="Educación">Educación</option>
+          </select>
+          <div class="col-auto" *ngIf="categoria.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputProvider" class="form-label">Proveedor</label>
+          <select
+            required
+            [disabled]="id"
+            id="inputProvider"
+            class="form-select border border-dark"
+            name="proveedor"
+            [(ngModel)]="producto.proveedor"
+            #proveedor="ngModel"
+            [ngClass]="proveedor.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <option value="" disabled selected>Selecciona un proveedor</option>
+            <option
+              *ngFor="let proveedor of proveedores"
+              [value]="proveedor.razonSocial"
+            >
+              {{ proveedor.razonSocial }}
+            </option>
+          </select>
+          <div class="col-auto" *ngIf="proveedor.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="row text-center justify-content-center gap-3 mt-4">
+          <button
+            type="submit"
+            class="btn btn-success fw-bold col-md-3"
+            [disabled]="!productoForm.valid"
+          >
+            Generar Producto
+          </button>
+          <button
+            class="btn btn-danger fw-bold col-md-3"
+            (click)="productoForm.reset()"
+          >
+            Vaciar Producto
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="row text-center justify-content-center gap-3 mt-4">
-    <button
-      type="submit"
-      class="btn btn-success fw-bold col-md-3"
-      [disabled]="!productoForm.valid"
-    >
-      Enviar Producto
-    </button>
-    <button
-      class="btn btn-danger fw-bold col-md-3"
-      (click)="productoForm.reset()"
-    >
-      Vaciar Producto
-    </button>
-  </div>
-</form>
+</div>

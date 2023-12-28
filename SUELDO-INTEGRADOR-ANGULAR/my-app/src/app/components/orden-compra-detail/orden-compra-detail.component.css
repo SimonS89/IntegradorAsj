@@ -3,10 +3,6 @@
   background: linear-gradient(to top left, #6cbdb8, #acdbc6);
 }
 
-form {
-  background-color: whitesmoke;
-}
-
-h1 {
-  color: #2e3f4c;
+.segunda-mitad {
+  margin-left: 50%;
 }

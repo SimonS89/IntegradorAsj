@@ -1,98 +1,112 @@
-<div class="row my-4">
-  <h1>Ordenes de Compra</h1>
-</div>
-<div class="row justify-content-center mb-3 align-items-center">
-  <a
-    type="button"
-    class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3"
-    routerLink="/ordenes-compra/form-ordenes-compra"
-  >
-    <fa-icon [icon]="faCreditCard" class="me-3"></fa-icon
-    ><span>Generar Orden de Compra</span>
-  </a>
-</div>
-<div class="row justify-content-end mb-3">
-  <label
-    class="col-md-2 col-sm-6 form-check-label"
-    for="showActiveOnlyCheckbox"
-    role="button"
-  >
-    Mostrar activas
-    <input
-      class="form-check-input border-black fw-bolder"
-      type="checkbox"
-      id="showActiveOnlyCheckbox"
-      [(ngModel)]="mostrarOrdenesActivas"
-    />
-  </label>
-</div>
-<div *ngIf="ordenesCompra.length > 0; else noOrdenes" class="table-responsive">
-  <table
-    class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
-  >
-    <thead>
-      <tr>
-        <th scope="col">#N° Orden</th>
-        <th scope="col">Total Abonado</th>
-        <th scope="col">Información Recepción</th>
-        <th scope="col">Fecha Emisión</th>
-        <th scope="col">Fecha Entrega</th>
-        <th scope="col">Funcionalidades</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <tr
-        class="align-middle"
-        *ngFor="
-          let orden of ordenesCompra | filtrarOrdenes : mostrarOrdenesActivas
-        "
+<div class="gradient-custom h-100" style="min-height: 80vh">
+  <div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-lg-10">
+      <h1 class="mt-4">Ordenes de Compra</h1>
+
+      <div class="row justify-content-center mb-3 mt-4 align-items-center">
+        <a
+          type="button"
+          class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3"
+          routerLink="/ordenes-compra/form-ordenes-compra"
+        >
+          <fa-icon [icon]="faCreditCard" class="me-3"></fa-icon
+          ><span>Generar Orden</span>
+        </a>
+      </div>
+      <div class="row justify-content-end mb-3">
+        <label
+          class="col-md-2 col-sm-6 form-check-label"
+          for="showActiveOnlyCheckbox"
+          role="button"
+        >
+          Mostrar activas
+          <input
+            class="form-check-input border-black fw-bolder"
+            type="checkbox"
+            id="showActiveOnlyCheckbox"
+            [(ngModel)]="mostrarOrdenesActivas"
+          />
+        </label>
+      </div>
+      <div
+        *ngIf="ordenesCompra.length > 0; else noOrdenes"
+        class="table-responsive"
       >
-        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
-          {{ orden.nroOrden }}
-        </td>
-        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
-          {{ orden.total | currency : "USD" }}
-        </td>
-        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
-          {{ orden.informacionRecepcion }}
-        </td>
-        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
-          {{ orden.fechaEmision }}
-        </td>
-        <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
-          {{ orden.fechaEntrega }}
-        </td>
-        <td class="d-flex justify-content-center gap-3">
-          <button
-            type="button"
-            class="deleteBtn btn"
-            [ngClass]="
-              orden.isActive ? 'btn-outline-danger' : 'btn-outline-primary'
-            "
-            (click)="cambiarEstadoOrden(orden.id, orden.isActive)"
-            [title]="
-              orden.isActive
-                ? 'Cancelar Orden - ID: ' + orden.id
-                : 'Activar Orden - ID: ' + orden.id
-            "
-          >
-            <fa-icon
-              [icon]="orden.isActive ? faBan : faChartLine"
-              class="fw-bolder fs-5"
-            ></fa-icon>
-          </button>
-          <button
-            type="button"
-            class="deleteBtn btn btn-outline-dark"
-            (click)="mostrarDetalle(orden.id)"
-            [title]="'Mostrar Detalle - ID: ' + orden.id"
-          >
-            <fa-icon [icon]="faCircleInfo" class="fw-bolder fs-5"></fa-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <table
+          class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
+        >
+          <thead>
+            <tr>
+              <th scope="col">#N° Orden</th>
+              <th scope="col">Total Abonado</th>
+              <th scope="col">Información Recepción</th>
+              <th scope="col">Fecha Emisión</th>
+              <th scope="col">Fecha Entrega</th>
+              <th scope="col">Funcionalidades</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr
+              class="align-middle"
+              *ngFor="
+                let orden of ordenesCompra
+                  | filtrarOrdenes : mostrarOrdenesActivas
+              "
+            >
+              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+                {{ orden.nroOrden }}
+              </td>
+              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+                {{ orden.total | currency : "USD" }}
+              </td>
+              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+                {{ orden.informacionRecepcion }}
+              </td>
+              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+                {{ orden.fechaEmision | date : "dd/MM/yyyy" }}
+              </td>
+              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+                {{ orden.fechaEntrega | date : "dd/MM/yyyy" }}
+              </td>
+              <td class="d-flex justify-content-center gap-3">
+                <button
+                  type="button"
+                  class="deleteBtn btn"
+                  [ngClass]="
+                    orden.isActive
+                      ? 'btn-outline-danger'
+                      : 'btn-outline-primary'
+                  "
+                  (click)="cambiarEstadoOrden(orden.id, orden.isActive)"
+                  [title]="
+                    orden.isActive
+                      ? 'Cancelar Orden - ID: ' + orden.id
+                      : 'Activar Orden - ID: ' + orden.id
+                  "
+                >
+                  <fa-icon
+                    [icon]="orden.isActive ? faBan : faChartLine"
+                    class="fw-bolder fs-5"
+                  ></fa-icon>
+                </button>
+                <button
+                  type="button"
+                  class="deleteBtn btn btn-outline-dark"
+                  (click)="mostrarDetalle(orden.id)"
+                  [title]="'Mostrar Detalle - ID: ' + orden.id"
+                >
+                  <fa-icon
+                    [icon]="faCircleInfo"
+                    class="fw-bolder fs-5"
+                  ></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #noOrdenes>
   <h2>No hay Ordenes de compra disponibles.</h2>

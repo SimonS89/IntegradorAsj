@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faBan,
   faCreditCard,
@@ -22,7 +23,10 @@ export class ListaOrdenCompraComponent implements OnInit {
   ordenesCompra: OrdenCompra[] = [];
   mostrarOrdenesActivas: boolean = false;
 
-  constructor(public ordenesCompraService: OrdenCompraService) {}
+  constructor(
+    public ordenesCompraService: OrdenCompraService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.listarOrdenes();
   }
@@ -39,6 +43,6 @@ export class ListaOrdenCompraComponent implements OnInit {
   }
 
   mostrarDetalle(id: string) {
-    console.log('mostrando detalle ' + id);
+    this.router.navigate(['/ordenes-compra/info', id]);
   }
 }

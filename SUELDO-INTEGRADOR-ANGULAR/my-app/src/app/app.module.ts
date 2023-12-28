@@ -18,6 +18,7 @@ import { FormProveedoresComponent } from './components/proveedores/form-proveedo
 import { FormsModule } from '@angular/forms';
 import { FiltrarOrdenesPipe } from './pipes/filtrar-ordenes.pipe';
 import { IndexComponent } from './components/index/index.component';
+import { OrdenCompraDetailComponent } from './components/orden-compra-detail/orden-compra-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { IndexComponent } from './components/index/index.component';
     FormProveedoresComponent,
     FiltrarOrdenesPipe,
     IndexComponent,
+    OrdenCompraDetailComponent,
   ],
   imports: [
     BrowserModule,

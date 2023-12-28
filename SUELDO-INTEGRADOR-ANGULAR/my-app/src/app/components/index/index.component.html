@@ -1,52 +1,110 @@
-<div class="container mt-5" style="min-height: 70vh">
-  <h1 class="text-center mb-4">Bienvenido a la Página Principal</h1>
+<div class="container gradient-custom" style="min-height: 80vh">
+  <section id="why-us" class="why-us section-bg">
+    <div class="container-fluid" data-aos="fade-up">
+      <div class="row">
+        <div
+          class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch order-2 order-lg-1"
+        >
+          <div class="content">
+            <h3>
+              ASJ Servicios te presenta una plataforma especializada
+              <strong
+                >en la gestión integral de tu inventario, proveedores y órdenes
+                de compra.</strong
+              >
+            </h3>
+            <p>
+              Con nuestra herramienta, simplificamos la administración de
+              productos y servicios, permitiéndote tener un control preciso de
+              tus existencias y facilitando la interacción con tus proveedores.
+            </p>
+          </div>
 
-  <!-- Imágenes -->
-  <div class="row">
-    <div class="col-md-4 mb-3">
-      <img
-        src="https://via.placeholder.com/300"
-        alt="Imagen 1"
-        class="img-fluid"
-      />
-    </div>
-    <div class="col-md-4 mb-3">
-      <img
-        src="https://via.placeholder.com/300"
-        alt="Imagen 2"
-        class="img-fluid"
-      />
-    </div>
-    <div class="col-md-4 mb-3">
-      <img
-        src="https://via.placeholder.com/300"
-        alt="Imagen 3"
-        class="img-fluid"
-      />
-    </div>
-  </div>
+          <div class="accordion-list">
+            <ul>
+              <li>
+                <a
+                  data-bs-toggle="collapse"
+                  class="collapse"
+                  data-bs-target="#accordion-list-1"
+                  ><span>01</span> Gestión de Proveedores
+                  <i class="bx bx-chevron-down icon-show"></i
+                  ><i class="bx bx-chevron-up icon-close"></i
+                ></a>
+                <div
+                  id="accordion-list-1"
+                  class="collapse show"
+                  data-bs-parent=".accordion-list"
+                >
+                  <p>
+                    Nuestra plataforma te permite mantener un registro detallado
+                    de todos tus socios comerciales, desde información de
+                    contacto hasta historiales de transacciones.
+                    <a routerLink="/proveedores">Ver Más</a>
+                  </p>
+                </div>
+              </li>
 
-  <!-- División para Proveedores -->
-  <div class="row mt-3">
-    <div class="col-md-12">
-      <h2 class="mb-3">Proveedores</h2>
-      <!-- Contenido relacionado con proveedores -->
-    </div>
-  </div>
+              <li>
+                <a
+                  data-bs-toggle="collapse"
+                  data-bs-target="#accordion-list-2"
+                  class="collapsed"
+                  ><span>02</span> Gestión de Productos
+                  <i class="bx bx-chevron-down icon-show"></i
+                  ><i class="bx bx-chevron-up icon-close"></i
+                ></a>
+                <div
+                  id="accordion-list-2"
+                  class="collapse"
+                  data-bs-parent=".accordion-list"
+                >
+                  <p>
+                    Optimiza tu inventario y amplía tu catálogo de productos y
+                    servicios con ASJ Servicios. Administra fácilmente la
+                    información esencial de tus productos, desde descripciones
+                    detalladas hasta imágenes visuales.
+                    <a routerLink="/productos">Ver Más</a>
+                  </p>
+                </div>
+              </li>
 
-  <!-- División para Productos -->
-  <div class="row mt-3">
-    <div class="col-md-12">
-      <h2 class="mb-3">Productos</h2>
-      <!-- Contenido relacionado con productos -->
-    </div>
-  </div>
+              <li>
+                <a
+                  data-bs-toggle="collapse"
+                  data-bs-target="#accordion-list-3"
+                  class="collapsed"
+                  ><span>03</span> Gestión de Ordenes de Compra
+                  <i class="bx bx-chevron-down icon-show"></i
+                  ><i class="bx bx-chevron-up icon-close"></i
+                ></a>
+                <div
+                  id="accordion-list-3"
+                  class="collapse"
+                  data-bs-parent=".accordion-list"
+                >
+                  <p>
+                    Simplifica el proceso de adquisición con nuestro robusto
+                    sistema de órdenes de compra. Desde la creación hasta la
+                    recepción, ASJ Servicios te brinda un seguimiento
+                    transparente de todas las transacciones.
+                    <a routerLink="/ordenes-compra">Ver Más</a>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-  <!-- División para Órdenes de Compra -->
-  <div class="row mt-3">
-    <div class="col-md-12">
-      <h2 class="mb-3">Órdenes de Compra</h2>
-      <!-- Contenido relacionado con órdenes de compra -->
+        <div
+          class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
+          style="background-image: url('./../../../assets/brand2.png')"
+          data-aos="zoom-in"
+          data-aos-delay="150"
+        >
+          &nbsp;
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </div>
