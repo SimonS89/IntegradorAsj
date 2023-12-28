@@ -35,13 +35,6 @@ export class ListaProveedoresComponent implements OnInit {
     this.proveedores = this.proveedorService.findAll();
   }
 
-  // eliminarProveedor(id: string) {
-  //   if (this.quiereEliminar(id)) {
-  //     this.proveedores = this.proveedorService.deleteById(id);
-  //     alert(`Proveedor ${id}, eliminado exitosamente.`);
-  //   }
-  // }
-
   editarProveedor(id: string) {
     this.router.navigate(['/proveedores/form-proveedores', id]);
   }
@@ -60,8 +53,8 @@ export class ListaProveedoresComponent implements OnInit {
         'Aceptar',
         'Cancelar'
       )
-      .then((data) => {
-        if (data) {
+      .then((res) => {
+        if (res) {
           this.proveedores = this.proveedorService.deleteById(id);
           this.alertService.notification(
             `Proveedor ${id}, eliminado exitosamente.`,

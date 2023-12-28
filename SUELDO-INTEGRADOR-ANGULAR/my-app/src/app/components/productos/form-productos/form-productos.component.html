@@ -162,13 +162,14 @@
             class="btn btn-success fw-bold col-md-3"
             [disabled]="!productoForm.valid"
           >
-            Generar Producto
+            {{ id ? "Editar producto" : "Generar producto" }}
           </button>
           <button
+            type="button"
             class="btn btn-danger fw-bold col-md-3"
             (click)="productoForm.reset()"
           >
-            Vaciar Producto
+            Vaciar campos
           </button>
         </div>
       </form>

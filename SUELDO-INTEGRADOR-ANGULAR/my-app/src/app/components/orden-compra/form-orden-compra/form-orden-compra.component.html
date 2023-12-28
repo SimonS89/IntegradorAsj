@@ -203,6 +203,7 @@
                 </td>
                 <td>
                   <button
+                    type="button"
                     class="btn btn-sm btn-danger"
                     (click)="eliminarProducto(producto)"
                     [title]="'Eliminar ' + producto.nombre + '?'"
@@ -239,7 +240,7 @@
             class="btn btn-danger fw-bold col-md-2"
             (click)="vaciarOrdenCompra(ordenCompraForm)"
           >
-            Vaciar orden
+            Vaciar campos
           </button>
         </div>
       </form>

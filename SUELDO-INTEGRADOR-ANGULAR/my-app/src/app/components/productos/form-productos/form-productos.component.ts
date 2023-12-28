@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { ProductoService } from 'src/app/services/producto.service';
 import { ProveedorService } from 'src/app/services/proveedor.service';
 import { Proveedor } from 'src/app/models/Proveedor';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-form-productos',
@@ -31,7 +32,8 @@ export class FormProductosComponent implements OnInit {
     public productoService: ProductoService,
     private router: Router,
     private route: ActivatedRoute,
-    private proveedorService: ProveedorService
+    private proveedorService: ProveedorService,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -51,9 +53,25 @@ export class FormProductosComponent implements OnInit {
       ? `¿Desea editar el producto/servicio ${this.id}?`
       : '¿Desea dar de alta al nuevo producto/servicio?';
     if (form.valid) {
-      if (confirm(confirmMessage)) {
-        this.id ? this.editProduct() : this.createProduct();
-      }
+      this.alertService
+        .question(
+          this.id
+            ? `¿Desea editar el producto/servicio ${this.id}?`
+            : '¿Desea dar de alta al nuevo producto/servicio?',
+          true,
+          true,
+          'Aceptar',
+          'Cancelar'
+        )
+        .then((res) => {
+          if (res) {
+            this.id ? this.editProduct() : this.createProduct();
+            this.alertService.notification(
+              `Producto, ${this.id ? 'editado' : 'Generado'} exitosamente.`,
+              'success'
+            );
+          }
+        });
     }
   }
 

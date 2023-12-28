@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { Proveedor } from 'src/app/models/Proveedor';
 import { Provincia } from 'src/app/models/Provincia';
 import { Ciudad } from 'src/app/models/Ciudad';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-form-proveedores',
@@ -44,7 +45,8 @@ export class FormProveedoresComponent implements OnInit {
   constructor(
     public proveedorService: ProveedorService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -61,13 +63,26 @@ export class FormProveedoresComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    const confirmMessage = this.id
-      ? `¿Desea editar el proveedor ${this.id}?`
-      : '¿Desea dar de alta al nuevo proveedor?';
     if (form.valid) {
-      if (confirm(confirmMessage)) {
-        this.id ? this.editProveedor() : this.addProveedor();
-      }
+      this.alertService
+        .question(
+          this.id
+            ? `¿Desea editar el proveedor ${this.id}?`
+            : '¿Desea dar de alta al nuevo proveedor?',
+          true,
+          true,
+          'Aceptar',
+          'Cancelar'
+        )
+        .then((res) => {
+          if (res) {
+            this.id ? this.editProveedor() : this.addProveedor();
+            this.alertService.notification(
+              `Proveedor, ${this.id ? 'editado' : 'Generado'} exitosamente.`,
+              'success'
+            );
+          }
+        });
     }
   }
 

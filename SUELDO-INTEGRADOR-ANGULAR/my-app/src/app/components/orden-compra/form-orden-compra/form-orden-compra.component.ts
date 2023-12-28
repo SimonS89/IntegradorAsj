@@ -8,6 +8,7 @@ import { OrdenCompra } from 'src/app/models/OrdenCompra';
 import { Producto } from 'src/app/models/Producto';
 import { Proveedor } from 'src/app/models/Proveedor';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-form-orden-compra',
@@ -39,7 +40,8 @@ export class FormOrdenCompraComponent implements OnInit {
     public productoService: ProductoService,
     private router: Router,
     private proveedorService: ProveedorService,
-    private ordenCompraService: OrdenCompraService
+    private ordenCompraService: OrdenCompraService,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -72,23 +74,31 @@ export class FormOrdenCompraComponent implements OnInit {
       (p) => p.nombre == this.productoSeleccionadoName
     );
     if (p) {
-      const confirmacion = confirm(
-        `¿Desea agregar ${p.nombre} con cantidad ${this.cantidadProducto}?`
-      );
-      if (confirmacion) {
-        const productoExistente = this.ordenCompra.productos.find(
-          (producto) => producto.nombre === this.productoSeleccionadoName
-        );
-        if (productoExistente?.cantidad) {
-          productoExistente.cantidad += this.cantidadProducto;
-        } else {
-          const nuevoProducto = { ...p };
-          nuevoProducto.cantidad = this.cantidadProducto;
-          this.ordenCompra.productos.push(nuevoProducto);
-        }
-        this.limpiarInputs();
-        this.actualizarTotal();
-      }
+      this.alertService
+        .question(
+          `¿Desea agregar ${this.cantidadProducto} ${p.nombre} ?`,
+          true,
+          true,
+          'Aceptar',
+          'Cancelar'
+        )
+        .then((res) => {
+          if (res) {
+            const productoExistente = this.ordenCompra.productos.find(
+              (producto) => producto.nombre === this.productoSeleccionadoName
+            );
+            if (productoExistente?.cantidad) {
+              productoExistente.cantidad += this.cantidadProducto;
+            } else {
+              const nuevoProducto = p!;
+              nuevoProducto.cantidad = this.cantidadProducto;
+              this.ordenCompra.productos.push(nuevoProducto);
+              console.log(this.ordenCompra.productos);
+            }
+            this.limpiarInputs();
+            this.actualizarTotal();
+          }
+        });
     }
   }
 
@@ -105,32 +115,51 @@ export class FormOrdenCompraComponent implements OnInit {
   }
 
   eliminarProducto(producto: Producto) {
-    const confirmacion = confirm(`¿Desea eliminar ${producto.nombre}?`);
-    if (confirmacion) {
-      const index = this.ordenCompra.productos.indexOf(producto);
-      if (index !== -1) {
-        this.ordenCompra.productos.splice(index, 1);
-        this.actualizarTotal();
-      }
-    }
+    this.alertService
+      .question(
+        `¿Desea eliminar ${producto.nombre}?`,
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
+      .then((res) => {
+        if (res) {
+          const index = this.ordenCompra.productos.indexOf(producto);
+          if (index !== -1) {
+            this.ordenCompra.productos.splice(index, 1);
+            this.actualizarTotal();
+          }
+        }
+      });
   }
 
   vaciarOrdenCompra(form: NgForm) {
-    const confirmacion = confirm('¿Desea vaciar la orden de compra?');
-    if (confirmacion) {
-      form.reset();
-      this.ordenCompra = {
-        id: '',
-        nroOrden: '',
-        total: 0.0,
-        informacionRecepcion: '',
-        informacionAdicional: '',
-        fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
-        fechaEntrega: '',
-        productos: [],
-        isActive: true,
-      };
-    }
+    this.alertService
+      .question(
+        '¿Desea vaciar la orden de compra?',
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
+      .then((res) => {
+        if (res) {
+          form.reset();
+          this.ordenCompra = {
+            id: '',
+            nroOrden: '',
+            total: 0.0,
+            informacionRecepcion: '',
+            informacionAdicional: '',
+            fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
+            fechaEntrega: '',
+            productos: [],
+            isActive: true,
+          };
+          this.cantidadProducto = 1;
+        }
+      });
   }
 
   isValidAgregarButton() {

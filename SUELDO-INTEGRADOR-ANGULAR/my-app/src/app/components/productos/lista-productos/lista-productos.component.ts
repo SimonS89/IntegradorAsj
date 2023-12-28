@@ -6,6 +6,7 @@ import {
   faCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { Producto } from 'src/app/models/Producto';
+import { AlertService } from 'src/app/services/alert.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class ListaProductosComponent implements OnInit {
 
   constructor(
     public productoService: ProductoService,
-    private router: Router
+    private router: Router,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -35,12 +37,23 @@ export class ListaProductosComponent implements OnInit {
       this.productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
-  eliminarProducto(id: string) {
-    let confirmar = confirm(`¿Desea eliminar el producto? ${id}`);
-    if (confirmar) {
-      this.productos = this.productoService.deleteById(id);
-      alert(`Producto ${id}, eliminado exitosamente.`);
-    }
+  eliminarProducto(id: string): void {
+    this.alertService
+      .question(
+        `¿Desea eliminar el producto ${id}?`,
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
+      .then((res) => {
+        if (res) {
+          this.productos = this.productoService.deleteById(id);
+          this.alertService.notification(
+            `Producto ${id}, eliminado exitosamente.`
+          );
+        }
+      });
   }
 
   editarProducto(id: string) {

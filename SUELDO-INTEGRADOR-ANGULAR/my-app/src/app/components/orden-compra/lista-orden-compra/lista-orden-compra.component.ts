@@ -7,6 +7,7 @@ import {
   faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import { OrdenCompra } from 'src/app/models/OrdenCompra';
+import { AlertService } from 'src/app/services/alert.service';
 import { OrdenCompraService } from 'src/app/services/orden-compra.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class ListaOrdenCompraComponent implements OnInit {
 
   constructor(
     public ordenesCompraService: OrdenCompraService,
-    private router: Router
+    private router: Router,
+    public alertService: AlertService
   ) {}
   ngOnInit(): void {
     this.listarOrdenes();
@@ -36,10 +38,18 @@ export class ListaOrdenCompraComponent implements OnInit {
   }
 
   cambiarEstadoOrden(id: string, isActive: boolean) {
-    let msg = `Desea ${isActive ? `cancelar ` : `activar `}la orden: ${id}`;
-    if (confirm(msg))
-      this.ordenesCompra = this.ordenesCompraService.cancelById(id);
-    this.listarOrdenes();
+    this.alertService
+      .question(
+        `Desea ${isActive ? `cancelar ` : `activar `}la orden: ${id}?`,
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
+      .then((res) => {
+        if (res) this.ordenesCompra = this.ordenesCompraService.cancelById(id);
+        this.listarOrdenes();
+      });
   }
 
   mostrarDetalle(id: string) {
