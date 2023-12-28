@@ -15,6 +15,27 @@
       >
         <h5 class="text-start mt-0">Empresa</h5>
         <div class="col-12 col-sm-6 col-md-4">
+          <label for="inputCodigo" class="form-label">Código</label>
+          <input
+            type="text"
+            class="form-control border border-dark"
+            id="inputCodigo"
+            name="codigo"
+            [(ngModel)]="proveedor.codigo"
+            #codigo="ngModel"
+            required
+            minlength="4"
+            pattern="[a-zA-Z0-9]+"
+            [ngClass]="codigo.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="codigo.errors?.['minlength']||codigo.errors?.['pattern'] || codigo.errors"
+          >
+            <span class="form-text"> Debe tener al menos 4 caracteres. </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
           <label for="inputRazonSocial" class="form-label">Razón social</label>
           <input
             type="text"
@@ -32,63 +53,6 @@
             *ngIf="razonSocial.errors?.['minlength'] || razonSocial.errors"
           >
             <span class="form-text"> Debe tener al menos 8 caracteres. </span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-          <label for="inputCuit" class="form-label">CUIT</label>
-          <input
-            required
-            [disabled]="id ? true : false"
-            type="text"
-            class="form-control border border-dark"
-            id="inputCuit"
-            placeholder="30-12345678-8"
-            name="cuit"
-            [(ngModel)]="proveedor.cuit"
-            pattern="\d{2}-\d{8}-\d{1}"
-            #cuit="ngModel"
-            [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
-          />
-          <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
-            <span class="form-text">Debe ser un formato de CUIT válido.</span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-          <label for="inputTipoIva" class="form-label">Tipo IVA</label>
-          <select
-            required
-            id="inputTipoIva"
-            class="form-select border border-dark"
-            name="tipoIva"
-            [(ngModel)]="proveedor.tipoIva"
-            #tipoIva="ngModel"
-            [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
-          >
-            <option value="" disabled selected>Selecciona un tipo IVA</option>
-            <option value="Responsable Inscripto">Responsable Inscripto</option>
-            <option value="Monotributista">Monotributista</option>
-            <option value="Exento">Exento</option>
-            <option value="Consumidor Final">Consumidor Final</option>
-          </select>
-          <div class="col-auto" *ngIf="tipoIva.errors">
-            <span class="form-text"> Seleccione una opción. </span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-          <label for="inputLogo" class="form-label">Logo</label>
-          <input
-            type="url"
-            class="form-control border border-dark"
-            id="inputLogo"
-            name="logo"
-            [(ngModel)]="proveedor.logo"
-            #logo="ngModel"
-            pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
-            required
-            [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
-          />
-          <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
-            <span class="form-text"> Debe ser una URL válida.</span>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
@@ -113,7 +77,64 @@
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputCuit" class="form-label">CUIT</label>
+          <input
+            required
+            [disabled]="id ? true : false"
+            type="text"
+            class="form-control border border-dark"
+            id="inputCuit"
+            placeholder="30-12345678-8"
+            name="cuit"
+            [(ngModel)]="proveedor.cuit"
+            pattern="\d{2}-\d{8}-\d{1}"
+            #cuit="ngModel"
+            [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
+            <span class="form-text">Debe ser un formato de CUIT válido.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputTipoIva" class="form-label">Tipo IVA</label>
+          <select
+            required
+            id="inputTipoIva"
+            class="form-select border border-dark"
+            name="tipoIva"
+            [(ngModel)]="proveedor.tipoIva"
+            #tipoIva="ngModel"
+            [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
+          >
+            <option value="" disabled selected>Selecciona un tipo IVA</option>
+            <option value="Responsable Inscripto">Responsable Inscripto</option>
+            <option value="Monotributista">Monotributista</option>
+            <option value="Exento">Exento</option>
+            <option value="Consumidor Final">Consumidor Final</option>
+          </select>
+          <div class="col-auto" *ngIf="tipoIva.errors">
+            <span class="form-text"> Seleccione una opción. </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <label for="inputLogo" class="form-label">Logo</label>
+          <input
+            type="url"
+            class="form-control border border-dark"
+            id="inputLogo"
+            name="logo"
+            [(ngModel)]="proveedor.logo"
+            #logo="ngModel"
+            pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
+            required
+            [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div class="col-auto" *ngIf="logo.errors?.['pattern'] || logo.errors">
+            <span class="form-text"> Debe ser una URL válida.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6">
           <label for="inputSitioWeb" class="form-label">Sitio Web</label>
           <input
             required

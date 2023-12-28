@@ -13,6 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
+    title: 'ASJ Servicios',
   },
   {
     path: 'proveedores',

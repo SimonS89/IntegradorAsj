@@ -21,4 +21,8 @@ export class OrdenCompraDetailComponent implements OnInit {
     this.ordenCompra = { ...this.ordenCompraService.getById(id)! }!;
     console.log(this.ordenCompra);
   }
+
+  esFechaPosteriorHoy(fechaString: string): boolean {
+    return new Date() > new Date(fechaString);
+  }
 }

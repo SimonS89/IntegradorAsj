@@ -98,8 +98,12 @@
 
           <div class="d-flex justify-content-between pt-2">
             <p class="text-muted mb-0">
-              Nro Orden :
-              {{ ordenCompra.nroOrden }}
+              Envio :
+              {{
+                esFechaPosteriorHoy(ordenCompra.fechaEntrega)
+                  ? "Entregado"
+                  : "Pendiente"
+              }}
             </p>
             <p class="text-muted mb-0">
               <span class="fw-bold me-4">Total</span>

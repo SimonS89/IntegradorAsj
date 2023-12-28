@@ -45,4 +45,8 @@ export class ListaOrdenCompraComponent implements OnInit {
   mostrarDetalle(id: string) {
     this.router.navigate(['/ordenes-compra/info', id]);
   }
+
+  esFechaPosteriorHoy(fechaString: string): boolean {
+    return new Date() > new Date(fechaString);
+  }
 }

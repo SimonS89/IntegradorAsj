@@ -14,6 +14,7 @@ import { Ciudad } from 'src/app/models/Ciudad';
 export class FormProveedoresComponent implements OnInit {
   proveedor: Proveedor = {
     id: '',
+    codigo: '',
     logo: '',
     razonSocial: '',
     cuit: '',

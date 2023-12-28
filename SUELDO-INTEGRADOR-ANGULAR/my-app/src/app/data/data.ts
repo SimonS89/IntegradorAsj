@@ -1,6 +1,7 @@
 const proveedoresEjemplo = [
   {
-    id: 'ID-A00132',
+    id: '1',
+    codigo: 'PA00132',
     logo: 'https://e7.pngegg.com/pngimages/779/61/png-clipart-logo-idea-cute-eagle-leaf-logo.png',
     razonSocial: 'ByteCraft Solutions',
     cuit: '30-12345678-8',
@@ -22,7 +23,8 @@ const proveedoresEjemplo = [
     },
   },
   {
-    id: 'ID-A00134',
+    id: '2',
+    codigo: 'PA00134',
     logo: 'https://png.pngtree.com/png-vector/20211023/ourmid/pngtree-salon-logo-png-image_4004444.png',
     razonSocial: 'FreshBite Delights',
     cuit: '30-12345678-9',
@@ -44,7 +46,8 @@ const proveedoresEjemplo = [
     },
   },
   {
-    id: 'ID-A09872',
+    id: '3',
+    codigo: 'PA09872',
     logo: 'https://w7.pngwing.com/pngs/786/126/png-transparent-logo-contracting-photography-logo-symbol.png',
     razonSocial: 'VogueHarbor Boutique',
     cuit: '30-12345678-0',
@@ -66,7 +69,8 @@ const proveedoresEjemplo = [
     },
   },
   {
-    id: 'ID-A10132',
+    id: '4',
+    codigo: 'PA10132',
     logo: 'https://w7.pngwing.com/pngs/1008/532/png-transparent-wolf-logo-symbol-thumbnail.png',
     razonSocial: 'Revitalize Med Group',
     cuit: '30-12345678-1',
@@ -88,7 +92,8 @@ const proveedoresEjemplo = [
     },
   },
   {
-    id: 'ID-A05132',
+    id: '5',
+    codigo: 'PA05132',
     logo: 'https://e7.pngegg.com/pngimages/361/627/png-clipart-leaf-logo-green-leaves-green-and-teal-leaf-logo-text-maple-leaf.png',
     razonSocial: 'IntellectJunction Institute',
     cuit: '30-12345678-2',
