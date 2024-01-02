@@ -36,24 +36,24 @@
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0 small">{{ producto.categoria }}</p>
+                  <p class="text-muted mb-0">{{ producto.categoria }}</p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0 small">{{ producto.proveedor }}</p>
+                  <p class="text-muted mb-0">{{ producto.proveedor }}</p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0 small">
+                  <p class="text-muted mb-0">
                     Cantidad: {{ producto.cantidad }}
                   </p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0 small">
+                  <p class="text-muted mb-0">
                     {{
                       producto.precio * (producto.cantidad ?? 0)
                         | currency : "USD"
@@ -66,7 +66,7 @@
           <hr class="mb-4" style="background-color: #f17e27; opacity: 1" />
           <div class="row d-flex align-items-center">
             <div class="col-md-2">
-              <p class="text-muted mb-0 small">Estado Orden</p>
+              <p class="text-muted mb-0">Estado Orden</p>
             </div>
             <div class="col-md-10">
               <div class="progress" style="height: 6px; border-radius: 16px">
@@ -85,8 +85,8 @@
                 ></div>
               </div>
               <div class="d-flex justify-content-around mb-1">
-                <p class="text-muted mt-1 mb-0 small ms-xl-5">Inactiva</p>
-                <p class="text-muted mt-1 mb-0 small ms-xl-5">Activa</p>
+                <p class="text-muted mt-1 mb-0 ms-xl-5">Inactiva</p>
+                <p class="text-muted mt-1 mb-0 ms-xl-5">Activa</p>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@
             class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0"
           >
             Total Abonado:
-            <span class="h2 mb-0 ms-2">{{
+            <span class="h3 mb-0 ms-2">{{
               ordenCompra.total | currency : "USD"
             }}</span>
           </h5>

@@ -379,8 +379,9 @@
             {{ id ? "Editar proveedor" : "Generar proveedor" }}
           </button>
           <button
+            type="button"
             class="btn btn-danger fw-bold col-md-2"
-            (click)="proveedorForm.reset()"
+            (click)="vaciarForm(proveedorForm)"
           >
             Vaciar campos
           </button>

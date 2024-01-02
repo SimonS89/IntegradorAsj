@@ -17,7 +17,7 @@
         class="table-responsive"
       >
         <table
-          class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
+          class="table table-light table-striped table-hover table-bordered align-middle border-dark"
         >
           <thead>
             <tr>
@@ -50,7 +50,7 @@
                 <button
                   type="button"
                   class="deleteBtn btn btn-outline-danger me-3"
-                  (click)="eliminarProducto(producto.id)"
+                  (click)="eliminarProducto(producto)"
                   [title]="'Eliminar Producto - ' + producto.nombre"
                 >
                   <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>

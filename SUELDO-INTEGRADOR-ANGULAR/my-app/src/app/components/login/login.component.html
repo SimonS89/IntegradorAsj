@@ -1,0 +1,52 @@
+<div class="row text-start mt-5 rounded shadow align-items-stretch">
+  <div
+    class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"
+  ></div>
+  <div class="col form-bg p-5 rounded-end">
+    <div class="text-end">
+      <img
+        src="./../../../assets/brand3.png"
+        style="width: 72px; object-fit: contain"
+        alt="Logo ASJ Servicios"
+      />
+    </div>
+    <h2 class="fw-bold text-center pt-5 py-5">Bienvenido/a</h2>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <div class="mb-4">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="email" />
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" />
+      </div>
+      <div class="mb-4 form-check">
+        <input
+          type="checkbox"
+          name="connected"
+          class="form-check-input"
+          id="connected"
+        />
+        <label for="connected" class="form-check-label"
+          >Mantenerme conectado</label
+        >
+      </div>
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="col-md-6 offset-md-3 btn btn-primary fw-bold"
+          [disabled]="!loginForm.valid"
+        >
+          Iniciar Sesión
+        </button>
+      </div>
+      <div class="my-3">
+        <span
+          >No tenés cuenta?
+          <a [routerLink]="['/register']">Registrarse.</a></span
+        ><br />
+        <span><a href="#">Recuperar contraseña.</a></span>
+      </div>
+    </form>
+  </div>
+</div>

@@ -58,7 +58,7 @@ const proveedoresEjemplo = [
       direccion: 'Calle C Nº 789',
       codigoPostal: 'CP67890',
       localidad: 'Cordoba',
-      provincia: 'Cordoba',
+      provincia: 'Córdoba',
       pais: 'Argentina',
     },
     datosContacto: {
@@ -176,6 +176,30 @@ const productosEjemplo = [
       'Sumérgete en el fascinante mundo de la programación con nuestro Curso Online. Diseñado para principiantes y entusiastas, este curso te guiará a través de los fundamentos y te proporcionará las habilidades necesarias para convertirte en un experto en programación.',
     categoria: 'Educación',
     proveedor: 'IntellectJunction Institute',
+  },
+  {
+    id: '6',
+    sku: 'SKU-A00245',
+    imagen:
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    nombre: 'Tablet Y',
+    precio: 299.99,
+    descripcion:
+      'Descubre la versatilidad y rendimiento de la Tablet Y. Con una pantalla de alta resolución y potentes capacidades, esta tablet es ideal para tus necesidades diarias.',
+    categoria: 'Electrónica',
+    proveedor: 'ByteCraft Solutions',
+  },
+  {
+    id: '7',
+    sku: 'SKU-A00378',
+    imagen:
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    nombre: 'Auriculares Z',
+    precio: 79.99,
+    descripcion:
+      'Sumérgete en la música con los Auriculares Z, diseñados para ofrecer una calidad de sonido excepcional y comodidad. Experimenta un audio envolvente en cada momento.',
+    categoria: 'Electrónica',
+    proveedor: 'ByteCraft Solutions',
   },
 ];
 

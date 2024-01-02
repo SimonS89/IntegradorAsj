@@ -33,7 +33,7 @@
         class="table-responsive"
       >
         <table
-          class="table table-secondary table-striped table-hover table-bordered align-middle border-dark"
+          class="table table-light table-striped table-hover table-bordered align-middle border-dark"
         >
           <thead>
             <tr>
@@ -54,22 +54,58 @@
                   | filtrarOrdenes : mostrarOrdenesActivas
               "
             >
-              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+              <td
+                [ngClass]="
+                  orden.isActive
+                    ? 'text-dark'
+                    : 'text-secondary text-decoration-line-through'
+                "
+              >
                 {{ orden.nroOrden }}
               </td>
-              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+              <td
+                [ngClass]="
+                  orden.isActive
+                    ? 'text-dark'
+                    : 'text-secondary text-decoration-line-through'
+                "
+              >
                 {{ orden.total | currency : "USD" }}
               </td>
-              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+              <td
+                [ngClass]="
+                  orden.isActive
+                    ? 'text-dark'
+                    : 'text-secondary text-decoration-line-through'
+                "
+              >
                 {{ orden.informacionRecepcion }}
               </td>
-              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+              <td
+                [ngClass]="
+                  orden.isActive
+                    ? 'text-dark'
+                    : 'text-secondary text-decoration-line-through'
+                "
+              >
                 {{ orden.fechaEmision | date : "dd/MM/yyyy" }}
               </td>
-              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+              <td
+                [ngClass]="
+                  orden.isActive
+                    ? 'text-dark'
+                    : 'text-secondary text-decoration-line-through'
+                "
+              >
                 {{ orden.fechaEntrega | date : "dd/MM/yyyy" }}
               </td>
-              <td [ngClass]="orden.isActive ? 'text-dark' : 'text-secondary'">
+              <td
+                [ngClass]="
+                  orden.isActive
+                    ? 'text-dark'
+                    : 'text-secondary text-decoration-line-through'
+                "
+              >
                 {{
                   esFechaPosteriorHoy(orden.fechaEntrega)
                     ? "Entregado"
@@ -88,8 +124,8 @@
                   (click)="cambiarEstadoOrden(orden.id, orden.isActive)"
                   [title]="
                     orden.isActive
-                      ? 'Cancelar Orden - ID: ' + orden.id
-                      : 'Activar Orden - ID: ' + orden.id
+                      ? 'Cancelar Orden - ' + orden.nroOrden
+                      : 'Activar Orden - ' + orden.nroOrden
                   "
                 >
                   <fa-icon
@@ -101,7 +137,7 @@
                   type="button"
                   class="deleteBtn btn btn-outline-dark"
                   (click)="mostrarDetalle(orden.id)"
-                  [title]="'Mostrar Detalle - ID: ' + orden.id"
+                  [title]="'Mostrar Detalle - ' + orden.nroOrden"
                 >
                   <fa-icon
                     [icon]="faCircleInfo"

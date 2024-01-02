@@ -8,10 +8,14 @@ import { FormProductosComponent } from './components/productos/form-productos/fo
 import { FormOrdenCompraComponent } from './components/orden-compra/form-orden-compra/form-orden-compra.component';
 import { IndexComponent } from './components/index/index.component';
 import { OrdenCompraDetailComponent } from './components/orden-compra-detail/orden-compra-detail.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
+  { path: '', component: LoginComponent, title: 'ASJ Login' },
+  { path: 'register', component: RegisterComponent, title: 'ASJ Register' },
   {
-    path: '',
+    path: 'index',
     component: IndexComponent,
     title: 'ASJ Servicios',
   },

@@ -44,10 +44,10 @@ export class ListaProveedoresComponent implements OnInit {
       'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
   }
 
-  public eliminarProveedor(id: string): void {
+  public eliminarProveedor(proveedor: Proveedor): void {
     this.alertService
       .question(
-        `¿Desea eliminar al proveedor ${id}?`,
+        `¿Desea eliminar al proveedor ${proveedor.razonSocial}?`,
         true,
         true,
         'Aceptar',
@@ -55,9 +55,9 @@ export class ListaProveedoresComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.proveedores = this.proveedorService.deleteById(id);
+          this.proveedores = this.proveedorService.deleteById(proveedor.id);
           this.alertService.notification(
-            `Proveedor ${id}, eliminado exitosamente.`,
+            `Proveedor ${proveedor.razonSocial}, eliminado exitosamente.`,
             'success'
           );
         }

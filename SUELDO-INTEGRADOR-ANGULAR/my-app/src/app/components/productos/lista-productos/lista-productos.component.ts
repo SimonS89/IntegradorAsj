@@ -37,10 +37,10 @@ export class ListaProductosComponent implements OnInit {
       this.productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
-  eliminarProducto(id: string): void {
+  eliminarProducto(producto: Producto): void {
     this.alertService
       .question(
-        `¿Desea eliminar el producto ${id}?`,
+        `¿Desea eliminar el producto ${producto.nombre}?`,
         true,
         true,
         'Aceptar',
@@ -48,9 +48,9 @@ export class ListaProductosComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.productos = this.productoService.deleteById(id);
+          this.productos = this.productoService.deleteById(producto.id);
           this.alertService.notification(
-            `Producto ${id}, eliminado exitosamente.`
+            `Producto ${producto.nombre}, eliminado exitosamente.`
           );
         }
       });

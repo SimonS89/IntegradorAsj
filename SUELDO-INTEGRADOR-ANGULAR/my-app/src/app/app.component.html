@@ -1,5 +1,5 @@
 <div class="container-fluid gx-0 fw-bold">
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="mostrarNavbarYFooter"></app-navbar>
   <app-main></app-main>
-  <app-footer></app-footer>
+  <app-footer *ngIf="mostrarNavbarYFooter"></app-footer>
 </div>

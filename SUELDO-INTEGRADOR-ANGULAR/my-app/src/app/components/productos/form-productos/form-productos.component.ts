@@ -49,14 +49,11 @@ export class FormProductosComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    const confirmMessage = this.id
-      ? `¿Desea editar el producto/servicio ${this.id}?`
-      : '¿Desea dar de alta al nuevo producto/servicio?';
     if (form.valid) {
       this.alertService
         .question(
           this.id
-            ? `¿Desea editar el producto/servicio ${this.id}?`
+            ? `¿Desea editar el producto/servicio ${this.producto.nombre}?`
             : '¿Desea dar de alta al nuevo producto/servicio?',
           true,
           true,
@@ -67,12 +64,28 @@ export class FormProductosComponent implements OnInit {
           if (res) {
             this.id ? this.editProduct() : this.createProduct();
             this.alertService.notification(
-              `Producto, ${this.id ? 'editado' : 'Generado'} exitosamente.`,
+              `Producto, ${this.producto.nombre ? 'editado' : 'Generado'} exitosamente.`,
               'success'
             );
           }
         });
     }
+  }
+
+  vaciarForm(form: NgForm) {
+    this.alertService
+      .question(
+        '¿Desea vaciar el formulario?',
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
+      .then((res) => {
+        if (res) {
+          form.reset();
+        }
+      });
   }
 
   editProduct() {

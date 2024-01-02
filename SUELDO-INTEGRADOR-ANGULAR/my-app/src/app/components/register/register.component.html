@@ -1,0 +1,42 @@
+<div class="row text-start mt-5 rounded shadow align-items-stretch">
+  <div
+    class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"
+  ></div>
+  <div class="col form-bg p-5 rounded-end">
+    <div class="text-end">
+      <img
+        src="./../../../assets/brand3.png"
+        style="width: 72px; object-fit: contain"
+        alt="Logo ASJ Servicios"
+      />
+    </div>
+    <h2 class="fw-bold text-center pt-5 py-5">Registrarse</h2>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+      <div class="mb-4">
+        <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+        <input type="text" class="form-control" id="nombreUsuario" />
+      </div>
+      <div class="mb-4">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="email" />
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" />
+      </div>
+      <div class="mb-4">
+        <label for="rePassword" class="form-label">Repetir contraseña</label>
+        <input type="password" class="form-control" id="rePassword" />
+      </div>
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="col-md-6 offset-md-3 btn btn-primary fw-bold"
+          [disabled]="!registerForm.valid"
+        >
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

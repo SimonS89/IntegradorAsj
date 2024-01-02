@@ -1,6 +1,6 @@
 .gradient-custom {
-  background: -webkit-linear-gradient(to top left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to top left, #6cbdb8, #acdbc6);
+  background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
+  background: linear-gradient(to left, #6cbdb8, #acdbc6);
 }
 
 form {

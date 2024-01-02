@@ -67,7 +67,7 @@ export class FormProveedoresComponent implements OnInit {
       this.alertService
         .question(
           this.id
-            ? `¿Desea editar el proveedor ${this.id}?`
+            ? `¿Desea editar el proveedor ${this.proveedor.razonSocial}?`
             : '¿Desea dar de alta al nuevo proveedor?',
           true,
           true,
@@ -110,5 +110,21 @@ export class FormProveedoresComponent implements OnInit {
     this.proveedorService.getCiudades(id)?.subscribe((res) => {
       this.ciudades = res.municipios;
     });
+  }
+
+  vaciarForm(form: NgForm) {
+    this.alertService
+      .question(
+        '¿Desea vaciar el formulario?',
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
+      .then((res) => {
+        if (res) {
+          form.reset();
+        }
+      });
   }
 }
