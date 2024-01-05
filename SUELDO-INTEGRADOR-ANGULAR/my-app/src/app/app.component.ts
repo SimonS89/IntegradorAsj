@@ -21,7 +21,6 @@ export class AppComponent {
         const isLoginComponent =
           compName === 'LoginComponent' || compName === 'RegisterComponent';
         this.mostrarNavbarYFooter = !isLoginComponent;
-        console.log(this.mostrarNavbarYFooter);
       });
   }
 }

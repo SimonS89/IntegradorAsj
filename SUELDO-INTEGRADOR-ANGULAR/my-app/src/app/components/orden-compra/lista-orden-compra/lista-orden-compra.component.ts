@@ -37,17 +37,20 @@ export class ListaOrdenCompraComponent implements OnInit {
     this.ordenesCompra = this.ordenesCompraService.findAll() || [];
   }
 
-  cambiarEstadoOrden(id: string, isActive: boolean) {
+  cambiarEstadoOrden(orden: OrdenCompra, isActive: boolean) {
     this.alertService
       .question(
-        `Desea ${isActive ? `cancelar ` : `activar `}la orden: ${id}?`,
+        `Desea ${isActive ? `cancelar ` : `activar `}la orden: ${
+          orden.nroOrden
+        }?`,
         true,
         true,
         'Aceptar',
         'Cancelar'
       )
       .then((res) => {
-        if (res) this.ordenesCompra = this.ordenesCompraService.cancelById(id);
+        if (res)
+          this.ordenesCompra = this.ordenesCompraService.cancelById(orden.id);
         this.listarOrdenes();
       });
   }

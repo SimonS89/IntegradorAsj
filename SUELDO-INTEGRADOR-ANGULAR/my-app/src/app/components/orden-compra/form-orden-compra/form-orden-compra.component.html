@@ -8,7 +8,7 @@
         (ngSubmit)="onSubmit(ordenCompraForm)"
       >
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="inputNroOrden" class="form-label">Nro Orden</label>
             <input
               type="text"
@@ -29,7 +29,7 @@
               <span class="form-text"> Ingresar formato válido. </span>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="inputInformacionRecepcion" class="form-label"
               >Recibido por</label
             >
@@ -56,7 +56,23 @@
               </span>
             </div>
           </div>
-          <div class="col-md-4">
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label for="emisionDate" class="form-label">Fecha Emisión</label>
+            <input
+              required
+              disabled
+              type="date"
+              class="form-control border border-dark"
+              id="inputDate"
+              name="fechaEmision"
+              [(ngModel)]="ordenCompra.fechaEmision"
+              #fechaEmision="ngModel"
+              [ngClass]="fechaEmision.errors ? 'is-invalid' : 'is-valid'"
+            />
+          </div>
+          <div class="col-md-6">
             <label for="inputDate" class="form-label">Fecha Entrega</label>
             <input
               [min]="minFechaEntrega()"
@@ -76,7 +92,7 @@
             </div>
           </div>
         </div>
-        <div class="row mb-2 mt-4 justify-content-center">
+        <div class="row mb-2 mt-3 justify-content-center">
           <label class="form-label" for="informacionAdicional"
             >Información Adicional</label
           >

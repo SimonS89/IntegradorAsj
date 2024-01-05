@@ -9,7 +9,8 @@ const proveedoresEjemplo = [
     rubro: 'Tecnología',
     sitioWeb: 'http://www.ByteCraftSolutions.com',
     domicilio: {
-      direccion: 'Calle A Nº 123',
+      calle: 'Calle A',
+      numero: '123',
       codigoPostal: 'CP12345',
       localidad: 'La Plata',
       provincia: 'Buenos Aires',
@@ -32,7 +33,8 @@ const proveedoresEjemplo = [
     rubro: 'Alimentación',
     sitioWeb: 'http://www.FreshBiteDelights.com',
     domicilio: {
-      direccion: 'Avenida B Nº 456',
+      calle: 'Avenida B',
+      numero: '456',
       codigoPostal: 'CP54321',
       localidad: 'Berazategui',
       provincia: 'Buenos Aires',
@@ -55,7 +57,8 @@ const proveedoresEjemplo = [
     rubro: 'Moda',
     sitioWeb: 'http://www.VogueHarborBoutique.com',
     domicilio: {
-      direccion: 'Calle C Nº 789',
+      calle: 'Calle C',
+      numero: '789',
       codigoPostal: 'CP67890',
       localidad: 'Cordoba',
       provincia: 'Córdoba',
@@ -78,7 +81,8 @@ const proveedoresEjemplo = [
     rubro: 'Salud',
     sitioWeb: 'http://www.RevitalizeMedGroup.com',
     domicilio: {
-      direccion: 'Avenida D Nº 1011',
+      calle: 'Avenida D',
+      numero: '1011',
       codigoPostal: 'CP101112',
       localidad: 'Berisso',
       provincia: 'Buenos Aires',
@@ -101,7 +105,8 @@ const proveedoresEjemplo = [
     rubro: 'Educación',
     sitioWeb: 'http://www.IntellectJunctionInstitute.com',
     domicilio: {
-      direccion: 'Calle E Nº 1213',
+      calle: 'Calle E',
+      numero: '1213',
       codigoPostal: 'CP121314',
       localidad: 'Ensenada',
       provincia: 'Buenos Aires',

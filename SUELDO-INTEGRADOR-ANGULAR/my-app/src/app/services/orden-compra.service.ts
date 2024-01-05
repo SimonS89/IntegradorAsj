@@ -6,11 +6,10 @@ import { ordenesEjemplo } from '../data/data';
   providedIn: 'root',
 })
 export class OrdenCompraService {
-  private ordenes: OrdenCompra[];
+  private ordenes: OrdenCompra[] = this.findAll() || [];
 
   constructor() {
     // this.setStorage('ordenes', ordenesEjemplo as OrdenCompra[]);
-    this.ordenes = this.findAll();
   }
 
   getStorage(key: string): OrdenCompra[] | undefined {

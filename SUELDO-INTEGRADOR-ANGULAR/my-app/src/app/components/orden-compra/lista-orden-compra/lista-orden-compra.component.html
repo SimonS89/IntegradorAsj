@@ -121,7 +121,7 @@
                       ? 'btn-outline-danger'
                       : 'btn-outline-primary'
                   "
-                  (click)="cambiarEstadoOrden(orden.id, orden.isActive)"
+                  (click)="cambiarEstadoOrden(orden, orden.isActive)"
                   [title]="
                     orden.isActive
                       ? 'Cancelar Orden - ' + orden.nroOrden

@@ -8,12 +8,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProveedorService {
-  private proveedores: Proveedor[] = [];
+  private proveedores: Proveedor[] = this.findAll() || [];
   private API_ARG = 'https://apis.datos.gob.ar/georef/api/';
 
   constructor(private http: HttpClient) {
     // this.setStorage('proveedores', proveedoresEjemplo);
-    this.proveedores = this.findAll();
   }
 
   getStorage(key: string): Proveedor[] | undefined {

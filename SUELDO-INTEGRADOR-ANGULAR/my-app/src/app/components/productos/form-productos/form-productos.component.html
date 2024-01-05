@@ -65,7 +65,7 @@
             min="1"
             [ngClass]="precio.errors ? 'is-invalid' : 'is-valid'"
           />
-          <div class="col-auto" *ngIf="precio.errors?.['min'] || nombre.errors">
+          <div class="col-auto" *ngIf="precio.errors?.['min'] || precio.errors">
             <span class="form-text"> El precio debe ser mayor a 0. </span>
           </div>
         </div>

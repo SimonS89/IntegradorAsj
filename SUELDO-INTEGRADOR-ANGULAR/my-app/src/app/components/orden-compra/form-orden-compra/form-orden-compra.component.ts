@@ -104,7 +104,6 @@ export class FormOrdenCompraComponent implements OnInit {
               const nuevoProducto = p!;
               nuevoProducto.cantidad = this.cantidadProducto;
               this.ordenCompra.productos.push(nuevoProducto);
-              console.log(this.ordenCompra.productos);
             }
             this.limpiarInputs();
             this.actualizarTotal();

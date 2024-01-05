@@ -6,11 +6,10 @@ import { Producto } from '../models/Producto';
   providedIn: 'root',
 })
 export class ProductoService {
-  private productos: Producto[];
+  private productos: Producto[] = this.findAll() || [];
 
   constructor() {
     // this.setStorage('productos', productosEjemplo);
-    this.productos = this.findAll();
   }
 
   getStorage(key: string): Producto[] | undefined {
