@@ -101,7 +101,10 @@
               {{
                 esFechaPosteriorHoy(ordenCompra.fechaEntrega)
                   ? "Entregado"
-                  : "Pendiente"
+                  : ordenCompra.isActive &&
+                    !esFechaPosteriorHoy(ordenCompra.fechaEntrega)
+                  ? "Pendiente"
+                  : "Cancelada"
               }}
             </p>
             <p class="text-muted mb-0">

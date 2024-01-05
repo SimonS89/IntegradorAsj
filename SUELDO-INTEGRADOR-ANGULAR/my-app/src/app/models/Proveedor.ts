@@ -8,7 +8,8 @@ export interface Proveedor {
   rubro: string;
   sitioWeb: string;
   domicilio: {
-    direccion: string;
+    calle: string;
+    numero: string;
     codigoPostal: string;
     localidad: string;
     provincia: string;

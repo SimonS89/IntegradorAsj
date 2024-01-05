@@ -156,28 +156,49 @@
           </div>
         </div>
         <h5 class="text-start mt-3 mb-0">Domicilio</h5>
-        <div class="col-12 col-sm-6 col-md-6">
-          <label for="inputDireccion" class="form-label">Dirección</label>
+        <div class="col-12 col-sm-4 col-md-4">
+          <label for="inputCalle" class="form-label">Calle</label>
           <input
             required
-            minlength="4"
+            minlength="1"
             type="text"
             class="form-control border border-dark"
-            id="inputDireccion"
-            placeholder="1234 Main St"
-            name="direccion"
-            [(ngModel)]="proveedor.domicilio.direccion"
-            #direccion="ngModel"
-            [ngClass]="direccion.errors ? 'is-invalid' : 'is-valid'"
+            id="inputCalle"
+            placeholder="Av. San Martín"
+            name="calle"
+            [(ngModel)]="proveedor.domicilio.calle"
+            #calle="ngModel"
+            [ngClass]="calle.errors ? 'is-invalid' : 'is-valid'"
           />
           <div
             class="col-auto"
-            *ngIf="direccion.errors?.['minlength'] || direccion.errors"
+            *ngIf="calle.errors?.['minlength'] || calle.errors"
           >
-            <span class="form-text">Debe tener al menos 4 caracteres.</span>
+            <span class="form-text">Debe tener al menos 1 caracter.</span>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-6">
+        <div class="col-12 col-sm-4 col-md-4">
+          <label for="inputNumero" class="form-label">Número</label>
+          <input
+            required
+            minlength="1"
+            type="text"
+            class="form-control border border-dark"
+            id="inputNumero"
+            placeholder="1123"
+            name="numero"
+            [(ngModel)]="proveedor.domicilio.numero"
+            #numero="ngModel"
+            [ngClass]="numero.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="numero.errors?.['minlength'] || numero.errors"
+          >
+            <span class="form-text">Debe tener al menos 1 caracter.</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4 col-md-4">
           <label for="inputCP" class="form-label">Código Postal</label>
           <input
             required

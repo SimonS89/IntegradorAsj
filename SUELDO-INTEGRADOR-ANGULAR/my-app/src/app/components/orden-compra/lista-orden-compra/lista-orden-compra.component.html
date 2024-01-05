@@ -109,7 +109,9 @@
                 {{
                   esFechaPosteriorHoy(orden.fechaEntrega)
                     ? "Entregado"
-                    : "Pendiente"
+                    : orden.isActive && !esFechaPosteriorHoy(orden.fechaEntrega)
+                    ? "Pendiente"
+                    : "Cancelada"
                 }}
               </td>
               <td class="d-flex justify-content-center gap-3">

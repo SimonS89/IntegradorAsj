@@ -23,11 +23,12 @@ export class FormProveedoresComponent implements OnInit {
     rubro: '',
     sitioWeb: '',
     domicilio: {
-      direccion: '',
+      calle: '',
+      numero: '',
       codigoPostal: '',
       localidad: '',
       provincia: '',
-      pais: '',
+      pais: 'Argentina',
     },
     datosContacto: {
       nombreCompleto: '',
