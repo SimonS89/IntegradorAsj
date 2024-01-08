@@ -7,3 +7,23 @@ h1,
 h2 {
   color: #2e3f4c;
 }
+
+/* .deleteBtn {
+  border: 1px solid #c23a00;
+  color: #c23a00;
+}
+
+.deleteBtn:hover {
+  background-color: #c23a00;
+  color: white;
+} */
+
+.editBtn {
+  border: 1px solid #6cbdb8;
+  color: #6cbdb8;
+}
+
+.editBtn:hover {
+  background-color: #6cbdb8;
+  color: white;
+}

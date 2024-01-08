@@ -1,10 +1,10 @@
-<div class="gradient-custom h-100" style="min-height: 80vh">
+<div class="gradient-custom h-100 rounded-5 shadow-lg" style="min-height: 80vh">
   <div class="row d-flex flex-column justify-content-center align-items-center">
     <div class="col-lg-10">
-      <h1 class="mt-4 mb-5">Generar Orden de Compra</h1>
+      <h2 class="mt-4 mb-5">Generar Orden de Compra</h2>
       <form
         #ordenCompraForm="ngForm"
-        class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5"
+        class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5 rounded-4"
         (ngSubmit)="onSubmit(ordenCompraForm)"
       >
         <div class="row">
@@ -186,7 +186,7 @@
             <button
               type="button"
               [disabled]="isValidAgregarButton()"
-              class="btn btn-primary mt-5 fw-bold"
+              class="btn btn-primary mt-5 fw-bold deleteBtn"
               (click)="agregarProducto()"
             >
               Agregar Productos
@@ -204,7 +204,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Total</th>
-                <th scope="col">Accion</th>
+                <th scope="col">Acción</th>
               </tr>
             </thead>
             <tbody>
