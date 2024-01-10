@@ -30,7 +30,9 @@ CREATE TABLE categorias(
 
 CREATE TABLE rubros(
     id BIGINT PRIMARY KEY NOT NULL IDENTITY(1,1),
-    rubro VARCHAR(50) NOT NULL
+    rubro VARCHAR(50) NOT NULL,
+	    creado_el DATETIME DEFAULT GETDATE() NOT NULL,
+    actualizado_el DATETIME NULL
 );
 
 CREATE TABLE estados_orden(
@@ -91,8 +93,8 @@ CREATE TABLE ordenes_compra(
     num_orden VARCHAR(50) NOT NULL,
     total FLOAT NOT NULL,
     info_recepcion VARCHAR(255) NOT NULL,
-    info_adicional VARCHAR(255) NOT NULL,
-    fecha_emision DATETIME DEFAULT GETDATE() NOT NULL,
+    info_adicional VARCHAR(255)  NULL,
+    fecha_emision DATETIME NOT NULL,
     fecha_entrega DATETIME NOT NULL,
     creado_el DATETIME DEFAULT GETDATE() NOT NULL,
     actualizado_el DATETIME NULL,
