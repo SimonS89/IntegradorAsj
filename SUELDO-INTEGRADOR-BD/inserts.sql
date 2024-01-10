@@ -1,6 +1,6 @@
 -- Inserts
 
-/*use integrador;
+use integrador;
 insert into paises (nombre) values ('Argentina'),('Uruguay');
 insert into provincias (nombre,pais_id) values ('Buenos Aires',1),('Córdoba',1),('Mendoza',1),('Montevideo',2),('Tucumán',1), ('Santa Fe',1),('Ruta 36','Km. 25','4000','San Miguel de Tucumán',5),('Av. Vives','3138','5000','Córdoba Capital',2),('San Martín','21','2000','Rosario',6),('Arzobispo Pardo','1243','5500','Mendoza',3);
 insert into tipos_iva (tipo) values ('Consumidor final'),('Exento'),('Responsable inscripto'),('Responsable Monotributo'),('Sujeto no Categorizado'),('Proveedor del Exterior'),('Cliente del Exterior'),('IVA Liberado – Ley Nº 19.640'),('IVA Responsable Inscripto – Agente de Percepcion'),('Pequeño Contribuyente Eventual'),('Monotributista Social'),('Pequeño Contribuyente Eventual Social');
@@ -78,106 +78,284 @@ insert into detalles_orden (precio, cantidad, orden_compra_id,producto_id) value
 
 --Inserts y modificaciones durante el integrador
 
-ALTER TABLE productos ADD esta_eliminado BIT DEFAULT 0 NOT NULL;
-ALTER TABLE proveedores
-ADD telefono VARCHAR(15) NULL;
-UPDATE proveedores
-SET  telefono = '3512565850' where id = 1;
-UPDATE proveedores
-SET  telefono = '3512123850' where id = 2;
-UPDATE proveedores
-SET  telefono = '2215515256' where id = 3;
-UPDATE proveedores
-SET  telefono = '2235545256' where id = 4;
-UPDATE proveedores
-SET  telefono = '3515545256' where id = 5;
-UPDATE proveedores
-SET  telefono = '1151554525' where id = 6;
-ALTER TABLE productos
-ALTER COLUMN imagen VARCHAR(255) NULL;
-UPDATE productos
-SET  imagen = null where id = 6;
-insert into ordenes_compra (num_orden, total, info_recepcion,fecha_emision,fecha_entrega,proveedor_id,estado_orden_id) values ('OR-432',599,'Lord Voldemort', '1992-01-10','1992-01-20',1,1);
-insert into detalles_orden (precio, cantidad, orden_compra_id,producto_id) values (599,1,20,1);
-*/
+ALTER TABLE 
+  productos 
+ADD 
+  esta_eliminado BIT DEFAULT 0 NOT NULL;
+ALTER TABLE 
+  proveedores 
+ADD 
+  telefono VARCHAR(15) NULL;
+UPDATE 
+  proveedores 
+SET 
+  telefono = '3512565850' 
+where 
+  id = 1;
+UPDATE 
+  proveedores 
+SET 
+  telefono = '3512123850' 
+where 
+  id = 2;
+UPDATE 
+  proveedores 
+SET 
+  telefono = '2215515256' 
+where 
+  id = 3;
+UPDATE 
+  proveedores 
+SET 
+  telefono = '2235545256' 
+where 
+  id = 4;
+UPDATE 
+  proveedores 
+SET 
+  telefono = '3515545256' 
+where 
+  id = 5;
+UPDATE 
+  proveedores 
+SET 
+  telefono = '1151554525' 
+where 
+  id = 6;
+ALTER TABLE 
+  proveedores 
+ADD 
+  email VARCHAR(50) NULL;
+UPDATE 
+  proveedores 
+SET 
+  email = 'primerProveedor@gmail.com' 
+where 
+  id = 1;
+UPDATE 
+  proveedores 
+SET 
+  email = 'primerProveedor@gmail.com' 
+where 
+  id = 2;
+UPDATE 
+  proveedores 
+SET 
+  email = 'primerProveedor@gmail.com' 
+where 
+  id = 3;
+UPDATE 
+  proveedores 
+SET 
+  email = 'primerProveedor@gmail.com' 
+where 
+  id = 4;
+UPDATE 
+  proveedores 
+SET 
+  email = 'primerProveedor@gmail.com' 
+where 
+  id = 5;
+UPDATE 
+  proveedores 
+SET 
+  email = 'primerProveedor@gmail.com' 
+where 
+  id = 6;
+ALTER TABLE 
+  productos ALTER COLUMN imagen VARCHAR(255) NULL;
+UPDATE 
+  productos 
+SET 
+  imagen = null 
+where 
+  id = 6;
+insert into ordenes_compra (
+  num_orden, total, info_recepcion, 
+  fecha_emision, fecha_entrega, proveedor_id, 
+  estado_orden_id
+) 
+values 
+  (
+    'OR-432', 599, 'Lord Voldemort', '1992-01-10', 
+    '1992-01-20', 1, 1
+  );
+insert into detalles_orden (
+  precio, cantidad, orden_compra_id, 
+  producto_id
+) 
+values 
+  (599, 1, 20, 1);
+
 -- Consultas 
 
 /*Obtener todos los productos, mostrando nombre del producto, categoría, proveedor (razón social y codigo proveedor), precio.*/
-
-select pr.nombre as nombre_producto, c.categoria as categoria, pv.razon_social as razon_social, pv.codigo as codigo_proveedor from productos pr 
-inner join proveedores pv on pr.proveedor_id = pv.id 
-inner join categorias c on pr.categoria_id = c.id;
-
+select 
+  pr.nombre as nombre_producto, 
+  c.categoria as categoria, 
+  pv.razon_social as razon_social, 
+  pv.codigo as codigo_proveedor 
+from 
+  productos pr 
+  inner join proveedores pv on pr.proveedor_id = pv.id 
+  inner join categorias c on pr.categoria_id = c.id;
 /*En el listado anterior, además de los datos mostrados, traer el campo imagen aunque el producto NO tenga una. Sino tiene imagen, mostrar "-".*/
-
-select pr.nombre as nombre_producto,ISNULL(pr.imagen, '-') as producto_imagen, c.categoria as categoria, pv.razon_social as razon_social, pv.codigo as codigo_proveedor from productos pr 
-inner join proveedores pv on pr.proveedor_id = pv.id 
-inner join categorias c on pr.categoria_id = c.id;
-
+select 
+  pr.nombre as nombre_producto, 
+  ISNULL(pr.imagen, '-') as producto_imagen, 
+  c.categoria as categoria, 
+  pv.razon_social as razon_social, 
+  pv.codigo as codigo_proveedor 
+from 
+  productos pr 
+  inner join proveedores pv on pr.proveedor_id = pv.id 
+  inner join categorias c on pr.categoria_id = c.id;
 /*Mostrar los datos que se pueden modificar (en el front) del producto con ID = 2.*/
-
-select p.sku , p.imagen,p.nombre,p.precio,p.descripcion,c.categoria from productos p
-inner join categorias c on p.categoria_id = c.id
-where p.id = 2;
-
+select 
+  p.sku, 
+  p.imagen, 
+  p.nombre, 
+  p.precio, 
+  p.descripcion, 
+  c.categoria 
+from 
+  productos p 
+  inner join categorias c on p.categoria_id = c.id 
+where 
+  p.id = 2;
 /*Listar todo los proveedores cuyo teléfono tenga la característica de Córdoba o que la provincia sea igual a alguna de las 3 con más proveedores.*/
-
-select top 3 pv.codigo, pv.razon_social,pv.cuit,pv.telefono from proveedores pv
-inner join domicilios d on pv.domicilio_id = d.id
-inner join provincias pr on d.provincia_id = pr.id
-where pv.telefono like '351%' or pr.id = (SELECT TOP 1 provincia_id
-FROM domicilios
-GROUP BY provincia_id
-ORDER BY COUNT(provincia_id) DESC);
-
+select 
+  top 3 pv.codigo, 
+  pv.razon_social, 
+  pv.cuit, 
+  pv.telefono 
+from 
+  proveedores pv 
+  inner join domicilios d on pv.domicilio_id = d.id 
+  inner join provincias pr on d.provincia_id = pr.id 
+where 
+  pv.telefono like '351%' 
+  or pr.id = (
+    SELECT 
+      TOP 1 provincia_id 
+    FROM 
+      domicilios 
+    GROUP BY 
+      provincia_id 
+    ORDER BY 
+      COUNT(provincia_id) DESC
+  );
 /*Traer un listado de todos los proveedores que no hayan sido eliminados , y ordenados por razon social, codigo proveedor y fecha en que se dió de alta ASC. 
 De este listado mostrar los datos que correspondan con su tabla del front.*/
-
-select p.logo,p.codigo,p.razon_social, concat(pc.email,', ',p.telefono,', ', p.sitio_web) as info_general, concat(pc.apellido,' ',pc.nombre) as Titular, r.rubro from proveedores p
-inner join personas_contacto pc on p.datos_contacto_id = pc.id
-inner join rubros r on p.rubro_id = r.id
-where p.esta_eliminado = 0 order by p.razon_social, p.codigo,p.creado_el;
-
+select 
+  p.logo, 
+  p.codigo, 
+  p.razon_social, 
+  concat(
+    pc.email, ', ', p.telefono, ', ', p.sitio_web
+  ) as info_general, 
+  concat(pc.apellido, ' ', pc.nombre) as Titular, 
+  r.rubro 
+from 
+  proveedores p 
+  inner join personas_contacto pc on p.datos_contacto_id = pc.id 
+  inner join rubros r on p.rubro_id = r.id 
+where 
+  p.esta_eliminado = 0 
+order by 
+  p.razon_social, 
+  p.codigo, 
+  p.creado_el;
 /*Obtener razon social, codigo proveedor, imagen, web, email, teléfono y los datos del contacto del proveedor con más ordenes de compra cargadas.*/
-
-select top 1 p.razon_social,count(oc.id) as Ordenes_por_proveedor, p.codigo,p.logo,p.sitio_web,p.telefono,pc.email,pc.apellido,pc.nombre,pc.puesto from proveedores p
-inner join ordenes_compra oc on p.id = oc.proveedor_id
-inner join personas_contacto pc on p.datos_contacto_id = pc.id
-group by p.id,p.razon_social, p.codigo,p.logo,p.sitio_web,p.telefono,pc.email,pc.apellido,pc.nombre,pc.puesto,pc.puesto
-order by count(oc.id) desc;
-
+select 
+  top 1 p.razon_social, 
+  count(oc.id) as Ordenes_por_proveedor, 
+  p.codigo, 
+  p.logo, 
+  p.sitio_web, 
+  p.telefono, 
+  pc.email, 
+  pc.apellido, 
+  pc.nombre, 
+  pc.puesto 
+from 
+  proveedores p 
+  inner join ordenes_compra oc on p.id = oc.proveedor_id 
+  inner join personas_contacto pc on p.datos_contacto_id = pc.id 
+group by 
+  p.id, 
+  p.razon_social, 
+  p.codigo, 
+  p.logo, 
+  p.sitio_web, 
+  p.telefono, 
+  pc.email, 
+  pc.apellido, 
+  pc.nombre, 
+  pc.puesto, 
+  pc.puesto 
+order by 
+  count(oc.id) desc;
 /*Mostrar la fecha emisión, nº de orden, razon social y codigo de proveedor, y la cantidad de productos de cada orden.*/
-
-select oc.fecha_emision,oc.num_orden,pr.razon_social,pr.codigo as codigo_proveedor, sum(do.cantidad) from ordenes_compra oc
-inner join proveedores pr on pr.id = oc.proveedor_id
-inner join detalles_orden do on do.orden_compra_id = oc.id
-group by oc.id,oc.fecha_emision,oc.num_orden,pr.razon_social,pr.codigo;
-
+select 
+  oc.fecha_emision, 
+  oc.num_orden, 
+  pr.razon_social, 
+  pr.codigo as codigo_proveedor, 
+  sum(do.cantidad) 
+from 
+  ordenes_compra oc 
+  inner join proveedores pr on pr.id = oc.proveedor_id 
+  inner join detalles_orden do on do.orden_compra_id = oc.id 
+group by 
+  oc.id, 
+  oc.fecha_emision, 
+  oc.num_orden, 
+  pr.razon_social, 
+  pr.codigo;
 /*En el listado anterior, diferenciar cuando una orden está Cancelada o no, y el total de la misma.*/
-
-select oc.fecha_emision,oc.num_orden,pr.razon_social,pr.codigo as codigo_proveedor, sum(do.cantidad) as cantidad_total, eo.estado from ordenes_compra oc
-inner join proveedores pr on pr.id = oc.proveedor_id
-inner join detalles_orden do on do.orden_compra_id = oc.id
-inner join estados_orden eo on eo.id = oc.estado_orden_id
-group by oc.id,oc.fecha_emision,oc.num_orden,pr.razon_social,pr.codigo,eo.estado;
-
+select 
+  oc.fecha_emision, 
+  oc.num_orden, 
+  pr.razon_social, 
+  pr.codigo as codigo_proveedor, 
+  sum(do.cantidad) as cantidad_total, 
+  eo.estado 
+from 
+  ordenes_compra oc 
+  inner join proveedores pr on pr.id = oc.proveedor_id 
+  inner join detalles_orden do on do.orden_compra_id = oc.id 
+  inner join estados_orden eo on eo.id = oc.estado_orden_id 
+group by 
+  oc.id, 
+  oc.fecha_emision, 
+  oc.num_orden, 
+  pr.razon_social, 
+  pr.codigo, 
+  eo.estado;
 /*Mostrar el detalle de una orden de compra del proveedor 3, trayendo: SKU del producto, nombre producto, cantidad y subtotal.*/
-
-select prod.sku, prod.nombre as nombre_producto, dc.cantidad , (dc.cantidad*dc.precio) as Sub_total  from detalles_orden dc 
-inner join productos prod on prod.id = dc.producto_id
-inner join ordenes_compra oc on oc.id = dc.orden_compra_id
-inner join proveedores prov on prov.id = prod.proveedor_id
-where prov.id = 3
-
-/*Cambiar el estado a Cancelada y la fecha de modificación a la orden de compra con ID = 4.*/
-
-UPDATE ordenes_compra
-SET estado_orden_id = 2,
-    actualizado_el = GETDATE()
-WHERE id = 4;
-
+select 
+  prod.sku, 
+  prod.nombre as nombre_producto, 
+  dc.cantidad, 
+  (dc.cantidad * dc.precio) as Sub_total 
+from 
+  detalles_orden dc 
+  inner join productos prod on prod.id = dc.producto_id 
+  inner join ordenes_compra oc on oc.id = dc.orden_compra_id 
+  inner join proveedores prov on prov.id = prod.proveedor_id 
+where 
+  prov.id = 3 
+  /*Cambiar el estado a Cancelada y la fecha de modificación a la orden de compra con ID = 4.*/
+UPDATE 
+  ordenes_compra 
+SET 
+  estado_orden_id = 2, 
+  actualizado_el = GETDATE() 
+WHERE 
+  id = 4;
 /*Escribir la sentencia para eliminar el producto con id = 1 (NO EJECUTAR, SÓLO MOSTRAR SENTENCIA)*/
-
-delete from productos where id = 1;
-
-select * from proveedores;
+delete from 
+  productos 
+where 
+  id = 1;
