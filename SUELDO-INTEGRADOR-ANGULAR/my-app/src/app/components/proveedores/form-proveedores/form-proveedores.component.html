@@ -361,34 +361,22 @@
         </div>
         <div class="col-12 col-sm-6 col-md-6">
           <label for="inputRol" class="form-label">Rol</label>
-          <select
+          <input
             required
             id="inputRol"
-            class="form-select border border-dark"
+            placeholder="Gerente de marketing"
+            class="form-control border border-dark"
             name="rol"
             [(ngModel)]="proveedor.datosContacto.rol"
             #rol="ngModel"
+            minlength="4"
             [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="rol.errors?.['minlength']||rol.errors?.['pattern'] || rol.errors"
           >
-            <option value="" disabled selected>Selecciona un rol</option>
-            <option value="Representante de Ventas">
-              Representante de Ventas
-            </option>
-            <option value="Especialista en Marketing Digital">
-              Especialista en Marketing Digital
-            </option>
-            <option value="Asistente de Servicio al Cliente">
-              Asistente de Servicio al Cliente
-            </option>
-            <option value="Coordinador de Logística">
-              Coordinador de Logística
-            </option>
-            <option value="Analista de Datos Comerciales">
-              Analista de Datos Comerciales
-            </option>
-          </select>
-          <div class="col-auto" *ngIf="rol.errors">
-            <span class="form-text"> Seleccione una opción. </span>
+            <span class="form-text"> Debe tener al menos 4 caracteres. </span>
           </div>
         </div>
         <div class="row text-center justify-content-center gap-3 mt-4">
