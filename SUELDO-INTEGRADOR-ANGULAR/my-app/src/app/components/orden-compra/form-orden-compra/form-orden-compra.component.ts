@@ -60,9 +60,9 @@ export class FormOrdenCompraComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            let id = this.ordenCompraService.create(this.ordenCompra);
+            let ordenCreada = this.ordenCompraService.create(this.ordenCompra);
             this.alertService.notification(
-              `orden de compra creada - ID : ${id}`
+              `orden de compra creada - Nro : ${ordenCreada.nroOrden}`
             );
             this.router.navigate(['/ordenes-compra']);
           }

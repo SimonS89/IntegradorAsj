@@ -22,11 +22,11 @@ export class OrdenCompraService {
     localStorage.setItem(key, JSON.stringify(ordenes));
   }
 
-  create(ordenCompra: OrdenCompra): string {
+  create(ordenCompra: OrdenCompra): OrdenCompra {
     ordenCompra.id = this.idGenerator();
     this.ordenes.push(ordenCompra);
     this.setStorage('ordenes', this.ordenes);
-    return ordenCompra.id;
+    return ordenCompra;
   }
 
   public findAll(): OrdenCompra[] {
