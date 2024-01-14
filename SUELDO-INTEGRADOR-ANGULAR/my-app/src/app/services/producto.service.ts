@@ -28,11 +28,11 @@ export class ProductoService {
     return this.productos;
   }
 
-  public getById(id: string) {
-    return this.productos.find((producto) => producto.id == id);
+  public getById(id: string): Producto {
+    return this.productos.find((producto) => producto.id == id)!;
   }
 
-  public deleteById(id: string) {
+  public deleteById(id: string): Producto[] {
     this.productos = this.productos.filter((producto) => producto.id !== id);
     this.setStorage('productos', this.productos);
     return this.productos;

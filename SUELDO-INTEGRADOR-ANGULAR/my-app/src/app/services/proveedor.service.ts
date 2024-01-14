@@ -25,7 +25,7 @@ export class ProveedorService {
     localStorage.setItem(key, JSON.stringify(proveedores));
   }
 
-  public findAll() {
+  public findAll(): Proveedor[] {
     let proveedores = this.getStorage('proveedores');
     if (proveedores) this.proveedores = proveedores || [];
     return this.proveedores;
@@ -35,7 +35,7 @@ export class ProveedorService {
     return this.proveedores.find((proveedor) => proveedor.id == id);
   }
 
-  public deleteById(id: string) {
+  public deleteById(id: string): Proveedor[] {
     this.proveedores = this.proveedores.filter(
       (proveedor) => proveedor.id !== id
     );

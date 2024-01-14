@@ -3,6 +3,8 @@ export interface Proveedor {
   codigo: string;
   logo: string;
   razonSocial: string;
+  telefono: string;
+  email: string;
   cuit: string;
   tipoIva: string;
   rubro: string;
@@ -16,7 +18,8 @@ export interface Proveedor {
     pais: string;
   };
   datosContacto: {
-    nombreCompleto: string;
+    nombre: string;
+    apellido: string;
     telefono: string;
     email: string;
     rol: string;

@@ -48,13 +48,15 @@
               <td>{{ proveedor.codigo }}</td>
               <td>{{ proveedor.razonSocial }}</td>
               <td>
-                {{ proveedor.datosContacto.email }}<br />{{
-                  "Tel: " + proveedor.datosContacto.telefono
-                }}
+                {{ proveedor.email }}<br />{{ "Tel: " + proveedor.telefono }}
                 <br />{{ proveedor.sitioWeb }}
               </td>
               <td>
-                {{ proveedor.datosContacto.nombreCompleto }}
+                {{
+                  proveedor.datosContacto.nombre +
+                    " " +
+                    proveedor.datosContacto.apellido
+                }}
               </td>
               <td>{{ proveedor.rubro }}</td>
               <td>

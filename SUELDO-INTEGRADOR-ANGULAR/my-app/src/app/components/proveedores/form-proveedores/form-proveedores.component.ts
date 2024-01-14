@@ -18,6 +18,8 @@ export class FormProveedoresComponent implements OnInit {
     codigo: '',
     logo: '',
     razonSocial: '',
+    telefono: '',
+    email: '',
     cuit: '',
     tipoIva: '',
     rubro: '',
@@ -31,7 +33,8 @@ export class FormProveedoresComponent implements OnInit {
       pais: 'Argentina',
     },
     datosContacto: {
-      nombreCompleto: '',
+      nombre: '',
+      apellido: '',
       telefono: '',
       email: '',
       rol: '',

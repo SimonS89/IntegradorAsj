@@ -39,7 +39,7 @@ export class OrdenCompraService {
     return this.ordenes.find((orden) => orden.id == id);
   }
 
-  public cancelById(id: string) {
+  public cancelById(id: string): OrdenCompra[] {
     const index = this.ordenes.findIndex((o) => o.id == id);
     if (index !== -1) {
       this.ordenes[index].isActive = !this.ordenes[index].isActive;
