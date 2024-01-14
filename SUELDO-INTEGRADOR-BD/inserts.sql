@@ -225,7 +225,7 @@ where
   p.id = 2;
 /*Listar todo los proveedores cuyo teléfono tenga la característica de Córdoba o que la provincia sea igual a alguna de las 3 con más proveedores.*/
 select 
-  top 3 pv.codigo, 
+  pv.codigo, 
   pv.razon_social, 
   pv.cuit, 
   pv.telefono 
@@ -235,9 +235,9 @@ from
   inner join provincias pr on d.provincia_id = pr.id 
 where 
   pv.telefono like '351%' 
-  or pr.id = (
+  or pr.id in (
     SELECT 
-      TOP 1 provincia_id 
+      top 3 provincia_id 
     FROM 
       domicilios 
     GROUP BY 
