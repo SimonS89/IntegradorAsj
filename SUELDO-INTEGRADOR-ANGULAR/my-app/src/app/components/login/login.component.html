@@ -14,11 +14,25 @@
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
       <div class="mb-4">
         <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" class="form-control" id="email" />
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+        />
       </div>
       <div class="mb-4">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" />
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
       </div>
       <div class="mb-4 form-check">
         <input
