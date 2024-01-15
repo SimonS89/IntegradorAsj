@@ -14,7 +14,7 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class FormProductosComponent implements OnInit {
   producto: Producto = {
-    id: '',
+    id: 0,
     sku: '',
     imagen: '',
     nombre: '',
@@ -24,7 +24,7 @@ export class FormProductosComponent implements OnInit {
     proveedor: '',
   };
 
-  id!: string;
+  id!: number;
   proveedores: Proveedor[] = [];
   productoTitle!: String;
 
@@ -64,7 +64,9 @@ export class FormProductosComponent implements OnInit {
           if (res) {
             this.id ? this.editProduct() : this.createProduct();
             this.alertService.notification(
-              `Producto, ${this.producto.nombre ? 'editado' : 'Generado'} exitosamente.`,
+              `Producto, ${
+                this.producto.nombre ? 'editado' : 'Generado'
+              } exitosamente.`,
               'success'
             );
           }

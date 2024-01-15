@@ -55,7 +55,7 @@ export class ListaOrdenCompraComponent implements OnInit {
       });
   }
 
-  mostrarDetalle(id: string) {
+  mostrarDetalle(id: number) {
     this.router.navigate(['/ordenes-compra/info', id]);
   }
 

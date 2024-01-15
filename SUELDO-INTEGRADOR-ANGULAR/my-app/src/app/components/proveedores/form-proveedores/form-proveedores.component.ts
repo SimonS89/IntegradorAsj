@@ -14,7 +14,7 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class FormProveedoresComponent implements OnInit {
   proveedor: Proveedor = {
-    id: '',
+    id: 0,
     codigo: '',
     logo: '',
     razonSocial: '',
@@ -41,7 +41,7 @@ export class FormProveedoresComponent implements OnInit {
     },
   };
 
-  id!: string;
+  id!: number;
   razonSocialTitle!: string;
   provincias!: Provincia[];
   ciudades!: Ciudad[];

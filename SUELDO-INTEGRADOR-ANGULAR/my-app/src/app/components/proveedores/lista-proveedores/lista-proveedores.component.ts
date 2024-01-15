@@ -36,7 +36,7 @@ export class ListaProveedoresComponent implements OnInit {
     this.proveedores = this.proveedorService.findAll();
   }
 
-  editarProveedor(id: string) {
+  editarProveedor(id: number) {
     this.router.navigate(['/proveedores/form-proveedores', id]);
   }
 

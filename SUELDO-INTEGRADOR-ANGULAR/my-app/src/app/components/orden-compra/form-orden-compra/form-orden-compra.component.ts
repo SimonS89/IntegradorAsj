@@ -17,7 +17,7 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class FormOrdenCompraComponent implements OnInit {
   ordenCompra: OrdenCompra = {
-    id: '',
+    id: 0,
     nroOrden: '',
     total: 0.0,
     informacionRecepcion: '',
@@ -157,7 +157,7 @@ export class FormOrdenCompraComponent implements OnInit {
         if (res) {
           form.reset();
           this.ordenCompra = {
-            id: '',
+            id: 0,
             nroOrden: '',
             total: 0.0,
             informacionRecepcion: '',

@@ -28,11 +28,11 @@ export class ProductoService {
     return this.productos;
   }
 
-  public getById(id: string): Producto {
+  public getById(id: number): Producto {
     return this.productos.find((producto) => producto.id == id)!;
   }
 
-  public deleteById(id: string): Producto[] {
+  public deleteById(id: number): Producto[] {
     this.productos = this.productos.filter((producto) => producto.id !== id);
     this.setStorage('productos', this.productos);
     return this.productos;
@@ -56,8 +56,8 @@ export class ProductoService {
     }
   }
 
-  idGenerator(): string {
-    return new Date().getTime().toString();
+  idGenerator(): number {
+    return new Date().getTime();
   }
 
   getProductosByProveedor(razonSocial: string): Producto[] {

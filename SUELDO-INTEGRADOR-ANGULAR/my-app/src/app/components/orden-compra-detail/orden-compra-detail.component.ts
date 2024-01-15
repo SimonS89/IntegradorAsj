@@ -17,7 +17,7 @@ export class OrdenCompraDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const id = Number(this.route.snapshot.paramMap.get('id')!);
     this.ordenCompra = { ...this.ordenCompraService.getById(id)! }!;
   }
 

@@ -1,7 +1,7 @@
 import { Producto } from './Producto';
 
 export interface OrdenCompra {
-  id: string;
+  id: number;
   nroOrden: string;
   total: number;
   informacionRecepcion: string;

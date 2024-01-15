@@ -1,5 +1,5 @@
 export interface Proveedor {
-  id: string;
+  id: number;
   codigo: string;
   logo: string;
   razonSocial: string;

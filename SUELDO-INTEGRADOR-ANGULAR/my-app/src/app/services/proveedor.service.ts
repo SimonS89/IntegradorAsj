@@ -31,11 +31,11 @@ export class ProveedorService {
     return this.proveedores;
   }
 
-  public getById(id: string): Proveedor | undefined {
+  public getById(id: number): Proveedor | undefined {
     return this.proveedores.find((proveedor) => proveedor.id == id);
   }
 
-  public deleteById(id: string): Proveedor[] {
+  public deleteById(id: number): Proveedor[] {
     this.proveedores = this.proveedores.filter(
       (proveedor) => proveedor.id !== id
     );
@@ -70,7 +70,7 @@ export class ProveedorService {
     );
   }
 
-  idGenerator(): string {
-    return new Date().getTime().toString();
+  idGenerator(): number {
+    return new Date().getTime();
   }
 }

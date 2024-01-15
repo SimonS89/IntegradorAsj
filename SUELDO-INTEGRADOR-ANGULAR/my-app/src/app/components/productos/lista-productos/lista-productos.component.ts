@@ -56,7 +56,7 @@ export class ListaProductosComponent implements OnInit {
       });
   }
 
-  editarProducto(id: string) {
+  editarProducto(id: number) {
     this.router.navigate(['/productos/form-productos', id]);
   }
 

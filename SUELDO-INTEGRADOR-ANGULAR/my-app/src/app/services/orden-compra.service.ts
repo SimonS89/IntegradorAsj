@@ -35,11 +35,11 @@ export class OrdenCompraService {
     return this.ordenes;
   }
 
-  public getById(id: string): OrdenCompra | undefined {
+  public getById(id: number): OrdenCompra | undefined {
     return this.ordenes.find((orden) => orden.id == id);
   }
 
-  public cancelById(id: string): OrdenCompra[] {
+  public cancelById(id: number): OrdenCompra[] {
     const index = this.ordenes.findIndex((o) => o.id == id);
     if (index !== -1) {
       this.ordenes[index].isActive = !this.ordenes[index].isActive;
@@ -48,8 +48,8 @@ export class OrdenCompraService {
     return this.ordenes;
   }
 
-  idGenerator(): string {
-    return new Date().getTime().toString();
+  idGenerator(): number {
+    return new Date().getTime();
   }
 
   fechaFormateada(fecha: Date): string {

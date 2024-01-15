@@ -1,6 +1,6 @@
 const proveedoresEjemplo = [
   {
-    id: '1',
+    id: 1,
     codigo: 'PA00132',
     logo: 'https://e7.pngegg.com/pngimages/779/61/png-clipart-logo-idea-cute-eagle-leaf-logo.png',
     razonSocial: 'ByteCraft Solutions',
@@ -20,14 +20,14 @@ const proveedoresEjemplo = [
     },
     datosContacto: {
       nombre: 'Juan',
-      apellido:'Pérez',
+      apellido: 'Pérez',
       telefono: '555-1234',
       email: 'juan.perez@empresaA.com',
       rol: 'Representante de Ventas',
     },
   },
   {
-    id: '2',
+    id: 2,
     codigo: 'PA00134',
     logo: 'https://png.pngtree.com/png-vector/20211023/ourmid/pngtree-salon-logo-png-image_4004444.png',
     razonSocial: 'FreshBite Delights',
@@ -47,14 +47,14 @@ const proveedoresEjemplo = [
     },
     datosContacto: {
       nombre: 'Ana',
-      apellido:' García',
+      apellido: ' García',
       telefono: '555-5678',
       email: 'ana.garcia@empresaB.com',
       rol: 'Especialista en Marketing Digital',
     },
   },
   {
-    id: '3',
+    id: 3,
     codigo: 'PA09872',
     logo: 'https://w7.pngwing.com/pngs/786/126/png-transparent-logo-contracting-photography-logo-symbol.png',
     razonSocial: 'VogueHarbor Boutique',
@@ -74,14 +74,14 @@ const proveedoresEjemplo = [
     },
     datosContacto: {
       nombre: 'Martín',
-      apellido:'López',
+      apellido: 'López',
       telefono: '555-9876',
       email: 'martin.lopez@empresaC.com',
       rol: 'Asistente de Servicio al Cliente',
     },
   },
   {
-    id: '4',
+    id: 4,
     codigo: 'PA10132',
     logo: 'https://w7.pngwing.com/pngs/1008/532/png-transparent-wolf-logo-symbol-thumbnail.png',
     razonSocial: 'Revitalize Med Group',
@@ -101,14 +101,14 @@ const proveedoresEjemplo = [
     },
     datosContacto: {
       nombre: 'Laura',
-      apellido:'Rodríguez',
+      apellido: 'Rodríguez',
       telefono: '555-1111',
       email: 'laura.rodriguez@empresaD.com',
       rol: 'Coordinador de Logística',
     },
   },
   {
-    id: '5',
+    id: 5,
     codigo: 'PA05132',
     logo: 'https://e7.pngegg.com/pngimages/361/627/png-clipart-leaf-logo-green-leaves-green-and-teal-leaf-logo-text-maple-leaf.png',
     razonSocial: 'IntellectJunction Institute',
@@ -128,7 +128,7 @@ const proveedoresEjemplo = [
     },
     datosContacto: {
       nombre: 'Carlos',
-      apellido:'Pérez',
+      apellido: 'Pérez',
       telefono: '555-1212',
       email: 'carlos.perez@empresaE.com',
       rol: 'Analista de Datos Comerciales',
@@ -138,7 +138,7 @@ const proveedoresEjemplo = [
 
 const productosEjemplo = [
   {
-    id: '1',
+    id: 1,
     sku: 'SKU-A00132',
     imagen:
       'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
@@ -150,7 +150,7 @@ const productosEjemplo = [
     proveedor: 'ByteCraft Solutions',
   },
   {
-    id: '2',
+    id: 2,
     sku: 'SKU-B00132',
     imagen:
       'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
@@ -162,7 +162,7 @@ const productosEjemplo = [
     proveedor: 'FreshBite Delights',
   },
   {
-    id: '3',
+    id: 3,
     sku: 'SKU-C00111',
     imagen:
       'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
@@ -174,7 +174,7 @@ const productosEjemplo = [
     proveedor: 'VogueHarbor Boutique',
   },
   {
-    id: '4',
+    id: 4,
     sku: 'SKU-D00143',
     imagen:
       'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
@@ -186,7 +186,7 @@ const productosEjemplo = [
     proveedor: 'Revitalize Med Group',
   },
   {
-    id: '5',
+    id: 5,
     sku: 'SKU-E00551',
     imagen:
       'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
@@ -198,7 +198,7 @@ const productosEjemplo = [
     proveedor: 'IntellectJunction Institute',
   },
   {
-    id: '6',
+    id: 6,
     sku: 'SKU-A00245',
     imagen:
       'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -210,7 +210,7 @@ const productosEjemplo = [
     proveedor: 'ByteCraft Solutions',
   },
   {
-    id: '7',
+    id: 7,
     sku: 'SKU-A00378',
     imagen:
       'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -225,7 +225,7 @@ const productosEjemplo = [
 
 const ordenesEjemplo = [
   {
-    id: '1',
+    id: 1,
     nroOrden: 'OC-A04101',
     total: 1799.97,
     informacionRecepcion: 'Marta Sánchez',
@@ -234,7 +234,8 @@ const ordenesEjemplo = [
     fechaEmision: '2023-01-10',
     productos: [
       {
-        id: 'SKU-A00132',
+        id: 1,
+        sku: 'SKU-A00132',
         imagen:
           'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
         nombre: 'Smartphone X',
@@ -248,7 +249,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: '2',
+    id: 2,
     nroOrden: 'OC-A58002',
     total: 64.95,
     informacionRecepcion: 'Daniel González',
@@ -257,7 +258,8 @@ const ordenesEjemplo = [
     fechaEntrega: '2023-02-10',
     productos: [
       {
-        id: 'SKU-B00132',
+        id: 2,
+        sku: 'SKU-B00132',
         imagen:
           'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
         nombre: 'Pack de Galletas',
@@ -271,7 +273,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: '3',
+    id: 3,
     nroOrden: 'OC-A69003',
     total: 99.98,
     informacionRecepcion: 'Laura Rodríguez',
@@ -280,7 +282,8 @@ const ordenesEjemplo = [
     fechaEntrega: '2023-03-25',
     productos: [
       {
-        id: 'SKU-C00111',
+        id: 3,
+        sku: 'SKU-C00111',
         imagen:
           'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
         nombre: 'Camisa Elegante',
@@ -294,7 +297,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: '4',
+    id: 4,
     nroOrden: 'OC-A00454',
     total: 29.99,
     informacionRecepcion: 'Alejandro Martínez',
@@ -303,7 +306,8 @@ const ordenesEjemplo = [
     fechaEntrega: '2023-04-20',
     productos: [
       {
-        id: 'SKU-D00143',
+        id: 4,
+        sku: 'SKU-D00143',
         imagen:
           'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
         nombre: 'Kit de Primeros Auxilios',
@@ -317,7 +321,7 @@ const ordenesEjemplo = [
     isActive: true,
   },
   {
-    id: '5',
+    id: 5,
     nroOrden: 'OC-A03205',
     total: 359.96,
     informacionRecepcion: 'Carolina Fernández',
@@ -326,7 +330,8 @@ const ordenesEjemplo = [
     fechaEntrega: '2023-05-10',
     productos: [
       {
-        id: 'SKU-E00551',
+        id: 5,
+        sku: 'SKU-E00551',
         imagen:
           'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
         nombre: 'Curso de Programación',
