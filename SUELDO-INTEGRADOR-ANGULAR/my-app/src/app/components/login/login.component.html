@@ -25,14 +25,25 @@
       </div>
       <div class="mb-4">
         <label for="password" class="form-label">Contraseña</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          [(ngModel)]="password"
-          required
-        />
+        <div class="input-group">
+          <input
+            [type]="mostrarPassword ? 'text' : 'password'"
+            class="form-control"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (mousedown)="cambiarVisibilidad()"
+            (mouseup)="resetearEstado()"
+            (mouseleave)="resetearEstado()"
+          >
+            <fa-icon [icon]="faeye"></fa-icon>
+          </button>
+        </div>
       </div>
       <div class="mb-4 form-check">
         <input
