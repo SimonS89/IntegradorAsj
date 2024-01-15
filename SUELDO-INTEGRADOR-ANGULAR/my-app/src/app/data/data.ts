@@ -232,18 +232,22 @@ const ordenesEjemplo = [
     informacionAdicional: '',
     fechaEntrega: '2023-01-15',
     fechaEmision: '2023-01-10',
-    productos: [
+    items: [
       {
         id: 1,
-        sku: 'SKU-A00132',
-        imagen:
-          'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
-        nombre: 'Smartphone X',
         precio: 599.99,
-        descripcion: 'Telefono inteligente de ultima generacion',
-        categoria: 'Electrónica',
-        proveedor: 'ByteCraft Solutions',
         cantidad: 3,
+        producto: {
+          id: 1,
+          sku: 'SKU-A00132',
+          imagen:
+            'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2VsbHBob25lfGVufDB8MHwwfHx8Mg%3D%3D',
+          nombre: 'Smartphone X',
+          precio: 599.99,
+          descripcion: 'Telefono inteligente de ultima generacion',
+          categoria: 'Electrónica',
+          proveedor: 'ByteCraft Solutions',
+        },
       },
     ],
     isActive: true,
@@ -256,18 +260,22 @@ const ordenesEjemplo = [
     informacionAdicional: '',
     fechaEmision: '2023-02-05',
     fechaEntrega: '2023-02-10',
-    productos: [
+    items: [
       {
         id: 2,
-        sku: 'SKU-B00132',
-        imagen:
-          'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
-        nombre: 'Pack de Galletas',
         precio: 12.99,
-        descripcion: 'Variado pack de galletas para toda la familia',
-        categoria: 'Alimentos',
-        proveedor: 'FreshBite Delights',
         cantidad: 5,
+        producto: {
+          id: 2,
+          sku: 'SKU-B00132',
+          imagen:
+            'https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfDB8MHx8fDI%3D',
+          nombre: 'Pack de Galletas',
+          precio: 12.99,
+          descripcion: 'Variado pack de galletas para toda la familia',
+          categoria: 'Alimentos',
+          proveedor: 'FreshBite Delights',
+        },
       },
     ],
     isActive: true,
@@ -280,18 +288,22 @@ const ordenesEjemplo = [
     informacionAdicional: '',
     fechaEmision: '2023-03-20',
     fechaEntrega: '2023-03-25',
-    productos: [
+    items: [
       {
         id: 3,
-        sku: 'SKU-C00111',
-        imagen:
-          'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
-        nombre: 'Camisa Elegante',
         precio: 49.99,
-        descripcion: 'Camisa de alta calidad para ocasiones especiales',
-        categoria: 'Ropa',
-        proveedor: 'VogueHarbor Boutique',
         cantidad: 2,
+        producto: {
+          id: 3,
+          sku: 'SKU-C00111',
+          imagen:
+            'https://images.unsplash.com/photo-1519743670471-034311358429?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlZ2FudCUyMHNoaXJ0fGVufDB8MHwwfHx8Mg%3D%3D',
+          nombre: 'Camisa Elegante',
+          precio: 49.99,
+          descripcion: 'Camisa de alta calidad para ocasiones especiales',
+          categoria: 'Ropa',
+          proveedor: 'VogueHarbor Boutique',
+        },
       },
     ],
     isActive: true,
@@ -304,18 +316,22 @@ const ordenesEjemplo = [
     informacionAdicional: '',
     fechaEmision: '2023-04-15',
     fechaEntrega: '2023-04-20',
-    productos: [
+    items: [
       {
         id: 4,
-        sku: 'SKU-D00143',
-        imagen:
-          'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
-        nombre: 'Kit de Primeros Auxilios',
         precio: 29.99,
-        descripcion: 'Kit esencial para emergencias médicas',
-        categoria: 'Salud',
-        proveedor: 'Revitalize Med Group',
         cantidad: 1,
+        producto: {
+          id: 4,
+          sku: 'SKU-D00143',
+          imagen:
+            'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmlyc3QlMjBhaWQlMjBraXR8ZW58MHwwfDB8fHwy',
+          nombre: 'Kit de Primeros Auxilios',
+          precio: 29.99,
+          descripcion: 'Kit esencial para emergencias médicas',
+          categoria: 'Salud',
+          proveedor: 'Revitalize Med Group',
+        },
       },
     ],
     isActive: true,
@@ -328,18 +344,22 @@ const ordenesEjemplo = [
     informacionAdicional: '',
     fechaEmision: '2023-05-05',
     fechaEntrega: '2023-05-10',
-    productos: [
+    items: [
       {
         id: 5,
-        sku: 'SKU-E00551',
-        imagen:
-          'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
-        nombre: 'Curso de Programación',
         precio: 89.99,
-        descripcion: 'Curso online para aprender programación',
-        categoria: 'Educación',
-        proveedor: 'IntellectJunction Institute',
         cantidad: 4,
+        producto: {
+          id: 5,
+          sku: 'SKU-E00551',
+          imagen:
+            'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZ3JhbW1pbmclMjBjb3Vyc2V8ZW58MHwwfDB8fHwy',
+          nombre: 'Curso de Programación',
+          precio: 89.99,
+          descripcion: 'Curso online para aprender programación',
+          categoria: 'Educación',
+          proveedor: 'IntellectJunction Institute',
+        },
       },
     ],
     isActive: true,

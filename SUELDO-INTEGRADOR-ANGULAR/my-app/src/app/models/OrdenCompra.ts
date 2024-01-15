@@ -1,4 +1,4 @@
-import { Producto } from './Producto';
+import { DetalleOrden } from './DetalleOrden';
 
 export interface OrdenCompra {
   id: number;
@@ -8,6 +8,6 @@ export interface OrdenCompra {
   informacionAdicional: string;
   fechaEmision: string;
   fechaEntrega: string;
-  productos: Producto[];
+  items: DetalleOrden[];
   isActive: boolean;
 }

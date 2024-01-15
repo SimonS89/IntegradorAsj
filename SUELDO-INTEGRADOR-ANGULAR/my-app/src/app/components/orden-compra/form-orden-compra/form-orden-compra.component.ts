@@ -9,6 +9,7 @@ import { Producto } from 'src/app/models/Producto';
 import { Proveedor } from 'src/app/models/Proveedor';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AlertService } from 'src/app/services/alert.service';
+import { DetalleOrden } from 'src/app/models/DetalleOrden';
 
 @Component({
   selector: 'app-form-orden-compra',
@@ -24,7 +25,7 @@ export class FormOrdenCompraComponent implements OnInit {
     informacionAdicional: '',
     fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
     fechaEntrega: '',
-    productos: [],
+    items: [],
     isActive: true,
   };
 
@@ -33,7 +34,6 @@ export class FormOrdenCompraComponent implements OnInit {
   proveedorSeleccionado!: string;
   productoSeleccionadoName!: string;
   cantidadProducto: number = 1;
-  productoSeleccionado!: Producto;
   faTrash = faTrash;
 
   constructor(
@@ -95,15 +95,19 @@ export class FormOrdenCompraComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            const productoExistente = this.ordenCompra.productos.find(
-              (producto) => producto.nombre === this.productoSeleccionadoName
+            const productoExistente = this.ordenCompra.items.find(
+              (item) => item.producto.nombre === this.productoSeleccionadoName
             );
             if (productoExistente?.cantidad) {
               productoExistente.cantidad += this.cantidadProducto;
             } else {
-              const nuevoProducto = p!;
-              nuevoProducto.cantidad = this.cantidadProducto;
-              this.ordenCompra.productos.push(nuevoProducto);
+              const nuevoItem = {
+                id: this.ordenCompraService.idGenerator(),
+                precio: p?.precio,
+                cantidad: this.cantidadProducto!,
+                producto: p!,
+              } as DetalleOrden;
+              this.ordenCompra.items.push(nuevoItem);
             }
             this.limpiarInputs();
             this.actualizarTotal();
@@ -118,8 +122,8 @@ export class FormOrdenCompraComponent implements OnInit {
   }
 
   actualizarTotal() {
-    this.ordenCompra.total = this.ordenCompra.productos.reduce(
-      (total, producto) => total + producto.precio * (producto.cantidad || 0),
+    this.ordenCompra.total = this.ordenCompra.items.reduce(
+      (total, item) => total + item.precio * (item.cantidad || 0),
       0
     );
   }
@@ -135,9 +139,11 @@ export class FormOrdenCompraComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          const index = this.ordenCompra.productos.indexOf(producto);
+          const index = this.ordenCompra.items.findIndex(
+            (item) => item.producto.id == producto.id
+          );
           if (index !== -1) {
-            this.ordenCompra.productos.splice(index, 1);
+            this.ordenCompra.items.splice(index, 1);
             this.actualizarTotal();
           }
         }
@@ -164,7 +170,7 @@ export class FormOrdenCompraComponent implements OnInit {
             informacionAdicional: '',
             fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
             fechaEntrega: '',
-            productos: [],
+            items: [],
             isActive: true,
           };
           this.cantidadProducto = 1;

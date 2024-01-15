@@ -16,48 +16,43 @@
           </div>
           <div
             class="card shadow-0 border mb-4"
-            *ngFor="let producto of ordenCompra.productos"
+            *ngFor="let item of ordenCompra.items"
           >
             <div class="card-body">
               <div class="row">
                 <div class="col-md-2">
                   <img
-                    [src]="producto.imagen"
+                    [src]="item.producto.imagen"
                     class="img-fluid"
-                    [alt]="producto.nombre"
+                    [alt]="item.producto.imagen"
                     (error)="handleImageError($event)"
                   />
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0">{{ producto.nombre }}</p>
+                  <p class="text-muted mb-0">{{ item.producto.nombre }}</p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0">{{ producto.categoria }}</p>
+                  <p class="text-muted mb-0">{{ item.producto.categoria }}</p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0">{{ producto.proveedor }}</p>
+                  <p class="text-muted mb-0">{{ item.producto.proveedor }}</p>
+                </div>
+                <div
+                  class="col-md-2 text-center d-flex justify-content-center align-items-center"
+                >
+                  <p class="text-muted mb-0">Cantidad: {{ item.cantidad }}</p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
                   <p class="text-muted mb-0">
-                    Cantidad: {{ producto.cantidad }}
-                  </p>
-                </div>
-                <div
-                  class="col-md-2 text-center d-flex justify-content-center align-items-center"
-                >
-                  <p class="text-muted mb-0">
-                    {{
-                      producto.precio * (producto.cantidad ?? 0)
-                        | currency : "USD"
-                    }}
+                    {{ item.precio * item.cantidad | currency : "USD" }}
                   </p>
                 </div>
               </div>

@@ -118,7 +118,7 @@
               #proveedor="ngModel"
               [ngClass]="!proveedorSeleccionado ? 'is-invalid' : 'is-valid'"
               (change)="listarProductos(proveedorSeleccionado)"
-              [disabled]="ordenCompra.productos.length > 0"
+              [disabled]="ordenCompra.items.length > 0"
             >
               <option value="" disabled selected>
                 Selecciona un proveedor
@@ -196,7 +196,7 @@
         <div class="col-10 offset-1 mt-4">
           <h3>Productos Agregados</h3>
           <table
-            *ngIf="ordenCompra.productos.length > 0"
+            *ngIf="ordenCompra.items.length > 0"
             class="table table-secondary table-striped-columns align-middle"
           >
             <thead>
@@ -208,21 +208,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let producto of ordenCompra.productos">
-                <td>{{ producto.nombre }}</td>
-                <td>{{ producto.cantidad }}</td>
+              <tr *ngFor="let item of ordenCompra.items">
+                <td>{{ item.producto.nombre }}</td>
+                <td>{{ item.cantidad }}</td>
                 <td>
                   {{
-                    (producto.precio || 0) * (producto.cantidad || 0)
-                      | currency : "USD"
+                    (item.precio || 0) * (item.cantidad || 0) | currency : "USD"
                   }}
                 </td>
                 <td>
                   <button
                     type="button"
                     class="btn btn-sm btn-danger"
-                    (click)="eliminarProducto(producto)"
-                    [title]="'Eliminar ' + producto.nombre + '?'"
+                    (click)="eliminarProducto(item.producto)"
+                    [title]="'Eliminar ' + item.producto.nombre + '?'"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
@@ -238,7 +237,7 @@
               </tr>
             </tfoot>
           </table>
-          <p *ngIf="ordenCompra.productos.length == 0">
+          <p *ngIf="ordenCompra.items.length == 0">
             No hay productos agregados.
           </p>
         </div>
@@ -246,9 +245,7 @@
           <button
             type="submit"
             class="btn btn-success fw-bold col-md-2"
-            [disabled]="
-              !ordenCompraForm.valid || ordenCompra.productos.length == 0
-            "
+            [disabled]="!ordenCompraForm.valid || ordenCompra.items.length == 0"
           >
             Generar orden
           </button>
