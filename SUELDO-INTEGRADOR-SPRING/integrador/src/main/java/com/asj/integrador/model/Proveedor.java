@@ -45,6 +45,6 @@ public class Proveedor {
     @JoinColumn(name = "tipo_iva_id", referencedColumnName = "id", nullable = false)
     private TipoIva tipoIva;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rubro", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "rubro_id", referencedColumnName = "id", nullable = false)
     private Rubro rubro;
 }
