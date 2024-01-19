@@ -7,7 +7,19 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  onSubmit(_t11: NgForm) {
-    throw new Error('Method not implemented.');
+  nombreUsuario: string = '';
+  email: string = '';
+  password: string = '';
+  rePassword: string = '';
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      console.log({
+        nombreUsuario: this.nombreUsuario,
+        email: this.email,
+        password: this.password,
+        rePassword: this.rePassword,
+      });
+    }
   }
 }

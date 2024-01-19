@@ -1,9 +1,6 @@
-<div
-  class="gradient-custom h-100 rounded-5 shadow-lg pb-5"
-  style="min-height: 80vh"
->
+<div class="gradient-custom rounded-5 shadow-lg pb-5">
   <div class="row d-flex flex-column justify-content-center align-items-center">
-    <div class="col-lg-10">
+    <div class="col-sm-10">
       <h2 class="mt-4">Productos y Servicios</h2>
       <div class="row justify-content-center mb-3 mt-4 align-items-center">
         <a
@@ -22,12 +19,12 @@
         <table class="table table-light table-hover align-middle m-0">
           <thead class="table-success">
             <tr>
-              <th scope="col">Logo</th>
+              <th scope="col" class="d-none d-lg-table-cell">Logo</th>
               <th scope="col">SKU</th>
               <th scope="col">Nombre</th>
               <th scope="col">Precio</th>
-              <th scope="col">Categoria</th>
-              <th scope="col">Proveedor</th>
+              <th scope="col" class="d-none d-lg-table-cell">Categoria</th>
+              <th scope="col" class="d-none d-lg-table-cell">Proveedor</th>
               <th scope="col">Funcionalidades</th>
             </tr>
           </thead>
@@ -36,7 +33,7 @@
               class="align-middle fw-medium"
               *ngFor="let producto of productos"
             >
-              <td>
+              <td class="d-none d-lg-table-cell">
                 <img
                   src="{{ producto.imagen }}"
                   class="object-fit-contain"
@@ -48,8 +45,8 @@
               <td>{{ producto.sku }}</td>
               <td>{{ producto.nombre }}</td>
               <td>{{ producto.precio | currency : "USD" }}</td>
-              <td>{{ producto.categoria }}</td>
-              <td>{{ producto.proveedor }}</td>
+              <td class="d-none d-lg-table-cell">{{ producto.categoria }}</td>
+              <td class="d-none d-lg-table-cell">{{ producto.proveedor }}</td>
               <td>
                 <button
                   type="button"

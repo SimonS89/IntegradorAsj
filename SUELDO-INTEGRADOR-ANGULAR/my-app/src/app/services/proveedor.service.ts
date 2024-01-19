@@ -12,7 +12,7 @@ export class ProveedorService {
   private API_ARG = 'https://apis.datos.gob.ar/georef/api/';
 
   constructor(private http: HttpClient) {
-    // this.setStorage('proveedores', proveedoresEjemplo);
+    this.setStorage('proveedores', proveedoresEjemplo);
   }
 
   getStorage(key: string): Proveedor[] | undefined {

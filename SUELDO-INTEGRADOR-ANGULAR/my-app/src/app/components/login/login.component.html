@@ -10,16 +10,16 @@
         alt="Logo ASJ Servicios"
       />
     </div>
-    <h2 class="fw-bold text-center pt-5 py-5">Bienvenido/a</h2>
+    <h2 class="fw-bold text-center pt-2 py-4">Bienvenido/a</h2>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
       <div class="mb-4">
-        <label for="email" class="form-label">Correo Electrónico</label>
+        <label for="username" class="form-label">Nombre de Usuario</label>
         <input
-          type="email"
+          type="text"
           class="form-control"
-          id="email"
-          name="email"
-          [(ngModel)]="email"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
           required
         />
       </div>

@@ -9,9 +9,10 @@
 }
 
 .bg {
-  background-image: url(../../../assets/brand1.png);
+  background-image: url(../../../assets/bg-new.png);
   background-position: center center;
   background-repeat: no-repeat;
+  background-size: 80%;
 }
 
 .form-bg {

@@ -1,9 +1,6 @@
-<div
-  class="gradient-custom h-100 rounded-5 shadow-lg pb-5"
-  style="min-height: 80vh"
->
+<div class="gradient-custom rounded-5 shadow-lg pb-5">
   <div class="row d-flex flex-column justify-content-center align-items-center">
-    <div class="col-lg-10">
+    <div class="col-sm-10">
       <h2 class="mt-4">Órdenes de Compra</h2>
       <div class="row justify-content-center mb-3 mt-4 align-items-center">
         <a
@@ -17,7 +14,7 @@
       </div>
       <div class="row justify-content-end mb-3">
         <label
-          class="col-md-2 col-sm-6 form-check-label"
+          class="col-md-2 col-sm-12 form-check-label"
           for="showActiveOnlyCheckbox"
           role="button"
         >
@@ -39,9 +36,11 @@
             <tr>
               <th scope="col">#N° Orden</th>
               <th scope="col">Total Abonado</th>
-              <th scope="col">Información Recepción</th>
-              <th scope="col">Fecha Emisión</th>
-              <th scope="col">Fecha Entrega</th>
+              <th scope="col" class="d-none d-lg-table-cell">
+                Información Recepción
+              </th>
+              <th scope="col" class="d-none d-lg-table-cell">Fecha Emisión</th>
+              <th scope="col" class="d-none d-lg-table-cell">Fecha Entrega</th>
               <th scope="col">Estado</th>
               <th scope="col">Funcionalidades</th>
             </tr>
@@ -73,6 +72,7 @@
                 {{ orden.total | currency : "USD" }}
               </td>
               <td
+                class="d-none d-lg-table-cell"
                 [ngClass]="
                   orden.isActive
                     ? 'text-dark'
@@ -82,6 +82,7 @@
                 {{ orden.informacionRecepcion }}
               </td>
               <td
+                class="d-none d-lg-table-cell"
                 [ngClass]="
                   orden.isActive
                     ? 'text-dark'
@@ -91,6 +92,7 @@
                 {{ orden.fechaEmision | date : "dd/MM/yyyy" }}
               </td>
               <td
+                class="d-none d-lg-table-cell"
                 [ngClass]="
                   orden.isActive
                     ? 'text-dark'
@@ -114,10 +116,10 @@
                     : "Cancelada"
                 }}
               </td>
-              <td class="d-flex justify-content-center gap-3">
+              <td>
                 <button
                   type="button"
-                  class="btn"
+                  class="btn me-3"
                   [ngClass]="
                     orden.isActive
                       ? 'btn-outline-danger'

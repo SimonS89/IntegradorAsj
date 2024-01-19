@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +16,35 @@ export class LoginComponent {
   togglePassword() {
     throw new Error('Method not implemented.');
   }
-  email!: string;
+  username!: string;
   password!: string;
+  usuario: string = 'user1';
+  contrasena: string = 'user1';
   faeye = faEye;
   mostrarPassword: boolean = false;
+
   constructor(private router: Router) {}
   onSubmit(form: NgForm) {
-    this.router.navigate(['index']);
+    if (form.valid) {
+      if (this.username === this.usuario && this.contrasena === this.password) {
+        this.router.navigate(['index']);
+        Swal.fire({
+          title: 'Bienvenido/a a ASJ servicios',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          title: 'Usuario o contraseña incorrecta',
+          text: 'Verifica tus credenciales',
+          icon: 'error',
+        }).then(() => {
+          this.username = '';
+          this.password = '';
+        });
+      }
+    }
   }
 
   cambiarVisibilidad() {

@@ -10,29 +10,91 @@
         alt="Logo ASJ Servicios"
       />
     </div>
-    <h2 class="fw-bold text-center pt-5 py-5">Registrarse</h2>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+    <h2 class="fw-bold text-center pt-2 py-4">Registrarse</h2>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
       <div class="mb-4">
         <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
-        <input type="text" class="form-control" id="nombreUsuario" />
+        <input
+          type="text"
+          class="form-control"
+          id="nombreUsuario"
+          name="nombreUsuario"
+          placeholder="e.g. : Gestor1"
+          [(ngModel)]="nombreUsuario"
+          #usuario="ngModel"
+          required
+          pattern="[a-zA-Z0-9]{6,}"
+          [ngClass]="usuario.errors ? 'is-invalid' : 'is-valid'"
+        />
+        <div *ngIf="usuario.errors?.['pattern']" class="invalid-feedback">
+          Debe contener solo letras y números y al menos 6 caracteres.
+        </div>
       </div>
       <div class="mb-4">
         <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" class="form-control" id="email" />
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="e.g. : user@user.com"
+          required
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+          #correo="ngModel"
+          [ngClass]="correo.errors ? 'is-invalid' : 'is-valid'"
+        />
+        <div
+          *ngIf="correo.errors?.['pattern']
+          "
+          class="invalid-feedback"
+        >
+          Formato de correo inválido.
+        </div>
       </div>
       <div class="mb-4">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" />
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="6"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$"
+          #contrasenia="ngModel"
+          [ngClass]="contrasenia.errors ? 'is-invalid' : 'is-valid'"
+        />
+        <div *ngIf="contrasenia.errors?.['pattern']" class="invalid-feedback">
+          Debe tener al menos 6 caracteres, una mayúscula, una minúscula y un
+          número.
+        </div>
       </div>
       <div class="mb-4">
         <label for="rePassword" class="form-label">Repetir contraseña</label>
-        <input type="password" class="form-control" id="rePassword" />
+        <input
+          type="password"
+          class="form-control"
+          id="rePassword"
+          name="rePassword"
+          [(ngModel)]="rePassword"
+          required
+          [ngClass]="
+            rePassword !== password || rePassword == ''
+              ? 'is-invalid'
+              : 'is-valid'
+          "
+        />
+        <div *ngIf="rePassword !== password" class="invalid-feedback">
+          Las contraseñas no coinciden.
+        </div>
       </div>
       <div class="d-grid">
         <button
           type="submit"
           class="col-md-6 offset-md-3 btn btn-primary fw-bold"
-          [disabled]="!registerForm.valid"
+          [disabled]="!registerForm.valid || rePassword !== password"
         >
           Registrarse
         </button>

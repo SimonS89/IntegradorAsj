@@ -1,17 +1,13 @@
-/* .row {
-  background: -webkit-linear-gradient(to left #f17e27, #f4c266);
-  background: linear-gradient(to left, #f17e27, #f4c266);
-} */
-
 .row {
   background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
   background: linear-gradient(to left, #6cbdb8, #acdbc6);
 }
 
 .bg {
-  background-image: url(../../../assets/brand1.png);
+  background-image: url(../../../assets/bg-new.png);
   background-position: center center;
   background-repeat: no-repeat;
+  background-size: 80%;
 }
 
 .form-bg {
