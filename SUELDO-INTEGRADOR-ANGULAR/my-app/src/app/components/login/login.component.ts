@@ -10,12 +10,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  resetPasswordState() {
-    throw new Error('Method not implemented.');
-  }
-  togglePassword() {
-    throw new Error('Method not implemented.');
-  }
   username!: string;
   password!: string;
   usuario: string = 'user1';
@@ -24,15 +18,17 @@ export class LoginComponent {
   mostrarPassword: boolean = false;
 
   constructor(private router: Router) {}
+
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (this.username === this.usuario && this.contrasena === this.password) {
-        this.router.navigate(['index']);
         Swal.fire({
           title: 'Bienvenido/a a ASJ servicios',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
+        }).then(() => {
+          this.router.navigate(['index']);
         });
       } else {
         Swal.fire({

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -11,14 +13,16 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
   rePassword: string = '';
+  constructor(private router: Router) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log({
-        nombreUsuario: this.nombreUsuario,
-        email: this.email,
-        password: this.password,
-        rePassword: this.rePassword,
+      Swal.fire({
+        title: 'Usuario creado exitosamente, inice sesión.',
+        icon: 'success',
+        showConfirmButton: true,
+      }).then(() => {
+        this.router.navigate(['']);
       });
     }
   }
