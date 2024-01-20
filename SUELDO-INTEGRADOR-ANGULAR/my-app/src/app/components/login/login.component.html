@@ -70,7 +70,11 @@
           >No tenés cuenta?
           <a [routerLink]="['/register']">Registrarse.</a></span
         ><br />
-        <span><a href="#">Recuperar contraseña.</a></span>
+        <span
+          ><a href="#" (click)="recuperarContrasenia()"
+            >Recuperar contraseña.</a
+          ></span
+        >
       </div>
     </form>
   </div>

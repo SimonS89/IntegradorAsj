@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AlertService } from 'src/app/services/alert.service';
@@ -8,14 +8,24 @@ import { AlertService } from 'src/app/services/alert.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   faUser = faUser;
+  user: string = '';
 
   constructor(private router: Router, public alertService: AlertService) {}
+  ngOnInit(): void {
+    this.user = localStorage.getItem('user')!;
+  }
 
   cerrarSesion() {
     this.alertService
-      .question('¿Desea cerrar sesión?', true, true, 'Aceptar', 'Cancelar')
+      .question(
+        `¿Deseas cerrar sesión ${this.user}?`,
+        true,
+        true,
+        'Aceptar',
+        'Cancelar'
+      )
       .then((res) => {
         if (res) {
           this.router.navigate(['']);

@@ -3,6 +3,8 @@ ul {
   background-color: whitesmoke;
 }
 
-a {
+a,
+span,
+fa-icon {
   color: #2e3f4c;
 }

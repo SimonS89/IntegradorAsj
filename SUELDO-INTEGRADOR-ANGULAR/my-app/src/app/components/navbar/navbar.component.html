@@ -35,10 +35,7 @@
           >
             Proveedores
           </a>
-          <ul
-            class="dropdown-menu"
-            aria-labelledby="dropdown1"
-          >
+          <ul class="dropdown-menu" aria-labelledby="dropdown1">
             <li>
               <a class="dropdown-item fw-bold" [routerLink]="['/proveedores']"
                 >Listar todos</a
@@ -64,10 +61,7 @@
           >
             Productos y Servicios
           </a>
-          <ul
-            class="dropdown-menu"
-            aria-labelledby="dropdown1"
-          >
+          <ul class="dropdown-menu" aria-labelledby="dropdown1">
             <li>
               <a class="dropdown-item fw-bold" [routerLink]="['/productos']"
                 >Listar todos</a
@@ -93,10 +87,7 @@
           >
             Ordenes de compra
           </a>
-          <ul
-            class="dropdown-menu"
-            aria-labelledby="dropdown1"
-          >
+          <ul class="dropdown-menu" aria-labelledby="dropdown1">
             <li>
               <a
                 class="dropdown-item fw-bold"
@@ -124,7 +115,8 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <fa-icon [icon]="faUser" class="fw-bolder fs-3"></fa-icon>
+            <fa-icon [icon]="faUser" class="fw-bolder fs-3"> </fa-icon>
+            <span class="ms-2 fs-5">{{ user }}</span>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-end"
