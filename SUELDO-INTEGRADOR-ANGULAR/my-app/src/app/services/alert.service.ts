@@ -12,7 +12,6 @@ export class AlertService {
     btnConfirmText: string,
     btnCancelText: string,
     confirmButtonColor: string = '#6cbdb8',
-    cancelButtonColor: string = '#c23a00',
     background: string = '#f5f5f5'
   ): Promise<any> {
     return new Promise((resolve) => {
@@ -27,7 +26,6 @@ export class AlertService {
         allowOutsideClick: false,
         allowEscapeKey: false,
         confirmButtonColor: confirmButtonColor,
-        cancelButtonColor: cancelButtonColor,
         background: background,
         width: 312,
       }).then((result) => {
@@ -49,6 +47,8 @@ export class AlertService {
       icon: icon,
       title: title,
       showConfirmButton: true,
+      timer: 1500,
+      width: '20em',
     });
   }
   public loading(text: string): void {
@@ -59,7 +59,7 @@ export class AlertService {
       allowOutsideClick: false,
       allowEscapeKey: false,
       footer: `<p>${text}</p>`,
-      width: 312,
+      width: '10em',
     });
     Swal.showLoading();
   }
