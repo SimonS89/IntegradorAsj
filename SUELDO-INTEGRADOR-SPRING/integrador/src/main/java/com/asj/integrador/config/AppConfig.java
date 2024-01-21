@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.support.RestClientAdapter;
@@ -13,7 +14,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration
 public class AppConfig {
 
-    @Value("${country.base.url}")
+    @Value("${country.base.url2}")
     private String urlBaseCountry;
 
     @Bean
@@ -23,7 +24,9 @@ public class AppConfig {
 
     @Bean
     public WebClient webClient(){
-        return WebClient.builder().baseUrl(urlBaseCountry).build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-CSCAPI-KEY", "U0xEa3ltbE50R3ZMS0hOb3l2UmkwRENQaVd3cXhsQVBaUXhRS0YzRg==");
+        return WebClient.builder().baseUrl(urlBaseCountry).defaultHeaders(httpHeaders -> httpHeaders.addAll(headers)).codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024)).build();
     }
 
     @Bean

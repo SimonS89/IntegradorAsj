@@ -1,15 +1,15 @@
 package com.asj.integrador.service.impl;
 
-import com.asj.integrador.dto.pais_provincia.DataDTO;
+import com.asj.integrador.dto.pais_provincia.ProvinciaDTO;
+import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Pais;
 import com.asj.integrador.model.Provincia;
 import com.asj.integrador.repository.ProvinciaRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Service
 public class ProvinciaServiceImpl {
@@ -24,13 +24,19 @@ public class ProvinciaServiceImpl {
         this.webClient = webClient;
     }
 
-    public void crearProvinciasArg(Pais pais) {
-        DataDTO data = webClient.get().uri("?campos=id,nombre").retrieve().bodyToMono(DataDTO.class).block();
-        data.getProvincias().forEach(p -> {
+    public void crearProvincias(Pais pais) {
+        List<ProvinciaDTO> provincias = webClient.get().uri("/countries/" + pais.getId() + "/states").retrieve().bodyToFlux(ProvinciaDTO.class).collectList().block();
+        provincias.parallelStream().forEach(p -> {
             Provincia provincia = mapper.map(p, Provincia.class);
+            provincia.setNombre(p.getName());
             provincia.setPais(pais);
             provinciaRepository.save(provincia);
         });
     }
 
+    public List<Provincia> findByPais(Long paisId) throws ResourceNotFoundException {
+        List<Provincia> provinciasEncontradas = provinciaRepository.findByPaisId(paisId);
+        if (provinciasEncontradas.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
+        return provinciasEncontradas;
+    }
 }

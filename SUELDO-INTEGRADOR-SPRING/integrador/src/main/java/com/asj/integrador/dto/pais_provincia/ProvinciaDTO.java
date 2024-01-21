@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProvinciasDTO {
-    private String nombre;
+public class ProvinciaDTO {
+    private long id;
+    private String name;
 }

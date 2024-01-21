@@ -14,7 +14,6 @@ import lombok.Setter;
 @Table(name = "paises")
 public class Pais {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
 }

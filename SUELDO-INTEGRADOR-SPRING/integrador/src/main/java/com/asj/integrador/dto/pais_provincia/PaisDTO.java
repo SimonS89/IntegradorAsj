@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataDTO {
-    private List<ProvinciasDTO> provincias;
+public class PaisDTO {
+    private long id;
+    private String name;
 }
