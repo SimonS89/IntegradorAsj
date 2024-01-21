@@ -22,6 +22,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String categoria;
+    private Boolean eliminado;
     @UpdateTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaActualizacionRegistro;

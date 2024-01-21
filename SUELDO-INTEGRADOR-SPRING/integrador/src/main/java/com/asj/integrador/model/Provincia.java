@@ -16,7 +16,7 @@ public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String provincia;
+    private String nombre;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pais_id", referencedColumnName = "id", nullable = false)
     private Pais pais;

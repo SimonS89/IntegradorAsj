@@ -26,6 +26,7 @@ public class OrdenCompra {
     private Double total;
     private String infoRecepcion;
     private String infoAdicional;
+    private Boolean activa;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaEmision;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
