@@ -12,5 +12,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AppResponse {
-    private String message;
+    private String message;    
 }
