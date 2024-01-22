@@ -5,6 +5,7 @@ import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Pais;
 import com.asj.integrador.model.Provincia;
 import com.asj.integrador.repository.ProvinciaRepository;
+import com.asj.integrador.service.ProvinciaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 @Service
-public class ProvinciaServiceImpl {
+public class ProvinciaServiceImpl implements ProvinciaService {
 
     private final ProvinciaRepository provinciaRepository;
     private final ModelMapper mapper;
@@ -24,6 +25,7 @@ public class ProvinciaServiceImpl {
         this.webClient = webClient;
     }
 
+    @Override
     public void crearProvincias(Pais pais) {
         List<ProvinciaDTO> provincias = webClient.get().uri("/countries/" + pais.getId() + "/states").retrieve().bodyToFlux(ProvinciaDTO.class).collectList().block();
         provincias.parallelStream().forEach(p -> {
@@ -34,9 +36,15 @@ public class ProvinciaServiceImpl {
         });
     }
 
+    @Override
     public List<Provincia> findByPais(Long paisId) throws ResourceNotFoundException {
         List<Provincia> provinciasEncontradas = provinciaRepository.findByPaisId(paisId);
         if (provinciasEncontradas.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
         return provinciasEncontradas;
+    }
+
+    @Override
+    public Provincia findById(Long id) throws ResourceNotFoundException {
+        return provinciaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Provincia no encontrada"));
     }
 }

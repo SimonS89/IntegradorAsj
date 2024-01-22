@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,14 @@ public class CategoriaServiceImpl implements CategoriaService {
     public CategoriaServiceImpl(CategoriaRepositroy categoriaRepository, ModelMapper mapper) {
         this.categoriaRepository = categoriaRepository;
         this.mapper = mapper;
+    }
+
+    @Override
+    public void defaultData() {
+        if (categoriaRepository.count() == 0) {
+            List<String> categorias = new ArrayList<>(Arrays.asList("Libros", "Cursos", "Ropa", "Calzado", "Suplementos", "Equipamiento", "Productos orgánicos", "Snacks saludables", "Dispositivos móviles", "Computadoras"));
+            categoriaRepository.saveAll(categorias.stream().map(Categoria::new).toList());
+        }
     }
 
     @Override
@@ -64,7 +74,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public void softDelete(Long id) throws ResourceNotFoundException {
         Categoria categoria = getCategoriaIfExists(id);
-        categoria.setEliminado(true);
+        categoria.setEstaEliminado(true);
         categoriaRepository.save(categoria);
     }
 

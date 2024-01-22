@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,15 @@ public class RubroServiceImpl implements RubroService {
     public RubroServiceImpl(RubroRepository rubroRepository, ModelMapper mapper) {
         this.rubroRepository = rubroRepository;
         this.mapper = mapper;
+    }
+
+    @Override
+    public void defaultData() {
+        if (rubroRepository.count() == 0) {
+            List<String> rubros = new ArrayList<>(Arrays.asList("Tecnología", "Alimentación", "Moda", "Salud", "Educación"));
+            if (rubroRepository.count() == 0)
+                rubroRepository.saveAll(rubros.stream().map(Rubro::new).toList());
+        }
     }
 
     @Override
@@ -64,7 +75,7 @@ public class RubroServiceImpl implements RubroService {
     @Override
     public void softDelete(Long id) throws ResourceNotFoundException {
         Rubro rubro = getRubroIfExists(id);
-        rubro.setEliminado(true);
+        rubro.setEstaEliminado(true);
         rubroRepository.save(rubro);
     }
 

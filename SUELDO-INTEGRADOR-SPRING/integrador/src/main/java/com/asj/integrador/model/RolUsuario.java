@@ -19,4 +19,8 @@ public class RolUsuario {
     private Long id;
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    public RolUsuario(Rol rol) {
+        this.rol = rol;
+    }
 }

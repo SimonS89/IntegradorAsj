@@ -4,10 +4,9 @@ import com.asj.integrador.dto.pais_provincia.PaisDTO;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Pais;
 import com.asj.integrador.repository.PaisRepository;
+import com.asj.integrador.service.PaisService;
+import com.asj.integrador.service.ProvinciaService;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -15,26 +14,24 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class PaisServiceImpl {
+public class PaisServiceImpl implements PaisService {
 
     private final PaisRepository paisRepository;
     private final ModelMapper mapper;
-    private final ProvinciaServiceImpl provinciaService;
+    private final ProvinciaService provinciaService;
     private final WebClient webClient;
 
-    public PaisServiceImpl(PaisRepository paisRepository, ModelMapper mapper, ProvinciaServiceImpl provinciaService, WebClient webClient) {
+    public PaisServiceImpl(PaisRepository paisRepository, ModelMapper mapper, ProvinciaService provinciaService, WebClient webClient) {
         this.paisRepository = paisRepository;
         this.mapper = mapper;
         this.provinciaService = provinciaService;
         this.webClient = webClient;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    @Order(1)
-    private void createPaises() {
-        List<Pais> paisesEncontrados = paisRepository.findAll();
-        List<Integer> idPaises = Arrays.asList(11, 235, 31, 172, 44);
-        if (paisesEncontrados.isEmpty()) {
+    @Override
+    public void createPaises() {
+        if (paisRepository.count() == 0) {
+            List<Integer> idPaises = Arrays.asList(11, 235, 31, 172, 44);
             List<PaisDTO> paises = webClient.get().uri("/countries").retrieve().bodyToFlux(PaisDTO.class).collectList().block();
             paises.parallelStream().forEach(p -> {
                 if (idPaises.contains((int) p.getId())) {
@@ -46,9 +43,10 @@ public class PaisServiceImpl {
         }
     }
 
-    private List<Pais> findAll() throws ResourceNotFoundException {
+    @Override
+    public List<Pais> findAll() throws ResourceNotFoundException {
         List<Pais> paisesEncontrados = paisRepository.findAll();
-        if(paisesEncontrados.isEmpty())throw new ResourceNotFoundException("No hay paises disponibles");
+        if (paisesEncontrados.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
         return paisRepository.findAll();
     }
 

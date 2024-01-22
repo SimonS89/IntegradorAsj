@@ -26,7 +26,7 @@ public class Proveedor {
     private String razonSocial;
     private String cuit;
     private String telefono;
-    private Boolean eliminado;
+    private boolean estaEliminado;
     private String sitioWeb;
     private String email;
     @UpdateTimestamp

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ModelService<T,K> {
+    void defaultData();
     K create(T t) throws AlreadyExistsException;
 
     K findById(Long id) throws ResourceNotFoundException;
