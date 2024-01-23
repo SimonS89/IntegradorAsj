@@ -275,7 +275,11 @@
             name="pais"
             [(ngModel)]="proveedor.domicilio.provincia.pais.id"
             #pais="ngModel"
-            [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              pais.errors || !proveedor.domicilio.provincia.pais.id
+                ? 'is-invalid'
+                : 'is-valid'
+            "
             (change)="listarProvincias(pais.value)"
           >
             <option value="" disabled selected>Selecciona un Pais</option>
@@ -283,7 +287,10 @@
               {{ pais.nombre }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="pais.errors">
+          <div
+            class="col-auto"
+            *ngIf="pais.errors || !proveedor.domicilio.provincia.pais.id"
+          >
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -296,14 +303,21 @@
             name="provincia"
             [(ngModel)]="proveedor.domicilio.provincia.id"
             #provincia="ngModel"
-            [ngClass]="provincia.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              provincia.errors || !proveedor.domicilio.provincia.id
+                ? 'is-invalid'
+                : 'is-valid'
+            "
           >
             <option value="" disabled selected>Selecciona una provincia</option>
             <option *ngFor="let provincia of provincias" [value]="provincia.id">
               {{ provincia.nombre }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="provincia.errors">
+          <div
+            class="col-auto"
+            *ngIf="provincia.errors || !proveedor.domicilio.provincia.id"
+          >
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>

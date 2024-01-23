@@ -65,9 +65,8 @@ export class FormProveedoresComponent implements OnInit {
       this.id = data['id'];
       const proveedorExistente = this.proveedorService.getById(this.id);
       if (proveedorExistente) {
+        this.listarProvincias(proveedorExistente.domicilio.provincia.pais.id);
         this.proveedor = { ...proveedorExistente };
-        console.log(this.proveedor);
-
         this.razonSocialTitle = proveedorExistente.razonSocial;
       }
     });
