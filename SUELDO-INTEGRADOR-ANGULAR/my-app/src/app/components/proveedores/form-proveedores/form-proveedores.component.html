@@ -310,33 +310,23 @@
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <label for="inputLocalidad" class="form-label">Localidad</label>
-          <select
+          <input
             required
+            minlength="4"
+            type="text"
             id="inputLocalidad"
             class="form-control border border-dark"
+            placeholder="La Plata"
             name="localidad"
             [(ngModel)]="proveedor.domicilio.localidad"
             #localidad="ngModel"
             [ngClass]="localidad.errors ? 'is-invalid' : 'is-valid'"
+          />
+          <div
+            class="col-auto"
+            *ngIf="localidad.errors?.['minlength']||localidad.errors"
           >
-            <ng-container
-              *ngIf="ciudades && ciudades.length > 0; else noCiudades"
-            >
-              <option value="" disabled selected>
-                Selecciona una localidad
-              </option>
-              <option *ngFor="let ciudad of ciudades" [value]="ciudad.nombre">
-                {{ ciudad.nombre }}
-              </option>
-            </ng-container>
-            <ng-template #noCiudades>
-              <option disabled selected>
-                No hay ciudades disponibles para esta provincia
-              </option>
-            </ng-template>
-          </select>
-          <div class="col-auto" *ngIf="localidad.errors">
-            <span class="form-text"> Seleccione una opción. </span>
+            <span class="form-text">Debe tener al menos 4 caracteres. </span>
           </div>
         </div>
         <h5 class="text-start mt-3 mb-0">Datos de Contacto:</h5>

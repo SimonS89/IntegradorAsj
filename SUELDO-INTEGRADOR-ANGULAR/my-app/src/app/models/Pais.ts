@@ -1,4 +1,4 @@
-export interface Provincia {
+export interface Pais {
   id: string;
   nombre: string;
 }
