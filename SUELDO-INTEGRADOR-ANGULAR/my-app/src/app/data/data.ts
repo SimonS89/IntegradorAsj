@@ -15,8 +15,14 @@ const proveedoresEjemplo = [
       numero: '123',
       codigoPostal: 'CP12345',
       localidad: 'La Plata',
-      provincia: 'Buenos Aires',
-      pais: 'Argentina',
+      provincia: {
+        id: 3634,
+        nombre: 'San Juan',
+        pais: {
+          id: 11,
+          nombre: 'Argentina',
+        },
+      },
     },
     datosContacto: {
       nombre: 'Juan',
@@ -42,8 +48,14 @@ const proveedoresEjemplo = [
       numero: '456',
       codigoPostal: 'CP54321',
       localidad: 'Berazategui',
-      provincia: 'Buenos Aires',
-      pais: 'Argentina',
+      provincia: {
+        id: 3634,
+        nombre: 'San Juan',
+        pais: {
+          id: 11,
+          nombre: 'Argentina',
+        },
+      },
     },
     datosContacto: {
       nombre: 'Ana',
@@ -69,8 +81,14 @@ const proveedoresEjemplo = [
       numero: '789',
       codigoPostal: 'CP67890',
       localidad: 'Cordoba',
-      provincia: 'Córdoba',
-      pais: 'Argentina',
+      provincia: {
+        id: 3634,
+        nombre: 'San Juan',
+        pais: {
+          id: 11,
+          nombre: 'Argentina',
+        },
+      },
     },
     datosContacto: {
       nombre: 'Martín',
@@ -96,8 +114,14 @@ const proveedoresEjemplo = [
       numero: '1011',
       codigoPostal: 'CP101112',
       localidad: 'Berisso',
-      provincia: 'Buenos Aires',
-      pais: 'Argentina',
+      provincia: {
+        id: 3634,
+        nombre: 'San Juan',
+        pais: {
+          id: 11,
+          nombre: 'Argentina',
+        },
+      },
     },
     datosContacto: {
       nombre: 'Laura',
@@ -123,8 +147,14 @@ const proveedoresEjemplo = [
       numero: '1213',
       codigoPostal: 'CP121314',
       localidad: 'Ensenada',
-      provincia: 'Buenos Aires',
-      pais: 'Argentina',
+      provincia: {
+        id: 3634,
+        nombre: 'San Juan',
+        pais: {
+          id: 11,
+          nombre: 'Argentina',
+        },
+      },
     },
     datosContacto: {
       nombre: 'Carlos',

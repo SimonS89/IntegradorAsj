@@ -1,4 +1,4 @@
 export interface Pais {
-  id: string;
+  id: number;
   nombre: string;
 }

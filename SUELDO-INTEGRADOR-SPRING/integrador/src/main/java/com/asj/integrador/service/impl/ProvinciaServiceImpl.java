@@ -1,6 +1,7 @@
 package com.asj.integrador.service.impl;
 
-import com.asj.integrador.dto.pais_provincia.ProvinciaDTO;
+import com.asj.integrador.dto.pais_provincia_api.ProvinciaDTO;
+import com.asj.integrador.dto.response.ProvinciaResponseDTO;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Pais;
 import com.asj.integrador.model.Provincia;
@@ -37,10 +38,10 @@ public class ProvinciaServiceImpl implements ProvinciaService {
     }
 
     @Override
-    public List<Provincia> findByPais(Long paisId) throws ResourceNotFoundException {
+    public List<ProvinciaResponseDTO> findByPais(Long paisId) throws ResourceNotFoundException {
         List<Provincia> provinciasEncontradas = provinciaRepository.findByPaisId(paisId);
         if (provinciasEncontradas.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
-        return provinciasEncontradas;
+        return provinciasEncontradas.stream().map(prov->mapper.map(prov, ProvinciaResponseDTO.class)).toList();
     }
 
     @Override

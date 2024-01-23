@@ -29,7 +29,6 @@ export class ListaProveedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarProveedores();
-    console.log(this.proveedores);
   }
 
   listarProveedores() {

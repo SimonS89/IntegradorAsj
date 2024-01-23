@@ -1,6 +1,7 @@
 package com.asj.integrador.service.impl;
 
-import com.asj.integrador.dto.pais_provincia.PaisDTO;
+import com.asj.integrador.dto.pais_provincia_api.PaisDTO;
+import com.asj.integrador.dto.response.PaisResponseDTO;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Pais;
 import com.asj.integrador.repository.PaisRepository;
@@ -44,10 +45,10 @@ public class PaisServiceImpl implements PaisService {
     }
 
     @Override
-    public List<Pais> findAll() throws ResourceNotFoundException {
+    public List<PaisResponseDTO> findAll() throws ResourceNotFoundException {
         List<Pais> paisesEncontrados = paisRepository.findAll();
         if (paisesEncontrados.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
-        return paisRepository.findAll();
+        return paisRepository.findAll().stream().map(pais -> mapper.map(pais, PaisResponseDTO.class)).toList();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.asj.integrador.dto.pais_provincia;
+package com.asj.integrador.dto.pais_provincia_api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

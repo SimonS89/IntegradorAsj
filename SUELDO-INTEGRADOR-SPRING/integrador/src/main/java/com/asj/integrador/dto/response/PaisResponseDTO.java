@@ -1,4 +1,4 @@
-package com.asj.integrador.dto.pais_provincia_api;
+package com.asj.integrador.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaisDTO {
+public class PaisResponseDTO {
     private long id;
-    private String name;
+    private String nombre;
 }

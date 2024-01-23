@@ -268,20 +268,23 @@
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <label for="inputPais" class="form-label">País</label>
-          <input
-            disabled
-            minlength="4"
-            type="text"
-            class="form-control border border-dark"
+          <select
+            required
             id="inputPais"
-            placeholder="Argentina"
+            class="form-select border border-dark"
             name="pais"
-            [(ngModel)]="proveedor.domicilio.pais"
+            [(ngModel)]="proveedor.domicilio.provincia.pais.id"
             #pais="ngModel"
             [ngClass]="pais.errors ? 'is-invalid' : 'is-valid'"
-          />
-          <div class="col-auto" *ngIf="pais.errors?.['minlength']">
-            <span class="form-text">Debe tener al menos 4 caracteres.</span>
+            (change)="listarProvincias(pais.value)"
+          >
+            <option value="" disabled selected>Selecciona un Pais</option>
+            <option *ngFor="let pais of paises" [value]="pais.id">
+              {{ pais.nombre }}
+            </option>
+          </select>
+          <div class="col-auto" *ngIf="pais.errors">
+            <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
@@ -291,16 +294,12 @@
             id="inputProvincia"
             class="form-select border border-dark"
             name="provincia"
-            [(ngModel)]="proveedor.domicilio.provincia"
+            [(ngModel)]="proveedor.domicilio.provincia.id"
             #provincia="ngModel"
             [ngClass]="provincia.errors ? 'is-invalid' : 'is-valid'"
-            (change)="listarCiudades(provincia.value)"
           >
             <option value="" disabled selected>Selecciona una provincia</option>
-            <option
-              *ngFor="let provincia of provincias"
-              [value]="provincia.nombre"
-            >
+            <option *ngFor="let provincia of provincias" [value]="provincia.id">
               {{ provincia.nombre }}
             </option>
           </select>

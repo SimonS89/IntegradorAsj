@@ -3,7 +3,9 @@ import { proveedoresEjemplo } from '../data/data';
 import { Proveedor } from '../models/Proveedor';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
+import { Provincia } from '../models/Provincia';
+import { Pais } from '../models/Pais';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +14,7 @@ export class ProveedorService {
   private API_ARG = 'https://apis.datos.gob.ar/georef/api/';
 
   constructor(private http: HttpClient) {
-    this.setStorage('proveedores', proveedoresEjemplo);
+    // this.setStorage('proveedores', proveedoresEjemplo);
   }
 
   getStorage(key: string): Proveedor[] | undefined {
@@ -60,14 +62,14 @@ export class ProveedorService {
       );
   }
 
-  public getProvincias(): Observable<any> | undefined {
-    return this.http.get(`${this.API_ARG}provincias?campos=id,nombre`);
+  public getProvincias(id: number): Observable<Provincia[]> {
+    return this.http.get<Provincia[]>(
+      `${environment.apiUrl}/proveedor/paises/${id}/provincias`
+    );
   }
 
-  public getCiudades(provincia: string): Observable<any> | undefined {
-    return this.http.get(
-      `${this.API_ARG}municipios?provincia=${provincia}&campos=id,nombre&max=200`
-    );
+  public getPaises(): Observable<Pais[]> {
+    return this.http.get<Pais[]>(`${environment.apiUrl}/proveedor/paises`);
   }
 
   idGenerator(): number {

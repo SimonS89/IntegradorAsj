@@ -1,4 +1,7 @@
+import { Pais } from './Pais';
+
 export interface Provincia {
-  id: string;
+  id: number;
   nombre: string;
+  pais: Pais;
 }

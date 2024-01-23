@@ -1,3 +1,5 @@
+import { Provincia } from "./Provincia";
+
 export interface Proveedor {
   id: number;
   codigo: string;
@@ -14,8 +16,7 @@ export interface Proveedor {
     numero: string;
     codigoPostal: string;
     localidad: string;
-    provincia: string;
-    pais: string;
+    provincia: Provincia;
   };
   datosContacto: {
     nombre: string;

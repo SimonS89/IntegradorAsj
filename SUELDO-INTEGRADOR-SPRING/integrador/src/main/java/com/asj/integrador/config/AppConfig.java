@@ -10,9 +10,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class AppConfig {
+@EnableWebMvc
+public class AppConfig implements WebMvcConfigurer {
 
     @Value("${country.base.url2}")
     private String urlBaseCountry;
@@ -37,5 +41,10 @@ public class AppConfig {
     @Bean
     public RestTemplate restTemplate(){
         return new RestTemplate();
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 }
