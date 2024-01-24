@@ -9,7 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -29,11 +29,9 @@ public class Producto {
     private String descripcion;
     private boolean eliminado;
     @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate fechaActualizacionRegistro;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
-    private LocalDate fechaCreacionRegistro;
+    private LocalDateTime fechaCreacionRegistro;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id", nullable = false)
     private Proveedor proveedor;

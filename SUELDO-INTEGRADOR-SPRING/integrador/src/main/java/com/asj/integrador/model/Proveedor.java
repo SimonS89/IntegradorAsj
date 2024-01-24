@@ -9,7 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,27 +24,25 @@ public class Proveedor {
     private String codigo;
     private String logo;
     private String razonSocial;
-    private String cuit;
     private String telefono;
-    private boolean eliminado;
-    private String sitioWeb;
     private String email;
-    @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate fechaActualizacionRegistro;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @CreationTimestamp
-    private LocalDate fechaCreacionRegistro;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "representante_contacto_id", referencedColumnName = "id")
-    private RepresentanteContacto representanteContacto;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
-    private Domicilio domicilio;
+    private String cuit;
+    private String sitioWeb;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_iva_id", referencedColumnName = "id", nullable = false)
     private TipoIva tipoIva;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rubro_id", referencedColumnName = "id", nullable = false)
     private Rubro rubro;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
+    private Domicilio domicilio;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "representante_contacto_id", referencedColumnName = "id")
+    private RepresentanteContacto representanteContacto;
+    @UpdateTimestamp
+    private LocalDateTime fechaActualizacionRegistro;
+    @CreationTimestamp
+    private LocalDateTime fechaCreacionRegistro;
+    private boolean eliminado;
 }

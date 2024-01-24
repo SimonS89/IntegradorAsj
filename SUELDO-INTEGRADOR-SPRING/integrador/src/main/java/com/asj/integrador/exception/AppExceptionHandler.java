@@ -5,9 +5,9 @@ import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
@@ -18,28 +18,26 @@ public class AppExceptionHandler {
 
     private static final String ACCESS_DENIED = "access_denied_reason";
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleInvalidArguments(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, String>> handleInvalidArguments(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
-        return errors;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+
     @ExceptionHandler(ResourceNotFoundException.class)
-    public Map<String, String> resourceNotFound(ResourceNotFoundException ex) {
+    public ResponseEntity<Map<String, String>> resourceNotFound(ResourceNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("errorMesage", ex.getMessage());
-        return error;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(AlreadyExistsException.class)
-    public Map<String, String> alreadyExists(AlreadyExistsException ex) {
+    public ResponseEntity<Map<String, String>> alreadyExists(AlreadyExistsException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("errorMesage", ex.getMessage());
-        return error;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
 //    @ExceptionHandler(Exception.class)

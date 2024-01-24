@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,11 +21,9 @@ public class Categoria {
     private String categoria;
     private boolean eliminado;
     @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate fechaActualizacionRegistro;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
-    private LocalDate fechaCreacionRegistro;
+    private LocalDateTime fechaCreacionRegistro;
 
     public Categoria(String categoria) {
         this.categoria = categoria;
