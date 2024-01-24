@@ -7,8 +7,14 @@ const proveedoresEjemplo = [
     telefono: '555-9999',
     email: 'contacto@bytecraft.com',
     cuit: '30-12345678-8',
-    tipoIva: 'Responsable Inscripto',
-    rubro: 'Tecnología',
+    tipoIva: {
+      id: 1,
+      tipoIva: 'Responsable Inscripto',
+    },
+    rubro: {
+      id: 1,
+      rubro: 'Tecnología',
+    },
     sitioWeb: 'http://www.ByteCraft.com',
     domicilio: {
       calle: 'Calle A',
@@ -24,7 +30,7 @@ const proveedoresEjemplo = [
         },
       },
     },
-    datosContacto: {
+    representanteContacto: {
       nombre: 'Juan',
       apellido: 'Pérez',
       telefono: '555-1234',
@@ -40,8 +46,14 @@ const proveedoresEjemplo = [
     telefono: '555-8888',
     email: 'contacto@freshbite.com',
     cuit: '30-12345678-9',
-    tipoIva: 'Monotributista',
-    rubro: 'Alimentación',
+    tipoIva: {
+      id: 1,
+      tipoIva: 'Responsable Inscripto',
+    },
+    rubro: {
+      id: 2,
+      rubro: 'Alimentación',
+    },
     sitioWeb: 'http://www.FreshBite.com',
     domicilio: {
       calle: 'Avenida B',
@@ -57,7 +69,7 @@ const proveedoresEjemplo = [
         },
       },
     },
-    datosContacto: {
+    representanteContacto: {
       nombre: 'Ana',
       apellido: ' García',
       telefono: '555-5678',
@@ -73,8 +85,14 @@ const proveedoresEjemplo = [
     telefono: '555-7777',
     email: 'contacto@vogueharbor.com',
     cuit: '30-12345678-0',
-    tipoIva: 'Responsable Inscripto',
-    rubro: 'Moda',
+    tipoIva: {
+      id: 1,
+      tipoIva: 'Responsable Inscripto',
+    },
+    rubro: {
+      id: 3,
+      rubro: 'Moda',
+    },
     sitioWeb: 'http://www.VogueHarbor.com',
     domicilio: {
       calle: 'Calle C',
@@ -90,7 +108,7 @@ const proveedoresEjemplo = [
         },
       },
     },
-    datosContacto: {
+    representanteContacto: {
       nombre: 'Martín',
       apellido: 'López',
       telefono: '555-9876',
@@ -106,8 +124,14 @@ const proveedoresEjemplo = [
     telefono: '555-6666',
     email: 'contacto@revitalize.com',
     cuit: '30-12345678-1',
-    tipoIva: 'Exento',
-    rubro: 'Salud',
+    tipoIva: {
+      id: 1,
+      tipoIva: 'Responsable Inscripto',
+    },
+    rubro: {
+      id: 4,
+      rubro: 'Salud',
+    },
     sitioWeb: 'http://www.Revitalize.com',
     domicilio: {
       calle: 'Avenida D',
@@ -123,7 +147,7 @@ const proveedoresEjemplo = [
         },
       },
     },
-    datosContacto: {
+    representanteContacto: {
       nombre: 'Laura',
       apellido: 'Rodríguez',
       telefono: '555-1111',
@@ -139,8 +163,14 @@ const proveedoresEjemplo = [
     telefono: '555-5555',
     email: 'contacto@intellect.com',
     cuit: '30-12345678-2',
-    tipoIva: 'Responsable Inscripto',
-    rubro: 'Educación',
+    tipoIva: {
+      id: 1,
+      tipoIva: 'Responsable Inscripto',
+    },
+    rubro: {
+      id: 5,
+      rubro: 'Educación',
+    },
     sitioWeb: 'http://www.Intellect.com',
     domicilio: {
       calle: 'Calle E',
@@ -156,7 +186,7 @@ const proveedoresEjemplo = [
         },
       },
     },
-    datosContacto: {
+    representanteContacto: {
       nombre: 'Carlos',
       apellido: 'Pérez',
       telefono: '555-1212',

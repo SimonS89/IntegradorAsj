@@ -21,7 +21,7 @@ interface NuevoDomicilio {
   paisId: number;
 }
 
-interface NuevoDatosContacto {
+interface NuevoRepresentanteContacto {
   nombre: string;
   apellido: string;
   telefono: string;
@@ -37,9 +37,9 @@ export interface Proveedor {
   telefono: string;
   email: string;
   cuit: string;
-  tipoIva: string;
-  rubro: string;
   sitioWeb: string;
+  tipoIva: TipoIva;
+  rubro: Rubro;
   domicilio: {
     calle: string;
     numero: string;
@@ -47,7 +47,7 @@ export interface Proveedor {
     localidad: string;
     provincia: Provincia;
   };
-  datosContacto: NuevoDatosContacto;
+  representanteContacto: NuevoRepresentanteContacto;
 }
 
 export interface TipoIva {

@@ -20,8 +20,14 @@ export class FormProveedoresComponent implements OnInit {
     telefono: '',
     email: '',
     cuit: '',
-    tipoIva: '',
-    rubro: '',
+    tipoIva: {
+      id: 0,
+      tipoIva: '',
+    },
+    rubro: {
+      id: 0,
+      rubro: '',
+    },
     sitioWeb: '',
     domicilio: {
       calle: '',
@@ -37,7 +43,7 @@ export class FormProveedoresComponent implements OnInit {
         },
       },
     },
-    datosContacto: {
+    representanteContacto: {
       nombre: '',
       apellido: '',
       telefono: '',

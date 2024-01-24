@@ -62,16 +62,18 @@
             id="inputRubro"
             class="form-select border border-dark"
             name="rubro"
-            [(ngModel)]="proveedor.rubro"
+            [(ngModel)]="proveedor.rubro.id"
             #rubro="ngModel"
-            [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              rubro.errors || !proveedor.rubro.id ? 'is-invalid' : 'is-valid'
+            "
           >
             <option value="" disabled selected>Selecciona un rubro</option>
-            <option *ngFor="let rubro of rubros" [value]="rubro.rubro">
+            <option *ngFor="let rubro of rubros" [value]="rubro.id">
               {{ rubro.rubro }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="rubro.errors">
+          <div class="col-auto" *ngIf="rubro.errors || !proveedor.rubro.id">
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -101,16 +103,20 @@
             id="inputTipoIva"
             class="form-select border border-dark"
             name="tipoIva"
-            [(ngModel)]="proveedor.tipoIva"
+            [(ngModel)]="proveedor.tipoIva.id"
             #tipoIva="ngModel"
-            [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              tipoIva.errors || !proveedor.tipoIva.id
+                ? 'is-invalid'
+                : 'is-valid'
+            "
           >
             <option value="" disabled selected>Selecciona un tipo IVA</option>
-            <option *ngFor="let tipoIva of tiposIva" [value]="tipoIva.tipoIva">
+            <option *ngFor="let tipoIva of tiposIva" [value]="tipoIva.id">
               {{ tipoIva.tipoIva }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="tipoIva.errors">
+          <div class="col-auto" *ngIf="tipoIva.errors || !proveedor.tipoIva.id">
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -350,7 +356,7 @@
             id="inputNombre"
             placeholder="Simón"
             name="nombre"
-            [(ngModel)]="proveedor.datosContacto.nombre"
+            [(ngModel)]="proveedor.representanteContacto.nombre"
             #nombre="ngModel"
             [ngClass]="nombre.errors ? 'is-invalid' : 'is-valid'"
           />
@@ -371,7 +377,7 @@
             id="inputApellido"
             placeholder="Sueldo"
             name="apellido"
-            [(ngModel)]="proveedor.datosContacto.apellido"
+            [(ngModel)]="proveedor.representanteContacto.apellido"
             #apellido="ngModel"
             [ngClass]="apellido.errors ? 'is-invalid' : 'is-valid'"
           />
@@ -392,7 +398,7 @@
             id="inputTelefono"
             placeholder="555-5678"
             name="telefono"
-            [(ngModel)]="proveedor.datosContacto.telefono"
+            [(ngModel)]="proveedor.representanteContacto.telefono"
             #telefono="ngModel"
             [ngClass]="telefono.errors ? 'is-invalid' : 'is-valid'"
           />
@@ -413,7 +419,7 @@
             id="inputEmail"
             placeholder="juanperez@gmail.com"
             name="email"
-            [(ngModel)]="proveedor.datosContacto.email"
+            [(ngModel)]="proveedor.representanteContacto.email"
             #email="ngModel"
             [ngClass]="email.errors ? 'is-invalid' : 'is-valid'"
           />
@@ -429,7 +435,7 @@
             placeholder="Gerente de marketing"
             class="form-control border border-dark"
             name="rol"
-            [(ngModel)]="proveedor.datosContacto.rol"
+            [(ngModel)]="proveedor.representanteContacto.rol"
             #rol="ngModel"
             minlength="4"
             [ngClass]="rol.errors ? 'is-invalid' : 'is-valid'"
