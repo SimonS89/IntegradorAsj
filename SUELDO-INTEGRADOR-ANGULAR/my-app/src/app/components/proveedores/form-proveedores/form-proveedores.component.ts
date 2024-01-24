@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProveedorService } from 'src/app/services/proveedor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Proveedor } from 'src/app/models/Proveedor';
-import { Provincia } from 'src/app/models/Provincia';
+import { Proveedor, Rubro, TipoIva } from 'src/app/models/Proveedor';
 import { AlertService } from 'src/app/services/alert.service';
-import { Pais } from 'src/app/models/Pais';
-
+import { Pais } from 'src/app/models/Proveedor';
+import { Provincia } from 'src/app/models/Proveedor';
 @Component({
   selector: 'app-form-proveedores',
   templateUrl: './form-proveedores.component.html',
@@ -51,6 +50,8 @@ export class FormProveedoresComponent implements OnInit {
   razonSocialTitle!: string;
   provincias!: Provincia[];
   paises!: Pais[];
+  rubros!: Rubro[];
+  tiposIva!: TipoIva[];
 
   constructor(
     public proveedorService: ProveedorService,
@@ -60,6 +61,8 @@ export class FormProveedoresComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.listarRubros();
+    this.listarTiposIva();
     this.route.params.subscribe((data) => {
       this.listarPaises();
       this.id = data['id'];
@@ -136,5 +139,16 @@ export class FormProveedoresComponent implements OnInit {
           form.reset();
         }
       });
+  }
+
+  listarRubros() {
+    this.proveedorService.getRubros().subscribe((res) => (this.rubros = res));
+  }
+
+  listarTiposIva() {
+    this.proveedorService.getTiposIva().subscribe((res) => {
+      this.tiposIva = res;
+      console.log(this.tiposIva);
+    });
   }
 }

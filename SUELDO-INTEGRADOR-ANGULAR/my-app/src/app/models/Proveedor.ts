@@ -1,5 +1,3 @@
-import { Provincia } from './Provincia';
-
 export interface NuevoProveedor {
   id?: number;
   codigo: string;
@@ -8,22 +6,22 @@ export interface NuevoProveedor {
   telefono: string;
   email: string;
   cuit: string;
-  tipoIva: string;
-  rubro: string;
+  tipoIvaId: number;
+  rubroId: number;
   sitioWeb: string;
-  domicilio: Domicilio;
+  domicilio: NuevoDomicilio;
 }
 
-interface Domicilio {
+interface NuevoDomicilio {
   calle: string;
   numero: string;
   codigoPostal: string;
   localidad: string;
-  idProvincia: number;
-  idPais: number;
+  provinciaId: number;
+  paisId: number;
 }
 
-interface DatosContacto {
+interface NuevoDatosContacto {
   nombre: string;
   apellido: string;
   telefono: string;
@@ -49,5 +47,26 @@ export interface Proveedor {
     localidad: string;
     provincia: Provincia;
   };
-  datosContacto: DatosContacto;
+  datosContacto: NuevoDatosContacto;
+}
+
+export interface TipoIva {
+  id: number;
+  tipoIva: string;
+}
+
+export interface Provincia {
+  id: number;
+  nombre: string;
+  pais: Pais;
+}
+
+export interface Pais {
+  id: number;
+  nombre: string;
+}
+
+export interface Rubro {
+  id: number;
+  rubro: string;
 }

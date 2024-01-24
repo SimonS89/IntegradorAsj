@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { proveedoresEjemplo } from '../data/data';
-import { Proveedor } from '../models/Proveedor';
+import { Proveedor, Rubro, TipoIva } from '../models/Proveedor';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Provincia } from '../models/Provincia';
-import { Pais } from '../models/Pais';
+import { Pais } from '../models/Proveedor';
+import { Provincia } from '../models/Proveedor';
 @Injectable({
   providedIn: 'root',
 })
@@ -73,5 +73,13 @@ export class ProveedorService {
 
   idGenerator(): number {
     return new Date().getTime();
+  }
+
+  public getRubros(): Observable<Rubro[]> {
+    return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`);
+  }
+
+  public getTiposIva(): Observable<TipoIva[]>{
+    return this.http.get<TipoIva[]>(`${environment.apiUrl}/proveedor/tipos_iva`);
   }
 }

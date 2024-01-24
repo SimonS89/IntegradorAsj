@@ -67,11 +67,9 @@
             [ngClass]="rubro.errors ? 'is-invalid' : 'is-valid'"
           >
             <option value="" disabled selected>Selecciona un rubro</option>
-            <option value="Tecnología">Tecnología</option>
-            <option value="Alimentación">Alimentación</option>
-            <option value="Moda">Moda</option>
-            <option value="Salud">Salud</option>
-            <option value="Educación">Educación</option>
+            <option *ngFor="let rubro of rubros" [value]="rubro.rubro">
+              {{ rubro.rubro }}
+            </option>
           </select>
           <div class="col-auto" *ngIf="rubro.errors">
             <span class="form-text"> Seleccione una opción. </span>
@@ -108,10 +106,9 @@
             [ngClass]="tipoIva.errors ? 'is-invalid' : 'is-valid'"
           >
             <option value="" disabled selected>Selecciona un tipo IVA</option>
-            <option value="Responsable Inscripto">Responsable Inscripto</option>
-            <option value="Monotributista">Monotributista</option>
-            <option value="Exento">Exento</option>
-            <option value="Consumidor Final">Consumidor Final</option>
+            <option *ngFor="let tipoIva of tiposIva" [value]="tipoIva.tipoIva">
+              {{ tipoIva.tipoIva }}
+            </option>
           </select>
           <div class="col-auto" *ngIf="tipoIva.errors">
             <span class="form-text"> Seleccione una opción. </span>
