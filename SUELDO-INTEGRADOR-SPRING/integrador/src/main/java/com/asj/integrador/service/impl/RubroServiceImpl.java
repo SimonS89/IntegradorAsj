@@ -39,7 +39,7 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
-    public RubroResponseDTO create(RubroRequestDTO rubroRequestDTO) throws AlreadyExistsException {
+    public RubroResponseDTO crear(RubroRequestDTO rubroRequestDTO) throws AlreadyExistsException {
         Optional<Rubro> rubroEncontrado = rubroRepository.findByRubro(rubroRequestDTO.getRubro());
         if (rubroEncontrado.isPresent()) throw new AlreadyExistsException("Rubro existente");
         Rubro rubro = mapper.map(rubroRequestDTO, Rubro.class);
@@ -47,39 +47,39 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
-    public RubroResponseDTO findById(Long id) throws ResourceNotFoundException {
-        return mapper.map(getRubroIfExists(id), RubroResponseDTO.class);
+    public RubroResponseDTO buscarPorId(Long id) throws ResourceNotFoundException {
+        return mapper.map(obtenerRubroSiExiste(id), RubroResponseDTO.class);
     }
 
     @Override
-    public List<RubroResponseDTO> findAll() throws ResourceNotFoundException {
+    public List<RubroResponseDTO> listarTodo() throws ResourceNotFoundException {
         List<Rubro> rubrosEncontrados = rubroRepository.findAll();
         if (rubrosEncontrados.isEmpty()) throw new ResourceNotFoundException("No hay rubros disponibles");
         return rubrosEncontrados.stream().map(rubro -> mapper.map(rubro, RubroResponseDTO.class)).toList();
     }
 
     @Override
-    public RubroResponseDTO update(long id, RubroRequestDTO rubroRequestDTO) throws ResourceNotFoundException {
-        getRubroIfExists(id);
+    public RubroResponseDTO actualizar(long id, RubroRequestDTO rubroRequestDTO) throws ResourceNotFoundException {
+        obtenerRubroSiExiste(id);
         Rubro rubroActualizado = mapper.map(rubroRequestDTO, Rubro.class);
         rubroActualizado.setId(id);
         return mapper.map(rubroRepository.save(rubroActualizado), RubroResponseDTO.class);
     }
 
     @Override
-    public void delete(Long id) throws ResourceNotFoundException {
-        getRubroIfExists(id);
+    public void eliminar(Long id) throws ResourceNotFoundException {
+        obtenerRubroSiExiste(id);
         rubroRepository.deleteById(id);
     }
 
     @Override
-    public void softDelete(Long id) throws ResourceNotFoundException {
-        Rubro rubro = getRubroIfExists(id);
-        rubro.setEstaEliminado(true);
+    public void eliminadoLogico(Long id) throws ResourceNotFoundException {
+        Rubro rubro = obtenerRubroSiExiste(id);
+        rubro.setEliminado(true);
         rubroRepository.save(rubro);
     }
 
-    private Rubro getRubroIfExists(Long id) throws ResourceNotFoundException {
+    private Rubro obtenerRubroSiExiste(Long id) throws ResourceNotFoundException {
         return rubroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Rubro no encontrado"));
     }
 }

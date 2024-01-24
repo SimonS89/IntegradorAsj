@@ -28,7 +28,7 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
     }
 
     @Override
-    public RolUsuario findByRol(Rol rol) throws ResourceNotFoundException {
+    public RolUsuario buscarPorRol(Rol rol) throws ResourceNotFoundException {
         return rolRepository.findByRol(rol).orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado"));
     }
 }

@@ -30,7 +30,7 @@ public class PaisServiceImpl implements PaisService {
     }
 
     @Override
-    public void createPaises() {
+    public void crearPaises() {
         if (paisRepository.count() == 0) {
             List<Integer> idPaises = Arrays.asList(11, 235, 31, 172, 44);
             List<PaisDTO> paises = webClient.get().uri("/countries").retrieve().bodyToFlux(PaisDTO.class).collectList().block();
@@ -45,7 +45,7 @@ public class PaisServiceImpl implements PaisService {
     }
 
     @Override
-    public List<PaisResponseDTO> findAll() throws ResourceNotFoundException {
+    public List<PaisResponseDTO> listarTodo() throws ResourceNotFoundException {
         List<Pais> paisesEncontrados = paisRepository.findAll();
         if (paisesEncontrados.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
         return paisRepository.findAll().stream().map(pais -> mapper.map(pais, PaisResponseDTO.class)).toList();

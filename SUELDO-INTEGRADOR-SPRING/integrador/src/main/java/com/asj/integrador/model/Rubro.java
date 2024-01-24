@@ -19,7 +19,7 @@ public class Rubro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String rubro;
-    private boolean estaEliminado;
+    private boolean eliminado;
     @UpdateTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaActualizacionRegistro;

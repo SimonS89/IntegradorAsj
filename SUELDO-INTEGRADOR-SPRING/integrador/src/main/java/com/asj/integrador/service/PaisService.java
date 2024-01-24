@@ -6,6 +6,6 @@ import com.asj.integrador.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface PaisService {
-    void createPaises();
-    List<PaisResponseDTO> findAll() throws ResourceNotFoundException;
+    void crearPaises();
+    List<PaisResponseDTO> listarTodo() throws ResourceNotFoundException;
 }

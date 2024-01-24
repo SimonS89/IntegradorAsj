@@ -38,14 +38,14 @@ public class ProvinciaServiceImpl implements ProvinciaService {
     }
 
     @Override
-    public List<ProvinciaResponseDTO> findByPais(Long paisId) throws ResourceNotFoundException {
+    public List<ProvinciaResponseDTO> buscarPorPais(Long paisId) throws ResourceNotFoundException {
         List<Provincia> provinciasEncontradas = provinciaRepository.findByPaisId(paisId);
         if (provinciasEncontradas.isEmpty()) throw new ResourceNotFoundException("No hay paises disponibles");
         return provinciasEncontradas.stream().map(prov->mapper.map(prov, ProvinciaResponseDTO.class)).toList();
     }
 
     @Override
-    public Provincia findById(Long id) throws ResourceNotFoundException {
+    public Provincia buscarPorId(Long id) throws ResourceNotFoundException {
         return provinciaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Provincia no encontrada"));
     }
 }

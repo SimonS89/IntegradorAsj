@@ -38,7 +38,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public CategoriaResponseDTO create(CategoriaRequestDTO categoriaRequestDTO) throws AlreadyExistsException {
+    public CategoriaResponseDTO crear(CategoriaRequestDTO categoriaRequestDTO) throws AlreadyExistsException {
         Optional<Categoria> categoriaEncontrada = categoriaRepository.findByCategoria(categoriaRequestDTO.getCategoria());
         if (categoriaEncontrada.isPresent()) throw new AlreadyExistsException("Categoria existente");
         Categoria categoria = mapper.map(categoriaRequestDTO, Categoria.class);
@@ -46,39 +46,39 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public CategoriaResponseDTO findById(Long id) throws ResourceNotFoundException {
-        return mapper.map(getCategoriaIfExists(id), CategoriaResponseDTO.class);
+    public CategoriaResponseDTO buscarPorId(Long id) throws ResourceNotFoundException {
+        return mapper.map(obtenerCategoriaSiExiste(id), CategoriaResponseDTO.class);
     }
 
     @Override
-    public List<CategoriaResponseDTO> findAll() throws ResourceNotFoundException {
+    public List<CategoriaResponseDTO> listarTodo() throws ResourceNotFoundException {
         List<Categoria> categoriasEncontradas = categoriaRepository.findAll();
         if (categoriasEncontradas.isEmpty()) throw new ResourceNotFoundException("No hay categorias disponibles");
         return categoriasEncontradas.stream().map(cat -> mapper.map(cat, CategoriaResponseDTO.class)).toList();
     }
 
     @Override
-    public CategoriaResponseDTO update(long id, CategoriaRequestDTO categoriaRequestDTO) throws ResourceNotFoundException {
-        getCategoriaIfExists(id);
+    public CategoriaResponseDTO actualizar(long id, CategoriaRequestDTO categoriaRequestDTO) throws ResourceNotFoundException {
+        obtenerCategoriaSiExiste(id);
         Categoria categoriaActualizada = mapper.map(categoriaRequestDTO, Categoria.class);
         categoriaActualizada.setId(id);
         return mapper.map(categoriaRepository.save(categoriaActualizada), CategoriaResponseDTO.class);
     }
 
     @Override
-    public void delete(Long id) throws ResourceNotFoundException {
-        getCategoriaIfExists(id);
+    public void eliminar(Long id) throws ResourceNotFoundException {
+        obtenerCategoriaSiExiste(id);
         categoriaRepository.deleteById(id);
     }
 
     @Override
-    public void softDelete(Long id) throws ResourceNotFoundException {
-        Categoria categoria = getCategoriaIfExists(id);
-        categoria.setEstaEliminado(true);
+    public void eliminadoLogico(Long id) throws ResourceNotFoundException {
+        Categoria categoria = obtenerCategoriaSiExiste(id);
+        categoria.setEliminado(true);
         categoriaRepository.save(categoria);
     }
 
-    private Categoria getCategoriaIfExists(Long id) throws ResourceNotFoundException {
+    private Categoria obtenerCategoriaSiExiste(Long id) throws ResourceNotFoundException {
         return categoriaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Categoria no encontrada"));
     }
 }

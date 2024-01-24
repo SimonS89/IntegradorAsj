@@ -30,7 +30,7 @@ public class DataInitializer {
     public void dataInitializer() {
         logger.info("Inicializando aplicacion, llenando BD");
         logger.info("Creando paises y provincias");
-        paisService.createPaises();
+        paisService.crearPaises();
         logger.info("Creando tipos de iva");
         tipoIvaService.defaultTiposIva();
         logger.info("Creando rubros");

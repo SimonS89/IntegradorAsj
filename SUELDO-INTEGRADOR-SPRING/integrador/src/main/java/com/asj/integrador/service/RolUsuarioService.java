@@ -7,5 +7,5 @@ import com.asj.integrador.util.Rol;
 public interface RolUsuarioService {
     void defaultData();
 
-    RolUsuario findByRol(Rol rol) throws ResourceNotFoundException;
+    RolUsuario buscarPorRol(Rol rol) throws ResourceNotFoundException;
 }

@@ -23,7 +23,8 @@ public class TipoIvaServiceImpl implements TipoIvaService {
             tipoIvaRepository.saveAll(Arrays.asList(new TipoIva("Responsable Inscripto"), new TipoIva("Monotributista"), new TipoIva("Exento"), new TipoIva("Consumidor Final")));
     }
 
-    public List<TipoIva> findAll() throws ResourceNotFoundException {
+    @Override
+    public List<TipoIva> listarTodo() throws ResourceNotFoundException {
         List<TipoIva> tipoIvas = tipoIvaRepository.findAll();
         if (tipoIvas.isEmpty()) throw new ResourceNotFoundException("No hay categorias disponibles");
         return tipoIvas;

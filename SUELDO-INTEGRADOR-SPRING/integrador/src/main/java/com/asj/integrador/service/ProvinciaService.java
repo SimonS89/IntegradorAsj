@@ -10,6 +10,6 @@ import java.util.List;
 public interface ProvinciaService {
     void crearProvincias(Pais pais);
 
-    List<ProvinciaResponseDTO> findByPais(Long paisId) throws ResourceNotFoundException;
-    Provincia findById(Long id) throws ResourceNotFoundException;
+    List<ProvinciaResponseDTO> buscarPorPais(Long paisId) throws ResourceNotFoundException;
+    Provincia buscarPorId(Long id) throws ResourceNotFoundException;
 }

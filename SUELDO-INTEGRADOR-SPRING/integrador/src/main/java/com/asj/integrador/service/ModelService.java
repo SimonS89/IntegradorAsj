@@ -4,19 +4,18 @@ import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ModelService<T,K> {
     void defaultData();
-    K create(T t) throws AlreadyExistsException;
+    K crear(T t) throws AlreadyExistsException;
 
-    K findById(Long id) throws ResourceNotFoundException;
+    K buscarPorId(Long id) throws ResourceNotFoundException;
 
-    List<K> findAll() throws ResourceNotFoundException;
+    List<K> listarTodo() throws ResourceNotFoundException;
 
-    K update(long id,T t) throws ResourceNotFoundException;
+    K actualizar(long id, T t) throws ResourceNotFoundException;
 
-    void delete(Long id) throws ResourceNotFoundException;
+    void eliminar(Long id) throws ResourceNotFoundException;
 
-    void softDelete(Long id) throws ResourceNotFoundException;
+    void eliminadoLogico(Long id) throws ResourceNotFoundException;
 }

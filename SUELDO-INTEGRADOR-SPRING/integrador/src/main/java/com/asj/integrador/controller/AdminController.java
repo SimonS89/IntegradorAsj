@@ -31,34 +31,34 @@ public class AdminController {
 
     @PostMapping("/categoria")
     public ResponseEntity<CategoriaResponseDTO> crearCategoria(@Valid @RequestBody CategoriaRequestDTO categoriaRequestDTO) throws AlreadyExistsException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.create(categoriaRequestDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.crear(categoriaRequestDTO));
     }
 
-    @GetMapping("/categoria")
+    @GetMapping("/categorias")
     public ResponseEntity<List<CategoriaResponseDTO>> listarCategorias() throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoriaService.findAll());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoriaService.listarTodo());
     }
 
     @DeleteMapping("/categoria/{id}")
     public ResponseEntity<AppResponse> eliminarCategoria(@PathVariable long id) throws ResourceNotFoundException {
-        categoriaService.delete(id);
+        categoriaService.eliminar(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Categoria eliminada correctamente"));
     }
 
     @PostMapping("/rubro")
     public ResponseEntity<RubroResponseDTO> crearRubro(@Valid @RequestBody RubroRequestDTO rubroRequestDTO) throws AlreadyExistsException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(rubroService.create(rubroRequestDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(rubroService.crear(rubroRequestDTO));
     }
 
-    @GetMapping("/rubro")
+    @GetMapping("/rubros")
     public ResponseEntity<List<RubroResponseDTO>> listarRubros() throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubroService.findAll());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubroService.listarTodo());
     }
 
     @DeleteMapping("/rubro/{id}")
     public ResponseEntity<AppResponse> eliminarRubro(@PathVariable long id) throws ResourceNotFoundException {
-        rubroService.delete(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Rubro eliminada correctamente"));
+        rubroService.eliminar(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Rubro eliminado correctamente"));
     }
 
 }
