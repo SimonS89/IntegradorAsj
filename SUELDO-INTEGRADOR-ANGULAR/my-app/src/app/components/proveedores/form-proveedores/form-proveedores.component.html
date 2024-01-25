@@ -62,10 +62,10 @@
             id="inputRubro"
             class="form-select border border-dark"
             name="rubro"
-            [(ngModel)]="proveedor.rubro.id"
+            [(ngModel)]="proveedor.rubroId"
             #rubro="ngModel"
             [ngClass]="
-              rubro.errors || !proveedor.rubro.id ? 'is-invalid' : 'is-valid'
+              rubro.errors || !proveedor.rubroId ? 'is-invalid' : 'is-valid'
             "
           >
             <option value="" disabled selected>Selecciona un rubro</option>
@@ -73,7 +73,7 @@
               {{ rubro.rubro }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="rubro.errors || !proveedor.rubro.id">
+          <div class="col-auto" *ngIf="rubro.errors || !proveedor.rubroId">
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -103,12 +103,10 @@
             id="inputTipoIva"
             class="form-select border border-dark"
             name="tipoIva"
-            [(ngModel)]="proveedor.tipoIva.id"
+            [(ngModel)]="proveedor.tipoIvaId"
             #tipoIva="ngModel"
             [ngClass]="
-              tipoIva.errors || !proveedor.tipoIva.id
-                ? 'is-invalid'
-                : 'is-valid'
+              tipoIva.errors || !proveedor.tipoIvaId ? 'is-invalid' : 'is-valid'
             "
           >
             <option value="" disabled selected>Selecciona un tipo IVA</option>
@@ -116,7 +114,7 @@
               {{ tipoIva.tipoIva }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="tipoIva.errors || !proveedor.tipoIva.id">
+          <div class="col-auto" *ngIf="tipoIva.errors || !proveedor.tipoIvaId">
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -276,12 +274,10 @@
             id="inputPais"
             class="form-select border border-dark"
             name="pais"
-            [(ngModel)]="proveedor.domicilio.provincia.pais.id"
+            [(ngModel)]="proveedor.paisId"
             #pais="ngModel"
             [ngClass]="
-              pais.errors || !proveedor.domicilio.provincia.pais.id
-                ? 'is-invalid'
-                : 'is-valid'
+              pais.errors || !proveedor.paisId ? 'is-invalid' : 'is-valid'
             "
             (change)="listarProvincias(pais.value)"
           >
@@ -290,10 +286,7 @@
               {{ pais.nombre }}
             </option>
           </select>
-          <div
-            class="col-auto"
-            *ngIf="pais.errors || !proveedor.domicilio.provincia.pais.id"
-          >
+          <div class="col-auto" *ngIf="pais.errors || !proveedor.paisId">
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -304,10 +297,10 @@
             id="inputProvincia"
             class="form-select border border-dark"
             name="provincia"
-            [(ngModel)]="proveedor.domicilio.provincia.id"
+            [(ngModel)]="proveedor.provinciaId"
             #provincia="ngModel"
             [ngClass]="
-              provincia.errors || !proveedor.domicilio.provincia.id
+              provincia.errors || !proveedor.provinciaId
                 ? 'is-invalid'
                 : 'is-valid'
             "
@@ -319,7 +312,7 @@
           </select>
           <div
             class="col-auto"
-            *ngIf="provincia.errors || !proveedor.domicilio.provincia.id"
+            *ngIf="provincia.errors || !proveedor.provinciaId"
           >
             <span class="form-text"> Seleccione una opción. </span>
           </div>

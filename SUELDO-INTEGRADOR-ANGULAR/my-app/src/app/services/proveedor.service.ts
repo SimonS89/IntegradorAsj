@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { proveedoresEjemplo } from '../data/data';
-import { Proveedor, Rubro, TipoIva } from '../models/Proveedor';
+import { ProveedorForm, Proveedor, Rubro, TipoIva } from '../models/Proveedor';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pais } from '../models/Proveedor';
 import { Provincia } from '../models/Proveedor';
@@ -32,10 +32,6 @@ export class ProveedorService {
     return this.proveedores;
   }
 
-  public getById(id: number): Proveedor | undefined {
-    return this.proveedores.find((proveedor) => proveedor.id == id);
-  }
-
   public deleteById(id: number): Proveedor[] {
     this.proveedores = this.proveedores.filter(
       (proveedor) => proveedor.id !== id
@@ -44,10 +40,37 @@ export class ProveedorService {
     return this.proveedores;
   }
 
-  public create(proveedor: Proveedor): void {
-    proveedor.id = this.idGenerator();
-    this.proveedores.push(proveedor);
-    this.setStorage('proveedores', this.proveedores);
+  public create(proveedor: ProveedorForm): Observable<Proveedor> {
+    return this.http
+      .post<Proveedor>(`${environment.apiUrl}/proveedor`, proveedor)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
+  public edit(id: number, proveedor: ProveedorForm): Observable<Proveedor> {
+    return this.http
+      .put<Proveedor>(`${environment.apiUrl}/proveedor/${id}`, proveedor)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
+  public getById(id: number): Observable<ProveedorForm> {
+    return this.http
+      .get<ProveedorForm>(`${environment.apiUrl}/proveedor/${id}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
   }
 
   update(proveedor: Proveedor): void {
@@ -79,7 +102,9 @@ export class ProveedorService {
     return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`);
   }
 
-  public getTiposIva(): Observable<TipoIva[]>{
-    return this.http.get<TipoIva[]>(`${environment.apiUrl}/proveedor/tipos_iva`);
+  public getTiposIva(): Observable<TipoIva[]> {
+    return this.http.get<TipoIva[]>(
+      `${environment.apiUrl}/proveedor/tipos_iva`
+    );
   }
 }

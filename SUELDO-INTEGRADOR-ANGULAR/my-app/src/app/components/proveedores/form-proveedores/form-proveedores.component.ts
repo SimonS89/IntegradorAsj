@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ProveedorService } from 'src/app/services/proveedor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Proveedor, Rubro, TipoIva } from 'src/app/models/Proveedor';
+import {
+  ProveedorForm,
+  Proveedor,
+  Rubro,
+  TipoIva,
+} from 'src/app/models/Proveedor';
 import { AlertService } from 'src/app/services/alert.service';
 import { Pais } from 'src/app/models/Proveedor';
 import { Provincia } from 'src/app/models/Proveedor';
@@ -12,36 +17,23 @@ import { Provincia } from 'src/app/models/Proveedor';
   styleUrls: ['./form-proveedores.component.css'],
 })
 export class FormProveedoresComponent implements OnInit {
-  proveedor: Proveedor = {
-    id: 0,
+  proveedor: ProveedorForm = {
     codigo: '',
     logo: '',
     razonSocial: '',
     telefono: '',
     email: '',
     cuit: '',
-    tipoIva: {
-      id: 0,
-      tipoIva: '',
-    },
-    rubro: {
-      id: 0,
-      rubro: '',
-    },
+    tipoIvaId: 0,
+    rubroId: 0,
     sitioWeb: '',
+    provinciaId: 0,
+    paisId: 0,
     domicilio: {
       calle: '',
       numero: '',
       codigoPostal: '',
       localidad: '',
-      provincia: {
-        id: 0,
-        nombre: '',
-        pais: {
-          id: 0,
-          nombre: '',
-        },
-      },
     },
     representanteContacto: {
       nombre: '',
@@ -58,6 +50,7 @@ export class FormProveedoresComponent implements OnInit {
   paises!: Pais[];
   rubros!: Rubro[];
   tiposIva!: TipoIva[];
+  paisModificado: boolean = true;
 
   constructor(
     public proveedorService: ProveedorService,
@@ -72,11 +65,12 @@ export class FormProveedoresComponent implements OnInit {
     this.route.params.subscribe((data) => {
       this.listarPaises();
       this.id = data['id'];
-      const proveedorExistente = this.proveedorService.getById(this.id);
-      if (proveedorExistente) {
-        this.listarProvincias(proveedorExistente.domicilio.provincia.pais.id);
-        this.proveedor = { ...proveedorExistente };
-        this.razonSocialTitle = proveedorExistente.razonSocial;
+      if (this.id) {
+        this.proveedorService.getById(this.id).subscribe((res) => {
+          this.listarProvincias(res.paisId);
+          this.proveedor = { ...res };
+          this.razonSocialTitle = this.proveedor.razonSocial;
+        });
       }
     });
   }
@@ -106,13 +100,15 @@ export class FormProveedoresComponent implements OnInit {
   }
 
   editProveedor() {
-    this.proveedorService.update(this.proveedor);
-    this.navigateToProveedores();
+    this.proveedorService
+      .edit(this.id, this.proveedor)
+      .subscribe((res) => this.navigateToProveedores());
   }
 
   addProveedor() {
-    this.proveedorService.create(this.proveedor);
-    this.navigateToProveedores();
+    this.proveedorService
+      .create(this.proveedor)
+      .subscribe((res) => this.navigateToProveedores());
   }
 
   navigateToProveedores() {
@@ -122,6 +118,7 @@ export class FormProveedoresComponent implements OnInit {
   listarProvincias(id: number) {
     this.proveedorService.getProvincias(id).subscribe((res) => {
       this.provincias = res;
+      this.proveedor.provinciaId = 0;
     });
   }
 
@@ -154,7 +151,6 @@ export class FormProveedoresComponent implements OnInit {
   listarTiposIva() {
     this.proveedorService.getTiposIva().subscribe((res) => {
       this.tiposIva = res;
-      console.log(this.tiposIva);
     });
   }
 }

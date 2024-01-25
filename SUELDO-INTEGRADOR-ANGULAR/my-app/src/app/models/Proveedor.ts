@@ -1,4 +1,4 @@
-export interface NuevoProveedor {
+export interface ProveedorForm {
   id?: number;
   codigo: string;
   logo: string;
@@ -9,19 +9,31 @@ export interface NuevoProveedor {
   tipoIvaId: number;
   rubroId: number;
   sitioWeb: string;
+  provinciaId: number;
+  paisId: number;
   domicilio: NuevoDomicilio;
+  representanteContacto: NuevoRepresentanteContacto;
 }
 
 interface NuevoDomicilio {
+  id?: number;
   calle: string;
   numero: string;
   codigoPostal: string;
   localidad: string;
-  provinciaId: number;
-  paisId: number;
+}
+
+interface Domicilio {
+  id?: number;
+  calle: string;
+  numero: string;
+  codigoPostal: string;
+  localidad: string;
+  provincia: Provincia;
 }
 
 interface NuevoRepresentanteContacto {
+  id?: number;
   nombre: string;
   apellido: string;
   telefono: string;
@@ -40,13 +52,7 @@ export interface Proveedor {
   sitioWeb: string;
   tipoIva: TipoIva;
   rubro: Rubro;
-  domicilio: {
-    calle: string;
-    numero: string;
-    codigoPostal: string;
-    localidad: string;
-    provincia: Provincia;
-  };
+  domicilio: Domicilio;
   representanteContacto: NuevoRepresentanteContacto;
 }
 
