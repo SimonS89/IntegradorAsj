@@ -6,11 +6,12 @@ import { Observable, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pais } from '../models/Proveedor';
 import { Provincia } from '../models/Proveedor';
+import { HttpErrorResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
 export class ProveedorService {
-  private proveedores: Proveedor[] = this.findAll() || [];
+  private proveedores: Proveedor[] = [];
 
   constructor(private http: HttpClient) {
     this.setStorage('proveedores', proveedoresEjemplo);
@@ -26,18 +27,13 @@ export class ProveedorService {
     localStorage.setItem(key, JSON.stringify(proveedores));
   }
 
-  public findAll(): Proveedor[] {
-    let proveedores = this.getStorage('proveedores');
-    if (proveedores) this.proveedores = proveedores || [];
-    return this.proveedores;
-  }
-
-  public deleteById(id: number): Proveedor[] {
-    this.proveedores = this.proveedores.filter(
-      (proveedor) => proveedor.id !== id
+  public deleteById(id: number): any {
+    return this.http.delete<any>(`${environment.apiUrl}/proveedor/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error al realizar la solicitud HTTP:', error);
+        throw error;
+      })
     );
-    this.setStorage('proveedores', this.proveedores);
-    return this.proveedores;
   }
 
   public create(proveedor: ProveedorForm): Observable<Proveedor> {
@@ -45,7 +41,11 @@ export class ProveedorService {
       .post<Proveedor>(`${environment.apiUrl}/proveedor`, proveedor)
       .pipe(
         catchError((error) => {
-          console.error('Error al realizar la solicitud HTTP:', error);
+          console.error('Error al realizar la solicitud HTTP:', error.stat);
+          if (error instanceof HttpErrorResponse) {
+            console.log('Codigo ', error.status);
+            console.log('Mensaje ', error.message);
+          }
           throw error;
         })
       );
@@ -73,7 +73,16 @@ export class ProveedorService {
       );
   }
 
-  update(proveedor: Proveedor): void {
+  public findAll(): Observable<Proveedor[]> {
+    return this.http.get<Proveedor[]>(`${environment.apiUrl}/proveedor`).pipe(
+      catchError((error) => {
+        console.error('Error al realizar la solicitud HTTP:', error);
+        throw error;
+      })
+    );
+  }
+
+  public update(proveedor: Proveedor): void {
     const index = this.proveedores.findIndex((p) => p.id == proveedor.id);
     if (index !== -1) {
       this.proveedores[index] = proveedor;

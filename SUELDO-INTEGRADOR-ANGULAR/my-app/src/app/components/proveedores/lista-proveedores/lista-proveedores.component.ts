@@ -32,7 +32,9 @@ export class ListaProveedoresComponent implements OnInit {
   }
 
   listarProveedores() {
-    this.proveedores = this.proveedorService.findAll();
+    this.proveedorService.findAll().subscribe((res) => {
+      this.proveedores = res;
+    });
   }
 
   editarProveedor(id: number) {
@@ -55,7 +57,11 @@ export class ListaProveedoresComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.proveedores = this.proveedorService.deleteById(proveedor.id);
+          this.proveedores = this.proveedorService
+            .deleteById(proveedor.id)
+            .subscribe((res: any) => {
+              this.listarProveedores();
+            });
           this.alertService.notification(
             `Proveedor ${proveedor.razonSocial}, eliminado exitosamente.`,
             'success'

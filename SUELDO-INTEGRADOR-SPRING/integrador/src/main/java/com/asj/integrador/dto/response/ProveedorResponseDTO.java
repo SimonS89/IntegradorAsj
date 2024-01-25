@@ -2,7 +2,6 @@ package com.asj.integrador.dto.response;
 
 import com.asj.integrador.model.Domicilio;
 import com.asj.integrador.model.RepresentanteContacto;
-import com.asj.integrador.model.Rubro;
 import com.asj.integrador.model.TipoIva;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

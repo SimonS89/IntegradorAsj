@@ -10,6 +10,8 @@ import com.asj.integrador.model.TipoIva;
 import com.asj.integrador.repository.ProveedorRepository;
 import com.asj.integrador.service.*;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     private final TipoIvaService tipoIvaService;
     private final ProveedorRepository proveedorRepository;
     private final ModelMapper mapper;
+    private final Logger logger = LoggerFactory.getLogger(ProveedorServiceImpl.class);
 
     public ProveedorServiceImpl(RubroService rubroService, PaisService paisService, ProvinciaService provinciaService, TipoIvaService tipoIvaService, ProveedorRepository proveedorRepository, ModelMapper mapper) {
         this.rubroService = rubroService;
@@ -52,6 +55,20 @@ public class ProveedorServiceImpl implements ProveedorService {
     public ProveedorDTO buscarPorId(long id) throws ResourceNotFoundException {
         Proveedor proveedorEncontrado = obtenerProveedorSiExiste(id);
         return proveedorAProveedorDTO(proveedorEncontrado);
+    }
+
+    @Override
+    public List<ProveedorResponseDTO> listarProveedores() throws ResourceNotFoundException {
+        List<Proveedor> proveedores = proveedorRepository.findAll();
+        if (proveedores.isEmpty()) throw new ResourceNotFoundException("No hay proveedores.");
+        return proveedores.stream().map(prov -> mapper.map(prov, ProveedorResponseDTO.class)).toList();
+    }
+
+    @Override
+    public void eliminadoLogico(Long id) throws ResourceNotFoundException {
+        Proveedor proveedorEncontrado = obtenerProveedorSiExiste(id);
+        proveedorEncontrado.setEliminado(true);
+        proveedorRepository.save(proveedorEncontrado);
     }
 
     @Override

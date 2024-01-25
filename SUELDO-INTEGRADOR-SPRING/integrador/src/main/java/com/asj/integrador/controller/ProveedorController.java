@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -37,6 +39,18 @@ public class ProveedorController {
     @GetMapping("/{id}")
     public ResponseEntity<ProveedorDTO> buscarPorId(@PathVariable long id) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.buscarPorId(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedores() throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedores());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map> eliminarProveedor(@PathVariable long id) throws ResourceNotFoundException {
+        proveedorService.eliminadoLogico(id);
+        HashMap<String,String> resp = new HashMap<>(Map.of("mensaje","Proveedor "+id+" eliminado correctamente."));
+        return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
 
     @GetMapping("/paises")

@@ -39,7 +39,9 @@ export class FormProductosComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((data) => {
       this.id = data['id'];
-      this.proveedores = this.proveedorService.findAll();
+      this.proveedorService.findAll().subscribe((res) => {
+        this.proveedores = res;
+      });
       const productoExistente = this.productoService.getById(this.id);
       if (productoExistente) {
         this.producto = { ...productoExistente };

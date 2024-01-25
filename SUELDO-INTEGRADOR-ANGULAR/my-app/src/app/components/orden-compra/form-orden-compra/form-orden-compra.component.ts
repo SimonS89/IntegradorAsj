@@ -45,7 +45,9 @@ export class FormOrdenCompraComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.proveedores = this.proveedorService.findAll();
+    this.proveedorService.findAll().subscribe((res) => {
+      this.proveedores = res;
+    });
   }
 
   onSubmit(form: NgForm) {

@@ -106,9 +106,9 @@ export class FormProveedoresComponent implements OnInit {
   }
 
   addProveedor() {
-    this.proveedorService
-      .create(this.proveedor)
-      .subscribe((res) => this.navigateToProveedores());
+    this.proveedorService.create(this.proveedor).subscribe((res) => {
+      this.navigateToProveedores();
+    });
   }
 
   navigateToProveedores() {
