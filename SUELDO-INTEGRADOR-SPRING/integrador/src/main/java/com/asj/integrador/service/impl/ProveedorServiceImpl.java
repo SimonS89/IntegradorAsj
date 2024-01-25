@@ -89,5 +89,4 @@ public class ProveedorServiceImpl implements ProveedorService {
         proveedor.getDomicilio().setProvincia(provinciaService.buscarPorId(proveedorDTO.getProvinciaId()));
         return proveedor;
     }
-
 }
