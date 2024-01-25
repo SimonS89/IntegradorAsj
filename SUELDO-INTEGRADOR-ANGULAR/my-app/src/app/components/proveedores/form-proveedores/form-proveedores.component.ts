@@ -50,7 +50,7 @@ export class FormProveedoresComponent implements OnInit {
   paises!: Pais[];
   rubros!: Rubro[];
   tiposIva!: TipoIva[];
-  paisModificado: boolean = true;
+  primerRender: boolean = true;
 
   constructor(
     public proveedorService: ProveedorService,
@@ -118,7 +118,8 @@ export class FormProveedoresComponent implements OnInit {
   listarProvincias(id: number) {
     this.proveedorService.getProvincias(id).subscribe((res) => {
       this.provincias = res;
-      this.proveedor.provinciaId = 0;
+      if (!this.primerRender) this.proveedor.provinciaId = 0;
+      this.primerRender = false;
     });
   }
 

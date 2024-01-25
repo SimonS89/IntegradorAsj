@@ -23,15 +23,6 @@ interface NuevoDomicilio {
   localidad: string;
 }
 
-interface Domicilio {
-  id?: number;
-  calle: string;
-  numero: string;
-  codigoPostal: string;
-  localidad: string;
-  provincia: Provincia;
-}
-
 interface NuevoRepresentanteContacto {
   id?: number;
   nombre: string;
@@ -39,6 +30,15 @@ interface NuevoRepresentanteContacto {
   telefono: string;
   email: string;
   rol: string;
+}
+
+interface Domicilio {
+  id?: number;
+  calle: string;
+  numero: string;
+  codigoPostal: string;
+  localidad: string;
+  provincia: Provincia;
 }
 
 export interface Proveedor {
