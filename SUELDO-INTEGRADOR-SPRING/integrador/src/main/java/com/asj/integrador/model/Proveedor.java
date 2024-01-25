@@ -28,10 +28,10 @@ public class Proveedor {
     private String email;
     private String cuit;
     private String sitioWeb;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_iva_id", referencedColumnName = "id", nullable = false)
     private TipoIva tipoIva;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rubro_id", referencedColumnName = "id", nullable = false)
     private Rubro rubro;
     @OneToOne(cascade = CascadeType.ALL)
@@ -41,8 +41,10 @@ public class Proveedor {
     @JoinColumn(name = "representante_contacto_id", referencedColumnName = "id")
     private RepresentanteContacto representanteContacto;
     @UpdateTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaCreacionRegistro;
     private boolean eliminado;
 }

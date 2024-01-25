@@ -1,6 +1,8 @@
 package com.asj.integrador.controller;
 
+import com.asj.integrador.dto.ProveedorDTO;
 import com.asj.integrador.dto.response.PaisResponseDTO;
+import com.asj.integrador.dto.response.ProveedorResponseDTO;
 import com.asj.integrador.dto.response.ProvinciaResponseDTO;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.TipoIva;
@@ -20,6 +22,21 @@ public class ProveedorController {
 
     public ProveedorController(ProveedorService proveedorService) {
         this.proveedorService = proveedorService;
+    }
+
+    @PostMapping
+    public ResponseEntity<ProveedorResponseDTO> crearProveedor(@RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(proveedorService.crearProveedor(proveedorDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProveedorResponseDTO> actualizarProveedor(@PathVariable long id,@RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.actualizarProveedor(id,proveedorDTO));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProveedorDTO> buscarPorId(@PathVariable long id) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.buscarPorId(id));
     }
 
     @GetMapping("/paises")

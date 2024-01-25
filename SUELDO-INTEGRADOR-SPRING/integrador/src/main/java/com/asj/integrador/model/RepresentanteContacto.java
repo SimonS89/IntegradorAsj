@@ -20,5 +20,5 @@ public class RepresentanteContacto {
     private String apellido;
     private String email;
     private String telefono;
-    private String puesto;
+    private String rol;
 }

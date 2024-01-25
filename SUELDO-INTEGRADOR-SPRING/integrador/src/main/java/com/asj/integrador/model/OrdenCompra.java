@@ -31,8 +31,10 @@ public class OrdenCompra {
     private LocalDate fechaEmision;
     private LocalDate fechaEntrega;
     @UpdateTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaCreacionRegistro;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id", nullable = false)

@@ -20,7 +20,7 @@ public class Domicilio {
     private String numero;
     private String codigoPostal;
     private String localidad;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provincia_id", referencedColumnName = "id", nullable = false)
     private Provincia provincia;
 }

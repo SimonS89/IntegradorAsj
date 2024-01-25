@@ -52,6 +52,11 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
+    public Rubro buscarPorIdInterno(long id) throws ResourceNotFoundException {
+        return rubroRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Rubro no encontrado"));
+    }
+
+    @Override
     public List<RubroResponseDTO> listarTodo() throws ResourceNotFoundException {
         List<Rubro> rubrosEncontrados = rubroRepository.findAll();
         if (rubrosEncontrados.isEmpty()) throw new ResourceNotFoundException("No hay rubros disponibles");

@@ -9,4 +9,6 @@ public interface TipoIvaService {
     void defaultTiposIva();
 
     List<TipoIva> listarTodo() throws ResourceNotFoundException;
+
+    TipoIva buscarPorId(long id) throws ResourceNotFoundException;
 }

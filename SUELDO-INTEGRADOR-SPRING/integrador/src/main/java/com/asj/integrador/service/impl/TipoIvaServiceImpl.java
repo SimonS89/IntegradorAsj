@@ -26,7 +26,12 @@ public class TipoIvaServiceImpl implements TipoIvaService {
     @Override
     public List<TipoIva> listarTodo() throws ResourceNotFoundException {
         List<TipoIva> tipoIvas = tipoIvaRepository.findAll();
-        if (tipoIvas.isEmpty()) throw new ResourceNotFoundException("No hay categorias disponibles");
+        if (tipoIvas.isEmpty()) throw new ResourceNotFoundException("No hay tipos de iva disponibles");
         return tipoIvas;
+    }
+
+    @Override
+    public TipoIva buscarPorId(long id) throws ResourceNotFoundException {
+        return tipoIvaRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No se encontro el tipo de iva"));
     }
 }

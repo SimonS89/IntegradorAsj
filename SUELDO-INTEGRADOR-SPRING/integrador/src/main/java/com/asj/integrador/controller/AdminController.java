@@ -7,6 +7,7 @@ import com.asj.integrador.dto.response.CategoriaResponseDTO;
 import com.asj.integrador.dto.response.RubroResponseDTO;
 import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
+import com.asj.integrador.model.Rubro;
 import com.asj.integrador.service.CategoriaService;
 import com.asj.integrador.service.RubroService;
 import jakarta.validation.Valid;

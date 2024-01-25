@@ -21,8 +21,10 @@ public class Categoria {
     private String categoria;
     private boolean eliminado;
     @UpdateTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaCreacionRegistro;
 
     public Categoria(String categoria) {
