@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { productosEjemplo } from '../data/data';
 import { Producto } from '../models/Producto';
+import { HttpClient } from '@angular/common/http';
+import { Categoria } from '../models/Producto';
+import { Observable, catchError, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoService {
-  private productos: Producto[] = this.findAll() || [];
+  private productos: Producto[] = this.obtenerTodos() || [];
 
-  constructor() {
-    // this.setStorage('productos', productosEjemplo);
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   getStorage(key: string): Producto[] | undefined {
     let productosString = localStorage.getItem(key);
@@ -22,29 +26,28 @@ export class ProductoService {
     localStorage.setItem(key, JSON.stringify(productos));
   }
 
-  public findAll(): Producto[] {
+  public obtenerTodos(): Producto[] {
     let productos = this.getStorage('productos');
     if (productos) this.productos = productos || [];
     return this.productos;
   }
 
-  public getById(id: number): Producto {
+  public obtenerPorId(id: number): Producto {
     return this.productos.find((producto) => producto.id == id)!;
   }
 
-  public deleteById(id: number): Producto[] {
+  public eliminarPorId(id: number): Producto[] {
     this.productos = this.productos.filter((producto) => producto.id !== id);
     this.setStorage('productos', this.productos);
     return this.productos;
   }
 
-  create(producto: Producto): void {
-    producto.id = this.idGenerator();
+  crear(producto: Producto): void {
     this.productos.push(producto);
     this.setStorage('productos', this.productos);
   }
 
-  update(producto: Producto) {
+  actualizar(producto: Producto) {
     const index = this.productos.findIndex((p) => p.id == producto.id);
     if (index !== -1) {
       this.productos[index] = producto;
@@ -56,13 +59,13 @@ export class ProductoService {
     }
   }
 
-  idGenerator(): number {
-    return new Date().getTime();
+  obtenerCategorias(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${environment.apiUrl}/admin/categorias`);
   }
 
-  getProductosByProveedor(razonSocial: string): Producto[] {
-    return this.productos
-      ? this.productos.filter((producto) => producto.proveedor === razonSocial)
-      : [];
+  obtenerProductosPorProveedor(razonSocial: string): Producto[] {
+    return this.productos;
+    // ? this.productos.filter((producto) => producto.proveedor === razonSocial)
+    // : [];
   }
 }

@@ -12,6 +12,22 @@
           ><span>Agregar Proveedor</span>
         </a>
       </div>
+      <div class="row justify-content-end mb-3">
+        <label
+          class="col-md-3 col-sm-12 form-check-label"
+          for="showActiveOnlyCheckbox"
+          role="button"
+        >
+          Mostrar eliminados
+          <input
+            class="form-check-input border-black fw-bolder"
+            type="checkbox"
+            id="showActiveOnlyCheckbox"
+            [(ngModel)]="mostrarEliminados"
+            (change)="listarProveedores()"
+          />
+        </label>
+      </div>
       <div
         *ngIf="proveedores.length > 0; else noProveedores"
         class="table-responsive shadow-lg rounded-3"
@@ -57,25 +73,40 @@
               </td>
               <td>{{ proveedor.rubro.rubro }}</td>
               <td>
-                <button
-                  type="button"
-                  class="deleteBtn btn btn-outline-danger me-3"
-                  (click)="eliminarProveedor(proveedor)"
-                  [title]="'Eliminar Proveedor - ' + proveedor.razonSocial"
-                >
-                  <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-                </button>
-                <button
-                  type="button"
-                  class="editBtn btn btn-outline-primary"
-                  (click)="editarProveedor(proveedor.id)"
-                  [title]="'Editar Proveedor - ' + proveedor.razonSocial"
-                >
-                  <fa-icon
-                    [icon]="faPenToSquare"
-                    class="fw-bolder fs-5"
-                  ></fa-icon>
-                </button>
+                <div class="d-flex justify-content-center gap-3">
+                  <button
+                    type="button"
+                    class="deleteBtn btn"
+                    (click)="eliminarProveedor(proveedor)"
+                    [title]="
+                      mostrarEliminados
+                        ? 'Activar Proveedor - ' + proveedor.razonSocial
+                        : 'Eliminar Proveedor - ' + proveedor.razonSocial
+                    "
+                    [ngClass]="
+                      mostrarEliminados
+                        ? 'm-0 btn-outline-primary'
+                        : ' btn-outline-danger'
+                    "
+                  >
+                    <fa-icon
+                      [icon]="mostrarEliminados ? faCheck : faTrashCan"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="editBtn btn btn-outline-primary"
+                    (click)="editarProveedor(proveedor.id)"
+                    [title]="'Editar Proveedor - ' + proveedor.razonSocial"
+                    [ngClass]="mostrarEliminados ? 'd-none' : ''"
+                  >
+                    <fa-icon
+                      [icon]="faPenToSquare"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

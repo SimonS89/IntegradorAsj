@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Producto } from 'src/app/models/Producto';
+import { Categoria, Producto, ProductoForm } from 'src/app/models/Producto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -13,20 +13,21 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./form-productos.component.css'],
 })
 export class FormProductosComponent implements OnInit {
-  producto: Producto = {
+  producto: ProductoForm = {
     id: 0,
     sku: '',
     imagen: '',
     nombre: '',
     precio: 0.0,
     descripcion: '',
-    categoria: '',
-    proveedor: '',
+    categoriaId: 0,
+    proveedorId: 0,
   };
 
   id!: number;
   proveedores: Proveedor[] = [];
   productoTitle!: String;
+  categorias!: Categoria[];
 
   constructor(
     public productoService: ProductoService,
@@ -39,12 +40,12 @@ export class FormProductosComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((data) => {
       this.id = data['id'];
-      this.proveedorService.findAll().subscribe((res) => {
+      this.proveedorService.obtenerTodos().subscribe((res) => {
         this.proveedores = res;
       });
-      const productoExistente = this.productoService.getById(this.id);
+      const productoExistente = this.productoService.obtenerPorId(this.id);
       if (productoExistente) {
-        this.producto = { ...productoExistente };
+        // this.producto = { ...productoExistente };
         this.productoTitle = this.producto.nombre;
       }
     });
@@ -64,7 +65,7 @@ export class FormProductosComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            this.id ? this.editProduct() : this.createProduct();
+            this.id ? this.editarProducto() : this.crearProducto();
             this.alertService.notification(
               `Producto, ${
                 this.producto.nombre ? 'editado' : 'Generado'
@@ -92,17 +93,23 @@ export class FormProductosComponent implements OnInit {
       });
   }
 
-  editProduct() {
-    this.productoService.update(this.producto);
-    this.navigateToProductos();
+  editarProducto() {
+    // this.productoService.actualizar(this.producto);
+    this.irAProductos();
   }
 
-  createProduct() {
-    this.productoService.create(this.producto);
-    this.navigateToProductos();
+  crearProducto() {
+    // this.productoService.crear(this.producto);
+    this.irAProductos();
   }
 
-  navigateToProductos() {
+  listarCategorias() {
+    this.productoService.obtenerCategorias().subscribe((res) => {
+      this.categorias = res;
+    });
+  }
+
+  irAProductos() {
     this.router.navigate(['/productos']);
   }
 }

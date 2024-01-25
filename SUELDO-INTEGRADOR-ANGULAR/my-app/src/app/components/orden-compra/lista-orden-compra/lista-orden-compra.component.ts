@@ -34,7 +34,7 @@ export class ListaOrdenCompraComponent implements OnInit {
   }
 
   listarOrdenes() {
-    this.ordenesCompra = this.ordenesCompraService.findAll() || [];
+    this.ordenesCompra = this.ordenesCompraService.obtenerTodos() || [];
   }
 
   cambiarEstadoOrden(orden: OrdenCompra, isActive: boolean) {
@@ -50,7 +50,9 @@ export class ListaOrdenCompraComponent implements OnInit {
       )
       .then((res) => {
         if (res)
-          this.ordenesCompra = this.ordenesCompraService.cancelById(orden.id);
+          this.ordenesCompra = this.ordenesCompraService.cancelarPorId(
+            orden.id
+          );
         this.listarOrdenes();
       });
   }

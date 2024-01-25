@@ -32,7 +32,7 @@ export class ListaProductosComponent implements OnInit {
   }
 
   listarProductos() {
-    this.productos = this.productoService.findAll() || [];
+    this.productos = this.productoService.obtenerTodos() || [];
     if (this.productos)
       this.productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
@@ -48,7 +48,7 @@ export class ListaProductosComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.productos = this.productoService.deleteById(producto.id);
+          this.productos = this.productoService.eliminarPorId(producto.id);
           this.alertService.notification(
             `Producto ${producto.nombre}, eliminado exitosamente.`
           );

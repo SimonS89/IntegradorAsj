@@ -30,7 +30,4 @@ public class Rubro {
     public Rubro(String rubro) {
         this.rubro = rubro;
     }
-
-    public void asd(){
-    }
 }

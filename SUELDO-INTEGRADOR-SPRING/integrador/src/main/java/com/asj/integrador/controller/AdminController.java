@@ -30,33 +30,43 @@ public class AdminController {
         this.rubroService = rubroService;
     }
 
-    @PostMapping("/categoria")
+    @PostMapping("/categorias")
     public ResponseEntity<CategoriaResponseDTO> crearCategoria(@Valid @RequestBody CategoriaRequestDTO categoriaRequestDTO) throws AlreadyExistsException {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.crear(categoriaRequestDTO));
     }
 
+//    @GetMapping("/categorias")
+//    public ResponseEntity<List<CategoriaResponseDTO>> listarCategorias() throws ResourceNotFoundException {
+//        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoriaService.listarTodo());
+//    }
+
     @GetMapping("/categorias")
-    public ResponseEntity<List<CategoriaResponseDTO>> listarCategorias() throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoriaService.listarTodo());
+    public ResponseEntity<List<CategoriaResponseDTO>> listarCategoriasFiltradas(@RequestParam(defaultValue = "false")boolean eliminados) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoriaService.listarCategoriasFiltradas(eliminados));
     }
 
-    @DeleteMapping("/categoria/{id}")
+    @DeleteMapping("/categorias/{id}")
     public ResponseEntity<AppResponse> eliminarCategoria(@PathVariable long id) throws ResourceNotFoundException {
         categoriaService.eliminar(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Categoria eliminada correctamente"));
     }
 
-    @PostMapping("/rubro")
+    @PostMapping("/rubros")
     public ResponseEntity<RubroResponseDTO> crearRubro(@Valid @RequestBody RubroRequestDTO rubroRequestDTO) throws AlreadyExistsException {
         return ResponseEntity.status(HttpStatus.CREATED).body(rubroService.crear(rubroRequestDTO));
     }
 
+//    @GetMapping("/rubros")
+//    public ResponseEntity<List<RubroResponseDTO>> listarRubros() throws ResourceNotFoundException {
+//        return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubroService.listarTodo());
+//    }
+
     @GetMapping("/rubros")
-    public ResponseEntity<List<RubroResponseDTO>> listarRubros() throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubroService.listarTodo());
+    public ResponseEntity<List<RubroResponseDTO>> listarRubrosFiltrados(@RequestParam(defaultValue = "false")boolean eliminados) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubroService.listarRubrosFiltrados(eliminados));
     }
 
-    @DeleteMapping("/rubro/{id}")
+    @DeleteMapping("/rubros/{id}")
     public ResponseEntity<AppResponse> eliminarRubro(@PathVariable long id) throws ResourceNotFoundException {
         rubroService.eliminar(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Rubro eliminado correctamente"));

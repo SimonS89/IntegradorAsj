@@ -10,4 +10,6 @@ import java.util.List;
 public interface RubroService extends ModelService<RubroRequestDTO, RubroResponseDTO>{
 
     Rubro buscarPorIdInterno(long id) throws ResourceNotFoundException;
+
+    List<RubroResponseDTO> listarRubrosFiltrados(boolean eliminados) throws ResourceNotFoundException;
 }

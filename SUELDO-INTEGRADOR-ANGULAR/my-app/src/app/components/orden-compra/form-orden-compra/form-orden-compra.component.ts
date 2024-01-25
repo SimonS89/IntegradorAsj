@@ -45,7 +45,7 @@ export class FormOrdenCompraComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.proveedorService.findAll().subscribe((res) => {
+    this.proveedorService.obtenerTodos().subscribe((res) => {
       this.proveedores = res;
     });
   }
@@ -62,7 +62,7 @@ export class FormOrdenCompraComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            let ordenCreada = this.ordenCompraService.create(this.ordenCompra);
+            let ordenCreada = this.ordenCompraService.crear(this.ordenCompra);
             this.alertService.notification(
               `orden de compra creada - Nro : ${ordenCreada.nroOrden}`
             );
@@ -79,7 +79,8 @@ export class FormOrdenCompraComponent implements OnInit {
   }
 
   listarProductos(razonSocial: string) {
-    this.productos = this.productoService.getProductosByProveedor(razonSocial);
+    this.productos =
+      this.productoService.obtenerProductosPorProveedor(razonSocial);
   }
 
   agregarProducto() {

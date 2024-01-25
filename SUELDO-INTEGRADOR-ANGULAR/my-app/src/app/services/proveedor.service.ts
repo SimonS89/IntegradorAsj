@@ -1,33 +1,19 @@
 import { Injectable } from '@angular/core';
-import { proveedoresEjemplo } from '../data/data';
 import { ProveedorForm, Proveedor, Rubro, TipoIva } from '../models/Proveedor';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pais } from '../models/Proveedor';
 import { Provincia } from '../models/Proveedor';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class ProveedorService {
-  private proveedores: Proveedor[] = [];
+  constructor(private http: HttpClient, private router: Router) {}
 
-  constructor(private http: HttpClient) {
-    this.setStorage('proveedores', proveedoresEjemplo);
-  }
-
-  getStorage(key: string): Proveedor[] | undefined {
-    let proveedoresString = localStorage.getItem(key);
-    if (proveedoresString) return JSON.parse(proveedoresString);
-    return undefined;
-  }
-
-  setStorage(key: string, proveedores: Proveedor[]) {
-    localStorage.setItem(key, JSON.stringify(proveedores));
-  }
-
-  public deleteById(id: number): any {
+  public eliminarPorId(id: number): any {
     return this.http.delete<any>(`${environment.apiUrl}/proveedor/${id}`).pipe(
       catchError((error) => {
         console.error('Error al realizar la solicitud HTTP:', error);
@@ -36,7 +22,7 @@ export class ProveedorService {
     );
   }
 
-  public create(proveedor: ProveedorForm): Observable<Proveedor> {
+  public crear(proveedor: ProveedorForm): Observable<Proveedor> {
     return this.http
       .post<Proveedor>(`${environment.apiUrl}/proveedor`, proveedor)
       .pipe(
@@ -51,7 +37,10 @@ export class ProveedorService {
       );
   }
 
-  public edit(id: number, proveedor: ProveedorForm): Observable<Proveedor> {
+  public actualizar(
+    id: number,
+    proveedor: ProveedorForm
+  ): Observable<Proveedor> {
     return this.http
       .put<Proveedor>(`${environment.apiUrl}/proveedor/${id}`, proveedor)
       .pipe(
@@ -62,7 +51,7 @@ export class ProveedorService {
       );
   }
 
-  public getById(id: number): Observable<ProveedorForm> {
+  public obtenerPorId(id: number): Observable<ProveedorForm> {
     return this.http
       .get<ProveedorForm>(`${environment.apiUrl}/proveedor/${id}`)
       .pipe(
@@ -73,45 +62,38 @@ export class ProveedorService {
       );
   }
 
-  public findAll(): Observable<Proveedor[]> {
-    return this.http.get<Proveedor[]>(`${environment.apiUrl}/proveedor`).pipe(
-      catchError((error) => {
-        console.error('Error al realizar la solicitud HTTP:', error);
-        throw error;
-      })
-    );
-  }
-
-  public update(proveedor: Proveedor): void {
-    const index = this.proveedores.findIndex((p) => p.id == proveedor.id);
-    if (index !== -1) {
-      this.proveedores[index] = proveedor;
-      this.setStorage('proveedores', this.proveedores);
-    } else
-      console.error(
-        `Proveedor con ID ${proveedor.id} no encontrado para actualizar.`
+  public obtenerTodos(mostrarEliminados?: boolean): Observable<Proveedor[]> {
+    return this.http
+      .get<Proveedor[]>(
+        `${environment.apiUrl}/proveedor${
+          mostrarEliminados != undefined
+            ? `?eliminados=${mostrarEliminados}`
+            : ''
+        }`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          return of([]);
+        })
       );
   }
 
-  public getProvincias(id: number): Observable<Provincia[]> {
+  public obtenerProvincias(id: number): Observable<Provincia[]> {
     return this.http.get<Provincia[]>(
       `${environment.apiUrl}/proveedor/paises/${id}/provincias`
     );
   }
 
-  public getPaises(): Observable<Pais[]> {
+  public obtenerPaises(): Observable<Pais[]> {
     return this.http.get<Pais[]>(`${environment.apiUrl}/proveedor/paises`);
   }
 
-  idGenerator(): number {
-    return new Date().getTime();
-  }
-
-  public getRubros(): Observable<Rubro[]> {
+  public obtenerRubros(): Observable<Rubro[]> {
     return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`);
   }
 
-  public getTiposIva(): Observable<TipoIva[]> {
+  public obtenerTiposIva(): Observable<TipoIva[]> {
     return this.http.get<TipoIva[]>(
       `${environment.apiUrl}/proveedor/tipos_iva`
     );

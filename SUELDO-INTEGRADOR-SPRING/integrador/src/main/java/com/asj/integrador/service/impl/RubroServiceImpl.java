@@ -64,6 +64,13 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
+    public List<RubroResponseDTO> listarRubrosFiltrados(boolean eliminados) throws ResourceNotFoundException {
+        List<Rubro> rubros = rubroRepository.findByEliminado(eliminados);
+        if(rubros.isEmpty())throw new ResourceNotFoundException("No hay rubros.");
+        return rubros.stream().map(rubro -> mapper.map(rubro,RubroResponseDTO.class)).toList();
+    }
+
+    @Override
     public RubroResponseDTO actualizar(long id, RubroRequestDTO rubroRequestDTO) throws ResourceNotFoundException {
         obtenerRubroSiExiste(id);
         Rubro rubroActualizado = mapper.map(rubroRequestDTO, Rubro.class);
@@ -80,7 +87,7 @@ public class RubroServiceImpl implements RubroService {
     @Override
     public void eliminadoLogico(Long id) throws ResourceNotFoundException {
         Rubro rubro = obtenerRubroSiExiste(id);
-        rubro.setEliminado(true);
+        rubro.setEliminado(!rubro.isEliminado());
         rubroRepository.save(rubro);
     }
 

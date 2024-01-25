@@ -6,7 +6,7 @@ import { ordenesEjemplo } from '../data/data';
   providedIn: 'root',
 })
 export class OrdenCompraService {
-  private ordenes: OrdenCompra[] = this.findAll() || [];
+  private ordenes: OrdenCompra[] = this.obtenerTodos() || [];
 
   constructor() {
     // this.setStorage('ordenes', ordenesEjemplo as OrdenCompra[]);
@@ -22,24 +22,24 @@ export class OrdenCompraService {
     localStorage.setItem(key, JSON.stringify(ordenes));
   }
 
-  create(ordenCompra: OrdenCompra): OrdenCompra {
+  crear(ordenCompra: OrdenCompra): OrdenCompra {
     ordenCompra.id = this.idGenerator();
     this.ordenes.push(ordenCompra);
     this.setStorage('ordenes', this.ordenes);
     return ordenCompra;
   }
 
-  public findAll(): OrdenCompra[] {
+  public obtenerTodos(): OrdenCompra[] {
     let ordenes = this.getStorage('ordenes') || [];
     if (ordenes) this.ordenes = ordenes;
     return this.ordenes;
   }
 
-  public getById(id: number): OrdenCompra | undefined {
+  public obtenerPorId(id: number): OrdenCompra | undefined {
     return this.ordenes.find((orden) => orden.id == id);
   }
 
-  public cancelById(id: number): OrdenCompra[] {
+  public cancelarPorId(id: number): OrdenCompra[] {
     const index = this.ordenes.findIndex((o) => o.id == id);
     if (index !== -1) {
       this.ordenes[index].isActive = !this.ordenes[index].isActive;

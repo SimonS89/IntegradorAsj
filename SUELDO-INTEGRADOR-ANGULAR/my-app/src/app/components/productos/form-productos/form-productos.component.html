@@ -117,16 +117,14 @@
             id="inputCategory"
             class="form-select border border-dark"
             name="categoria"
-            [(ngModel)]="producto.categoria"
+            [(ngModel)]="producto.categoriaId"
             #categoria="ngModel"
             [ngClass]="categoria.errors ? 'is-invalid' : 'is-valid'"
           >
             <option value="" disabled selected>Selecciona una categoría</option>
-            <option value="Electrónica">Electrónica</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Salud">Salud</option>
-            <option value="Educación">Educación</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">
+              {{ categoria.categoria }}
+            </option>
           </select>
           <div class="col-auto" *ngIf="categoria.errors">
             <span class="form-text"> Seleccione una opción. </span>
@@ -140,14 +138,14 @@
             id="inputProvider"
             class="form-select border border-dark"
             name="proveedor"
-            [(ngModel)]="producto.proveedor"
+            [(ngModel)]="producto.proveedorId"
             #proveedor="ngModel"
             [ngClass]="proveedor.errors ? 'is-invalid' : 'is-valid'"
           >
             <option value="" disabled selected>Selecciona un proveedor</option>
             <option
               *ngFor="let proveedor of proveedores"
-              [value]="proveedor.razonSocial"
+              [value]="proveedor.id"
             >
               {{ proveedor.razonSocial }}
             </option>

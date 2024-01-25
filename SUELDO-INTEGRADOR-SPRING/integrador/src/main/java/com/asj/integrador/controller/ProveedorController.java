@@ -41,15 +41,20 @@ public class ProveedorController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.buscarPorId(id));
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedores() throws ResourceNotFoundException {
+//        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedores());
+//    }
+
     @GetMapping
-    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedores() throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedores());
+    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedoresFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedoresFiltrados(eliminados));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map> eliminarProveedor(@PathVariable long id) throws ResourceNotFoundException {
         proveedorService.eliminadoLogico(id);
-        HashMap<String,String> resp = new HashMap<>(Map.of("mensaje","Proveedor "+id+" eliminado correctamente."));
+        HashMap<String,String> resp = new HashMap<>(Map.of("mensaje","Modificado el estado de eliminado del proveedor  "+id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
 

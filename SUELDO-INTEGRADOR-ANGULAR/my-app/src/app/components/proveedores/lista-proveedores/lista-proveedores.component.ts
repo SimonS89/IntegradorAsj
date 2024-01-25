@@ -4,6 +4,7 @@ import {
   faUser,
   faPenToSquare,
   faTrashCan,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { Proveedor } from 'src/app/models/Proveedor';
 import { AlertService } from 'src/app/services/alert.service';
@@ -18,8 +19,10 @@ export class ListaProveedoresComponent implements OnInit {
   faUser = faUser;
   faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
+  faCheck = faCheck;
 
   proveedores: Proveedor[] = [];
+  mostrarEliminados: boolean = false;
 
   constructor(
     public proveedorService: ProveedorService,
@@ -32,9 +35,11 @@ export class ListaProveedoresComponent implements OnInit {
   }
 
   listarProveedores() {
-    this.proveedorService.findAll().subscribe((res) => {
-      this.proveedores = res;
-    });
+    this.proveedorService
+      .obtenerTodos(this.mostrarEliminados)
+      .subscribe((res) => {
+        this.proveedores = res;
+      });
   }
 
   editarProveedor(id: number) {
@@ -49,7 +54,9 @@ export class ListaProveedoresComponent implements OnInit {
   public eliminarProveedor(proveedor: Proveedor): void {
     this.alertService
       .question(
-        `¿Desea eliminar al proveedor ${proveedor.razonSocial}?`,
+        `¿Desea ${
+          this.mostrarEliminados ? 'Activar' : 'Eliminar'
+        } el proveedor ${proveedor.razonSocial}?`,
         true,
         true,
         'Aceptar',
@@ -58,12 +65,14 @@ export class ListaProveedoresComponent implements OnInit {
       .then((res) => {
         if (res) {
           this.proveedores = this.proveedorService
-            .deleteById(proveedor.id)
+            .eliminarPorId(proveedor.id)
             .subscribe((res: any) => {
               this.listarProveedores();
             });
           this.alertService.notification(
-            `Proveedor ${proveedor.razonSocial}, eliminado exitosamente.`,
+            `Proveedor ${proveedor.razonSocial}, ${
+              this.mostrarEliminados ? 'Activado' : 'Eliminado'
+            } exitosamente.`,
             'success'
           );
         }

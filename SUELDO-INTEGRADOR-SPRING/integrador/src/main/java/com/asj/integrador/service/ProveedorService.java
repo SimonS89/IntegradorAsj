@@ -16,6 +16,8 @@ public interface ProveedorService {
 
     List<ProveedorResponseDTO> listarProveedores() throws ResourceNotFoundException;
 
+    List<ProveedorResponseDTO> listarProveedoresFiltrados(boolean eliminados) throws ResourceNotFoundException;
+
     void eliminadoLogico(Long id) throws ResourceNotFoundException;
 
     List<PaisResponseDTO> listarPaises() throws ResourceNotFoundException;

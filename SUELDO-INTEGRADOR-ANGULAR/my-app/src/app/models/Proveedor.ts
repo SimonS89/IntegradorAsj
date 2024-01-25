@@ -56,6 +56,8 @@ export interface Proveedor {
   representanteContacto: NuevoRepresentanteContacto;
 }
 
+export interface ProveedorMin {}
+
 export interface TipoIva {
   id: number;
   tipoIva: string;

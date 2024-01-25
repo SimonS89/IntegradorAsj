@@ -48,25 +48,30 @@
               <td class="d-none d-lg-table-cell">{{ producto.categoria }}</td>
               <td class="d-none d-lg-table-cell">{{ producto.proveedor }}</td>
               <td>
-                <button
-                  type="button"
-                  class="deleteBtn btn btn-outline-danger me-3"
-                  (click)="eliminarProducto(producto)"
-                  [title]="'Eliminar Producto - ' + producto.nombre"
-                >
-                  <fa-icon [icon]="faTrashCan" class="fw-bolder fs-5"></fa-icon>
-                </button>
-                <button
-                  type="button"
-                  class="editBtn btn btn-outline-primary"
-                  (click)="editarProducto(producto.id)"
-                  [title]="'Editar Producto - ' + producto.nombre"
-                >
-                  <fa-icon
-                    [icon]="faPenToSquare"
-                    class="fw-bolder fs-5"
-                  ></fa-icon>
-                </button>
+                <div class="d-flex justify-content-center gap-3">
+                  <button
+                    type="button"
+                    class="deleteBtn btn btn-outline-danger me-3"
+                    (click)="eliminarProducto(producto)"
+                    [title]="'Eliminar Producto - ' + producto.nombre"
+                  >
+                    <fa-icon
+                      [icon]="faTrashCan"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="editBtn btn btn-outline-primary"
+                    (click)="editarProducto(producto.id)"
+                    [title]="'Editar Producto - ' + producto.nombre"
+                  >
+                    <fa-icon
+                      [icon]="faPenToSquare"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

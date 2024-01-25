@@ -54,7 +54,15 @@ public class CategoriaServiceImpl implements CategoriaService {
     public List<CategoriaResponseDTO> listarTodo() throws ResourceNotFoundException {
         List<Categoria> categoriasEncontradas = categoriaRepository.findAll();
         if (categoriasEncontradas.isEmpty()) throw new ResourceNotFoundException("No hay categorias disponibles");
+
         return categoriasEncontradas.stream().map(cat -> mapper.map(cat, CategoriaResponseDTO.class)).toList();
+    }
+
+    @Override
+    public List<CategoriaResponseDTO>listarCategoriasFiltradas(boolean eliminados) throws ResourceNotFoundException {
+        List<Categoria> categorias = categoriaRepository.findByEliminado(eliminados);
+        if (categorias.isEmpty()) throw new ResourceNotFoundException("No hay proveedores.");
+        return categorias.stream().map(categoria -> mapper.map(categoria, CategoriaResponseDTO.class)).toList();
     }
 
     @Override
@@ -74,7 +82,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public void eliminadoLogico(Long id) throws ResourceNotFoundException {
         Categoria categoria = obtenerCategoriaSiExiste(id);
-        categoria.setEliminado(true);
+        categoria.setEliminado(!categoria.isEliminado());
         categoriaRepository.save(categoria);
     }
 

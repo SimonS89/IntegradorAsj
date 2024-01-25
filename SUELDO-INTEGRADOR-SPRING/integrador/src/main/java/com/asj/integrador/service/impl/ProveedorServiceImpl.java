@@ -65,9 +65,16 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
+    public List<ProveedorResponseDTO> listarProveedoresFiltrados(boolean eliminados) throws ResourceNotFoundException {
+        List<Proveedor> proveedores = proveedorRepository.findByEliminado(eliminados);
+        if (proveedores.isEmpty()) throw new ResourceNotFoundException("No hay proveedores.");
+        return proveedores.stream().map(prov -> mapper.map(prov, ProveedorResponseDTO.class)).toList();
+    }
+
+    @Override
     public void eliminadoLogico(Long id) throws ResourceNotFoundException {
         Proveedor proveedorEncontrado = obtenerProveedorSiExiste(id);
-        proveedorEncontrado.setEliminado(true);
+        proveedorEncontrado.setEliminado(!proveedorEncontrado.isEliminado());
         proveedorRepository.save(proveedorEncontrado);
     }
 
