@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { productosEjemplo } from '../data/data';
-import { Producto } from '../models/Producto';
+import { Producto, ProductoForm } from '../models/Producto';
 import { HttpClient } from '@angular/common/http';
 import { Categoria } from '../models/Producto';
 import { Observable, catchError, of } from 'rxjs';
@@ -32,8 +32,16 @@ export class ProductoService {
     return this.productos;
   }
 
-  public obtenerPorId(id: number): Producto {
-    return this.productos.find((producto) => producto.id == id)!;
+  public obtenerPorId(id: number): Observable<ProductoForm> {
+    return this.http
+      .get<ProductoForm>(`${environment.apiUrl}/producto/${id}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          this.router.navigate(['/productos']);
+          throw error;
+        })
+      );
   }
 
   public eliminarPorId(id: number): Producto[] {
@@ -42,21 +50,30 @@ export class ProductoService {
     return this.productos;
   }
 
-  crear(producto: Producto): void {
-    this.productos.push(producto);
-    this.setStorage('productos', this.productos);
+  crear(producto: ProductoForm): Observable<Producto> {
+    return this.http
+      .post<Producto>(`${environment.apiUrl}/producto`, producto)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error.stat);
+          if (error instanceof HttpErrorResponse) {
+            console.log('Codigo ', error.status);
+            console.log('Mensaje ', error.message);
+          }
+          throw error;
+        })
+      );
   }
 
-  actualizar(producto: Producto) {
-    const index = this.productos.findIndex((p) => p.id == producto.id);
-    if (index !== -1) {
-      this.productos[index] = producto;
-      this.setStorage('productos', this.productos);
-    } else {
-      console.error(
-        `Producto con ID ${producto.id} no encontrado para actualizar.`
+  public actualizar(id: number, producto: ProductoForm): Observable<Producto> {
+    return this.http
+      .put<Producto>(`${environment.apiUrl}/producto/${id}`, producto)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
       );
-    }
   }
 
   obtenerCategorias(): Observable<Categoria[]> {

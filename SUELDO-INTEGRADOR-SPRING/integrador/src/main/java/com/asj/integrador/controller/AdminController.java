@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/app/v1/admin")
 public class AdminController {
 
@@ -47,7 +46,7 @@ public class AdminController {
 
     @DeleteMapping("/categorias/{id}")
     public ResponseEntity<AppResponse> eliminarCategoria(@PathVariable long id) throws ResourceNotFoundException {
-        categoriaService.eliminar(id);
+        categoriaService.eliminadoLogico(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Categoria eliminada correctamente"));
     }
 
@@ -68,7 +67,7 @@ public class AdminController {
 
     @DeleteMapping("/rubros/{id}")
     public ResponseEntity<AppResponse> eliminarRubro(@PathVariable long id) throws ResourceNotFoundException {
-        rubroService.eliminar(id);
+        rubroService.eliminadoLogico(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AppResponse("Rubro eliminado correctamente"));
     }
 

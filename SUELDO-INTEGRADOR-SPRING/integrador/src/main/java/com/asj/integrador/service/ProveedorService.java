@@ -4,7 +4,9 @@ import com.asj.integrador.dto.ProveedorDTO;
 import com.asj.integrador.dto.response.PaisResponseDTO;
 import com.asj.integrador.dto.response.ProveedorResponseDTO;
 import com.asj.integrador.dto.response.ProvinciaResponseDTO;
+import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
+import com.asj.integrador.model.Proveedor;
 import com.asj.integrador.model.TipoIva;
 
 import java.util.List;
@@ -24,4 +26,6 @@ public interface ProveedorService {
     List<ProvinciaResponseDTO> listarProvinciasPorPais(long id) throws ResourceNotFoundException;
     List<TipoIva> listarTiposIva() throws ResourceNotFoundException;
     ProveedorResponseDTO crearProveedor(ProveedorDTO proveedorDTO) throws ResourceNotFoundException;
+
+    Proveedor buscarPorIdInterno(long id) throws ResourceNotFoundException;
 }

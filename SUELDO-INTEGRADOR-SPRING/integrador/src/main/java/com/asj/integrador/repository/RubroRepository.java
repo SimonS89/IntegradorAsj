@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface RubroRepository extends JpaRepository<Rubro,Long> {
-    Optional<Rubro> findByRubro(String rubro);
+    Optional<Rubro> findByRubroIgnoreCase(String rubro);
     List<Rubro> findByEliminado(boolean eliminado);
 }

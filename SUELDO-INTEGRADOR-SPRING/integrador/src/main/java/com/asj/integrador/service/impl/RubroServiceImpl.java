@@ -30,18 +30,16 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
-    public void defaultData() {
-        if (rubroRepository.count() == 0) {
-            List<String> rubros = new ArrayList<>(Arrays.asList("Tecnología", "Alimentación", "Moda", "Salud", "Educación"));
-            if (rubroRepository.count() == 0)
-                rubroRepository.saveAll(rubros.stream().map(Rubro::new).toList());
-        }
-    }
-
-    @Override
     public RubroResponseDTO crear(RubroRequestDTO rubroRequestDTO) throws AlreadyExistsException {
-        Optional<Rubro> rubroEncontrado = rubroRepository.findByRubro(rubroRequestDTO.getRubro());
-        if (rubroEncontrado.isPresent()) throw new AlreadyExistsException("Rubro existente");
+        Optional<Rubro> rubroEncontrado = rubroRepository.findByRubroIgnoreCase(rubroRequestDTO.getRubro());
+        if (rubroEncontrado.isPresent()) {
+            if (!rubroEncontrado.get().isEliminado()) throw new AlreadyExistsException("Rubro existente");
+            else {
+                Rubro rubro = rubroEncontrado.get();
+                rubro.setEliminado(false);
+                return mapper.map(rubroRepository.save(rubro), RubroResponseDTO.class);
+            }
+        }
         Rubro rubro = mapper.map(rubroRequestDTO, Rubro.class);
         return mapper.map(rubroRepository.save(rubro), RubroResponseDTO.class);
     }
@@ -53,7 +51,7 @@ public class RubroServiceImpl implements RubroService {
 
     @Override
     public Rubro buscarPorIdInterno(long id) throws ResourceNotFoundException {
-        return rubroRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Rubro no encontrado"));
+        return rubroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Rubro no encontrado"));
     }
 
     @Override
@@ -66,8 +64,8 @@ public class RubroServiceImpl implements RubroService {
     @Override
     public List<RubroResponseDTO> listarRubrosFiltrados(boolean eliminados) throws ResourceNotFoundException {
         List<Rubro> rubros = rubroRepository.findByEliminado(eliminados);
-        if(rubros.isEmpty())throw new ResourceNotFoundException("No hay rubros.");
-        return rubros.stream().map(rubro -> mapper.map(rubro,RubroResponseDTO.class)).toList();
+        if (rubros.isEmpty()) throw new ResourceNotFoundException("No hay rubros.");
+        return rubros.stream().map(rubro -> mapper.map(rubro, RubroResponseDTO.class)).toList();
     }
 
     @Override
@@ -93,5 +91,14 @@ public class RubroServiceImpl implements RubroService {
 
     private Rubro obtenerRubroSiExiste(Long id) throws ResourceNotFoundException {
         return rubroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Rubro no encontrado"));
+    }
+
+    @Override
+    public void defaultData() {
+        if (rubroRepository.count() == 0) {
+            List<String> rubros = new ArrayList<>(Arrays.asList("Tecnología", "Alimentación", "Moda", "Salud", "Educación"));
+            if (rubroRepository.count() == 0)
+                rubroRepository.saveAll(rubros.stream().map(Rubro::new).toList());
+        }
     }
 }

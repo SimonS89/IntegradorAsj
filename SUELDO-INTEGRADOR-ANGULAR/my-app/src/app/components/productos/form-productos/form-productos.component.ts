@@ -14,7 +14,6 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class FormProductosComponent implements OnInit {
   producto: ProductoForm = {
-    id: 0,
     sku: '',
     imagen: '',
     nombre: '',
@@ -38,15 +37,15 @@ export class FormProductosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.listarCategorias();
+    this.listarProveedores();
     this.route.params.subscribe((data) => {
       this.id = data['id'];
-      this.proveedorService.obtenerTodos().subscribe((res) => {
-        this.proveedores = res;
-      });
-      const productoExistente = this.productoService.obtenerPorId(this.id);
-      if (productoExistente) {
-        // this.producto = { ...productoExistente };
-        this.productoTitle = this.producto.nombre;
+      if (this.id) {
+        this.productoService.obtenerPorId(this.id).subscribe((res) => {
+          this.producto = { ...res };
+          this.productoTitle = this.producto.nombre;
+        });
       }
     });
   }
@@ -77,6 +76,18 @@ export class FormProductosComponent implements OnInit {
     }
   }
 
+  editarProducto() {
+    this.productoService.actualizar(this.id, this.producto).subscribe((res) => {
+      this.irAProductos();
+    });
+  }
+
+  crearProducto() {
+    this.productoService.crear(this.producto).subscribe((res) => {
+      this.irAProductos();
+    });
+  }
+
   vaciarForm(form: NgForm) {
     this.alertService
       .question(
@@ -93,19 +104,15 @@ export class FormProductosComponent implements OnInit {
       });
   }
 
-  editarProducto() {
-    // this.productoService.actualizar(this.producto);
-    this.irAProductos();
-  }
-
-  crearProducto() {
-    // this.productoService.crear(this.producto);
-    this.irAProductos();
-  }
-
   listarCategorias() {
     this.productoService.obtenerCategorias().subscribe((res) => {
       this.categorias = res;
+    });
+  }
+
+  listarProveedores() {
+    this.proveedorService.obtenerTodos().subscribe((res) => {
+      this.proveedores = res;
     });
   }
 

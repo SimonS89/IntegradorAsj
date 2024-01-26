@@ -119,14 +119,21 @@
             name="categoria"
             [(ngModel)]="producto.categoriaId"
             #categoria="ngModel"
-            [ngClass]="categoria.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              categoria.errors || !producto.categoriaId
+                ? 'is-invalid'
+                : 'is-valid'
+            "
           >
             <option value="" disabled selected>Selecciona una categoría</option>
             <option *ngFor="let categoria of categorias" [value]="categoria.id">
               {{ categoria.categoria }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="categoria.errors">
+          <div
+            class="col-auto"
+            *ngIf="categoria.errors || !producto.categoriaId"
+          >
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>
@@ -140,7 +147,11 @@
             name="proveedor"
             [(ngModel)]="producto.proveedorId"
             #proveedor="ngModel"
-            [ngClass]="proveedor.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              proveedor.errors || !producto.proveedorId
+                ? 'is-invalid'
+                : 'is-valid'
+            "
           >
             <option value="" disabled selected>Selecciona un proveedor</option>
             <option
@@ -150,7 +161,10 @@
               {{ proveedor.razonSocial }}
             </option>
           </select>
-          <div class="col-auto" *ngIf="proveedor.errors">
+          <div
+            class="col-auto"
+            *ngIf="proveedor.errors || !producto.proveedorId"
+          >
             <span class="form-text"> Seleccione una opción. </span>
           </div>
         </div>

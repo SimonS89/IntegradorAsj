@@ -39,8 +39,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Override
     public ProveedorResponseDTO crearProveedor(ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
         Proveedor proveedor = asignarValoresProveedor(proveedorDTO);
-        proveedor = proveedorRepository.save(proveedor);
-        return mapper.map(proveedor, ProveedorResponseDTO.class);
+        return mapper.map(proveedorRepository.save(proveedor), ProveedorResponseDTO.class);
     }
 
     @Override
@@ -53,8 +52,8 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public ProveedorDTO buscarPorId(long id) throws ResourceNotFoundException {
-        Proveedor proveedorEncontrado = obtenerProveedorSiExiste(id);
-        return proveedorAProveedorDTO(proveedorEncontrado);
+        Proveedor proveedor = obtenerProveedorSiExiste(id);
+        return proveedorAProveedorDTO(proveedor);
     }
 
     @Override
@@ -73,9 +72,9 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public void eliminadoLogico(Long id) throws ResourceNotFoundException {
-        Proveedor proveedorEncontrado = obtenerProveedorSiExiste(id);
-        proveedorEncontrado.setEliminado(!proveedorEncontrado.isEliminado());
-        proveedorRepository.save(proveedorEncontrado);
+        Proveedor proveedor = obtenerProveedorSiExiste(id);
+        proveedor.setEliminado(!proveedor.isEliminado());
+        proveedorRepository.save(proveedor);
     }
 
     @Override
@@ -93,16 +92,21 @@ public class ProveedorServiceImpl implements ProveedorService {
         return tipoIvaService.listarTodo();
     }
 
+    @Override
+    public Proveedor buscarPorIdInterno(long id) throws ResourceNotFoundException {
+        return proveedorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado"));
+    }
+
     private Proveedor obtenerProveedorSiExiste(long id) throws ResourceNotFoundException {
         return proveedorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado"));
     }
 
-    private ProveedorDTO proveedorAProveedorDTO(Proveedor proveedorEncontrado) {
-        ProveedorDTO proveedorDTO = mapper.map(proveedorEncontrado, ProveedorDTO.class);
-        proveedorDTO.setTipoIvaId(proveedorEncontrado.getTipoIva().getId());
-        proveedorDTO.setRubroId(proveedorEncontrado.getRubro().getId());
-        proveedorDTO.setProvinciaId(proveedorEncontrado.getDomicilio().getProvincia().getId());
-        proveedorDTO.setPaisId(proveedorEncontrado.getDomicilio().getProvincia().getPais().getId());
+    private ProveedorDTO proveedorAProveedorDTO(Proveedor proveedor) {
+        ProveedorDTO proveedorDTO = mapper.map(proveedor, ProveedorDTO.class);
+        proveedorDTO.setTipoIvaId(proveedor.getTipoIva().getId());
+        proveedorDTO.setRubroId(proveedor.getRubro().getId());
+        proveedorDTO.setProvinciaId(proveedor.getDomicilio().getProvincia().getId());
+        proveedorDTO.setPaisId(proveedor.getDomicilio().getProvincia().getPais().getId());
         return proveedorDTO;
     }
 

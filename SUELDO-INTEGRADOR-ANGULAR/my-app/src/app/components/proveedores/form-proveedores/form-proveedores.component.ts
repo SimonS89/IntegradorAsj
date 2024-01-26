@@ -106,10 +106,6 @@ export class FormProveedoresComponent implements OnInit {
     });
   }
 
-  irAProveedores() {
-    this.router.navigate(['/proveedores']);
-  }
-
   listarProvincias(id: number) {
     this.proveedorService.obtenerProvincias(id).subscribe((res) => {
       this.provincias = res;
@@ -150,5 +146,9 @@ export class FormProveedoresComponent implements OnInit {
     this.proveedorService.obtenerTiposIva().subscribe((res) => {
       this.tiposIva = res;
     });
+  }
+
+  irAProveedores() {
+    this.router.navigate(['/proveedores']);
   }
 }

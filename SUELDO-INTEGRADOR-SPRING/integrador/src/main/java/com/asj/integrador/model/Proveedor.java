@@ -21,11 +21,13 @@ public class Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique=true)
     private String codigo;
     private String logo;
     private String razonSocial;
     private String telefono;
     private String email;
+    @Column(unique=true)
     private String cuit;
     private String sitioWeb;
     @ManyToOne(fetch = FetchType.EAGER)

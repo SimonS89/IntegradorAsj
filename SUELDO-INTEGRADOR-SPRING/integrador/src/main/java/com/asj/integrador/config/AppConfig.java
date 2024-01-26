@@ -22,7 +22,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.time.format.DateTimeFormatter;
 
 @Configuration
-@EnableWebMvc
 public class AppConfig implements WebMvcConfigurer {
 
     @Value("${country.base.url2}")
@@ -48,13 +47,10 @@ public class AppConfig implements WebMvcConfigurer {
         return RestClient.builder().baseUrl(urlBaseCountry).build();
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**")
+                .allowedMethods("*");
     }
+
 }

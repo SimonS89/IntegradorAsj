@@ -57,6 +57,7 @@ export class ProveedorService {
       .pipe(
         catchError((error) => {
           console.error('Error al realizar la solicitud HTTP:', error);
+          this.router.navigate(['/proveedores']);
           throw error;
         })
       );

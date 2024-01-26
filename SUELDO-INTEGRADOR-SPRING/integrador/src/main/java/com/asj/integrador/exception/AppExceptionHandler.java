@@ -2,6 +2,7 @@ package com.asj.integrador.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -38,6 +39,26 @@ public class AppExceptionHandler {
         Map<String, String> error = new HashMap<>();
         error.put("errorMesage", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> uniqueException(DataIntegrityViolationException ex) {
+        String errorMessage = ex.getRootCause().getMessage();
+        String customErrorMessage = bdUniqueMsg(errorMessage);
+
+        Map<String, String> error = new HashMap<>();
+        error.put("errorMessage", customErrorMessage);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    private static String bdUniqueMsg(String errorMessage) {
+        String customErrorMessage = "";
+        if (errorMessage.contains("CUIT")) {
+            customErrorMessage = "El CUIT del proveedor debe ser único. Por favor, elija otro CUIT.";
+        } else if(errorMessage.contains("CODIGO")){
+            customErrorMessage = "El código del proveedor debe ser único. Por favor, elija otro código.";
+        }
+        return customErrorMessage;
     }
 
 //    @ExceptionHandler(Exception.class)

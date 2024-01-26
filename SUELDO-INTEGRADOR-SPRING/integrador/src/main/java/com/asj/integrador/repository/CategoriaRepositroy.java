@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface CategoriaRepositroy extends JpaRepository<Categoria,Long> {
-    Optional<Categoria> findByCategoria(String categoria);
+    Optional<Categoria> findByCategoriaIgnoreCase(String categoria);
     List<Categoria> findByEliminado(boolean eliminado);
 }

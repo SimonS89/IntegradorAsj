@@ -32,8 +32,8 @@ public class ProveedorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProveedorResponseDTO> actualizarProveedor(@PathVariable long id,@RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.actualizarProveedor(id,proveedorDTO));
+    public ResponseEntity<ProveedorResponseDTO> actualizarProveedor(@PathVariable long id, @RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.actualizarProveedor(id, proveedorDTO));
     }
 
     @GetMapping("/{id}")
@@ -52,9 +52,9 @@ public class ProveedorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map> eliminarProveedor(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map> eliminarActivarProveedor(@PathVariable long id) throws ResourceNotFoundException {
         proveedorService.eliminadoLogico(id);
-        HashMap<String,String> resp = new HashMap<>(Map.of("mensaje","Modificado el estado de eliminado del proveedor  "+id));
+        HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de eliminado del proveedor  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
 
