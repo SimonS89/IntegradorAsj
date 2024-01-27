@@ -4,6 +4,7 @@ import {
   faPenToSquare,
   faTrashCan,
   faCirclePlus,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { Producto } from 'src/app/models/Producto';
 import { AlertService } from 'src/app/services/alert.service';
@@ -18,8 +19,10 @@ export class ListaProductosComponent implements OnInit {
   faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
   faCirclePlus = faCirclePlus;
+  faCheck = faCheck;
 
   productos: Producto[] = [];
+  mostrarEliminados: boolean = false;
 
   constructor(
     public productoService: ProductoService,
@@ -32,15 +35,23 @@ export class ListaProductosComponent implements OnInit {
   }
 
   listarProductos() {
-    this.productos = this.productoService.obtenerTodos() || [];
-    if (this.productos)
-      this.productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    this.productoService
+      .obtenerTodos(this.mostrarEliminados)
+      .subscribe((res) => {
+        this.productos = res;
+      });
+  }
+
+  editarProducto(id: number) {
+    this.router.navigate(['/productos/form-productos', id]);
   }
 
   eliminarProducto(producto: Producto): void {
     this.alertService
       .question(
-        `¿Desea eliminar el producto ${producto.nombre}?`,
+        `¿Desea ${
+          this.mostrarEliminados ? 'Activar' : 'Eliminar'
+        } el producto ${producto.nombre}?`,
         true,
         true,
         'Aceptar',
@@ -48,16 +59,18 @@ export class ListaProductosComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.productos = this.productoService.eliminarPorId(producto.id);
-          this.alertService.notification(
-            `Producto ${producto.nombre}, eliminado exitosamente.`
-          );
+          this.productoService
+            .eliminarPorId(producto.id)
+            .subscribe((res: any) => {
+              this.listarProductos();
+              this.alertService.notification(
+                `Producto ${producto.nombre}, ${
+                  this.mostrarEliminados ? 'Activado' : 'Eliminado'
+                }  exitosamente.`
+              );
+            });
         }
       });
-  }
-
-  editarProducto(id: number) {
-    this.router.navigate(['/productos/form-productos', id]);
   }
 
   handleImageError(event: any) {

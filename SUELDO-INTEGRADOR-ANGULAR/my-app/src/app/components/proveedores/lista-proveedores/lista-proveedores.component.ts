@@ -46,11 +46,6 @@ export class ListaProveedoresComponent implements OnInit {
     this.router.navigate(['/proveedores/form-proveedores', id]);
   }
 
-  handleImageError(event: any) {
-    event.target.src =
-      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
-  }
-
   public eliminarProveedor(proveedor: Proveedor): void {
     this.alertService
       .question(
@@ -64,18 +59,23 @@ export class ListaProveedoresComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.proveedores = this.proveedorService
+          this.proveedorService
             .eliminarPorId(proveedor.id)
             .subscribe((res: any) => {
               this.listarProveedores();
+              this.alertService.notification(
+                `Proveedor ${proveedor.razonSocial}, ${
+                  this.mostrarEliminados ? 'Activado' : 'Eliminado'
+                } exitosamente.`,
+                'success'
+              );
             });
-          this.alertService.notification(
-            `Proveedor ${proveedor.razonSocial}, ${
-              this.mostrarEliminados ? 'Activado' : 'Eliminado'
-            } exitosamente.`,
-            'success'
-          );
         }
       });
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
   }
 }

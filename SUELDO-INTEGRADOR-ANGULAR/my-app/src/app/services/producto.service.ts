@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class ProductoService {
-  private productos: Producto[] = this.obtenerTodos() || [];
+  private productos: Producto[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -26,10 +26,21 @@ export class ProductoService {
     localStorage.setItem(key, JSON.stringify(productos));
   }
 
-  public obtenerTodos(): Producto[] {
-    let productos = this.getStorage('productos');
-    if (productos) this.productos = productos || [];
-    return this.productos;
+  public obtenerTodos(mostrarEliminados?: boolean): Observable<Producto[]> {
+    return this.http
+      .get<Producto[]>(
+        `${environment.apiUrl}/producto${
+          mostrarEliminados != undefined
+            ? `?eliminados=${mostrarEliminados}`
+            : ''
+        }`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          return of([]);
+        })
+      );
   }
 
   public obtenerPorId(id: number): Observable<ProductoForm> {
@@ -44,10 +55,13 @@ export class ProductoService {
       );
   }
 
-  public eliminarPorId(id: number): Producto[] {
-    this.productos = this.productos.filter((producto) => producto.id !== id);
-    this.setStorage('productos', this.productos);
-    return this.productos;
+  public eliminarPorId(id: number): any {
+    return this.http.delete<any>(`${environment.apiUrl}/producto/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error al realizar la solicitud HTTP:', error);
+        throw error;
+      })
+    );
   }
 
   crear(producto: ProductoForm): Observable<Producto> {
