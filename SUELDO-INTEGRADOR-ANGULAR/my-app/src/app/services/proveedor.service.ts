@@ -81,22 +81,44 @@ export class ProveedorService {
   }
 
   public obtenerProvincias(id: number): Observable<Provincia[]> {
-    return this.http.get<Provincia[]>(
-      `${environment.apiUrl}/proveedor/paises/${id}/provincias`
-    );
+    return this.http
+      .get<Provincia[]>(
+        `${environment.apiUrl}/proveedor/paises/${id}/provincias`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
   }
 
   public obtenerPaises(): Observable<Pais[]> {
-    return this.http.get<Pais[]>(`${environment.apiUrl}/proveedor/paises`);
+    return this.http.get<Pais[]>(`${environment.apiUrl}/proveedor/paises`).pipe(
+      catchError((error) => {
+        console.error('Error al realizar la solicitud HTTP:', error);
+        throw error;
+      })
+    );
   }
 
   public obtenerRubros(): Observable<Rubro[]> {
-    return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`);
+    return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`).pipe(
+      catchError((error) => {
+        console.error('Error al realizar la solicitud HTTP:', error);
+        throw error;
+      })
+    );
   }
 
   public obtenerTiposIva(): Observable<TipoIva[]> {
-    return this.http.get<TipoIva[]>(
-      `${environment.apiUrl}/proveedor/tipos_iva`
-    );
+    return this.http
+      .get<TipoIva[]>(`${environment.apiUrl}/proveedor/tipos_iva`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
   }
 }

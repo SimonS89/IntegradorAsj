@@ -117,13 +117,13 @@
               [(ngModel)]="proveedorSeleccionado"
               #proveedor="ngModel"
               [ngClass]="!proveedorSeleccionado ? 'is-invalid' : 'is-valid'"
-              (change)="listarProductos(proveedorSeleccionado)"
+              (change)="listarProductos(proveedor.value)"
               [disabled]="ordenCompra.items.length > 0"
             >
               <option value="" disabled selected>
                 Selecciona un proveedor
               </option>
-              <option *ngFor="let p of proveedores" [value]="p.razonSocial">
+              <option *ngFor="let p of proveedores" [value]="p.id">
                 {{ p.razonSocial }}
               </option>
             </select>
@@ -141,7 +141,11 @@
               name="productoSeleccionadoName"
               [(ngModel)]="productoSeleccionadoName"
               #producto="ngModel"
-              [ngClass]="!productoSeleccionadoName ? 'is-invalid' : 'is-valid'"
+              [ngClass]="
+                !productoSeleccionadoName || !productos.length
+                  ? 'is-invalid'
+                  : 'is-valid'
+              "
             >
               <ng-container
                 *ngIf="productos && productos.length > 0; else noProductos"

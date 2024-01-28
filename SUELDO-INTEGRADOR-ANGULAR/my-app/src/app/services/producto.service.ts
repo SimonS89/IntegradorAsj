@@ -91,12 +91,24 @@ export class ProductoService {
   }
 
   obtenerCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${environment.apiUrl}/admin/categorias`);
+    return this.http
+      .get<Categoria[]>(`${environment.apiUrl}/admin/categorias`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
   }
 
-  obtenerProductosPorProveedor(razonSocial: string): Producto[] {
-    return this.productos;
-    // ? this.productos.filter((producto) => producto.proveedor === razonSocial)
-    // : [];
+  obtenerProductosPorProveedor(id: number): Observable<Producto[]> {
+    return this.http
+      .get<Producto[]>(`${environment.apiUrl}/producto/${id}/proveedor`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          return of([]);
+        })
+      );
   }
 }

@@ -43,10 +43,10 @@ public class Proveedor {
     @JoinColumn(name = "representante_contacto_id", referencedColumnName = "id")
     private RepresentanteContacto representanteContacto;
     @UpdateTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaCreacionRegistro;
     private boolean eliminado;
 }

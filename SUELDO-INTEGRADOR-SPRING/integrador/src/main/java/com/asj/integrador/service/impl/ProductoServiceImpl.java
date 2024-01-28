@@ -60,15 +60,19 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public List<ProductoResponseDTO> listarProductos() throws ResourceNotFoundException {
         List<Producto> productos = productoRepository.findAll();
-        if (productos.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
-        return productos.stream().map(prod -> mapper.map(prod, ProductoResponseDTO.class)).toList();
+        return productosAProductosResponseDTO(productos);
     }
 
     @Override
-    public List<ProductoResponseDTO> listarProveedoresFiltrados(boolean eliminados) throws ResourceNotFoundException {
+    public List<ProductoResponseDTO> listarProductosFiltrados(boolean eliminados) throws ResourceNotFoundException {
         List<Producto> productos = productoRepository.findByEliminado(eliminados);
-        if (productos.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
-        return productos.stream().map(prod -> mapper.map(prod, ProductoResponseDTO.class)).toList();
+        return productosAProductosResponseDTO(productos);
+    }
+
+    @Override
+    public List<ProductoResponseDTO> listarProductosPorProveedor(long proveedorId) throws ResourceNotFoundException {
+        List<Producto> productos = productoRepository.findByProveedorIdAndEliminadoFalse(proveedorId);
+        return productosAProductosResponseDTO(productos);
     }
 
     @Override
@@ -76,6 +80,11 @@ public class ProductoServiceImpl implements ProductoService {
         Producto producto = obtenerProductoSiExiste(id);
         producto.setEliminado(!producto.isEliminado());
         productoRepository.save(producto);
+    }
+
+    private List<ProductoResponseDTO> productosAProductosResponseDTO(List<Producto> productos) throws ResourceNotFoundException {
+        if (productos.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
+        return productos.stream().map(prod -> mapper.map(prod, ProductoResponseDTO.class)).toList();
     }
 
     private Producto obtenerProductoSiExiste(long id) throws ResourceNotFoundException {

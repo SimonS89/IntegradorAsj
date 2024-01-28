@@ -21,10 +21,10 @@ public class Rubro {
     private String rubro;
     private boolean eliminado;
     @UpdateTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaCreacionRegistro;
 
     public Rubro(String rubro) {

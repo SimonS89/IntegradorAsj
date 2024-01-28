@@ -78,9 +78,10 @@ export class FormOrdenCompraComponent implements OnInit {
     return currentDate.toISOString().split('T')[0];
   }
 
-  listarProductos(razonSocial: string) {
-    this.productos =
-      this.productoService.obtenerProductosPorProveedor(razonSocial);
+  listarProductos(id: number) {
+    this.productoService.obtenerProductosPorProveedor(id).subscribe((res) => {
+      this.productos = res;
+    });
   }
 
   agregarProducto() {
@@ -107,7 +108,7 @@ export class FormOrdenCompraComponent implements OnInit {
               const nuevoItem = {
                 id: this.ordenCompraService.idGenerator(),
                 precio: p?.precio,
-                cantidad: this.cantidadProducto!,
+                cantidad: this.cantidadProducto,
                 producto: p!,
               } as DetalleOrden;
               this.ordenCompra.items.push(nuevoItem);
@@ -185,6 +186,7 @@ export class FormOrdenCompraComponent implements OnInit {
     return !(
       this.proveedorSeleccionado &&
       this.productoSeleccionadoName &&
+      this.productos.length &&
       this.cantidadProducto > 0
     );
   }

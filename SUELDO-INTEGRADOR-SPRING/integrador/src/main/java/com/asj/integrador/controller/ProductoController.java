@@ -45,7 +45,12 @@ public class ProductoController {
 
     @GetMapping
     public ResponseEntity<List<ProductoResponseDTO>> obtenerProveedoresFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProveedoresFiltrados(eliminados));
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProductosFiltrados(eliminados));
+    }
+
+    @GetMapping("/{id}/proveedor")
+    public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosPorProveedor(@PathVariable long id) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProductosPorProveedor(id));
     }
 
     @DeleteMapping("/{id}")
