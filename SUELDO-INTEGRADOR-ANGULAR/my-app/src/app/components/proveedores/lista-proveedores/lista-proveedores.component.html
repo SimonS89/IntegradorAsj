@@ -116,5 +116,10 @@
   </div>
 </div>
 <ng-template #noProveedores>
-  <h2>No hay proveedores disponibles.</h2>
+  <h2 *ngIf="mostrarEliminados; else noProveedoresMessage">
+    No hay proveedores eliminados.
+  </h2>
+  <ng-template #noProveedoresMessage>
+    <h2>No hay proveedores disponibles.</h2>
+  </ng-template>
 </ng-template>

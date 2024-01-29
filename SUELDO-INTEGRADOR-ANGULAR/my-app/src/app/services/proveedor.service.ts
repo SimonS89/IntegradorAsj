@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class ProveedorService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  public eliminarPorId(id: number): any {
+  public eliminarPorId(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/proveedor/${id}`).pipe(
       catchError((error) => {
         console.error('Error al realizar la solicitud HTTP:', error);

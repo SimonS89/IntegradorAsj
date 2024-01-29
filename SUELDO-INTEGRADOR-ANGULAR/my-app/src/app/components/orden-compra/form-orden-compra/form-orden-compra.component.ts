@@ -9,8 +9,7 @@ import { Producto } from 'src/app/models/Producto';
 import { Proveedor } from 'src/app/models/Proveedor';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AlertService } from 'src/app/services/alert.service';
-import { DetalleOrden } from 'src/app/models/DetalleOrden';
-
+import { DetalleOrden } from 'src/app/models/OrdenCompra';
 @Component({
   selector: 'app-form-orden-compra',
   templateUrl: './form-orden-compra.component.html',
@@ -18,15 +17,14 @@ import { DetalleOrden } from 'src/app/models/DetalleOrden';
 })
 export class FormOrdenCompraComponent implements OnInit {
   ordenCompra: OrdenCompra = {
-    id: 0,
-    nroOrden: '',
+    numeroOrden: '',
     total: 0.0,
-    informacionRecepcion: '',
-    informacionAdicional: '',
+    infoRecepcion: '',
+    infoAdicional: '',
     fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
     fechaEntrega: '',
-    items: [],
-    isActive: true,
+    detallesOrden: [],
+    activa: true,
   };
 
   proveedores: Proveedor[] = [];
@@ -62,11 +60,12 @@ export class FormOrdenCompraComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            let ordenCreada = this.ordenCompraService.crear(this.ordenCompra);
-            this.alertService.notification(
-              `orden de compra creada - Nro : ${ordenCreada.nroOrden}`
-            );
-            this.router.navigate(['/ordenes-compra']);
+            this.ordenCompraService.crear(this.ordenCompra).subscribe((res) => {
+              this.alertService.notification(
+                `orden de compra creada - Nro : ${res.numeroOrden}`
+              );
+              this.router.navigate(['/ordenes-compra']);
+            });
           }
         });
     }
@@ -99,19 +98,18 @@ export class FormOrdenCompraComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            const productoExistente = this.ordenCompra.items.find(
+            const productoExistente = this.ordenCompra.detallesOrden.find(
               (item) => item.producto.nombre === this.productoSeleccionadoName
             );
             if (productoExistente?.cantidad) {
               productoExistente.cantidad += this.cantidadProducto;
             } else {
               const nuevoItem = {
-                id: this.ordenCompraService.idGenerator(),
                 precio: p?.precio,
                 cantidad: this.cantidadProducto,
                 producto: p!,
               } as DetalleOrden;
-              this.ordenCompra.items.push(nuevoItem);
+              this.ordenCompra.detallesOrden.push(nuevoItem);
             }
             this.limpiarInputs();
             this.actualizarTotal();
@@ -126,7 +124,7 @@ export class FormOrdenCompraComponent implements OnInit {
   }
 
   actualizarTotal() {
-    this.ordenCompra.total = this.ordenCompra.items.reduce(
+    this.ordenCompra.total = this.ordenCompra.detallesOrden.reduce(
       (total, item) => total + item.precio * (item.cantidad || 0),
       0
     );
@@ -143,11 +141,11 @@ export class FormOrdenCompraComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          const index = this.ordenCompra.items.findIndex(
+          const index = this.ordenCompra.detallesOrden.findIndex(
             (item) => item.producto.id == producto.id
           );
           if (index !== -1) {
-            this.ordenCompra.items.splice(index, 1);
+            this.ordenCompra.detallesOrden.splice(index, 1);
             this.actualizarTotal();
           }
         }
@@ -167,15 +165,14 @@ export class FormOrdenCompraComponent implements OnInit {
         if (res) {
           form.reset();
           this.ordenCompra = {
-            id: 0,
-            nroOrden: '',
+            numeroOrden: '',
             total: 0.0,
-            informacionRecepcion: '',
-            informacionAdicional: '',
+            infoRecepcion: '',
+            infoAdicional: '',
             fechaEmision: this.ordenCompraService.fechaFormateada(new Date()),
             fechaEntrega: '',
-            items: [],
-            isActive: true,
+            detallesOrden: [],
+            activa: true,
           };
           this.cantidadProducto = 1;
         }

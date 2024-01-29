@@ -34,14 +34,21 @@ export class ListaOrdenCompraComponent implements OnInit {
   }
 
   listarOrdenes() {
-    this.ordenesCompra = this.ordenesCompraService.obtenerTodos() || [];
+    this.ordenesCompraService
+      .obtenerTodos(this.mostrarOrdenesActivas)
+      .subscribe((res) => {
+        console.log(res);
+        console.log(this.mostrarOrdenesActivas);
+
+        this.ordenesCompra = res;
+      });
   }
 
-  cambiarEstadoOrden(orden: OrdenCompra, isActive: boolean) {
+  cambiarEstadoOrden(orden: OrdenCompra, activa: boolean) {
     this.alertService
       .question(
-        `Desea ${isActive ? `cancelar ` : `activar `}la orden: ${
-          orden.nroOrden
+        `Desea ${activa ? `cancelar ` : `activar `}la orden: ${
+          orden.numeroOrden
         }?`,
         true,
         true,
@@ -50,10 +57,11 @@ export class ListaOrdenCompraComponent implements OnInit {
       )
       .then((res) => {
         if (res)
-          this.ordenesCompra = this.ordenesCompraService.cancelarPorId(
-            orden.id
-          );
-        this.listarOrdenes();
+          this.ordenesCompraService
+            .cambiarEstado(orden.id!)
+            .subscribe((res) => {
+              this.listarOrdenes();
+            });
       });
   }
 

@@ -1,6 +1,7 @@
 package com.asj.integrador.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,10 +28,10 @@ public class OrdenCompra {
     private Double total;
     private String infoRecepcion;
     private String infoAdicional;
-    private Boolean activa;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    private Boolean activa = true;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate fechaEmision;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate fechaEntrega;
     @UpdateTimestamp
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
@@ -38,9 +39,10 @@ public class OrdenCompra {
     @CreationTimestamp
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaCreacionRegistro;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id", nullable = false)
     private Proveedor proveedor;
-    @OneToMany(mappedBy = "ordenCompra", fetch = FetchType.LAZY)
-    private List<DetalleOrden> ordenDetalles;
+    @OneToMany(mappedBy = "ordenCompra", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<DetalleOrden> detallesOrden;
 }

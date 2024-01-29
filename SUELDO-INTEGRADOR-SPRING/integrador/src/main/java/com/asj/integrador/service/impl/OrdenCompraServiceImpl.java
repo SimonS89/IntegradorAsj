@@ -1,14 +1,82 @@
 package com.asj.integrador.service.impl;
 
+import com.asj.integrador.dto.request.OrdenCompraRequestDTO;
+import com.asj.integrador.dto.response.OrdenCompraResponseDTO;
+import com.asj.integrador.exception.AlreadyExistsException;
+import com.asj.integrador.exception.ResourceNotFoundException;
+import com.asj.integrador.model.DetalleOrden;
+import com.asj.integrador.model.OrdenCompra;
 import com.asj.integrador.repository.OrdenCompraRepository;
+import com.asj.integrador.service.DetalleOrdenService;
+import com.asj.integrador.service.OrdenCompraService;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class OrdenCompraServiceImpl {
+public class OrdenCompraServiceImpl implements OrdenCompraService {
 
     private final OrdenCompraRepository ordenCompraRepository;
+    private final DetalleOrdenService detalleOrdenService;
+    private final ModelMapper mapper;
+    private final Logger logger = LoggerFactory.getLogger(OrdenCompraServiceImpl.class);
 
-    public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository) {
+    public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository, DetalleOrdenService detalleOrdenService, ModelMapper mapper) {
         this.ordenCompraRepository = ordenCompraRepository;
+        this.detalleOrdenService = detalleOrdenService;
+        this.mapper = mapper;
+    }
+
+    @Override
+    public OrdenCompraResponseDTO crear(OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException {
+        Optional<OrdenCompra> ordenEncontrada = ordenCompraRepository.findByNumeroOrden(ordenCompraRequestDTO.getNumeroOrden());
+        if (ordenEncontrada.isPresent()) throw new AlreadyExistsException("número orden existente");
+        OrdenCompra ordenCompra = mapper.map(ordenCompraRequestDTO, OrdenCompra.class);
+        ordenCompra.setProveedor(ordenCompraRequestDTO.getDetallesOrden().get(0).getProducto().getProveedor());
+        ordenCompra = ordenCompraRepository.save(ordenCompra);
+        for (DetalleOrden detalleOrden : ordenCompraRequestDTO.getDetallesOrden()) {
+            detalleOrden.setOrdenCompra(ordenCompra);
+            detalleOrdenService.crear(detalleOrden);
+        }
+        return mapper.map(ordenCompra, OrdenCompraResponseDTO.class);
+    }
+
+    @Override
+    public List<OrdenCompraResponseDTO> listarOdenes() throws ResourceNotFoundException {
+        List<OrdenCompra> ordenes = ordenCompraRepository.findAll();
+        return ordenesAOrdenesResponseDTO(ordenes);
+    }
+
+    @Override
+    public OrdenCompraResponseDTO buscarPorId(long id) throws ResourceNotFoundException {
+        OrdenCompra orden = obtenerOrdenSiExiste(id);
+        return mapper.map(orden,OrdenCompraResponseDTO.class);
+    }
+
+    private OrdenCompra obtenerOrdenSiExiste(long id) throws ResourceNotFoundException {
+        return ordenCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
+    }
+
+    @Override
+    public void cambiarEstadoOrden(long id) throws ResourceNotFoundException {
+        OrdenCompra orden = obtenerOrdenSiExiste(id);
+        orden.setActiva(!orden.getActiva());
+        ordenCompraRepository.save(orden);
+    }
+
+    @Override
+    public List<OrdenCompraResponseDTO> listarOrdenesFiltradas(boolean activas) throws ResourceNotFoundException {
+        List<OrdenCompra> ordenes = ordenCompraRepository.findByActiva(activas);
+        return ordenesAOrdenesResponseDTO(ordenes);
+    }
+
+    private List<OrdenCompraResponseDTO> ordenesAOrdenesResponseDTO(List<OrdenCompra> ordenes) throws ResourceNotFoundException {
+        if (ordenes.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
+        return ordenes.stream().map(orden -> mapper.map(orden, OrdenCompraResponseDTO.class)
+        ).toList();
     }
 }

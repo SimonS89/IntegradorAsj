@@ -18,7 +18,9 @@ export class OrdenCompraDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id')!);
-    this.ordenCompra = { ...this.ordenCompraService.obtenerPorId(id)! }!;
+    this.ordenCompraService.obtenerPorId(id).subscribe((res) => {
+      this.ordenCompra = res;
+    });
   }
 
   esFechaPosteriorHoy(fechaString: string): boolean {

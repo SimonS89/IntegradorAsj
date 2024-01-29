@@ -1,5 +1,6 @@
 package com.asj.integrador.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +19,10 @@ public class DetalleOrden {
     private Long id;
     private Double precio;
     private int cantidad;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orden_compra_id", referencedColumnName = "id", nullable = false)
     private OrdenCompra ordenCompra;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id", referencedColumnName = "id", nullable = false)
     private Producto producto;
 }

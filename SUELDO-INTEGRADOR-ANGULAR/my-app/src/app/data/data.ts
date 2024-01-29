@@ -310,7 +310,7 @@ const ordenesEjemplo = [
         },
       },
     ],
-    isActive: true,
+    activa: true,
   },
   {
     id: 2,
@@ -338,7 +338,7 @@ const ordenesEjemplo = [
         },
       },
     ],
-    isActive: true,
+    activa: true,
   },
   {
     id: 3,
@@ -366,7 +366,7 @@ const ordenesEjemplo = [
         },
       },
     ],
-    isActive: true,
+    activa: true,
   },
   {
     id: 4,
@@ -394,7 +394,7 @@ const ordenesEjemplo = [
         },
       },
     ],
-    isActive: true,
+    activa: true,
   },
   {
     id: 5,
@@ -422,7 +422,7 @@ const ordenesEjemplo = [
         },
       },
     ],
-    isActive: true,
+    activa: true,
   },
 ];
 

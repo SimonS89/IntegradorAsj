@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { productosEjemplo } from '../data/data';
 import { Producto, ProductoForm } from '../models/Producto';
 import { HttpClient } from '@angular/common/http';
 import { Categoria } from '../models/Producto';
@@ -12,19 +11,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class ProductoService {
-  private productos: Producto[] = [];
-
   constructor(private http: HttpClient, private router: Router) {}
-
-  getStorage(key: string): Producto[] | undefined {
-    let productosString = localStorage.getItem(key);
-    if (productosString) return JSON.parse(productosString);
-    return undefined;
-  }
-
-  setStorage(key: string, productos: Producto[]): void {
-    localStorage.setItem(key, JSON.stringify(productos));
-  }
 
   public obtenerTodos(mostrarEliminados?: boolean): Observable<Producto[]> {
     return this.http

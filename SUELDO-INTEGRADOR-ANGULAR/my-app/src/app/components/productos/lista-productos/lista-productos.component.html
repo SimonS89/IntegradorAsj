@@ -111,5 +111,10 @@
   </div>
 </div>
 <ng-template #noProductos>
-  <h2>No hay prductos disponibles.</h2>
+  <h2 *ngIf="mostrarEliminados; else noProductosMessage">
+    No hay productos eliminados.
+  </h2>
+  <ng-template #noProductosMessage>
+    <h2>No hay productos disponibles.</h2>
+  </ng-template>
 </ng-template>

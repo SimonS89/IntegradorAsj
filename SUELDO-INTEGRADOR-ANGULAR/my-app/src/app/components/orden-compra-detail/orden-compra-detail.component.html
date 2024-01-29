@@ -11,12 +11,12 @@
               Nro Orden
             </p>
             <p class="small text-muted mb-0">
-              {{ ordenCompra.nroOrden }}
+              {{ ordenCompra.numeroOrden }}
             </p>
           </div>
           <div
             class="card shadow-0 border mb-4"
-            *ngFor="let item of ordenCompra.items"
+            *ngFor="let item of ordenCompra.detallesOrden"
           >
             <div class="card-body">
               <div class="row">
@@ -68,9 +68,9 @@
                 <div
                   class="progress-bar"
                   role="progressbar"
-                  [ngClass]="{ 'segunda-mitad': ordenCompra.isActive }"
+                  [ngClass]="{ 'segunda-mitad': ordenCompra.activa }"
                   [ngStyle]="{
-                    'width.%': !ordenCompra.isActive ? 50 : 100,
+                    'width.%': !ordenCompra.activa ? 50 : 100,
                     'border-radius': '16px',
                     'background-color': '#f17e27'
                   }"
@@ -98,7 +98,7 @@
               {{
                 esFechaPosteriorHoy(ordenCompra.fechaEntrega)
                   ? "Entregado"
-                  : ordenCompra.isActive &&
+                  : ordenCompra.activa &&
                     !esFechaPosteriorHoy(ordenCompra.fechaEntrega)
                   ? "Pendiente"
                   : "Cancelada"
@@ -120,8 +120,8 @@
             <p class="text-muted mb-0">
               Info Adicional :
               {{
-                ordenCompra.informacionAdicional
-                  ? ordenCompra.informacionAdicional
+                ordenCompra.infoAdicional
+                  ? ordenCompra.infoAdicional
                   : "No hay requisitos adicionales"
               }}
             </p>
@@ -136,7 +136,7 @@
             </p>
             <p class="text-muted mb-0">
               <span class="fw-bold me-2">Productos recibidos por :</span
-              >{{ ordenCompra.informacionRecepcion }}
+              >{{ ordenCompra.infoRecepcion }}
             </p>
           </div>
         </div>

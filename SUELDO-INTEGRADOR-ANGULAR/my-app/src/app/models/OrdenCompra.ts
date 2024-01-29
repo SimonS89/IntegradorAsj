@@ -1,13 +1,22 @@
-import { DetalleOrden } from './DetalleOrden';
+import { Producto } from './Producto';
+import { Proveedor } from './Proveedor';
 
 export interface OrdenCompra {
-  id: number;
-  nroOrden: string;
+  id?: number;
+  numeroOrden: string;
   total: number;
-  informacionRecepcion: string;
-  informacionAdicional: string;
+  infoRecepcion: string;
+  infoAdicional: string;
   fechaEmision: string;
   fechaEntrega: string;
-  items: DetalleOrden[];
-  isActive: boolean;
+  proveedor?: Proveedor;
+  detallesOrden: DetalleOrden[];
+  activa: boolean;
+}
+
+export interface DetalleOrden {
+  id?: number;
+  precio: number;
+  cantidad: number;
+  producto: Producto;
 }

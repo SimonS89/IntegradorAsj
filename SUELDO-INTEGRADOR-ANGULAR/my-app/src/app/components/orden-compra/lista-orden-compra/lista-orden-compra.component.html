@@ -18,12 +18,13 @@
           for="showActiveOnlyCheckbox"
           role="button"
         >
-          Mostrar activas
+          Mostrar inactivas
           <input
             class="form-check-input border-black fw-bolder"
             type="checkbox"
             id="showActiveOnlyCheckbox"
             [(ngModel)]="mostrarOrdenesActivas"
+            (change)="listarOrdenes()"
           />
         </label>
       </div>
@@ -48,23 +49,20 @@
           <tbody class="table-group-divider">
             <tr
               class="align-middle fw-medium"
-              *ngFor="
-                let orden of ordenesCompra
-                  | filtrarOrdenes : mostrarOrdenesActivas
-              "
+              *ngFor="let orden of ordenesCompra"
             >
               <td
                 [ngClass]="
-                  orden.isActive
+                  orden.activa
                     ? 'text-dark'
                     : 'text-secondary text-decoration-line-through'
                 "
               >
-                {{ orden.nroOrden }}
+                {{ orden.numeroOrden }}
               </td>
               <td
                 [ngClass]="
-                  orden.isActive
+                  orden.activa
                     ? 'text-dark'
                     : 'text-secondary text-decoration-line-through'
                 "
@@ -74,17 +72,17 @@
               <td
                 class="d-none d-lg-table-cell"
                 [ngClass]="
-                  orden.isActive
+                  orden.activa
                     ? 'text-dark'
                     : 'text-secondary text-decoration-line-through'
                 "
               >
-                {{ orden.informacionRecepcion }}
+                {{ orden.infoRecepcion }}
               </td>
               <td
                 class="d-none d-lg-table-cell"
                 [ngClass]="
-                  orden.isActive
+                  orden.activa
                     ? 'text-dark'
                     : 'text-secondary text-decoration-line-through'
                 "
@@ -94,7 +92,7 @@
               <td
                 class="d-none d-lg-table-cell"
                 [ngClass]="
-                  orden.isActive
+                  orden.activa
                     ? 'text-dark'
                     : 'text-secondary text-decoration-line-through'
                 "
@@ -103,7 +101,7 @@
               </td>
               <td
                 [ngClass]="
-                  orden.isActive
+                  orden.activa
                     ? 'text-dark'
                     : 'text-secondary text-decoration-line-through'
                 "
@@ -111,7 +109,7 @@
                 {{
                   esFechaPosteriorHoy(orden.fechaEntrega)
                     ? "Entregado"
-                    : orden.isActive && !esFechaPosteriorHoy(orden.fechaEntrega)
+                    : orden.activa && !esFechaPosteriorHoy(orden.fechaEntrega)
                     ? "Pendiente"
                     : "Cancelada"
                 }}
@@ -121,27 +119,25 @@
                   type="button"
                   class="btn me-3"
                   [ngClass]="
-                    orden.isActive
-                      ? 'btn-outline-danger'
-                      : 'btn-outline-primary'
+                    orden.activa ? 'btn-outline-danger' : 'btn-outline-primary'
                   "
-                  (click)="cambiarEstadoOrden(orden, orden.isActive)"
+                  (click)="cambiarEstadoOrden(orden, orden.activa)"
                   [title]="
-                    orden.isActive
-                      ? 'Cancelar Orden - ' + orden.nroOrden
-                      : 'Activar Orden - ' + orden.nroOrden
+                    orden.activa
+                      ? 'Cancelar Orden - ' + orden.numeroOrden
+                      : 'Activar Orden - ' + orden.numeroOrden
                   "
                 >
                   <fa-icon
-                    [icon]="orden.isActive ? faBan : faChartLine"
+                    [icon]="orden.activa ? faBan : faChartLine"
                     class="fw-bolder fs-5"
                   ></fa-icon>
                 </button>
                 <button
                   type="button"
                   class="editBtn btn btn-outline-dark"
-                  (click)="mostrarDetalle(orden.id)"
-                  [title]="'Mostrar Detalle - ' + orden.nroOrden"
+                  (click)="mostrarDetalle(orden.id!)"
+                  [title]="'Mostrar Detalle - ' + orden.numeroOrden"
                 >
                   <fa-icon
                     [icon]="faCircleInfo"
@@ -157,5 +153,10 @@
   </div>
 </div>
 <ng-template #noOrdenes>
-  <h2>No hay Ordenes de compra disponibles.</h2>
+  <h2 *ngIf="mostrarOrdenesActivas; else noOrdenesMessage">
+    No hay ordenes disponibles.
+  </h2>
+  <ng-template #noOrdenesMessage>
+    <h2>No hay ordenes activas.</h2>
+  </ng-template>
 </ng-template>
