@@ -1,6 +1,7 @@
 package com.asj.integrador.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class Producto {
     private LocalDateTime fechaCreacionRegistro;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id", nullable = false)
+    @JsonManagedReference
     private Proveedor proveedor;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)

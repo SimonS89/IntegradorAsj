@@ -2,6 +2,7 @@ package com.asj.integrador.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,6 +44,6 @@ public class OrdenCompra {
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id", nullable = false)
     private Proveedor proveedor;
     @OneToMany(mappedBy = "ordenCompra", fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonManagedReference
     private List<DetalleOrden> detallesOrden;
 }

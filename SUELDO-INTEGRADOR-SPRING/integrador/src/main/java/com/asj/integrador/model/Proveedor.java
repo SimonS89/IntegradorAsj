@@ -1,5 +1,6 @@
 package com.asj.integrador.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -49,5 +51,8 @@ Proveedor {
     @CreationTimestamp
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaCreacionRegistro;
+    @OneToMany(mappedBy = "proveedor",cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Producto> productos;
     private boolean eliminado;
 }

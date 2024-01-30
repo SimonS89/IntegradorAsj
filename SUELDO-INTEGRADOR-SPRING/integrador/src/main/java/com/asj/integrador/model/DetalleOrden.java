@@ -1,5 +1,6 @@
 package com.asj.integrador.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class DetalleOrden {
     private int cantidad;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orden_compra_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private OrdenCompra ordenCompra;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id", referencedColumnName = "id", nullable = false)

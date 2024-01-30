@@ -9,6 +9,7 @@ import com.asj.integrador.repository.ProductoRepository;
 import com.asj.integrador.repository.ProveedorRepository;
 import com.asj.integrador.service.CategoriaService;
 import com.asj.integrador.service.ProductoService;
+import com.asj.integrador.service.ProveedorService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +25,13 @@ public class ProductoServiceImpl implements ProductoService {
     private final ModelMapper mapper;
     private final CategoriaService categoriaService;
     private final Logger logger = LoggerFactory.getLogger(ProveedorServiceImpl.class);
-    private final ProveedorRepository proveedorRepository;
+    private final ProveedorService proveedorService;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, ModelMapper mapper, CategoriaServiceImpl categoriaService, ProveedorRepository proveedorRepository) {
+    public ProductoServiceImpl(ProductoRepository productoRepository, ModelMapper mapper, CategoriaServiceImpl categoriaService, ProveedorService proveedorService) {
         this.productoRepository = productoRepository;
         this.mapper = mapper;
         this.categoriaService = categoriaService;
-        this.proveedorRepository = proveedorRepository;
+        this.proveedorService = proveedorService;
         ;
     }
 
@@ -39,7 +40,7 @@ public class ProductoServiceImpl implements ProductoService {
         Optional<Producto> productoEncontrado = productoRepository.findBySku(productoDTO.getSku());
         if (productoEncontrado.isPresent()) throw new AlreadyExistsException("Sku existente");
         Producto producto = asignarValoresProducto(productoDTO);
-        producto.setProveedor(proveedorRepository.findById(productoDTO.getProveedorId()).get());
+        producto.setProveedor(proveedorService.buscarPorIdInterno(productoDTO.getProveedorId()));
         return mapper.map(productoRepository.save(producto), ProductoResponseDTO.class);
     }
 
@@ -47,7 +48,7 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponseDTO actualizarProducto(long id, ProductoDTO productoDTO) throws ResourceNotFoundException {
         Producto producto = asignarValoresProducto(productoDTO);
         producto.setId(id);
-        producto.setProveedor(proveedorRepository.findById(productoDTO.getProveedorId()).get());
+        producto.setProveedor(proveedorService.buscarPorIdInterno(productoDTO.getProveedorId()));
         return mapper.map(productoRepository.save(producto), ProductoResponseDTO.class);
     }
 
@@ -80,17 +81,6 @@ public class ProductoServiceImpl implements ProductoService {
         Producto producto = obtenerProductoSiExiste(id);
         producto.setEliminado(!producto.isEliminado());
         productoRepository.save(producto);
-    }
-
-    @Override
-    public void cambiarEstadoProdSegunProveedor(long proveedorId, boolean eliminado) {
-        List<Producto> productos = productoRepository.findByProveedorId(proveedorId);
-        productos.stream().forEach(prod -> {
-            if (prod.isEliminado() != eliminado) {
-                prod.setEliminado(eliminado);
-                productoRepository.save(prod);
-            }
-        });
     }
 
     private List<ProductoResponseDTO> productosAProductosResponseDTO(List<Producto> productos) throws ResourceNotFoundException {

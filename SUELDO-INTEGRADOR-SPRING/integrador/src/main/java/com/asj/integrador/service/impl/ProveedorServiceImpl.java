@@ -25,18 +25,16 @@ public class ProveedorServiceImpl implements ProveedorService {
     private final TipoIvaService tipoIvaService;
     private final ProveedorRepository proveedorRepository;
     private final ModelMapper mapper;
-    private final ProductoService productoService;
 
     private final Logger logger = LoggerFactory.getLogger(ProveedorServiceImpl.class);
 
-    public ProveedorServiceImpl(RubroService rubroService, PaisService paisService, ProvinciaService provinciaService, TipoIvaService tipoIvaService, ProveedorRepository proveedorRepository, ModelMapper mapper, ProductoService productoService) {
+    public ProveedorServiceImpl(RubroService rubroService, PaisService paisService, ProvinciaService provinciaService, TipoIvaService tipoIvaService, ProveedorRepository proveedorRepository, ModelMapper mapper) {
         this.rubroService = rubroService;
         this.paisService = paisService;
         this.provinciaService = provinciaService;
         this.tipoIvaService = tipoIvaService;
         this.proveedorRepository = proveedorRepository;
         this.mapper = mapper;
-        this.productoService = productoService;
     }
 
     @Override
@@ -78,7 +76,8 @@ public class ProveedorServiceImpl implements ProveedorService {
         Proveedor proveedor = obtenerProveedorSiExiste(id);
         proveedor.setEliminado(!proveedor.isEliminado());
         proveedorRepository.save(proveedor);
-        productoService.cambiarEstadoProdSegunProveedor(id, proveedor.isEliminado());
+        proveedor.getProductos().stream().forEach(producto -> producto.setEliminado(proveedor.isEliminado()));
+        proveedorRepository.save(proveedor);
     }
 
     @Override
