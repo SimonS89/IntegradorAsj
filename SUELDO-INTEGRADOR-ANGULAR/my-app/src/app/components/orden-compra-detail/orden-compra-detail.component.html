@@ -36,12 +36,14 @@
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0">{{ item.producto.categoria }}</p>
+                  <p class="text-muted mb-0">{{ item.producto.sku }}</p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"
                 >
-                  <p class="text-muted mb-0">{{ item.producto.proveedor }}</p>
+                  <p class="text-muted mb-0">
+                    {{ ordenCompra.proveedor?.razonSocial }}
+                  </p>
                 </div>
                 <div
                   class="col-md-2 text-center d-flex justify-content-center align-items-center"

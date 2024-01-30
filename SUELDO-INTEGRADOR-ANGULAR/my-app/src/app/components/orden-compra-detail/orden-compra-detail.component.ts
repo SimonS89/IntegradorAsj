@@ -20,6 +20,7 @@ export class OrdenCompraDetailComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id')!);
     this.ordenCompraService.obtenerPorId(id).subscribe((res) => {
       this.ordenCompra = res;
+      console.log(this.ordenCompra);
     });
   }
 

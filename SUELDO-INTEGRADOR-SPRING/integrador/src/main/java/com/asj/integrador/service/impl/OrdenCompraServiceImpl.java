@@ -37,6 +37,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
         if (ordenEncontrada.isPresent()) throw new AlreadyExistsException("número orden existente");
         OrdenCompra ordenCompra = mapper.map(ordenCompraRequestDTO, OrdenCompra.class);
         ordenCompra.setProveedor(ordenCompraRequestDTO.getDetallesOrden().get(0).getProducto().getProveedor());
+        ordenCompra.setTotal(calcularTotal(ordenCompraRequestDTO.getDetallesOrden()));
         ordenCompra = ordenCompraRepository.save(ordenCompra);
         for (DetalleOrden detalleOrden : ordenCompraRequestDTO.getDetallesOrden()) {
             detalleOrden.setOrdenCompra(ordenCompra);
@@ -54,7 +55,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     @Override
     public OrdenCompraResponseDTO buscarPorId(long id) throws ResourceNotFoundException {
         OrdenCompra orden = obtenerOrdenSiExiste(id);
-        return mapper.map(orden,OrdenCompraResponseDTO.class);
+        return mapper.map(orden, OrdenCompraResponseDTO.class);
     }
 
     private OrdenCompra obtenerOrdenSiExiste(long id) throws ResourceNotFoundException {
@@ -78,5 +79,15 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
         if (ordenes.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
         return ordenes.stream().map(orden -> mapper.map(orden, OrdenCompraResponseDTO.class)
         ).toList();
+    }
+
+    private double calcularTotal(List<DetalleOrden> detallesOrden) {
+        if (detallesOrden != null && !detallesOrden.isEmpty()) {
+            return detallesOrden.stream()
+                    .mapToDouble(detalle -> detalle.getPrecio() * detalle.getCantidad())
+                    .sum();
+        } else {
+            return 0.0;
+        }
     }
 }

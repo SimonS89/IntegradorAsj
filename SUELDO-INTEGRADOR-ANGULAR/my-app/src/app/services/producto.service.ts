@@ -67,6 +67,9 @@ export class ProductoService {
   }
 
   public actualizar(id: number, producto: ProductoForm): Observable<Producto> {
+    producto.proveedorId = Number(producto.proveedorId);
+    console.log(producto);
+
     return this.http
       .put<Producto>(`${environment.apiUrl}/producto/${id}`, producto)
       .pipe(

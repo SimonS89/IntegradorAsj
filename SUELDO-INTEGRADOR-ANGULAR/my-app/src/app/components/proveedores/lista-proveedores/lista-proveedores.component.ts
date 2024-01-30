@@ -51,7 +51,9 @@ export class ListaProveedoresComponent implements OnInit {
       .question(
         `¿Desea ${
           this.mostrarEliminados ? 'Activar' : 'Eliminar'
-        } el proveedor ${proveedor.razonSocial}?`,
+        } el proveedor ${
+          proveedor.razonSocial
+        }? La acción se replicará en sus productos`,
         true,
         true,
         'Aceptar',

@@ -21,4 +21,6 @@ public interface ProductoService {
     List<ProductoResponseDTO> listarProductosPorProveedor(long proveedorId) throws ResourceNotFoundException;
 
     void eliminadoLogico(long id) throws ResourceNotFoundException;
+
+    void cambiarEstadoProdSegunProveedor(long proveedorId, boolean eliminado);
 }

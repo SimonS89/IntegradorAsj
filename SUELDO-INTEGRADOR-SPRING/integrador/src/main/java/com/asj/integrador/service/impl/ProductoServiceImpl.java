@@ -6,9 +6,9 @@ import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Producto;
 import com.asj.integrador.repository.ProductoRepository;
+import com.asj.integrador.repository.ProveedorRepository;
 import com.asj.integrador.service.CategoriaService;
 import com.asj.integrador.service.ProductoService;
-import com.asj.integrador.service.ProveedorService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +23,15 @@ public class ProductoServiceImpl implements ProductoService {
     private final ProductoRepository productoRepository;
     private final ModelMapper mapper;
     private final CategoriaService categoriaService;
-    private final ProveedorService proveedorService;
     private final Logger logger = LoggerFactory.getLogger(ProveedorServiceImpl.class);
+    private final ProveedorRepository proveedorRepository;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, ModelMapper mapper, CategoriaServiceImpl categoriaService, ProveedorService proveedorService) {
+    public ProductoServiceImpl(ProductoRepository productoRepository, ModelMapper mapper, CategoriaServiceImpl categoriaService, ProveedorRepository proveedorRepository) {
         this.productoRepository = productoRepository;
         this.mapper = mapper;
         this.categoriaService = categoriaService;
-        this.proveedorService = proveedorService;
+        this.proveedorRepository = proveedorRepository;
+        ;
     }
 
     @Override
@@ -38,16 +39,15 @@ public class ProductoServiceImpl implements ProductoService {
         Optional<Producto> productoEncontrado = productoRepository.findBySku(productoDTO.getSku());
         if (productoEncontrado.isPresent()) throw new AlreadyExistsException("Sku existente");
         Producto producto = asignarValoresProducto(productoDTO);
-        producto.setProveedor(proveedorService.buscarPorIdInterno(productoDTO.getProveedorId()));
+        producto.setProveedor(proveedorRepository.findById(productoDTO.getProveedorId()).get());
         return mapper.map(productoRepository.save(producto), ProductoResponseDTO.class);
     }
 
     @Override
     public ProductoResponseDTO actualizarProducto(long id, ProductoDTO productoDTO) throws ResourceNotFoundException {
-        long idProveedor = obtenerProductoSiExiste(id).getProveedor().getId();
         Producto producto = asignarValoresProducto(productoDTO);
         producto.setId(id);
-        producto.setProveedor(proveedorService.buscarPorIdInterno(idProveedor));
+        producto.setProveedor(proveedorRepository.findById(productoDTO.getProveedorId()).get());
         return mapper.map(productoRepository.save(producto), ProductoResponseDTO.class);
     }
 
@@ -65,7 +65,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public List<ProductoResponseDTO> listarProductosFiltrados(boolean eliminados) throws ResourceNotFoundException {
-        List<Producto> productos = productoRepository.findByEliminado(eliminados);
+        List<Producto> productos = productoRepository.findByEliminadoAndProveedorEliminadoFalse(eliminados);
         return productosAProductosResponseDTO(productos);
     }
 
@@ -80,6 +80,17 @@ public class ProductoServiceImpl implements ProductoService {
         Producto producto = obtenerProductoSiExiste(id);
         producto.setEliminado(!producto.isEliminado());
         productoRepository.save(producto);
+    }
+
+    @Override
+    public void cambiarEstadoProdSegunProveedor(long proveedorId, boolean eliminado) {
+        List<Producto> productos = productoRepository.findByProveedorId(proveedorId);
+        productos.stream().forEach(prod -> {
+            if (prod.isEliminado() != eliminado) {
+                prod.setEliminado(eliminado);
+                productoRepository.save(prod);
+            }
+        });
     }
 
     private List<ProductoResponseDTO> productosAProductosResponseDTO(List<Producto> productos) throws ResourceNotFoundException {
