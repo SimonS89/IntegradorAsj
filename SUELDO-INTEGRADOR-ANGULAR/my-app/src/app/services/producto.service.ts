@@ -62,6 +62,18 @@ export class ProductoService {
       );
   }
 
+  public obtenerPorIdDetalle(id: number): Observable<Producto> {
+    return this.http
+      .get<Producto>(`${environment.apiUrl}/producto/${id}/detalle`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          this.router.navigate(['/productos']);
+          throw error;
+        })
+      );
+  }
+
   public eliminarPorId(id: number): any {
     return this.http.delete<any>(`${environment.apiUrl}/producto/${id}`).pipe(
       catchError((error) => {

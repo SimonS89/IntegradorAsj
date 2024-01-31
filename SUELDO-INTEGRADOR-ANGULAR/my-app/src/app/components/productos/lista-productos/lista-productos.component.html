@@ -5,7 +5,7 @@
       <div class="row justify-content-center mb-3 mt-4 align-items-center">
         <a
           type="button"
-          class="btnAdd fw-bolder col-3 btn btn-success col-sm-12 col-md-3 mb-3 shadow"
+          class="btnAdd fw-bolder col-3 btn col-10 col-md-3 mb-3 shadow"
           routerLink="/productos/form-productos"
         >
           <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
@@ -13,16 +13,16 @@
         </a>
       </div>
       <div class="row flex-row justify-content-between mb-3 align-items-center">
-        <div class="col-md-3 col-sm-12 col-12">
+        <div class="col-md-2 col-10">
           <select
-            class="form-select"
+            class="form-select fs-6"
             aria-label="Default select example"
             [(ngModel)]="categoriaId"
             #categoria="ngModel"
             (change)="listarProductos()"
           >
             <option value="" disabled selected>Filtrar por categoria</option>
-            <option value="0">Todos</option>
+            <option value="0">Mostrar todos</option>
             <option *ngFor="let categoria of categorias" [value]="categoria.id">
               {{ categoria.categoria }}
             </option>
@@ -47,16 +47,24 @@
       </div>
       <div class="table-responsive shadow-lg rounded-3 table-content">
         <div *ngIf="productos.length == 0">
-          <h2 *ngIf="mostrarEliminados; else noProductosMessage">
-            No hay productos eliminados disponibles.
-          </h2>
-          <ng-template #noProductosMessage>
-            <h2>No hay productos disponibles.</h2>
-          </ng-template>
+          <div class="tablas_vacias">
+            <div
+              *ngIf="mostrarEliminados; else noProductosMessage"
+              class="alert alert-success fs-5 col-8"
+              role="alert"
+            >
+              No hay productos eliminados disponibles.
+            </div>
+            <ng-template #noProductosMessage>
+              <div class="alert alert-success fs-5 col-8" role="alert">
+                No hay productos disponibles.
+              </div>
+            </ng-template>
+          </div>
         </div>
         <mat-card [style.display]="productos.length > 0 ? 'block' : 'none'">
           <mat-card-header>
-            <mat-form-field>
+            <mat-form-field style="font-size: 14px; width: 150px; height: 60px">
               <input
                 matInput
                 (keyup)="textoIngresado($event)"
@@ -145,13 +153,26 @@
                     </button>
                     <button
                       type="button"
-                      class="editBtn btn btn-outline-primary"
+                      class="editBtn btn"
                       (click)="editarProducto(producto.id)"
                       [title]="'Editar Producto - ' + producto.nombre"
                       [ngClass]="mostrarEliminados ? 'd-none' : ''"
                     >
                       <fa-icon
                         [icon]="faPenToSquare"
+                        class="fw-bolder fs-5"
+                      ></fa-icon>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="infoBtn btn"
+                      (click)="productoDetalle(producto.id)"
+                      [title]="'Ver detalle producto - ' + producto.nombre"
+                      [ngClass]="mostrarEliminados ? 'd-none' : ''"
+                    >
+                      <fa-icon
+                        [icon]="faCircleInfo"
                         class="fw-bolder fs-5"
                       ></fa-icon>
                     </button>

@@ -58,6 +58,12 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public ProductoResponseDTO buscarPorIdDetalle(long id) throws ResourceNotFoundException {
+        Producto producto = obtenerProductoSiExiste(id);
+        return mapper.map(producto, ProductoResponseDTO.class);
+    }
+
+    @Override
     public List<ProductoResponseDTO> listarProductos() throws ResourceNotFoundException {
         List<Producto> productos = productoRepository.findAll();
         return productosAProductosResponseDTO(productos);

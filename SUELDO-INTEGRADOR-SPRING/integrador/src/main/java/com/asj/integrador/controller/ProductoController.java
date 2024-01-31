@@ -38,10 +38,10 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(productoService.buscarPorId(id));
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ProductoResponseDTO>> obtenerProductos() throws ResourceNotFoundException {
-//        return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProductos());
-//    }
+    @GetMapping("/{id}/detalle")
+    public ResponseEntity<ProductoResponseDTO> buscarPorIdDetalle(@PathVariable long id) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productoService.buscarPorIdDetalle(id));
+    }
 
     @GetMapping
     public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {

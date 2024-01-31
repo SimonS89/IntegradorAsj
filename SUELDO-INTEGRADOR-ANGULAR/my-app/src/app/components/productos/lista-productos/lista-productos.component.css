@@ -1,6 +1,7 @@
 .gradient-custom {
-  background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6);
+  /* background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
+  background: linear-gradient(to left, #6cbdb8, #acdbc6); */
+  background: #dcdcdc;
 }
 
 h1,
@@ -13,8 +14,29 @@ h2 {
   color: #6cbdb8;
 }
 
+.btnAdd {
+  background-color: #40916c !important;
+  color: white;
+  border: none;
+}
+
+.btnAdd:hover {
+  background-color: #407a52 !important;
+  color: white;
+}
+
 .editBtn:hover {
   background-color: #6cbdb8;
+  color: white;
+}
+
+.infoBtn {
+  border: 1px solid gray;
+  color: gray;
+}
+
+.infoBtn:hover {
+  background-color: gray;
   color: white;
 }
 
@@ -31,7 +53,7 @@ th {
 }
 
 td {
-  padding: 1em;
+  padding: 0.7em;
   font-weight: 500;
   font-size: 1.15em;
 }
@@ -40,16 +62,28 @@ tr:hover {
   background-color: #dcdcdc;
 }
 
-.mat-card {
-  background-color: whitesmoke;
-}
-
 mat-card-header {
   display: flex;
   justify-content: end;
-  height: 11vh;
+  height: 10vh;
 }
 
 table {
   margin-bottom: 1em !important;
+}
+
+.tablas_vacias {
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-select {
+  font-size: 14px !important;
+}
+
+.mat-form-field > input {
+  font-size: 12px !important; /* Define el tamaño de la fuente deseado */
+  width: 100px !important; /* Define el ancho deseado */
 }

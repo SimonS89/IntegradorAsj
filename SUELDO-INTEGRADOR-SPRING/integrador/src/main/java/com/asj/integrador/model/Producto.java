@@ -37,7 +37,6 @@ public class Producto {
     private LocalDateTime fechaCreacionRegistro;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id", nullable = false)
-    @JsonManagedReference
     private Proveedor proveedor;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)

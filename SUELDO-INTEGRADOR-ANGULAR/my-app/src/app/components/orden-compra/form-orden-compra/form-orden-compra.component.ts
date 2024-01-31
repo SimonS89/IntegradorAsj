@@ -30,7 +30,7 @@ export class FormOrdenCompraComponent implements OnInit {
   proveedores: Proveedor[] = [];
   productos: Producto[] = [];
   proveedorSeleccionado!: string;
-  productoSeleccionadoName!: string;
+  productoSeleccionadoName: string = '';
   cantidadProducto: number = 1;
   faTrash = faTrash;
 
@@ -85,7 +85,7 @@ export class FormOrdenCompraComponent implements OnInit {
 
   agregarProducto() {
     let p = this.productos.find(
-      (p) => p.nombre == this.productoSeleccionadoName
+      (p) => p.id == Number(this.productoSeleccionadoName)
     );
     if (p) {
       this.alertService
@@ -99,7 +99,8 @@ export class FormOrdenCompraComponent implements OnInit {
         .then((res) => {
           if (res) {
             const productoExistente = this.ordenCompra.detallesOrden.find(
-              (item) => item.producto.nombre === this.productoSeleccionadoName
+              (item) =>
+                item.producto.id === Number(this.productoSeleccionadoName)
             );
             if (productoExistente?.cantidad) {
               productoExistente.cantidad += this.cantidadProducto;

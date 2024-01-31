@@ -36,6 +36,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
+import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MatSliderModule } from '@angular/material/slider';
     OrdenCompraDetailComponent,
     LoginComponent,
     RegisterComponent,
+    DetalleProductoComponent,
   ],
   imports: [
     BrowserModule,

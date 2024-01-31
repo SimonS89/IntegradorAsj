@@ -52,7 +52,6 @@ Proveedor {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime fechaCreacionRegistro;
     @OneToMany(mappedBy = "proveedor",cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Producto> productos;
     private boolean eliminado;
 }

@@ -141,7 +141,6 @@
           <label for="inputProvider" class="form-label">Proveedor</label>
           <select
             required
-            [disabled]="id ? true : false"
             id="inputProvider"
             class="form-select border border-dark"
             name="proveedor"
@@ -172,7 +171,11 @@
           <button
             type="submit"
             class="btn btn-success fw-bold col-md-3"
-            [disabled]="!productoForm.valid"
+            [disabled]="
+              !productoForm.valid ||
+              !producto.categoriaId ||
+              !producto.proveedorId
+            "
           >
             {{ id ? "Editar producto" : "Generar producto" }}
           </button>

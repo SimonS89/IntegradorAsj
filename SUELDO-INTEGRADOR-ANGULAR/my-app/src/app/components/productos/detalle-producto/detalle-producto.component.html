@@ -1,0 +1,65 @@
+<section class="gradient-custom py-5 rounded-5 shadow-lg">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-lg-10 col-xl-8 col-sm-10">
+      <div class="card" style="border-radius: 10px">
+        <div class="card-header px-4 py-5">
+          <h4 class="text-muted mb-0 fst-italic">
+            Lo que tenés que saber de este producto
+          </h4>
+        </div>
+        <section class="py-5">
+          <div class="container">
+            <div class="row gx-5">
+              <aside class="col-lg-6">
+                <div
+                  class="border rounded-3 mb-3 d-flex justify-content-center shadow-lg"
+                >
+                  <img
+                    (error)="handleImageError($event)"
+                    style="max-width: 100%; max-height: 100vh; margin: auto"
+                    [src]="producto.imagen"
+                    class="img-fluid fit rounded-3"
+                    [alt]="producto.nombre"
+                  />
+                </div>
+              </aside>
+              <main class="col-lg-6">
+                <div class="ps-lg-3 d-flex flex-column">
+                  <h4 class="title text-dark align-self-start m-0">
+                    {{ producto.nombre }}
+                  </h4>
+                  <div class="d-flex flex-row mb-3">
+                    <span class="text-success">En stock</span>
+                  </div>
+
+                  <div class="mb-3 align-self-start">
+                    <span class="h5 fw-bold">${{ producto.precio }}</span>
+                  </div>
+
+                  <p class="fw-normal text-start">
+                    {{ producto.descripcion }}
+                  </p>
+                  <hr />
+                  <div class="row">
+                    <dt class="col-4 fw-bold">Categoria:</dt>
+                    <dd class="col-8 fw-normal">
+                      {{ producto.categoria.categoria }}
+                    </dd>
+
+                    <dt class="col-4 fw-bold">SKU:</dt>
+                    <dd class="col-8 fw-normal">{{ producto.sku }}</dd>
+
+                    <dt class="col-4 fw-bold">Proveedor:</dt>
+                    <dd class="col-8 fw-normal">
+                      {{ producto.proveedor?.razonSocial }}
+                    </dd>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

@@ -10,6 +10,7 @@ import { IndexComponent } from './components/index/index.component';
 import { OrdenCompraDetailComponent } from './components/orden-compra-detail/orden-compra-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, title: 'ASJ Login' },
@@ -56,6 +57,11 @@ const routes: Routes = [
         path: 'form-productos/:id',
         component: FormProductosComponent,
         title: 'Editar Producto',
+      },
+      {
+        path: 'detalle-producto/:id',
+        component: DetalleProductoComponent,
+        title: 'Detalle Producto',
       },
     ],
   },

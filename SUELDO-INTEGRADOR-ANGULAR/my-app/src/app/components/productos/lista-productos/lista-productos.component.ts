@@ -8,6 +8,8 @@ import {
   faTrashCan,
   faCirclePlus,
   faCheck,
+  faInfo,
+  faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import { Categoria, Producto } from 'src/app/models/Producto';
 import { AlertService } from 'src/app/services/alert.service';
@@ -23,6 +25,8 @@ export class ListaProductosComponent implements OnInit {
   faTrashCan = faTrashCan;
   faCirclePlus = faCirclePlus;
   faCheck = faCheck;
+  faInfo = faInfo;
+  faCircleInfo = faCircleInfo;
   columnasMostradas = [
     'logo',
     'sku',
@@ -62,7 +66,11 @@ export class ListaProductosComponent implements OnInit {
         this.mostrarEliminados
       )
       .subscribe((res) => {
-        this.productos = res;
+        this.productos = res.sort((a: any, b: any) => {
+          a = a.nombre.split(' ')[0].toLowerCase();
+          b = b.nombre.split(' ')[0].toLowerCase();
+          return a > b ? 1 : b > a ? -1 : 0;
+        });
         this.datosTabla = new MatTableDataSource(res);
         this.datosTabla.paginator = this.paginator;
         this.datosTabla.sort = this.sort;
@@ -140,5 +148,9 @@ export class ListaProductosComponent implements OnInit {
     this.productoService.obtenerCategorias().subscribe((res) => {
       this.categorias = res;
     });
+  }
+
+  productoDetalle(id: number) {
+    this.router.navigate(['/productos/detalle-producto', id]);
   }
 }
