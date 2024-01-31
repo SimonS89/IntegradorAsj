@@ -44,9 +44,15 @@ public class ProductoController {
 //    }
 
     @GetMapping
-    public ResponseEntity<List<ProductoResponseDTO>> obtenerProveedoresFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
+    public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProductosFiltrados(eliminados));
     }
+
+    @GetMapping("/categoria")
+    public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosPorCategoriaYEstado(@RequestParam(defaultValue = "false") long categoriaId,@RequestParam(defaultValue = "false") boolean eliminado) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProductosPorCategoria(categoriaId, eliminado));
+    }
+
 
     @GetMapping("/{id}/proveedor")
     public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosPorProveedor(@PathVariable long id) throws ResourceNotFoundException {

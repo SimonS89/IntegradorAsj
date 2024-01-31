@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import {
   faPenToSquare,
@@ -6,7 +9,7 @@ import {
   faCirclePlus,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import { Producto } from 'src/app/models/Producto';
+import { Categoria, Producto } from 'src/app/models/Producto';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -20,25 +23,49 @@ export class ListaProductosComponent implements OnInit {
   faTrashCan = faTrashCan;
   faCirclePlus = faCirclePlus;
   faCheck = faCheck;
+  columnasMostradas = [
+    'logo',
+    'sku',
+    'nombre',
+    'precio',
+    'categoria',
+    'proveedor',
+    'Funcionalidades',
+  ];
 
+  categoriaId: string = '0';
+  categorias: Categoria[] = [];
   productos: Producto[] = [];
   mostrarEliminados: boolean = false;
+  datosTabla!: MatTableDataSource<Producto>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public productoService: ProductoService,
     private router: Router,
-    public alertService: AlertService
+    public alertService: AlertService,
+    private paginatorIntl: MatPaginatorIntl
   ) {}
 
   ngOnInit(): void {
     this.listarProductos();
+    this.listarCategorias();
+    this.paginatorIntl.getRangeLabel = this.getRangeLabel.bind(this);
+    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
   }
 
   listarProductos() {
     this.productoService
-      .obtenerTodos(this.mostrarEliminados)
+      .obtenerTodosPorCategoriaYEstado(
+        Number(this.categoriaId),
+        this.mostrarEliminados
+      )
       .subscribe((res) => {
         this.productos = res;
+        this.datosTabla = new MatTableDataSource(res);
+        this.datosTabla.paginator = this.paginator;
+        this.datosTabla.sort = this.sort;
       });
   }
 
@@ -76,5 +103,42 @@ export class ListaProductosComponent implements OnInit {
   handleImageError(event: any) {
     event.target.src =
       'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
+  }
+
+  textoIngresado(data: KeyboardEvent) {
+    const value = (data.target as HTMLInputElement).value.trim().toLowerCase();
+    this.datosTabla.filter = value;
+    if (value) {
+      this.datosTabla.filterPredicate = (
+        producto: Producto,
+        filtro: string
+      ) => {
+        return (
+          producto.categoria.categoria.toLowerCase().includes(filtro) ||
+          producto.proveedor!.razonSocial.toLowerCase().includes(filtro) ||
+          producto.sku.toLowerCase().includes(filtro) ||
+          producto.nombre.toLowerCase().includes(filtro)
+        );
+      };
+    }
+  }
+
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0 || pageSize === 0) {
+      return `0 de ${length}`;
+    }
+    length = Math.max(length, 0);
+    const startIndex = page * pageSize;
+    const endIndex =
+      startIndex < length
+        ? Math.min(startIndex + pageSize, length)
+        : startIndex + pageSize;
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
+  }
+
+  listarCategorias() {
+    this.productoService.obtenerCategorias().subscribe((res) => {
+      this.categorias = res;
+    });
   }
 }

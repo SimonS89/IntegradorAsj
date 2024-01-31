@@ -13,4 +13,5 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     List<Producto> findByEliminadoAndProveedorEliminadoFalse(boolean eliminado);
     List<Producto> findByProveedorIdAndEliminadoFalse(Long proveedorId);
     List<Producto>findByProveedorId(long id);
+    List<Producto> findByCategoriaIdAndEliminado(Long categoriaId, boolean eliminado);
 }

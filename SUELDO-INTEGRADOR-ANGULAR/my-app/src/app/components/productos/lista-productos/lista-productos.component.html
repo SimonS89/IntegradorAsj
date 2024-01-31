@@ -12,109 +12,161 @@
           ><span>Agregar Producto</span>
         </a>
       </div>
-      <div class="row justify-content-end mb-3">
-        <label
-          class="col-md-3 col-sm-12 form-check-label"
-          for="showActiveOnlyCheckbox"
-          role="button"
-        >
-          Mostrar eliminados
-          <input
-            class="form-check-input border-black fw-bolder"
-            type="checkbox"
-            id="showActiveOnlyCheckbox"
-            [(ngModel)]="mostrarEliminados"
+      <div class="row flex-row justify-content-between mb-3 align-items-center">
+        <div class="col-md-3 col-sm-12 col-12">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            [(ngModel)]="categoriaId"
+            #categoria="ngModel"
             (change)="listarProductos()"
-          />
-        </label>
+          >
+            <option value="" disabled selected>Filtrar por categoria</option>
+            <option value="0">Todos</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">
+              {{ categoria.categoria }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-3 col-sm-12 col-12 mt-sm-3">
+          <label
+            class="form-check-label"
+            for="showActiveOnlyCheckbox"
+            role="button"
+          >
+            Mostrar eliminados
+            <input
+              class="form-check-input border-black fw-bolder"
+              type="checkbox"
+              id="showActiveOnlyCheckbox"
+              [(ngModel)]="mostrarEliminados"
+              (change)="listarProductos()"
+            />
+          </label>
+        </div>
       </div>
-      <div
-        *ngIf="productos.length > 0; else noProductos"
-        class="table-responsive shadow-lg rounded-3"
-      >
-        <table class="table table-light table-hover align-middle m-0">
-          <thead class="table-success">
-            <tr>
-              <th scope="col" class="d-none d-lg-table-cell">Logo</th>
-              <th scope="col">SKU</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Precio</th>
-              <th scope="col" class="d-none d-lg-table-cell">Categoria</th>
-              <th scope="col" class="d-none d-lg-table-cell">Proveedor</th>
-              <th scope="col">Funcionalidades</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr
-              class="align-middle fw-medium"
-              *ngFor="let producto of productos"
+      <div class="table-responsive shadow-lg rounded-3 table-content">
+        <div *ngIf="productos.length == 0">
+          <h2 *ngIf="mostrarEliminados; else noProductosMessage">
+            No hay productos eliminados disponibles.
+          </h2>
+          <ng-template #noProductosMessage>
+            <h2>No hay productos disponibles.</h2>
+          </ng-template>
+        </div>
+        <mat-card [style.display]="productos.length > 0 ? 'block' : 'none'">
+          <mat-card-header>
+            <mat-form-field>
+              <input
+                matInput
+                (keyup)="textoIngresado($event)"
+                placeholder="Buscar"
+              />
+            </mat-form-field>
+          </mat-card-header>
+          <mat-card-content>
+            <table
+              mat-table
+              matSort
+              [dataSource]="datosTabla"
+              class="mat-elevation-z8"
             >
-              <td class="d-none d-lg-table-cell">
-                <img
-                  src="{{ producto.imagen }}"
-                  class="object-fit-contain"
-                  style="width: 50px"
-                  alt="{{ producto.nombre }}"
-                  (error)="handleImageError($event)"
-                />
-              </td>
-              <td>{{ producto.sku }}</td>
-              <td>{{ producto.nombre }}</td>
-              <td>{{ producto.precio | currency : "USD" }}</td>
-              <td class="d-none d-lg-table-cell">
-                {{ producto.categoria.categoria }}
-              </td>
-              <td class="d-none d-lg-table-cell">
-                {{ producto.proveedor?.razonSocial }}
-              </td>
-              <td>
-                <div class="d-flex justify-content-center gap-3">
-                  <button
-                    type="button"
-                    class="deleteBtn btn"
-                    (click)="eliminarProducto(producto)"
-                    [title]="
-                      mostrarEliminados
-                        ? 'Activar Producto - ' + producto.nombre
-                        : 'Eliminar Producto - ' + producto.nombre
-                    "
-                    [ngClass]="
-                      mostrarEliminados
-                        ? 'm-0 btn-outline-primary'
-                        : ' btn-outline-danger'
-                    "
-                  >
-                    <fa-icon
-                      [icon]="mostrarEliminados ? faCheck : faTrashCan"
-                      class="fw-bolder fs-5"
-                    ></fa-icon>
-                  </button>
-                  <button
-                    type="button"
-                    class="editBtn btn btn-outline-primary"
-                    (click)="editarProducto(producto.id)"
-                    [title]="'Editar Producto - ' + producto.nombre"
-                    [ngClass]="mostrarEliminados ? 'd-none' : ''"
-                  >
-                    <fa-icon
-                      [icon]="faPenToSquare"
-                      class="fw-bolder fs-5"
-                    ></fa-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              <ng-container matColumnDef="logo">
+                <th class="table-succes" mat-header-cell *matHeaderCellDef>
+                  Logo
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <img
+                    src="{{ element.imagen }}"
+                    class="object-fit-contain"
+                    style="width: 50px"
+                    alt="{{ element.nombre }}"
+                    (error)="handleImageError($event)"
+                  />
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="sku">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>
+                <td mat-cell *matCellDef="let producto">{{ producto.sku }}</td>
+              </ng-container>
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Nombre
+                </th>
+                <tr>
+                  <td mat-cell *matCellDef="let producto">
+                    {{ producto.nombre }}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container matColumnDef="precio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Precio
+                </th>
+                <td mat-cell *matCellDef="let producto">
+                  {{ producto.precio }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="categoria">
+                <th mat-header-cell *matHeaderCellDef>Categoria</th>
+                <td mat-cell *matCellDef="let producto">
+                  {{ producto.categoria.categoria }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="proveedor">
+                <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+                <td mat-cell *matCellDef="let producto">
+                  {{ producto.proveedor.razonSocial }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Funcionalidades">
+                <th mat-header-cell *matHeaderCellDef>Funcionalidades</th>
+                <td mat-cell *matCellDef="let producto">
+                  <div class="d-flex justify-content-center gap-3">
+                    <button
+                      type="button"
+                      class="deleteBtn btn"
+                      (click)="eliminarProducto(producto)"
+                      [title]="
+                        mostrarEliminados
+                          ? 'Activar Producto - ' + producto.nombre
+                          : 'Eliminar Producto - ' + producto.nombre
+                      "
+                      [ngClass]="
+                        mostrarEliminados
+                          ? 'm-0 btn-outline-primary'
+                          : ' btn-outline-danger'
+                      "
+                    >
+                      <fa-icon
+                        [icon]="mostrarEliminados ? faCheck : faTrashCan"
+                        class="fw-bolder fs-5"
+                      ></fa-icon>
+                    </button>
+                    <button
+                      type="button"
+                      class="editBtn btn btn-outline-primary"
+                      (click)="editarProducto(producto.id)"
+                      [title]="'Editar Producto - ' + producto.nombre"
+                      [ngClass]="mostrarEliminados ? 'd-none' : ''"
+                    >
+                      <fa-icon
+                        [icon]="faPenToSquare"
+                        class="fw-bolder fs-5"
+                      ></fa-icon>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasMostradas"></tr>
+            </table>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-paginator [pageSize]="5" showFirstLastButtons> </mat-paginator>
+          </mat-card-footer>
+        </mat-card>
       </div>
     </div>
   </div>
 </div>
-<ng-template #noProductos>
-  <h2 *ngIf="mostrarEliminados; else noProductosMessage">
-    No hay productos eliminados.
-  </h2>
-  <ng-template #noProductosMessage>
-    <h2>No hay productos disponibles.</h2>
-  </ng-template>
-</ng-template>

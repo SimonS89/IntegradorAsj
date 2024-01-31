@@ -20,5 +20,7 @@ public interface ProductoService {
 
     List<ProductoResponseDTO> listarProductosPorProveedor(long proveedorId) throws ResourceNotFoundException;
 
+    List<ProductoResponseDTO> listarProductosPorCategoria(long categoriaId, boolean eliminado) throws ResourceNotFoundException;
+
     void eliminadoLogico(long id) throws ResourceNotFoundException;
 }

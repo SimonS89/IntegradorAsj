@@ -30,6 +30,26 @@ export class ProductoService {
       );
   }
 
+  public obtenerTodosPorCategoriaYEstado(
+    categoriaId: number,
+    mostrarEliminados?: boolean
+  ): Observable<Producto[]> {
+    return this.http
+      .get<Producto[]>(
+        `${environment.apiUrl}/producto/categoria${
+          mostrarEliminados != undefined
+            ? `?eliminado=${mostrarEliminados}`
+            : ''
+        }&categoriaId=${categoriaId}`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          return of([]);
+        })
+      );
+  }
+
   public obtenerPorId(id: number): Observable<ProductoForm> {
     return this.http
       .get<ProductoForm>(`${environment.apiUrl}/producto/${id}`)

@@ -6,7 +6,6 @@ import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Producto;
 import com.asj.integrador.repository.ProductoRepository;
-import com.asj.integrador.repository.ProveedorRepository;
 import com.asj.integrador.service.CategoriaService;
 import com.asj.integrador.service.ProductoService;
 import com.asj.integrador.service.ProveedorService;
@@ -73,6 +72,13 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public List<ProductoResponseDTO> listarProductosPorProveedor(long proveedorId) throws ResourceNotFoundException {
         List<Producto> productos = productoRepository.findByProveedorIdAndEliminadoFalse(proveedorId);
+        return productosAProductosResponseDTO(productos);
+    }
+
+    @Override
+    public List<ProductoResponseDTO> listarProductosPorCategoria(long categoriaId, boolean eliminado) throws ResourceNotFoundException {
+        if(categoriaId==0) return listarProductosFiltrados(eliminado) ;
+        List<Producto> productos = productoRepository.findByCategoriaIdAndEliminado(categoriaId, eliminado);
         return productosAProductosResponseDTO(productos);
     }
 
