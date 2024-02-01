@@ -58,6 +58,12 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
+    public ProveedorResponseDTO buscarPorIdDetalle(long id) throws ResourceNotFoundException {
+        Proveedor proveedor = obtenerProveedorSiExiste(id);
+        return mapper.map(proveedor, ProveedorResponseDTO.class);
+    }
+
+    @Override
     public List<ProveedorResponseDTO> listarProveedores() throws ResourceNotFoundException {
         List<Proveedor> proveedores = proveedorRepository.findAll();
         if (proveedores.isEmpty()) throw new ResourceNotFoundException("No hay proveedores.");
@@ -98,6 +104,20 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Override
     public Proveedor buscarPorIdInterno(long id) throws ResourceNotFoundException {
         return proveedorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado"));
+    }
+
+    @Override
+    public List<ProveedorResponseDTO> listarProductosPorRubro(long rubroId, boolean eliminado) throws ResourceNotFoundException {
+        logger.info("rubro id "+rubroId);
+        logger.info("eliminado "+eliminado);
+        if(rubroId ==0) return listarProveedoresFiltrados(eliminado);
+        List<Proveedor> proveedores=proveedorRepository.findByRubroIdAndEliminado(rubroId,eliminado);
+        return proveedoresAProveedoresResponseDTO(proveedores);
+    }
+
+    private List<ProveedorResponseDTO> proveedoresAProveedoresResponseDTO(List<Proveedor> proveedores) throws ResourceNotFoundException {
+        if (proveedores.isEmpty()) throw new ResourceNotFoundException("No hay proveedores.");
+        return proveedores.stream().map(prov -> mapper.map(prov, ProveedorResponseDTO.class)).toList();
     }
 
     private Proveedor obtenerProveedorSiExiste(long id) throws ResourceNotFoundException {

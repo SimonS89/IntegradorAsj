@@ -83,12 +83,12 @@
                 <th class="table-succes" mat-header-cell *matHeaderCellDef>
                   Logo
                 </th>
-                <td mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let producto">
                   <img
-                    src="{{ element.imagen }}"
+                    src="{{ producto.imagen }}"
                     class="object-fit-contain"
                     style="width: 50px"
-                    alt="{{ element.nombre }}"
+                    alt="{{ producto.nombre }}"
                     (error)="handleImageError($event)"
                   />
                 </td>

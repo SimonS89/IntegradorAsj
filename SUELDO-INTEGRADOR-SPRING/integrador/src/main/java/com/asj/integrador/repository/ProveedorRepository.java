@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ProveedorRepository extends JpaRepository<Proveedor,Long> {
     List<Proveedor> findByEliminado(boolean eliminado);
+
+    List<Proveedor> findByRubroIdAndEliminado(Long rubroId,boolean eliminado);
 }

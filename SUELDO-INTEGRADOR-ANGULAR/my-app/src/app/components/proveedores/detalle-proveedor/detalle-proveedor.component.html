@@ -1,0 +1,106 @@
+<section class="gradient-custom py-5 rounded-5 shadow-lg">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-lg-10 col-xl-8 col-sm-10">
+      <div class="card" style="border-radius: 10px">
+        <div class="card-header px-4 py-5">
+          <h4 class="text-muted mb-0 fst-italic">
+            Lo que tenés que saber de este proveedor
+          </h4>
+        </div>
+        <section style="background-color: #f4f5f7">
+          <div class="container py-5">
+            <div
+              class="row d-flex justify-content-center align-items-center h-100"
+            >
+              <div class="col col-lg-10 mb-4 mb-lg-0">
+                <div class="card mb-3" style="border-radius: 0.5rem">
+                  <div class="row g-0">
+                    <div
+                      class="col-md-4 gradient-custom-inner text-center text-white"
+                      style="
+                        border-top-left-radius: 0.5rem;
+                        border-bottom-left-radius: 0.5rem;
+                      "
+                    >
+                      <img
+                        [src]="proveedor.logo"
+                        [alt]="proveedor.razonSocial"
+                        class="img-fluid my-5"
+                        style="width: 80px"
+                      />
+                      <h4>{{ proveedor.razonSocial }}</h4>
+                      <p>{{ proveedor.rubro.rubro }}</p>
+                      <i class="far fa-edit mb-5"></i>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body p-4">
+                        <h6>Información</h6>
+                        <hr class="mt-0 mb-4" />
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Email</h6>
+                            <p class="text-muted">{{ proveedor.email }}</p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Teléfono</h6>
+                            <p class="text-muted">{{ proveedor.telefono }}</p>
+                          </div>
+                        </div>
+                        <h6>Projects</h6>
+                        <hr class="mt-0 mb-4" />
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Ubicación</h6>
+                            <p class="text-muted">
+                              {{ proveedor.domicilio.provincia.nombre }},
+                              {{ proveedor.domicilio.provincia.pais.nombre }}
+                            </p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Persona responsable</h6>
+                            <p class="text-muted">
+                              {{ proveedor.representanteContacto.apellido }}
+                              {{ proveedor.representanteContacto.nombre }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-center gap-3">
+                          <button
+                            type="button"
+                            class="deleteBtn btn btn-sm btn-outline-danger"
+                            (click)="eliminarProveedor(proveedor)"
+                            [title]="
+                              'Eliminar Proveedor - ' + proveedor.razonSocial
+                            "
+                          >
+                            <fa-icon
+                              [icon]="faTrashCan"
+                              class="fw-bolder fs-5"
+                            ></fa-icon>
+                          </button>
+                          <button
+                            type="button"
+                            class="editBtn btn btn-sm"
+                            (click)="editarProveedor(proveedor.id)"
+                            [title]="
+                              'Editar Proveedor - ' + proveedor.razonSocial
+                            "
+                          >
+                            <fa-icon
+                              [icon]="faPenToSquare"
+                              class="fw-bolder fs-5"
+                            ></fa-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

@@ -11,6 +11,7 @@ import { OrdenCompraDetailComponent } from './components/orden-compra-detail/ord
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
+import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, title: 'ASJ Login' },
@@ -37,6 +38,11 @@ const routes: Routes = [
         path: 'form-proveedores/:id',
         component: FormProveedoresComponent,
         title: 'Editar Proveedor',
+      },
+      {
+        path: 'detalle-proveedor/:id',
+        component: DetalleProveedorComponent,
+        title: 'Detalle Proveedor',
       },
     ],
   },

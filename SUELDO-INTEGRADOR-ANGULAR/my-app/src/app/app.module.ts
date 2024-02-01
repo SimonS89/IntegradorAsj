@@ -37,7 +37,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { DetalleProductoComponent } from './components/productos/detalle-product
     LoginComponent,
     RegisterComponent,
     DetalleProductoComponent,
+    DetalleProveedorComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { DetalleProductoComponent } from './components/productos/detalle-product
     MatListModule,
     MatCardModule,
     MatSliderModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

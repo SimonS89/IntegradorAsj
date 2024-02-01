@@ -63,6 +63,18 @@ export class ProveedorService {
       );
   }
 
+  public obtenerPorIdDetalle(id: number): Observable<Proveedor> {
+    return this.http
+      .get<Proveedor>(`${environment.apiUrl}/proveedor/${id}/detalle`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          this.router.navigate(['/productos']);
+          throw error;
+        })
+      );
+  }
+
   public obtenerTodos(mostrarEliminados?: boolean): Observable<Proveedor[]> {
     return this.http
       .get<Proveedor[]>(
@@ -71,6 +83,26 @@ export class ProveedorService {
             ? `?eliminados=${mostrarEliminados}`
             : ''
         }`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          return of([]);
+        })
+      );
+  }
+
+  public obtenerTodosPorRubroYEstado(
+    rubroId: number,
+    mostrarEliminados?: boolean
+  ): Observable<Proveedor[]> {
+    return this.http
+      .get<Proveedor[]>(
+        `${environment.apiUrl}/proveedor/rubro${
+          mostrarEliminados != undefined
+            ? `?eliminado=${mostrarEliminados}`
+            : ''
+        }&rubroId=${rubroId}`
       )
       .pipe(
         catchError((error) => {

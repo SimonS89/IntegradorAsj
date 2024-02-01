@@ -1,0 +1,27 @@
+.gradient-custom {
+  background: #dcdcdc;
+}
+
+.gradient-custom-inner {
+  background: #f6d365;
+
+  background: -webkit-linear-gradient(
+    to right bottom,
+    rgba(246, 211, 101, 1),
+    rgba(253, 160, 133, 1)
+  );
+
+  background: linear-gradient(
+    to right bottom,
+    rgba(246, 211, 101, 1),
+    rgba(253, 160, 133, 1)
+  );
+}
+.editBtn {
+  border: 1px solid #6cbdb8;
+  color: #6cbdb8;
+}
+.editBtn:hover {
+  background-color: #6cbdb8;
+  color: white;
+}

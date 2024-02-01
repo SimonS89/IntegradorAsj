@@ -16,6 +16,8 @@ public interface ProveedorService {
 
     ProveedorDTO buscarPorId(long id) throws ResourceNotFoundException;
 
+    ProveedorResponseDTO buscarPorIdDetalle(long id) throws ResourceNotFoundException;
+
     List<ProveedorResponseDTO> listarProveedores() throws ResourceNotFoundException;
 
     List<ProveedorResponseDTO> listarProveedoresFiltrados(boolean eliminados) throws ResourceNotFoundException;
@@ -28,4 +30,6 @@ public interface ProveedorService {
     ProveedorResponseDTO crearProveedor(ProveedorDTO proveedorDTO) throws ResourceNotFoundException;
 
     Proveedor buscarPorIdInterno(long id) throws ResourceNotFoundException;
+
+    List<ProveedorResponseDTO> listarProductosPorRubro(long rubroId, boolean eliminado) throws ResourceNotFoundException;
 }

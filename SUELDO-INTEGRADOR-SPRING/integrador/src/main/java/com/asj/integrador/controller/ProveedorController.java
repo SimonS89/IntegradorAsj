@@ -41,6 +41,11 @@ public class ProveedorController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.buscarPorId(id));
     }
 
+    @GetMapping("/{id}/detalle")
+    public ResponseEntity<ProveedorResponseDTO> buscarPorIdDetalle(@PathVariable long id) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.buscarPorIdDetalle(id));
+    }
+
 //    @GetMapping
 //    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedores() throws ResourceNotFoundException {
 //        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedores());
@@ -49,6 +54,11 @@ public class ProveedorController {
     @GetMapping
     public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedoresFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedoresFiltrados(eliminados));
+    }
+
+    @GetMapping("/rubro")
+    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedoresPorCategoriaYEstado(@RequestParam(defaultValue = "false") long rubroId, @RequestParam(defaultValue = "false") boolean eliminado) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProductosPorRubro(rubroId, eliminado));
     }
 
     @DeleteMapping("/{id}")

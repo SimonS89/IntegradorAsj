@@ -12,114 +12,207 @@
           ><span>Agregar Proveedor</span>
         </a>
       </div>
-      <div class="row justify-content-end mb-3">
-        <label
-          class="col-md-3 col-sm-12 form-check-label"
-          for="showActiveOnlyCheckbox"
-          role="button"
-        >
-          Mostrar eliminados
-          <input
-            class="form-check-input border-black fw-bolder"
-            type="checkbox"
-            id="showActiveOnlyCheckbox"
-            [(ngModel)]="mostrarEliminados"
+      <div class="row flex-row justify-content-between mb-3 align-items-center">
+        <div class="col-md-2 col-10">
+          <select
+            class="form-select fs-6"
+            aria-label="Default select example"
+            [(ngModel)]="rubroId"
+            #rubro="ngModel"
             (change)="listarProveedores()"
-          />
-        </label>
+          >
+            <option value="" disabled selected>Filtrar por rubro</option>
+            <option value="0">Mostrar todos</option>
+            <option *ngFor="let rubro of rubros" [value]="rubro.id">
+              {{ rubro.rubro }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-3 col-sm-12 col-12 mt-sm-3">
+          <label
+            class="form-check-label"
+            for="showActiveOnlyCheckbox"
+            role="button"
+          >
+            Mostrar eliminados
+            <input
+              class="form-check-input border-black fw-bolder"
+              type="checkbox"
+              id="showActiveOnlyCheckbox"
+              [(ngModel)]="mostrarEliminados"
+              (change)="listarProveedores()"
+            />
+          </label>
+        </div>
       </div>
-      <div
-        *ngIf="proveedores.length > 0; else noProveedores"
-        class="table-responsive shadow-lg rounded-3"
-      >
-        <table class="table table-light table-hover align-middle m-0">
-          <thead class="table-success">
-            <tr>
-              <th scope="col" class="d-none d-lg-table-cell">Logo</th>
-              <th scope="col">Código</th>
-              <th scope="col">Razón social</th>
-              <th scope="col" class="d-none d-lg-table-cell">Info General</th>
-              <th scope="col" class="d-none d-lg-table-cell">Titular</th>
-              <th scope="col">Rubro</th>
-              <th scope="col">Funcionalidades</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr
-              class="align-middle fw-medium"
-              *ngFor="let proveedor of proveedores"
+      <div class="table-responsive shadow-lg rounded-3 table-content">
+        <div *ngIf="proveedores.length == 0">
+          <div class="tablas_vacias">
+            <div
+              *ngIf="mostrarEliminados; else noProveedoresMessage"
+              class="alert alert-success fs-5 col-8"
+              role="alert"
             >
-              <td class="d-none d-lg-table-cell">
-                <img
-                  src="{{ proveedor.logo }}"
-                  class="object-fit-contain"
-                  style="width: 50px"
-                  alt="{{ proveedor.razonSocial }}"
-                  (error)="handleImageError($event)"
-                />
-              </td>
-              <td>{{ proveedor.codigo }}</td>
-              <td>{{ proveedor.razonSocial }}</td>
-              <td class="d-none d-lg-table-cell">
-                {{ proveedor.email }}<br />{{ "Tel: " + proveedor.telefono }}
-                <br />{{ proveedor.sitioWeb }}
-              </td>
-              <td class="d-none d-lg-table-cell">
-                {{
-                  proveedor.representanteContacto.nombre +
-                    " " +
-                    proveedor.representanteContacto.apellido
-                }}
-              </td>
-              <td>{{ proveedor.rubro.rubro }}</td>
-              <td>
-                <div class="d-flex justify-content-center gap-3">
+              No hay proveedores eliminados disponibles.
+            </div>
+            <ng-template #noProveedoresMessage>
+              <div class="alert alert-success fs-5 col-8" role="alert">
+                No hay proveedores disponibles.
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <mat-card [style.display]="proveedores.length > 0 ? 'block' : 'none'">
+          <mat-card-header>
+            <mat-form-field style="font-size: 14px; width: 150px; height: 60px">
+              <input
+                matInput
+                (keyup)="textoIngresado($event)"
+                placeholder="Buscar"
+              />
+            </mat-form-field>
+          </mat-card-header>
+          <mat-card-content>
+            <table
+              mat-table
+              matSort
+              [dataSource]="datosTabla"
+              class="mat-elevation-z8"
+            >
+              <ng-container matColumnDef="logo">
+                <th class="table-succes" mat-header-cell *matHeaderCellDef>
+                  Logo
+                </th>
+                <td mat-cell *matCellDef="let proveedor">
+                  <img
+                    src="{{ proveedor.logo }}"
+                    class="object-fit-contain"
+                    style="width: 50px"
+                    alt="{{ proveedor.razonSocial }}"
+                    (error)="handleImageError($event)"
+                  />
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="codigo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Código
+                </th>
+                <td mat-cell *matCellDef="let proveedor">
+                  {{ proveedor.codigo }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="razonSocial">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Razón social
+                </th>
+                <tr>
+                  <td mat-cell *matCellDef="let proveedor">
+                    {{ proveedor.razonSocial }}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container matColumnDef="rubro">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Rubro</th>
+                <tr>
+                  <td mat-cell *matCellDef="let proveedor">
+                    {{ proveedor.rubro.rubro }}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container matColumnDef="paisProvincia">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Ubicación
+                </th>
+                <td mat-cell *matCellDef="let proveedor">
+                  {{ proveedor.domicilio.provincia.nombre }},
+                  {{ proveedor.domicilio.provincia.pais.nombre }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="nombreApellido">
+                <th mat-header-cell *matHeaderCellDef>
+                  Representante contacto
+                </th>
+                <td mat-cell *matCellDef="let proveedor">
+                  {{ proveedor.representanteContacto.nombre }}
+                  {{ proveedor.representanteContacto.apellido }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="sitioWebEmailTelefono">
+                <th mat-header-cell *matHeaderCellDef>Información contacto</th>
+                <td mat-cell *matCellDef="let proveedor">
                   <button
-                    type="button"
-                    class="deleteBtn btn"
-                    (click)="eliminarProveedor(proveedor)"
-                    [title]="
-                      mostrarEliminados
-                        ? 'Activar Proveedor - ' + proveedor.razonSocial
-                        : 'Eliminar Proveedor - ' + proveedor.razonSocial
-                    "
-                    [ngClass]="
-                      mostrarEliminados
-                        ? 'm-0 btn-outline-primary'
-                        : ' btn-outline-danger'
-                    "
+                    mat-raised-button
+                    [matTooltipClass]="'custom'"
+                    [matTooltip]="obtenerInfo(proveedor)"
+                    aria-label="Button that displays a tooltip when focused or hovered over"
                   >
-                    <fa-icon
-                      [icon]="mostrarEliminados ? faCheck : faTrashCan"
-                      class="fw-bolder fs-5"
-                    ></fa-icon>
+                    Info
                   </button>
-                  <button
-                    type="button"
-                    class="editBtn btn btn-outline-primary"
-                    (click)="editarProveedor(proveedor.id)"
-                    [title]="'Editar Proveedor - ' + proveedor.razonSocial"
-                    [ngClass]="mostrarEliminados ? 'd-none' : ''"
-                  >
-                    <fa-icon
-                      [icon]="faPenToSquare"
-                      class="fw-bolder fs-5"
-                    ></fa-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Funcionalidades">
+                <th mat-header-cell *matHeaderCellDef>Funcionalidades</th>
+                <td mat-cell *matCellDef="let proveedor">
+                  <div class="d-flex justify-content-center gap-3">
+                    <button
+                      type="button"
+                      class="deleteBtn btn"
+                      (click)="eliminarProveedor(proveedor)"
+                      [title]="
+                        mostrarEliminados
+                          ? 'Activar Proveedor - ' + proveedor.razonSocial
+                          : 'Eliminar Proveedor - ' + proveedor.razonSocial
+                      "
+                      [ngClass]="
+                        mostrarEliminados
+                          ? 'm-0 btn-outline-primary'
+                          : ' btn-outline-danger'
+                      "
+                    >
+                      <fa-icon
+                        [icon]="mostrarEliminados ? faCheck : faTrashCan"
+                        class="fw-bolder fs-5"
+                      ></fa-icon>
+                    </button>
+                    <button
+                      type="button"
+                      class="editBtn btn"
+                      (click)="editarProveedor(proveedor.id)"
+                      [title]="'Editar Proveedor - ' + proveedor.razonSocial"
+                      [ngClass]="mostrarEliminados ? 'd-none' : ''"
+                    >
+                      <fa-icon
+                        [icon]="faPenToSquare"
+                        class="fw-bolder fs-5"
+                      ></fa-icon>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="infoBtn btn"
+                      (click)="proveedorDetalle(proveedor.id)"
+                      [title]="
+                        'Ver detalle Proveedor - ' + proveedor.razonSocial
+                      "
+                      [ngClass]="mostrarEliminados ? 'd-none' : ''"
+                    >
+                      <fa-icon
+                        [icon]="faCircleInfo"
+                        class="fw-bolder fs-5"
+                      ></fa-icon>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasMostradas"></tr>
+            </table>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-paginator [pageSize]="5" showFirstLastButtons> </mat-paginator>
+          </mat-card-footer>
+        </mat-card>
       </div>
     </div>
   </div>
 </div>
-<ng-template #noProveedores>
-  <h2 *ngIf="mostrarEliminados; else noProveedoresMessage">
-    No hay proveedores eliminados.
-  </h2>
-  <ng-template #noProveedoresMessage>
-    <h2>No hay proveedores disponibles.</h2>
-  </ng-template>
-</ng-template>
