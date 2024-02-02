@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { OrdenCompra } from '../models/OrdenCompra';
-import { ordenesEjemplo } from '../data/data';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -11,19 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class OrdenCompraService {
-  private ordenes: OrdenCompra[] = [];
-
   constructor(private http: HttpClient, private router: Router) {}
-
-  getStorage(key: string): OrdenCompra[] | undefined {
-    let ordenString = localStorage.getItem(key);
-    if (ordenString) return JSON.parse(ordenString);
-    return undefined;
-  }
-
-  setStorage(key: string, ordenes: OrdenCompra[]): void {
-    localStorage.setItem(key, JSON.stringify(ordenes));
-  }
 
   crear(ordenCompra: OrdenCompra): Observable<OrdenCompra> {
     console.log(ordenCompra);
@@ -74,6 +61,19 @@ export class OrdenCompraService {
         throw error;
       })
     );
+  }
+
+  public validarNumeroOrdenExistente(
+    numeroOrden: string
+  ): Observable<OrdenCompra> {
+    return this.http
+      .get<OrdenCompra>(`${environment.apiUrl}/orden/validar/${numeroOrden}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error.status);
+          throw error;
+        })
+      );
   }
 
   fechaFormateada(fecha: Date): string {

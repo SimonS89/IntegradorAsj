@@ -6,6 +6,7 @@ import { ProveedorForm, Rubro, TipoIva } from 'src/app/models/Proveedor';
 import { AlertService } from 'src/app/services/alert.service';
 import { Pais } from 'src/app/models/Proveedor';
 import { Provincia } from 'src/app/models/Proveedor';
+import { EMPTY, catchError } from 'rxjs';
 @Component({
   selector: 'app-form-proveedores',
   templateUrl: './form-proveedores.component.html',
@@ -46,6 +47,10 @@ export class FormProveedoresComponent implements OnInit {
   rubros!: Rubro[];
   tiposIva!: TipoIva[];
   primerRender: boolean = true;
+  codigoValido: string = '';
+  cuitValido: string = '';
+  cuitEditar: string = '';
+  codigoEditar: string = '';
 
   constructor(
     public proveedorService: ProveedorService,
@@ -62,6 +67,8 @@ export class FormProveedoresComponent implements OnInit {
       this.id = data['id'];
       if (this.id) {
         this.proveedorService.obtenerPorId(this.id).subscribe((res) => {
+          this.cuitEditar = res.cuit;
+          this.codigoEditar = res.codigo;
           this.listarProvincias(res.paisId);
           this.proveedor = { ...res };
           this.razonSocialTitle = this.proveedor.razonSocial;
@@ -150,5 +157,47 @@ export class FormProveedoresComponent implements OnInit {
 
   irAProveedores() {
     this.router.navigate(['/proveedores']);
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
+  }
+
+  validarCodigo() {
+    this.codigoValido = '';
+    this.proveedorService
+      .validarCodigoExistente(this.proveedor.codigo)
+      .pipe(
+        catchError((error) => {
+          if (
+            error.status === 400 &&
+            this.proveedor.codigo != this.codigoEditar
+          ) {
+            this.codigoValido = error.error.errorMessage;
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  validarCuit() {
+    this.cuitValido = '';
+    this.proveedorService
+      .validarCuitExistente(this.proveedor.cuit)
+      .pipe(
+        catchError((error) => {
+          if (error.status === 400 && this.proveedor.cuit != this.cuitEditar) {
+            this.cuitValido = error.error.errorMessage;
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

@@ -49,10 +49,14 @@ public class ProductoController {
     }
 
     @GetMapping("/categoria")
-    public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosPorCategoriaYEstado(@RequestParam(defaultValue = "false") long categoriaId,@RequestParam(defaultValue = "false") boolean eliminado) throws ResourceNotFoundException {
+    public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosPorCategoriaYEstado(@RequestParam(defaultValue = "false") long categoriaId, @RequestParam(defaultValue = "false") boolean eliminado) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(productoService.listarProductosPorCategoria(categoriaId, eliminado));
     }
 
+    @GetMapping("/validar/{sku}")
+    public ResponseEntity<ProductoResponseDTO> validarSkuExistente(@PathVariable String sku) throws AlreadyExistsException {
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.validarSkuExistente(sku));
+    }
 
     @GetMapping("/{id}/proveedor")
     public ResponseEntity<List<ProductoResponseDTO>> obtenerProductosPorProveedor(@PathVariable long id) throws ResourceNotFoundException {
@@ -60,7 +64,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map> eliminarActivarProducto(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String,String>> eliminarActivarProducto(@PathVariable long id) throws ResourceNotFoundException {
         productoService.eliminadoLogico(id);
         HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de eliminado del producto  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);

@@ -1,6 +1,5 @@
 package com.asj.integrador.dto.response;
 
-import com.asj.integrador.model.DetalleOrden;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -22,9 +21,9 @@ public class OrdenCompraResponseDTO {
     private Double total;
     private String infoRecepcion;
     private String infoAdicional;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEmision;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEntrega;
     private List<DetalleOrdenResponseDTO> detallesOrden;
     private ProveedorResponseDTO proveedor;

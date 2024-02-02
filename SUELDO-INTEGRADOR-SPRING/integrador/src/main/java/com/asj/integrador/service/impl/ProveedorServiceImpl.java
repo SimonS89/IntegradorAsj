@@ -4,6 +4,7 @@ import com.asj.integrador.dto.ProveedorDTO;
 import com.asj.integrador.dto.response.PaisResponseDTO;
 import com.asj.integrador.dto.response.ProveedorResponseDTO;
 import com.asj.integrador.dto.response.ProvinciaResponseDTO;
+import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.Proveedor;
 import com.asj.integrador.model.TipoIva;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProveedorServiceImpl implements ProveedorService {
@@ -108,11 +110,23 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public List<ProveedorResponseDTO> listarProductosPorRubro(long rubroId, boolean eliminado) throws ResourceNotFoundException {
-        logger.info("rubro id "+rubroId);
-        logger.info("eliminado "+eliminado);
-        if(rubroId ==0) return listarProveedoresFiltrados(eliminado);
-        List<Proveedor> proveedores=proveedorRepository.findByRubroIdAndEliminado(rubroId,eliminado);
+        if (rubroId == 0) return listarProveedoresFiltrados(eliminado);
+        List<Proveedor> proveedores = proveedorRepository.findByRubroIdAndEliminado(rubroId, eliminado);
         return proveedoresAProveedoresResponseDTO(proveedores);
+    }
+
+    @Override
+    public ProveedorResponseDTO validarCodigoExistente(String codigo) throws AlreadyExistsException {
+        Optional<Proveedor> proveedor = proveedorRepository.findByCodigo(codigo);
+        if (proveedor.isPresent()) throw new AlreadyExistsException("Código existente.");
+        return mapper.map(proveedor, ProveedorResponseDTO.class);
+    }
+
+    @Override
+    public ProveedorResponseDTO validarCuitExistente(String cuit) throws AlreadyExistsException {
+        Optional<Proveedor> proveedor = proveedorRepository.findByCuit(cuit);
+        if (proveedor.isPresent()) throw new AlreadyExistsException("CUIT existente.");
+        return mapper.map(proveedor, ProveedorResponseDTO.class);
     }
 
     private List<ProveedorResponseDTO> proveedoresAProveedoresResponseDTO(List<Proveedor> proveedores) throws ResourceNotFoundException {

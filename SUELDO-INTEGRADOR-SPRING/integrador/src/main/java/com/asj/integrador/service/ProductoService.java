@@ -25,4 +25,6 @@ public interface ProductoService {
     List<ProductoResponseDTO> listarProductosPorCategoria(long categoriaId, boolean eliminado) throws ResourceNotFoundException;
 
     void eliminadoLogico(long id) throws ResourceNotFoundException;
+
+    ProductoResponseDTO validarSkuExistente(String sku) throws AlreadyExistsException;
 }

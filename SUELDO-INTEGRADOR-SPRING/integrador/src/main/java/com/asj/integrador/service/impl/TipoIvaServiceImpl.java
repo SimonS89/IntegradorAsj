@@ -32,6 +32,6 @@ public class TipoIvaServiceImpl implements TipoIvaService {
 
     @Override
     public TipoIva buscarPorId(long id) throws ResourceNotFoundException {
-        return tipoIvaRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No se encontro el tipo de iva"));
+        return tipoIvaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No se encontro el tipo de iva"));
     }
 }

@@ -1,9 +1,12 @@
-.gradient-custom {
-  /* background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6); */
-  background: #dcdcdc;
-}
-
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.aside {
+  color: #f17e27;
+}
+
+.footer {
+  background-color: #f17e27;
+  height: 5vh;
 }

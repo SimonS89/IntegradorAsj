@@ -10,6 +10,7 @@ import { Proveedor } from 'src/app/models/Proveedor';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AlertService } from 'src/app/services/alert.service';
 import { DetalleOrden } from 'src/app/models/OrdenCompra';
+import { EMPTY, catchError } from 'rxjs';
 @Component({
   selector: 'app-form-orden-compra',
   templateUrl: './form-orden-compra.component.html',
@@ -33,6 +34,7 @@ export class FormOrdenCompraComponent implements OnInit {
   productoSeleccionadoName: string = '';
   cantidadProducto: number = 1;
   faTrash = faTrash;
+  numeroOrdenValido: string = '';
 
   constructor(
     public productoService: ProductoService,
@@ -187,5 +189,27 @@ export class FormOrdenCompraComponent implements OnInit {
       this.productos.length &&
       this.cantidadProducto > 0
     );
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
+  }
+
+  validarNumeroOrden() {
+    this.numeroOrdenValido = '';
+    this.ordenCompraService
+      .validarNumeroOrdenExistente(this.ordenCompra.numeroOrden)
+      .pipe(
+        catchError((error) => {
+          if (error.status === 400) {
+            this.numeroOrdenValido = error.error.errorMessage;
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

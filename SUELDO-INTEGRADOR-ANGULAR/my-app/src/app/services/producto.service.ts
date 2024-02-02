@@ -74,6 +74,17 @@ export class ProductoService {
       );
   }
 
+  public validarSkuExistente(sku: string): Observable<Producto> {
+    return this.http
+      .get<Producto>(`${environment.apiUrl}/producto/validar/${sku}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error.status);
+          throw error;
+        })
+      );
+  }
+
   public eliminarPorId(id: number): any {
     return this.http.delete<any>(`${environment.apiUrl}/producto/${id}`).pipe(
       catchError((error) => {

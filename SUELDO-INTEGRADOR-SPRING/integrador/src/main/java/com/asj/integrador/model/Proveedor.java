@@ -1,6 +1,5 @@
 package com.asj.integrador.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,13 +23,13 @@ Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
+    @Column(unique = true)
     private String codigo;
     private String logo;
     private String razonSocial;
     private String telefono;
     private String email;
-    @Column(unique=true)
+    @Column(unique = true)
     private String cuit;
     private String sitioWeb;
     @ManyToOne(fetch = FetchType.EAGER)
@@ -46,12 +45,12 @@ Proveedor {
     @JoinColumn(name = "representante_contacto_id", referencedColumnName = "id")
     private RepresentanteContacto representanteContacto;
     @UpdateTimestamp
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime fechaActualizacionRegistro;
     @CreationTimestamp
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime fechaCreacionRegistro;
-    @OneToMany(mappedBy = "proveedor",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
     private List<Producto> productos;
     private boolean eliminado;
 }

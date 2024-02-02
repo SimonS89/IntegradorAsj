@@ -17,4 +17,6 @@ public interface OrdenCompraService {
     void cambiarEstadoOrden(long id) throws ResourceNotFoundException;
 
     List<OrdenCompraResponseDTO> listarOrdenesFiltradas(boolean activas) throws ResourceNotFoundException;
+
+    OrdenCompraResponseDTO validarNumeroOrdenExistente(String numeroOrden) throws AlreadyExistsException;
 }

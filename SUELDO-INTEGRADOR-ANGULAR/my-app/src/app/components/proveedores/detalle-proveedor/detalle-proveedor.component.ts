@@ -17,12 +17,6 @@ import { ProveedorService } from 'src/app/services/proveedor.service';
   styleUrls: ['./detalle-proveedor.component.css'],
 })
 export class DetalleProveedorComponent implements OnInit {
-  editarProveedor(arg0: number) {
-    throw new Error('Method not implemented.');
-  }
-  eliminarProveedor(arg0: Proveedor) {
-    throw new Error('Method not implemented.');
-  }
   proveedor!: Proveedor;
   faTrashCan = faTrashCan;
   faPenToSquare = faPenToSquare;
@@ -43,5 +37,12 @@ export class DetalleProveedorComponent implements OnInit {
   handleImageError(event: any) {
     event.target.src =
       'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
+  }
+
+  editarProveedor(arg0: number) {
+    throw new Error('Method not implemented.');
+  }
+  eliminarProveedor(arg0: Proveedor) {
+    throw new Error('Method not implemented.');
   }
 }

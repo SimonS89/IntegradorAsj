@@ -51,7 +51,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Categoria buscarPorIdInterno(long id) throws ResourceNotFoundException {
-        return categoriaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Categoria no encontrada"));
+        return categoriaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Categoria no encontrada"));
     }
 
     @Override

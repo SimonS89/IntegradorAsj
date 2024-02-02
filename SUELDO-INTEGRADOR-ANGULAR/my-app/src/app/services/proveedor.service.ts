@@ -75,6 +75,28 @@ export class ProveedorService {
       );
   }
 
+  public validarCodigoExistente(codigo: string): Observable<Proveedor> {
+    return this.http
+      .get<Proveedor>(`${environment.apiUrl}/proveedor/validar_sku/${codigo}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error.status);
+          throw error;
+        })
+      );
+  }
+
+  public validarCuitExistente(cuit: string): Observable<Proveedor> {
+    return this.http
+      .get<Proveedor>(`${environment.apiUrl}/proveedor/validar_cuit/${cuit}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error.status);
+          throw error;
+        })
+      );
+  }
+
   public obtenerTodos(mostrarEliminados?: boolean): Observable<Proveedor[]> {
     return this.http
       .get<Proveedor[]>(

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface PaisService {
     void crearPaises();
+
     List<PaisResponseDTO> listarTodo() throws ResourceNotFoundException;
 }

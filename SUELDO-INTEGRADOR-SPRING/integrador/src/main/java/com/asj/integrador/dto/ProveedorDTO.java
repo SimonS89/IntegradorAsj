@@ -14,17 +14,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProveedorDTO {
-private String codigo;
-private String logo;
-private String razonSocial;
-private String telefono;
-private String email;
-private String cuit;
-private String sitioWeb;
-private long tipoIvaId;
-private long rubroId;
-private long provinciaId;
-private long paisId;
-private DomicilioDTO domicilio;
-private RepresentanteContacto representanteContacto;
+    private String codigo;
+    private String logo;
+    private String razonSocial;
+    private String telefono;
+    private String email;
+    private String cuit;
+    private String sitioWeb;
+    private long tipoIvaId;
+    private long rubroId;
+    private long provinciaId;
+    private long paisId;
+    private DomicilioDTO domicilio;
+    private RepresentanteContacto representanteContacto;
 }

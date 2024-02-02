@@ -24,11 +24,17 @@
             #sku="ngModel"
             required
             pattern="^[A-Z]{3}-[A-Z]\d{5}$"
-            [ngClass]="sku.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="sku.errors || skuValido ? 'is-invalid' : 'is-valid'"
             placeholder="e.g. SKU-E00551"
+            (focusout)="validarSku()"
           />
-          <div class="col-auto" *ngIf="sku.errors?.['pattern'] || sku.errors">
-            <span class="form-text">Ingrese formato válido.</span>
+          <div
+            class="col-auto"
+            *ngIf="sku.errors?.['pattern'] || sku.errors ||skuValido"
+          >
+            <span class="form-text">{{
+              skuValido ? skuValido : "Ingrese formato válido."
+            }}</span>
           </div>
         </div>
         <div class="col-md-6">
@@ -82,6 +88,11 @@
             pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
             required
             [ngClass]="imagen.errors ? 'is-invalid' : 'is-valid'"
+          /><img
+            class="mt-2"
+            *ngIf="producto.imagen"
+            [src]="producto.imagen"
+            (error)="handleImageError($event)"
           />
           <div
             class="col-auto"
@@ -99,7 +110,7 @@
             [(ngModel)]="producto.descripcion"
             #descripcion="ngModel"
             required
-            pattern="^([,\wáéíóúüñ]+[.,;]?\s){4,}[,\wáéíóúüñ]+[.,;]?$"
+            pattern="^([,\wáéíóúüñ\s\.\-,;]+[.,;]?\s){4,}[,\wáéíóúüñ\s\.\-,;]+[.,;]?$"
             [ngClass]="descripcion.errors ? 'is-invalid' : 'is-valid'"
             placeholder="e.g. Teléfono inteligente Android 13"
           ></textarea>
@@ -174,7 +185,8 @@
             [disabled]="
               !productoForm.valid ||
               !producto.categoriaId ||
-              !producto.proveedorId
+              !producto.proveedorId ||
+              skuValido
             "
           >
             {{ id ? "Editar producto" : "Generar producto" }}

@@ -75,6 +75,13 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
         return ordenesAOrdenesResponseDTO(ordenes);
     }
 
+    @Override
+    public OrdenCompraResponseDTO validarNumeroOrdenExistente(String numeroOrden) throws AlreadyExistsException {
+        Optional<OrdenCompra> orden = ordenCompraRepository.findByNumeroOrden(numeroOrden);
+        if (orden.isPresent()) throw new AlreadyExistsException("Número orden existente.");
+        return mapper.map(orden, OrdenCompraResponseDTO.class);
+    }
+
     private List<OrdenCompraResponseDTO> ordenesAOrdenesResponseDTO(List<OrdenCompra> ordenes) throws ResourceNotFoundException {
         if (ordenes.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
         return ordenes.stream().map(orden -> mapper.map(orden, OrdenCompraResponseDTO.class)

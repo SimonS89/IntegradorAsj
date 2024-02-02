@@ -1,4 +1,4 @@
-<section class="gradient-custom py-5 rounded-5 shadow-lg">
+<section class="gradient-custom py-5 rounded-5">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-lg-10 col-xl-8 col-sm-10">
       <div class="card" style="border-radius: 10px">
@@ -7,12 +7,12 @@
             Lo que tenés que saber de este producto
           </h4>
         </div>
-        <section class="py-5">
+        <section class="pt-5 pb-2 border-orange">
           <div class="container">
             <div class="row gx-5">
               <aside class="col-lg-6">
                 <div
-                  class="border rounded-3 mb-3 d-flex justify-content-center shadow-lg"
+                  class="asideborder rounded-3 mb-3 d-flex justify-content-center shadow-lg"
                 >
                   <img
                     (error)="handleImageError($event)"
@@ -29,7 +29,7 @@
                     {{ producto.nombre }}
                   </h4>
                   <div class="d-flex flex-row mb-3">
-                    <span class="text-success">En stock</span>
+                    <span class="aside" styles="">En stock</span>
                   </div>
 
                   <div class="mb-3 align-self-start">
@@ -59,6 +59,7 @@
             </div>
           </div>
         </section>
+        <div class="footer align-middle text-light"></div>
       </div>
     </div>
   </div>

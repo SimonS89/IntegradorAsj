@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProvinciaRepository extends JpaRepository<Provincia,Long> {
+public interface ProvinciaRepository extends JpaRepository<Provincia, Long> {
     List<Provincia> findByPaisId(Long paisId);
 }

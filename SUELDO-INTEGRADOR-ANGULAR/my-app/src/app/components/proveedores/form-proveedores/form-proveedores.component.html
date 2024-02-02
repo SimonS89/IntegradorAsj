@@ -26,13 +26,20 @@
             required
             minlength="4"
             pattern="[a-zA-Z0-9]+"
-            [ngClass]="codigo.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="
+              codigo.errors || codigoValido ? 'is-invalid' : 'is-valid'
+            "
+            (focusout)="validarCodigo()"
           />
           <div
             class="col-auto"
-            *ngIf="codigo.errors?.['minlength']||codigo.errors?.['pattern'] ||codigo.errors"
+            *ngIf="codigo.errors?.['minlength']||codigo.errors?.['pattern'] ||codigo.errors ||codigoValido"
           >
-            <span class="form-text">Ingrese al menos 4 caracteres. </span>
+            <span class="form-text"
+              >{{
+                codigoValido ? codigoValido : "Ingrese al menos 4 caracteres."
+              }}
+            </span>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
@@ -81,7 +88,6 @@
           <label for="inputCuit" class="form-label">CUIT</label>
           <input
             required
-            [disabled]="id ? true : false"
             type="text"
             class="form-control border border-dark"
             id="inputCuit"
@@ -90,10 +96,16 @@
             [(ngModel)]="proveedor.cuit"
             pattern="\d{2}-\d{8}-\d{1}"
             #cuit="ngModel"
-            [ngClass]="cuit.errors ? 'is-invalid' : 'is-valid'"
+            [ngClass]="cuit.errors || cuitValido ? 'is-invalid' : 'is-valid'"
+            (focusout)="validarCuit()"
           />
-          <div class="col-auto" *ngIf="cuit.errors?.['pattern'] || cuit.errors">
-            <span class="form-text">Formato de CUIT inválido.</span>
+          <div
+            class="col-auto"
+            *ngIf="cuit.errors?.['pattern'] || cuit.errors||cuitValido"
+          >
+            <span class="form-text">{{
+              cuitValido ? cuitValido : "Formato de CUIT inválido."
+            }}</span>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
@@ -130,6 +142,11 @@
             pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*"
             required
             [ngClass]="logo.errors ? 'is-invalid' : 'is-valid'"
+          /><img
+            class="mt-2"
+            *ngIf="proveedor.logo"
+            [src]="proveedor.logo"
+            (error)="handleImageError($event)"
           />
           <div class="col-auto" *ngIf="logo.errors?.['pattern'] ||logo.errors">
             <span class="form-text">Formato URL inválida.</span>
@@ -444,7 +461,7 @@
           <button
             type="submit"
             class="btn btn-success fw-bold col-md-2"
-            [disabled]="!proveedorForm.valid"
+            [disabled]="!proveedorForm.valid || codigoValido || cuitValido"
           >
             {{ id ? "Editar proveedor" : "Generar proveedor" }}
           </button>

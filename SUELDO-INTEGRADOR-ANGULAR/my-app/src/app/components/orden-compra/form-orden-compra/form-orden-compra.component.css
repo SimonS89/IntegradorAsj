@@ -1,6 +1,5 @@
 .gradient-custom {
-  background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6);
+  background: #dcdcdc;
 }
 
 form {
@@ -12,12 +11,7 @@ h2 {
   color: #2e3f4c;
 }
 
-/* .deleteBtn {
-  border: 1px solid #c23a00;
-  color: #c23a00;
+img {
+  width: auto;
+  height: 5vh;
 }
-
-.deleteBtn:hover {
-  background-color: #c23a00;
-  color: white;
-} */

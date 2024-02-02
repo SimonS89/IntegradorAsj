@@ -22,7 +22,7 @@ public class RubroServiceImpl implements RubroService {
 
     private final RubroRepository rubroRepository;
     private final ModelMapper mapper;
-    private final Logger logger = LoggerFactory.getLogger(CategoriaServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(RubroServiceImpl.class);
 
     public RubroServiceImpl(RubroRepository rubroRepository, ModelMapper mapper) {
         this.rubroRepository = rubroRepository;

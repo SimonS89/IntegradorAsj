@@ -1,11 +1,7 @@
 package com.asj.integrador.exception;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +14,17 @@ import java.util.Map;
 public class AppExceptionHandler {
 
     private static final String ACCESS_DENIED = "access_denied_reason";
+    private static final String ERROR_MESSAGE = "errorMessage";
+
+    private static String bdUniqueMsg(String errorMessage) {
+        String customErrorMessage = "";
+        if (errorMessage.contains("CUIT")) {
+            customErrorMessage = "El CUIT del proveedor debe ser único. Por favor, elija otro CUIT.";
+        } else if (errorMessage.contains("CODIGO")) {
+            customErrorMessage = "El código del proveedor debe ser único. Por favor, elija otro código.";
+        }
+        return customErrorMessage;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleInvalidArguments(MethodArgumentNotValidException ex) {
@@ -26,18 +33,17 @@ public class AppExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, String>> resourceNotFound(ResourceNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
-        error.put("errorMesage", ex.getMessage());
+        error.put(ERROR_MESSAGE, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> alreadyExists(AlreadyExistsException ex) {
         Map<String, String> error = new HashMap<>();
-        error.put("errorMesage", ex.getMessage());
+        error.put(ERROR_MESSAGE, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
@@ -47,18 +53,8 @@ public class AppExceptionHandler {
         String customErrorMessage = bdUniqueMsg(errorMessage);
 
         Map<String, String> error = new HashMap<>();
-        error.put("errorMessage", customErrorMessage);
+        error.put(ERROR_MESSAGE, customErrorMessage);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
-
-    private static String bdUniqueMsg(String errorMessage) {
-        String customErrorMessage = "";
-        if (errorMessage.contains("CUIT")) {
-            customErrorMessage = "El CUIT del proveedor debe ser único. Por favor, elija otro CUIT.";
-        } else if(errorMessage.contains("CODIGO")){
-            customErrorMessage = "El código del proveedor debe ser único. Por favor, elija otro código.";
-        }
-        return customErrorMessage;
     }
 
 //    @ExceptionHandler(Exception.class)

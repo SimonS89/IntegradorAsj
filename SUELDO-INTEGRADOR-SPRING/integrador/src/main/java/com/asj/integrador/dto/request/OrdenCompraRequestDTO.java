@@ -21,9 +21,9 @@ public class OrdenCompraRequestDTO {
     private Double total;
     private String infoRecepcion;
     private String infoAdicional;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEmision;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEntrega;
     private List<DetalleOrden> detallesOrden;
 }

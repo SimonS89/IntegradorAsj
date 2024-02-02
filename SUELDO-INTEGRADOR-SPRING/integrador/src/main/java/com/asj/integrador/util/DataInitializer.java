@@ -15,6 +15,7 @@ public class DataInitializer {
     private final RubroService rubroService;
     private final CategoriaService categoriaService;
     private final RolUsuarioService rolService;
+    Logger logger = LoggerFactory.getLogger(DataInitializer.class);
 
     public DataInitializer(PaisService paisService, TipoIvaService tipoIvaService, RubroService rubroService, CategoriaService categoriaService, RolUsuarioService rolService) {
         this.paisService = paisService;
@@ -23,8 +24,6 @@ public class DataInitializer {
         this.categoriaService = categoriaService;
         this.rolService = rolService;
     }
-
-    Logger logger = LoggerFactory.getLogger(DataInitializer.class);
 
     @EventListener(ApplicationReadyEvent.class)
     public void dataInitializer() {

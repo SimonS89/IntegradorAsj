@@ -21,9 +21,7 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
     @Override
     public void defaultData() {
         if (rolRepository.count() == 0) {
-            Arrays.stream(Rol.values()).forEach(rol -> {
-                rolRepository.save(new RolUsuario(rol));
-            });
+            Arrays.stream(Rol.values()).forEach(rol -> rolRepository.save(new RolUsuario(rol)));
         }
     }
 

@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface RubroRepository extends JpaRepository<Rubro,Long> {
+public interface RubroRepository extends JpaRepository<Rubro, Long> {
     Optional<Rubro> findByRubroIgnoreCase(String rubro);
+
     List<Rubro> findByEliminado(boolean eliminado);
 }

@@ -7,7 +7,7 @@ import com.asj.integrador.model.Rubro;
 
 import java.util.List;
 
-public interface RubroService extends ModelService<RubroRequestDTO, RubroResponseDTO>{
+public interface RubroService extends ModelService<RubroRequestDTO, RubroResponseDTO> {
 
     Rubro buscarPorIdInterno(long id) throws ResourceNotFoundException;
 

@@ -19,14 +19,23 @@
               #nroOrden="ngModel"
               required
               pattern="^[A-Z]{2}-[A-Z]\d{4}$"
-              [ngClass]="nroOrden.errors ? 'is-invalid' : 'is-valid'"
+              [ngClass]="
+                nroOrden.errors || numeroOrdenValido ? 'is-invalid' : 'is-valid'
+              "
               placeholder="e.g. OC-A1234"
+              (focusout)="validarNumeroOrden()"
             />
             <div
               class="col-auto"
-              *ngIf="nroOrden.errors?.['pattern'] || nroOrden.errors"
+              *ngIf="nroOrden.errors?.['pattern'] || nroOrden.errors||numeroOrdenValido"
             >
-              <span class="form-text"> Ingresar formato válido. </span>
+              <span class="form-text">
+                {{
+                  numeroOrdenValido
+                    ? numeroOrdenValido
+                    : "Ingresar formato válido."
+                }}
+              </span>
             </div>
           </div>
           <div class="col-md-6">
@@ -127,6 +136,12 @@
                 {{ p.razonSocial }}
               </option>
             </select>
+            <img
+              class="mt-2"
+              *ngIf="proveedorSeleccionado"
+              [src]="productos[0].proveedor?.logo"
+              (error)="handleImageError($event)"
+            />
             <div class="col-auto" *ngIf="!proveedorSeleccionado">
               <span class="form-text"> Seleccione una opción. </span>
             </div>
@@ -250,7 +265,9 @@
             type="submit"
             class="btn btn-success fw-bold col-md-2"
             [disabled]="
-              !ordenCompraForm.valid || ordenCompra.detallesOrden.length == 0
+              !ordenCompraForm.valid ||
+              ordenCompra.detallesOrden.length == 0 ||
+              numeroOrdenValido
             "
           >
             Generar orden

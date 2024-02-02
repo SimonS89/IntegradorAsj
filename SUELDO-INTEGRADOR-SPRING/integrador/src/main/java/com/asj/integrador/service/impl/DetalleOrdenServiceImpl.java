@@ -11,16 +11,14 @@ import org.springframework.stereotype.Service;
 public class DetalleOrdenServiceImpl implements DetalleOrdenService {
 
     private final DetalleOrdenRepository detalleOrdenRepository;
-    private final ModelMapper mapper;
 
-    public DetalleOrdenServiceImpl(DetalleOrdenRepository detalleOrdenRepository, ModelMapper mapper) {
+    public DetalleOrdenServiceImpl(DetalleOrdenRepository detalleOrdenRepository) {
         this.detalleOrdenRepository = detalleOrdenRepository;
-        this.mapper = mapper;
     }
 
     @Override
     @Transactional
-    public DetalleOrden crear(DetalleOrden detalleOrden){
+    public DetalleOrden crear(DetalleOrden detalleOrden) {
         return detalleOrdenRepository.save(detalleOrden);
     }
 }

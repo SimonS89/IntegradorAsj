@@ -1,4 +1,4 @@
-<section class="gradient-custom py-5 rounded-5 shadow-lg">
+<section class="gradient-custom py-5 rounded-5">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-lg-10 col-xl-8 col-sm-10">
       <div class="card" style="border-radius: 10px">
@@ -25,17 +25,38 @@
                       <img
                         [src]="proveedor.logo"
                         [alt]="proveedor.razonSocial"
+                        (error)="handleImageError($event)"
                         class="img-fluid my-5"
                         style="width: 80px"
                       />
                       <h4>{{ proveedor.razonSocial }}</h4>
+                      <h5>
+                        <a href="#" class="text-light">{{
+                          proveedor.sitioWeb
+                        }}</a>
+                      </h5>
                       <p>{{ proveedor.rubro.rubro }}</p>
                       <i class="far fa-edit mb-5"></i>
                     </div>
                     <div class="col-md-8">
                       <div class="card-body p-4">
-                        <h6>Información</h6>
+                        <h6>Contacto</h6>
                         <hr class="mt-0 mb-4" />
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Persona responsable</h6>
+                            <p class="text-muted">
+                              {{ proveedor.representanteContacto.apellido }}
+                              {{ proveedor.representanteContacto.nombre }}
+                            </p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Rol</h6>
+                            <p class="text-muted">
+                              {{ proveedor.representanteContacto.rol }}
+                            </p>
+                          </div>
+                        </div>
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
                             <h6>Email</h6>
@@ -46,7 +67,7 @@
                             <p class="text-muted">{{ proveedor.telefono }}</p>
                           </div>
                         </div>
-                        <h6>Projects</h6>
+                        <h6>Información</h6>
                         <hr class="mt-0 mb-4" />
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
@@ -57,10 +78,25 @@
                             </p>
                           </div>
                           <div class="col-6 mb-3">
-                            <h6>Persona responsable</h6>
+                            <h6>Domicilio</h6>
                             <p class="text-muted">
-                              {{ proveedor.representanteContacto.apellido }}
-                              {{ proveedor.representanteContacto.nombre }}
+                              {{ proveedor.domicilio.calle }}
+                              {{ proveedor.domicilio.numero }},
+                              {{ proveedor.domicilio.localidad }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>CUIT</h6>
+                            <p class="text-muted">
+                              {{ proveedor.cuit }}
+                            </p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Condición IVA</h6>
+                            <p class="text-muted">
+                              {{ proveedor.tipoIva.tipoIva }}
                             </p>
                           </div>
                         </div>

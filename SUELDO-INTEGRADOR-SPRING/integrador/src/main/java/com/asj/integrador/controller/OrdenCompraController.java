@@ -29,18 +29,13 @@ public class OrdenCompraController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ordenCompraService.crear(ordenCompraRequestDTO));
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<OrdenCompraResponseDTO>> listarOrdenes() throws ResourceNotFoundException {
-//        return ResponseEntity.status(HttpStatus.OK).body(ordenCompraService.listarOdenes());
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<OrdenCompraResponseDTO> buscarPorId(@PathVariable long id) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(ordenCompraService.buscarPorId(id));
     }
 
     @GetMapping("/estado/{id}")
-    public ResponseEntity<Map> cambiarEstadoOrden(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String,String>> cambiarEstadoOrden(@PathVariable long id) throws ResourceNotFoundException {
         ordenCompraService.cambiarEstadoOrden(id);
         HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de la orden  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);
@@ -48,7 +43,11 @@ public class OrdenCompraController {
 
     @GetMapping
     public ResponseEntity<List<OrdenCompraResponseDTO>> obtenerOrdenesFiltradasPorEstado(@RequestParam(defaultValue = "true") boolean activas) throws ResourceNotFoundException {
-        System.out.println(activas);
         return ResponseEntity.status(HttpStatus.OK).body(ordenCompraService.listarOrdenesFiltradas(activas));
+    }
+
+    @GetMapping("/validar/{numeroOrden}")
+    public ResponseEntity<OrdenCompraResponseDTO> validarNumeroOrdenExistente(@PathVariable String numeroOrden) throws AlreadyExistsException {
+        return ResponseEntity.status(HttpStatus.OK).body(ordenCompraService.validarNumeroOrdenExistente(numeroOrden));
     }
 }

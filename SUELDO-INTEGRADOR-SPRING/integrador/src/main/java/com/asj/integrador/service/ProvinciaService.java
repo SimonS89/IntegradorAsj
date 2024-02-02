@@ -11,5 +11,6 @@ public interface ProvinciaService {
     void crearProvincias(Pais pais);
 
     List<ProvinciaResponseDTO> buscarPorPais(Long paisId) throws ResourceNotFoundException;
+
     Provincia buscarPorId(Long id) throws ResourceNotFoundException;
 }

@@ -25,11 +25,18 @@ public interface ProveedorService {
     void eliminadoLogico(Long id) throws ResourceNotFoundException;
 
     List<PaisResponseDTO> listarPaises() throws ResourceNotFoundException;
+
     List<ProvinciaResponseDTO> listarProvinciasPorPais(long id) throws ResourceNotFoundException;
+
     List<TipoIva> listarTiposIva() throws ResourceNotFoundException;
+
     ProveedorResponseDTO crearProveedor(ProveedorDTO proveedorDTO) throws ResourceNotFoundException;
 
     Proveedor buscarPorIdInterno(long id) throws ResourceNotFoundException;
 
     List<ProveedorResponseDTO> listarProductosPorRubro(long rubroId, boolean eliminado) throws ResourceNotFoundException;
+
+    ProveedorResponseDTO validarCodigoExistente(String codigo) throws AlreadyExistsException;
+
+    ProveedorResponseDTO validarCuitExistente(String cuit) throws AlreadyExistsException;
 }

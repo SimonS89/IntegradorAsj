@@ -39,6 +39,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
+
 @NgModule({
   declarations: [
     AppComponent,

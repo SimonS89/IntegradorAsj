@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CategoriaRepositroy extends JpaRepository<Categoria,Long> {
+public interface CategoriaRepositroy extends JpaRepository<Categoria, Long> {
     Optional<Categoria> findByCategoriaIgnoreCase(String categoria);
+
     List<Categoria> findByEliminado(boolean eliminado);
 }

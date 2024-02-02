@@ -6,6 +6,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 import { ProveedorService } from 'src/app/services/proveedor.service';
 import { Proveedor } from 'src/app/models/Proveedor';
 import { AlertService } from 'src/app/services/alert.service';
+import { EMPTY, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-form-productos',
@@ -27,6 +28,8 @@ export class FormProductosComponent implements OnInit {
   proveedores: Proveedor[] = [];
   productoTitle!: String;
   categorias!: Categoria[];
+  skuValido: string = '';
+  skuEditar: string = '';
 
   constructor(
     public productoService: ProductoService,
@@ -43,6 +46,7 @@ export class FormProductosComponent implements OnInit {
       this.id = data['id'];
       if (this.id) {
         this.productoService.obtenerPorId(this.id).subscribe((res) => {
+          this.skuEditar = res.sku;
           this.producto = { ...res };
           this.productoTitle = this.producto.nombre;
         });
@@ -118,5 +122,27 @@ export class FormProductosComponent implements OnInit {
 
   irAProductos() {
     this.router.navigate(['/productos']);
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
+  }
+
+  validarSku() {
+    this.skuValido = '';
+    this.productoService
+      .validarSkuExistente(this.producto.sku)
+      .pipe(
+        catchError((error) => {
+          if (error.status === 400 && this.producto.sku != this.skuEditar) {
+            this.skuValido = error.error.errorMessage;
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

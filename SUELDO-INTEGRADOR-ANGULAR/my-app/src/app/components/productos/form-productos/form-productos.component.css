@@ -1,6 +1,5 @@
 .gradient-custom {
-  background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6);
+  background: #dcdcdc;
 }
 
 form {
@@ -10,4 +9,9 @@ form {
 h1,
 h2 {
   color: #2e3f4c;
+}
+
+img {
+  width: auto;
+  height: 5vh;
 }

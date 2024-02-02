@@ -5,8 +5,9 @@ import com.asj.integrador.exception.ResourceNotFoundException;
 
 import java.util.List;
 
-public interface ModelService<T,K> {
+public interface ModelService<T, K> {
     void defaultData();
+
     K crear(T t) throws AlreadyExistsException;
 
     K buscarPorId(Long id) throws ResourceNotFoundException;

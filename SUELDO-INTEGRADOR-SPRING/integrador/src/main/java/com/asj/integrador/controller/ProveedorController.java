@@ -4,6 +4,7 @@ import com.asj.integrador.dto.ProveedorDTO;
 import com.asj.integrador.dto.response.PaisResponseDTO;
 import com.asj.integrador.dto.response.ProveedorResponseDTO;
 import com.asj.integrador.dto.response.ProvinciaResponseDTO;
+import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.TipoIva;
 import com.asj.integrador.service.ProveedorService;
@@ -46,11 +47,6 @@ public class ProveedorController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.buscarPorIdDetalle(id));
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedores() throws ResourceNotFoundException {
-//        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedores());
-//    }
-
     @GetMapping
     public ResponseEntity<List<ProveedorResponseDTO>> obtenerProveedoresFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProveedoresFiltrados(eliminados));
@@ -61,8 +57,18 @@ public class ProveedorController {
         return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProductosPorRubro(rubroId, eliminado));
     }
 
+    @GetMapping("/validar_sku/{codigo}")
+    public ResponseEntity<ProveedorResponseDTO> validarCodigoExistente(@PathVariable String codigo) throws AlreadyExistsException {
+        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.validarCodigoExistente(codigo));
+    }
+
+    @GetMapping("/validar_cuit/{cuit}")
+    public ResponseEntity<ProveedorResponseDTO> validarCuitExistente(@PathVariable String cuit) throws AlreadyExistsException {
+        return ResponseEntity.status(HttpStatus.OK).body(proveedorService.validarCuitExistente(cuit));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map> eliminarActivarProveedor(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String,String>> eliminarActivarProveedor(@PathVariable long id) throws ResourceNotFoundException {
         proveedorService.eliminadoLogico(id);
         HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de eliminado del proveedor  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);

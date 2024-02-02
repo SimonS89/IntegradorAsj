@@ -7,7 +7,6 @@ import com.asj.integrador.dto.response.CategoriaResponseDTO;
 import com.asj.integrador.dto.response.RubroResponseDTO;
 import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
-import com.asj.integrador.model.Rubro;
 import com.asj.integrador.service.CategoriaService;
 import com.asj.integrador.service.RubroService;
 import jakarta.validation.Valid;
@@ -40,7 +39,7 @@ public class AdminController {
 //    }
 
     @GetMapping("/categorias")
-    public ResponseEntity<List<CategoriaResponseDTO>> listarCategoriasFiltradas(@RequestParam(defaultValue = "false")boolean eliminados) throws ResourceNotFoundException {
+    public ResponseEntity<List<CategoriaResponseDTO>> listarCategoriasFiltradas(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoriaService.listarCategoriasFiltradas(eliminados));
     }
 
@@ -61,7 +60,7 @@ public class AdminController {
 //    }
 
     @GetMapping("/rubros")
-    public ResponseEntity<List<RubroResponseDTO>> listarRubrosFiltrados(@RequestParam(defaultValue = "false")boolean eliminados) throws ResourceNotFoundException {
+    public ResponseEntity<List<RubroResponseDTO>> listarRubrosFiltrados(@RequestParam(defaultValue = "false") boolean eliminados) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubroService.listarRubrosFiltrados(eliminados));
     }
 

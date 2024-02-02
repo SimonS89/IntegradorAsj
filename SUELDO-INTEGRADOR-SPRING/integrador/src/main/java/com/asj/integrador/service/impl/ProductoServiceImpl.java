@@ -23,7 +23,7 @@ public class ProductoServiceImpl implements ProductoService {
     private final ProductoRepository productoRepository;
     private final ModelMapper mapper;
     private final CategoriaService categoriaService;
-    private final Logger logger = LoggerFactory.getLogger(ProveedorServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(ProductoServiceImpl.class);
     private final ProveedorService proveedorService;
 
     public ProductoServiceImpl(ProductoRepository productoRepository, ModelMapper mapper, CategoriaServiceImpl categoriaService, ProveedorService proveedorService) {
@@ -31,7 +31,7 @@ public class ProductoServiceImpl implements ProductoService {
         this.mapper = mapper;
         this.categoriaService = categoriaService;
         this.proveedorService = proveedorService;
-        ;
+
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public List<ProductoResponseDTO> listarProductosPorCategoria(long categoriaId, boolean eliminado) throws ResourceNotFoundException {
-        if(categoriaId==0) return listarProductosFiltrados(eliminado) ;
+        if (categoriaId == 0) return listarProductosFiltrados(eliminado);
         List<Producto> productos = productoRepository.findByCategoriaIdAndEliminado(categoriaId, eliminado);
         return productosAProductosResponseDTO(productos);
     }
@@ -93,6 +93,13 @@ public class ProductoServiceImpl implements ProductoService {
         Producto producto = obtenerProductoSiExiste(id);
         producto.setEliminado(!producto.isEliminado());
         productoRepository.save(producto);
+    }
+
+    @Override
+    public ProductoResponseDTO validarSkuExistente(String sku) throws AlreadyExistsException {
+        Optional<Producto> producto = productoRepository.findBySku(sku);
+        if (producto.isPresent()) throw new AlreadyExistsException("SKU existente.");
+        return mapper.map(producto, ProductoResponseDTO.class);
     }
 
     private List<ProductoResponseDTO> productosAProductosResponseDTO(List<Producto> productos) throws ResourceNotFoundException {
