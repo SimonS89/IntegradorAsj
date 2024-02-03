@@ -125,7 +125,8 @@ export class ListaProductosComponent implements OnInit {
           producto.categoria.categoria.toLowerCase().includes(filtro) ||
           producto.proveedor!.razonSocial.toLowerCase().includes(filtro) ||
           producto.sku.toLowerCase().includes(filtro) ||
-          producto.nombre.toLowerCase().includes(filtro)
+          producto.nombre.toLowerCase().includes(filtro) ||
+          producto.descripcion.toLowerCase().includes(filtro)
         );
       };
     }

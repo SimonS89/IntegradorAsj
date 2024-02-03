@@ -126,26 +126,18 @@
                   {{ proveedor.domicilio.provincia.pais.nombre }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="nombreApellido">
-                <th mat-header-cell *matHeaderCellDef>
-                  Representante contacto
-                </th>
-                <td mat-cell *matCellDef="let proveedor">
-                  {{ proveedor.representanteContacto.apellido }}
-                  {{ proveedor.representanteContacto.nombre }}
-                </td>
-              </ng-container>
               <ng-container matColumnDef="sitioWebEmailTelefono">
                 <th mat-header-cell *matHeaderCellDef>Información contacto</th>
                 <td mat-cell *matCellDef="let proveedor">
-                  <button
-                    mat-raised-button
-                    [matTooltipClass]="'custom'"
-                    [matTooltip]="obtenerInfo(proveedor)"
-                    aria-label="Button that displays a tooltip when focused or hovered over"
-                  >
-                    Info
-                  </button>
+                  {{ proveedor.representanteContacto.apellido }}
+                  {{ proveedor.representanteContacto.nombre }}
+
+                  <fa-icon
+                    placement="top"
+                    [ngbTooltip]="obtenerInfo(proveedor)"
+                    [icon]="faCircleQuestion"
+                    class="fw-bolder fs-5"
+                  ></fa-icon>
                 </td>
               </ng-container>
               <ng-container matColumnDef="Funcionalidades">

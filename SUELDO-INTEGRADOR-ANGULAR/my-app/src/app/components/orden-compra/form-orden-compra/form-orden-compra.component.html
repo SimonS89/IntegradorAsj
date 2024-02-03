@@ -1,7 +1,13 @@
 <div class="gradient-custom rounded-5 shadow-lg">
   <div class="row d-flex flex-column justify-content-center align-items-center">
     <div class="col-lg-10">
-      <h2 class="mt-4 mb-5">Generar Orden de Compra</h2>
+      <h2 class="mt-4 mb-5">
+        {{
+          id
+            ? "Editar Orden " + ordenCompra.numeroOrden
+            : "Generar Orden de Compra"
+        }}
+      </h2>
       <form
         #ordenCompraForm="ngForm"
         class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5 rounded-4 shadow-lg"
@@ -24,6 +30,7 @@
               "
               placeholder="e.g. OC-A1234"
               (focusout)="validarNumeroOrden()"
+              [disabled]="id != undefined"
             />
             <div
               class="col-auto"
@@ -116,7 +123,10 @@
             ></textarea>
           </div>
         </div>
-        <div class="row align-items-start mt-4">
+        <div
+          class="row align-items-start mt-4"
+          [ngClass]="this.id ? 'd-none' : ''"
+        >
           <div class="col-sm-6 col-md-4">
             <label for="inputProveedor" class="form-label">Proveedor</label>
             <select
@@ -125,7 +135,9 @@
               name="proveedorSeleccionado"
               [(ngModel)]="proveedorSeleccionado"
               #proveedor="ngModel"
-              [ngClass]="!proveedorSeleccionado ? 'is-invalid' : 'is-valid'"
+              [ngClass]="
+                !proveedorSeleccionado && !id ? 'is-invalid' : 'is-valid'
+              "
               (change)="listarProductos(proveedor.value)"
               [disabled]="ordenCompra.detallesOrden.length > 0"
             >
@@ -142,7 +154,7 @@
               [src]="productos[0].proveedor?.logo"
               (error)="handleImageError($event)"
             />
-            <div class="col-auto" *ngIf="!proveedorSeleccionado">
+            <div class="col-auto" *ngIf="!proveedorSeleccionado && !id">
               <span class="form-text"> Seleccione una opción. </span>
             </div>
           </div>
@@ -157,10 +169,11 @@
               [(ngModel)]="productoSeleccionadoName"
               #producto="ngModel"
               [ngClass]="
-                !productoSeleccionadoName || !productos.length
+                (!id && !productoSeleccionadoName) || !productos.length
                   ? 'is-invalid'
                   : 'is-valid'
               "
+              [disabled]="id != undefined"
             >
               <ng-container
                 *ngIf="productos && productos.length > 0; else noProductos"
@@ -187,6 +200,7 @@
               >Cantidad</label
             >
             <input
+              [disabled]="id != undefined"
               type="number"
               class="form-control border border-dark"
               id="inputCantidadProducto"
@@ -200,7 +214,10 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
+        <div
+          class="row justify-content-center"
+          [ngClass]="this.id ? 'd-none' : ''"
+        >
           <div class="col-sm-6 col-md-6">
             <button
               type="button"
@@ -241,6 +258,7 @@
                     class="btn btn-sm btn-danger"
                     (click)="eliminarProducto(item.producto)"
                     [title]="'Eliminar ' + item.producto.nombre + '?'"
+                    [disabled]="id != undefined"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
@@ -270,12 +288,13 @@
               numeroOrdenValido
             "
           >
-            Generar orden
+            {{ id ? "Editar orden" : "Generar orden" }}
           </button>
           <button
             type="button"
             class="btn btn-danger fw-bold col-md-2"
             (click)="vaciarOrdenCompra(ordenCompraForm)"
+            [disabled]="id != undefined"
           >
             Vaciar campos
           </button>

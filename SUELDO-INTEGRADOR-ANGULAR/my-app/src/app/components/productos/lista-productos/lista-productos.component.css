@@ -84,6 +84,6 @@ table {
 }
 
 .mat-form-field > input {
-  font-size: 12px !important; /* Define el tamaño de la fuente deseado */
-  width: 100px !important; /* Define el ancho deseado */
+  font-size: 12px !important;
+  width: 100px !important;
 }

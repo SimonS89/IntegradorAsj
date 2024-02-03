@@ -9,6 +9,7 @@ import com.asj.integrador.model.OrdenCompra;
 import com.asj.integrador.repository.OrdenCompraRepository;
 import com.asj.integrador.service.DetalleOrdenService;
 import com.asj.integrador.service.OrdenCompraService;
+import com.asj.integrador.service.ProveedorService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,20 +24,22 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     private final OrdenCompraRepository ordenCompraRepository;
     private final DetalleOrdenService detalleOrdenService;
     private final ModelMapper mapper;
+    private final ProveedorService proveedorService;
     private final Logger logger = LoggerFactory.getLogger(OrdenCompraServiceImpl.class);
 
-    public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository, DetalleOrdenService detalleOrdenService, ModelMapper mapper) {
+    public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository, DetalleOrdenService detalleOrdenService, ModelMapper mapper, ProveedorService proveedorService) {
         this.ordenCompraRepository = ordenCompraRepository;
         this.detalleOrdenService = detalleOrdenService;
         this.mapper = mapper;
+        this.proveedorService = proveedorService;
     }
 
     @Override
-    public OrdenCompraResponseDTO crear(OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException {
+    public OrdenCompraResponseDTO crear(OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException, ResourceNotFoundException {
         Optional<OrdenCompra> ordenEncontrada = ordenCompraRepository.findByNumeroOrden(ordenCompraRequestDTO.getNumeroOrden());
         if (ordenEncontrada.isPresent()) throw new AlreadyExistsException("número orden existente");
         OrdenCompra ordenCompra = mapper.map(ordenCompraRequestDTO, OrdenCompra.class);
-        ordenCompra.setProveedor(ordenCompraRequestDTO.getDetallesOrden().get(0).getProducto().getProveedor());
+        ordenCompra.setProveedor(proveedorService.buscarPorIdInterno(ordenCompraRequestDTO.getDetallesOrden().get(0).getProducto().getProveedor().getId()));
         ordenCompra.setTotal(calcularTotal(ordenCompraRequestDTO.getDetallesOrden()));
         ordenCompra = ordenCompraRepository.save(ordenCompra);
         for (DetalleOrden detalleOrden : ordenCompraRequestDTO.getDetallesOrden()) {
@@ -44,6 +47,15 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
             detalleOrdenService.crear(detalleOrden);
         }
         return mapper.map(ordenCompra, OrdenCompraResponseDTO.class);
+    }
+
+    @Override
+    public OrdenCompraResponseDTO actualizarOrden(long id,OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException {
+      OrdenCompra ordenCompra = obtenerOrdenSiExiste(id);
+        ordenCompra.setInfoRecepcion(ordenCompraRequestDTO.getInfoRecepcion());
+        ordenCompra.setFechaEntrega(ordenCompraRequestDTO.getFechaEntrega());
+        ordenCompra.setInfoAdicional(ordenCompraRequestDTO.getInfoAdicional());
+        return mapper.map(ordenCompraRepository.save(ordenCompra), OrdenCompraResponseDTO.class);
     }
 
     @Override
@@ -56,10 +68,6 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     public OrdenCompraResponseDTO buscarPorId(long id) throws ResourceNotFoundException {
         OrdenCompra orden = obtenerOrdenSiExiste(id);
         return mapper.map(orden, OrdenCompraResponseDTO.class);
-    }
-
-    private OrdenCompra obtenerOrdenSiExiste(long id) throws ResourceNotFoundException {
-        return ordenCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
     }
 
     @Override
@@ -86,6 +94,10 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
         if (ordenes.isEmpty()) throw new ResourceNotFoundException("No hay productos.");
         return ordenes.stream().map(orden -> mapper.map(orden, OrdenCompraResponseDTO.class)
         ).toList();
+    }
+
+    private OrdenCompra obtenerOrdenSiExiste(long id) throws ResourceNotFoundException {
+        return ordenCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
     }
 
     private double calcularTotal(List<DetalleOrden> detallesOrden) {

@@ -26,7 +26,7 @@ export class FormProductosComponent implements OnInit {
 
   id!: number;
   proveedores: Proveedor[] = [];
-  productoTitle!: String;
+  productoNombre!: String;
   categorias!: Categoria[];
   skuValido: string = '';
   skuEditar: string = '';
@@ -48,7 +48,7 @@ export class FormProductosComponent implements OnInit {
         this.productoService.obtenerPorId(this.id).subscribe((res) => {
           this.skuEditar = res.sku;
           this.producto = { ...res };
-          this.productoTitle = this.producto.nombre;
+          this.productoNombre = this.producto.nombre;
         });
       }
     });

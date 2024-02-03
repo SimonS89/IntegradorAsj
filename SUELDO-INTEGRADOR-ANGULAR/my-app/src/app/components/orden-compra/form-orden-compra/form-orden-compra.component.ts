@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ProductoService } from 'src/app/services/producto.service';
 import { ProveedorService } from 'src/app/services/proveedor.service';
@@ -28,33 +28,50 @@ export class FormOrdenCompraComponent implements OnInit {
     activa: true,
   };
 
+  id!: number;
   proveedores: Proveedor[] = [];
   productos: Producto[] = [];
   proveedorSeleccionado!: string;
   productoSeleccionadoName: string = '';
   cantidadProducto: number = 1;
+  numeroOrden!: String;
   faTrash = faTrash;
   numeroOrdenValido: string = '';
 
   constructor(
     public productoService: ProductoService,
     private router: Router,
+    private route: ActivatedRoute,
     private proveedorService: ProveedorService,
     private ordenCompraService: OrdenCompraService,
     public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    this.proveedorService.obtenerTodos().subscribe((res) => {
-      this.proveedores = res;
+    this.listarProveedores();
+    this.route.params.subscribe((data) => {
+      this.id = data['id'];
+      if (this.id) {
+        this.ordenCompraService.obtenerPorId(this.id).subscribe((res) => {
+          this.ordenCompra = { ...res };
+          this.productos.push(this.ordenCompra.detallesOrden[0].producto);
+          this.numeroOrden = this.ordenCompra.numeroOrden;
+          this.productoSeleccionadoName =
+            this.ordenCompra.detallesOrden[0].producto.nombre;
+        });
+      }
     });
   }
 
   onSubmit(form: NgForm) {
+    console.log(this.ordenCompra);
+
     if (form.valid) {
       this.alertService
         .question(
-          '¿Desea generar la orden de compra?',
+          this.id
+            ? `¿Desea editar la orden ${this.ordenCompra.numeroOrden}?`
+            : '¿Desea generar la orden de compra?',
           true,
           true,
           'Aceptar',
@@ -62,15 +79,34 @@ export class FormOrdenCompraComponent implements OnInit {
         )
         .then((res) => {
           if (res) {
-            this.ordenCompraService.crear(this.ordenCompra).subscribe((res) => {
-              this.alertService.notification(
-                `orden de compra creada - Nro : ${res.numeroOrden}`
-              );
-              this.router.navigate(['/ordenes-compra']);
-            });
+            this.id ? this.editarOrden() : this.crearOrden();
+            this.alertService.notification(
+              `Orden, ${
+                this.ordenCompra.numeroOrden ? 'editada' : 'Generada'
+              } exitosamente.`,
+              'success'
+            );
           }
         });
     }
+  }
+
+  editarOrden() {
+    this.ordenCompraService
+      .actualizar(this.id!, this.ordenCompra)
+      .subscribe((res) => {
+        this.irAOrdenes();
+      });
+  }
+
+  crearOrden() {
+    this.ordenCompraService.crear(this.ordenCompra).subscribe((res) => {
+      this.irAOrdenes();
+    });
+  }
+
+  irAOrdenes() {
+    this.router.navigate(['/ordenes-compra']);
   }
 
   minFechaEntrega() {
@@ -211,5 +247,11 @@ export class FormOrdenCompraComponent implements OnInit {
       .subscribe((res) => {
         console.log(res);
       });
+  }
+
+  listarProveedores() {
+    this.proveedorService.obtenerTodos().subscribe((res) => {
+      this.proveedores = res;
+    });
   }
 }

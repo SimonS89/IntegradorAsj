@@ -8,7 +8,9 @@ import com.asj.integrador.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface OrdenCompraService {
-    OrdenCompraResponseDTO crear(OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException;
+    OrdenCompraResponseDTO crear(OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException, ResourceNotFoundException;
+
+    OrdenCompraResponseDTO actualizarOrden(long id, OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException;
 
     List<OrdenCompraResponseDTO> listarOdenes() throws ResourceNotFoundException;
 

@@ -18,7 +18,7 @@ import { FormProveedoresComponent } from './components/proveedores/form-proveedo
 import { FormsModule } from '@angular/forms';
 import { FiltrarOrdenesPipe } from './pipes/filtrar-ordenes.pipe';
 import { IndexComponent } from './components/index/index.component';
-import { OrdenCompraDetailComponent } from './components/orden-compra-detail/orden-compra-detail.component';
+import { OrdenCompraDetailComponent } from './components/orden-compra/orden-compra-detail/orden-compra-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

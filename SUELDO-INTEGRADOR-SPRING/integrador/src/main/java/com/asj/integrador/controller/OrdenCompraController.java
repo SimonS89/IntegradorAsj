@@ -25,8 +25,13 @@ public class OrdenCompraController {
     }
 
     @PostMapping
-    public ResponseEntity<OrdenCompraResponseDTO> crearOrden(@RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException {
+    public ResponseEntity<OrdenCompraResponseDTO> crearOrden(@RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException, ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(ordenCompraService.crear(ordenCompraRequestDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrdenCompraResponseDTO> actualizarOrden(@PathVariable long id, @RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(ordenCompraService.actualizarOrden(id,ordenCompraRequestDTO));
     }
 
     @GetMapping("/{id}")

@@ -45,6 +45,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoResponseDTO actualizarProducto(long id, ProductoDTO productoDTO) throws ResourceNotFoundException {
+        obtenerProductoSiExiste(id);
         Producto producto = asignarValoresProducto(productoDTO);
         producto.setId(id);
         producto.setProveedor(proveedorService.buscarPorIdInterno(productoDTO.getProveedorId()));

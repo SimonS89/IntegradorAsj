@@ -10,6 +10,7 @@ import {
   faCheck,
   faInfo,
   faCircleInfo,
+  faCircleQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import { Proveedor, Rubro } from 'src/app/models/Proveedor';
 import { AlertService } from 'src/app/services/alert.service';
@@ -26,6 +27,7 @@ export class ListaProveedoresComponent implements OnInit {
   faTrashCan = faTrashCan;
   faCheck = faCheck;
   faInfo = faInfo;
+  faCircleQuestion = faCircleQuestion;
   faCircleInfo = faCircleInfo;
   columnasMostradas = [
     'logo',
@@ -33,7 +35,6 @@ export class ListaProveedoresComponent implements OnInit {
     'razonSocial',
     'rubro',
     'paisProvincia',
-    'nombreApellido',
     'sitioWebEmailTelefono',
     'Funcionalidades',
   ];
@@ -155,7 +156,7 @@ export class ListaProveedoresComponent implements OnInit {
   }
 
   obtenerInfo(proveedor: Proveedor): string {
-    return `Sitio web: ${proveedor.sitioWeb} \nEmail: ${proveedor.email} \nTel: ${proveedor.telefono}`;
+    return `Sitio web: ${proveedor.sitioWeb}\nEmail: ${proveedor.email}\nTel: ${proveedor.telefono}`;
   }
 
   handleImageError(event: any) {

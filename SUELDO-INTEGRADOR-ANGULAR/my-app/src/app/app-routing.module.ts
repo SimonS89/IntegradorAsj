@@ -7,7 +7,7 @@ import { FormProveedoresComponent } from './components/proveedores/form-proveedo
 import { FormProductosComponent } from './components/productos/form-productos/form-productos.component';
 import { FormOrdenCompraComponent } from './components/orden-compra/form-orden-compra/form-orden-compra.component';
 import { IndexComponent } from './components/index/index.component';
-import { OrdenCompraDetailComponent } from './components/orden-compra-detail/orden-compra-detail.component';
+import { OrdenCompraDetailComponent } from './components/orden-compra/orden-compra-detail/orden-compra-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
@@ -83,6 +83,11 @@ const routes: Routes = [
         path: 'form-ordenes-compra',
         component: FormOrdenCompraComponent,
         title: 'Registrar Orden Compra',
+      },
+      {
+        path: 'form-ordenes-compra/:id',
+        component: FormOrdenCompraComponent,
+        title: 'Editar Orden Compra',
       },
       {
         path: 'info/:id',

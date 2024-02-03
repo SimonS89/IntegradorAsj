@@ -115,35 +115,51 @@
                 }}
               </td>
               <td>
-                <button
-                  type="button"
-                  class="btn me-3"
-                  [ngClass]="
-                    orden.activa ? 'btn-outline-danger' : 'btn-outline-primary'
-                  "
-                  (click)="cambiarEstadoOrden(orden, orden.activa)"
-                  [title]="
-                    orden.activa
-                      ? 'Cancelar Orden - ' + orden.numeroOrden
-                      : 'Activar Orden - ' + orden.numeroOrden
-                  "
-                >
-                  <fa-icon
-                    [icon]="orden.activa ? faBan : faChartLine"
-                    class="fw-bolder fs-5"
-                  ></fa-icon>
-                </button>
-                <button
-                  type="button"
-                  class="editBtn btn btn-outline-dark"
-                  (click)="mostrarDetalle(orden.id!)"
-                  [title]="'Mostrar Detalle - ' + orden.numeroOrden"
-                >
-                  <fa-icon
-                    [icon]="faCircleInfo"
-                    class="fw-bolder fs-5"
-                  ></fa-icon>
-                </button>
+                <div class="d-flex justify-content-center gap-3">
+                  <button
+                    type="button"
+                    class="deleteBtn btn"
+                    [ngClass]="
+                      mostrarOrdenesActivas
+                        ? 'm-0 btn-outline-primary'
+                        : ' btn-outline-danger'
+                    "
+                    (click)="cambiarEstadoOrden(orden, orden.activa)"
+                    [title]="
+                      !mostrarOrdenesActivas
+                        ? 'Cancelar Orden - ' + orden.numeroOrden
+                        : 'Activar Orden - ' + orden.numeroOrden
+                    "
+                  >
+                    <fa-icon
+                      [icon]="orden.activa ? faBan : faChartLine"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="editBtn btn"
+                    (click)="editarOrden(orden.id!)"
+                    [title]="'Editar Orden - ' + orden.numeroOrden"
+                    [ngClass]="mostrarOrdenesActivas ? 'd-none' : ''"
+                  >
+                    <fa-icon
+                      [icon]="faPenToSquare"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="infoBtn btn"
+                    (click)="mostrarDetalle(orden.id!)"
+                    [title]="'Mostrar Detalle - ' + orden.numeroOrden"
+                  >
+                    <fa-icon
+                      [icon]="faCircleInfo"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

@@ -5,6 +5,7 @@ import {
   faCreditCard,
   faChartLine,
   faCircleInfo,
+  faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { OrdenCompra } from 'src/app/models/OrdenCompra';
 import { AlertService } from 'src/app/services/alert.service';
@@ -20,6 +21,7 @@ export class ListaOrdenCompraComponent implements OnInit {
   faCreditCard = faCreditCard;
   faChartLine = faChartLine;
   faCircleInfo = faCircleInfo;
+  faPenToSquare = faPenToSquare;
 
   ordenesCompra: OrdenCompra[] = [];
   mostrarOrdenesActivas: boolean = false;
@@ -37,9 +39,6 @@ export class ListaOrdenCompraComponent implements OnInit {
     this.ordenesCompraService
       .obtenerTodos(this.mostrarOrdenesActivas)
       .subscribe((res) => {
-        console.log(res);
-        console.log(this.mostrarOrdenesActivas);
-
         this.ordenesCompra = res;
       });
   }
@@ -71,5 +70,9 @@ export class ListaOrdenCompraComponent implements OnInit {
 
   esFechaPosteriorHoy(fechaString: string): boolean {
     return new Date() > new Date(fechaString);
+  }
+
+  editarOrden(id: number) {
+    this.router.navigate(['/ordenes-compra/form-ordenes-compra', id]);
   }
 }

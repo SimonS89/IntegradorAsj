@@ -13,8 +13,6 @@ export class OrdenCompraService {
   constructor(private http: HttpClient, private router: Router) {}
 
   crear(ordenCompra: OrdenCompra): Observable<OrdenCompra> {
-    console.log(ordenCompra);
-
     return this.http
       .post<OrdenCompra>(`${environment.apiUrl}/orden`, ordenCompra)
       .pipe(
@@ -24,6 +22,19 @@ export class OrdenCompraService {
             console.log('Codigo ', error.status);
             console.log('Mensaje ', error.message);
           }
+          throw error;
+        })
+      );
+  }
+
+  actualizar(id: number, ordenCompra: OrdenCompra): Observable<OrdenCompra> {
+    console.log(ordenCompra);
+
+    return this.http
+      .put<OrdenCompra>(`${environment.apiUrl}/orden/${id}`, ordenCompra)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
           throw error;
         })
       );
