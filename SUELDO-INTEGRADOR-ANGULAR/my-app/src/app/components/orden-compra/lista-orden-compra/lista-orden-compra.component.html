@@ -28,82 +28,124 @@
           />
         </label>
       </div>
-      <div
-        *ngIf="ordenesCompra.length > 0; else noOrdenes"
-        class="table-responsive shadow-lg rounded-3"
-      >
-        <table class="table table-light table-hover align-middle m-0">
-          <thead class="table-success">
-            <tr>
-              <th scope="col">#N° Orden</th>
-              <th scope="col">Total Abonado</th>
-              <th scope="col" class="d-none d-lg-table-cell">
-                Información Recepción
+      <div *ngIf="ordenesCompra.length == 0">
+        <div class="tablas_vacias">
+          <div
+            *ngIf="mostrarOrdenesActivas; else noProductosMessage"
+            class="alert alert-success fs-5 col-8"
+            role="alert"
+          >
+            No hay productos eliminados disponibles.
+          </div>
+          <ng-template #noProductosMessage>
+            <div class="alert alert-success fs-5 col-8" role="alert">
+              No hay productos disponibles.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <mat-card [style.display]="ordenesCompra.length > 0 ? 'block' : 'none'">
+        <mat-card-header>
+          <mat-form-field style="font-size: 14px; width: 150px; height: 60px">
+            <input
+              matInput
+              (keyup)="textoIngresado($event)"
+              placeholder="Buscar"
+            />
+          </mat-form-field>
+        </mat-card-header>
+        <mat-card-content>
+          <table
+            mat-table
+            matSort
+            [dataSource]="datosTabla"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="numeroOrden">
+              <th class="table-succes" mat-header-cell *matHeaderCellDef>
+                #N° Orden
               </th>
-              <th scope="col" class="d-none d-lg-table-cell">Fecha Emisión</th>
-              <th scope="col" class="d-none d-lg-table-cell">Fecha Entrega</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Funcionalidades</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr
-              class="align-middle fw-medium"
-              *ngFor="let orden of ordenesCompra"
-            >
               <td
+                mat-cell
+                *matCellDef="let orden"
                 [ngClass]="
-                  orden.activa
-                    ? 'text-dark'
-                    : 'text-secondary text-decoration-line-through'
+                  !mostrarOrdenesActivas
+                    ? ''
+                    : 'text-muted text-decoration-line-through'
                 "
               >
                 {{ orden.numeroOrden }}
               </td>
+            </ng-container>
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
               <td
+                mat-cell
+                *matCellDef="let orden"
                 [ngClass]="
-                  orden.activa
-                    ? 'text-dark'
-                    : 'text-secondary text-decoration-line-through'
+                  !mostrarOrdenesActivas
+                    ? ''
+                    : 'text-muted text-decoration-line-through'
                 "
               >
                 {{ orden.total | currency : "USD" }}
               </td>
+            </ng-container>
+            <ng-container matColumnDef="infoRecepcion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Recepción
+              </th>
+              <tr>
+                <td
+                  mat-cell
+                  *matCellDef="let orden"
+                  [ngClass]="
+                    !mostrarOrdenesActivas
+                      ? ''
+                      : 'text-muted text-decoration-line-through'
+                  "
+                >
+                  {{ orden.infoRecepcion }}
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container matColumnDef="fechaEmision">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Emisión</th>
               <td
-                class="d-none d-lg-table-cell"
+                mat-cell
+                *matCellDef="let orden"
                 [ngClass]="
-                  orden.activa
-                    ? 'text-dark'
-                    : 'text-secondary text-decoration-line-through'
-                "
-              >
-                {{ orden.infoRecepcion }}
-              </td>
-              <td
-                class="d-none d-lg-table-cell"
-                [ngClass]="
-                  orden.activa
-                    ? 'text-dark'
-                    : 'text-secondary text-decoration-line-through'
+                  !mostrarOrdenesActivas
+                    ? ''
+                    : 'text-muted text-decoration-line-through'
                 "
               >
                 {{ orden.fechaEmision | date : "dd/MM/yyyy" }}
               </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaEntrega">
+              <th mat-header-cell *matHeaderCellDef>Entrega</th>
               <td
-                class="d-none d-lg-table-cell"
+                mat-cell
+                *matCellDef="let orden"
                 [ngClass]="
-                  orden.activa
-                    ? 'text-dark'
-                    : 'text-secondary text-decoration-line-through'
+                  !mostrarOrdenesActivas
+                    ? ''
+                    : 'text-muted text-decoration-line-through'
                 "
               >
                 {{ orden.fechaEntrega | date : "dd/MM/yyyy" }}
               </td>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
               <td
+                mat-cell
+                *matCellDef="let orden"
                 [ngClass]="
-                  orden.activa
-                    ? 'text-dark'
-                    : 'text-secondary text-decoration-line-through'
+                  !mostrarOrdenesActivas
+                    ? ''
+                    : 'text-muted text-decoration-line-through'
                 "
               >
                 {{
@@ -114,7 +156,10 @@
                     : "Cancelada"
                 }}
               </td>
-              <td>
+            </ng-container>
+            <ng-container matColumnDef="Funcionalidades">
+              <th mat-header-cell *matHeaderCellDef>Funcionalidades</th>
+              <td mat-cell *matCellDef="let orden">
                 <div class="d-flex justify-content-center gap-3">
                   <button
                     type="button"
@@ -161,18 +206,59 @@
                   </button>
                 </div>
               </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasMostradas"></tr>
+          </table>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-paginator [pageSize]="5" showFirstLastButtons> </mat-paginator>
+        </mat-card-footer>
+      </mat-card>
     </div>
   </div>
 </div>
-<ng-template #noOrdenes>
-  <h2 *ngIf="mostrarOrdenesActivas; else noOrdenesMessage">
-    No hay ordenes disponibles.
-  </h2>
-  <ng-template #noOrdenesMessage>
-    <h2>No hay ordenes activas.</h2>
-  </ng-template>
-</ng-template>
+
+<!-- <button
+                    type="button"
+                    class="deleteBtn btn"
+                    [ngClass]="
+                      mostrarOrdenesActivas
+                        ? 'm-0 btn-outline-primary'
+                        : ' btn-outline-danger'
+                    "
+                    (click)="cambiarEstadoOrden(orden, orden.activa)"
+                    [title]="
+                      !mostrarOrdenesActivas
+                        ? 'Cancelar Orden - ' + orden.numeroOrden
+                        : 'Activar Orden - ' + orden.numeroOrden
+                    "
+                  >
+                    <fa-icon
+                      [icon]="orden.activa ? faBan : faChartLine"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="editBtn btn"
+                    (click)="editarOrden(orden.id!)"
+                    [title]="'Editar Orden - ' + orden.numeroOrden"
+                    [ngClass]="mostrarOrdenesActivas ? 'd-none' : ''"
+                  >
+                    <fa-icon
+                      [icon]="faPenToSquare"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="infoBtn btn"
+                    (click)="mostrarDetalle(orden.id!)"
+                    [title]="'Mostrar Detalle - ' + orden.numeroOrden"
+                  >
+                    <fa-icon
+                      [icon]="faCircleInfo"
+                      class="fw-bolder fs-5"
+                    ></fa-icon>
+                  </button> -->

@@ -1,4 +1,6 @@
 .gradient-custom {
+  /* background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
+  background: linear-gradient(to left, #6cbdb8, #acdbc6); */
   background: #dcdcdc;
 }
 
@@ -10,6 +12,17 @@ h2 {
 .editBtn {
   border: 1px solid #6cbdb8;
   color: #6cbdb8;
+}
+
+.btnAdd {
+  background-color: #40916c !important;
+  color: white;
+  border: none;
+}
+
+.btnAdd:hover {
+  background-color: #407a52 !important;
+  color: white;
 }
 
 .editBtn:hover {
@@ -25,4 +38,52 @@ h2 {
 .infoBtn:hover {
   background-color: gray;
   color: white;
+}
+
+.table-content {
+  background-color: whitesmoke;
+}
+
+th {
+  background-color: #d1e7dd !important;
+  font-weight: bolder;
+  border-bottom: 2px solid black;
+  margin: 0px;
+  font-size: 1.15em;
+}
+
+td {
+  padding: 0.7em;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+tr:hover {
+  background-color: #dcdcdc;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: end;
+  height: 10vh;
+}
+
+table {
+  margin-bottom: 1em !important;
+}
+
+.tablas_vacias {
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-select {
+  font-size: 14px !important;
+}
+
+.mat-form-field > input {
+  font-size: 12px !important;
+  width: 100px !important;
 }

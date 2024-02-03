@@ -36,7 +36,6 @@ export class ListaOrdenCompraComponent implements OnInit {
     'estado',
     'Funcionalidades',
   ];
-
   ordenesCompra: OrdenCompra[] = [];
   proveedores: Proveedor[] = [];
   mostrarOrdenesActivas: boolean = false;
@@ -53,6 +52,8 @@ export class ListaOrdenCompraComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.listarOrdenes();
+    this.paginatorIntl.getRangeLabel = this.getRangeLabel.bind(this);
+    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
   }
 
   listarOrdenes() {
@@ -60,6 +61,8 @@ export class ListaOrdenCompraComponent implements OnInit {
       .obtenerTodos(this.mostrarOrdenesActivas)
       .subscribe((res) => {
         this.ordenesCompra = res;
+        console.log(this.ordenesCompra);
+
         this.datosTabla = new MatTableDataSource(res);
         this.datosTabla.paginator = this.paginator;
         this.datosTabla.sort = this.sort;
@@ -129,9 +132,20 @@ export class ListaOrdenCompraComponent implements OnInit {
         return (
           orden.numeroOrden.toLowerCase().includes(filtro) ||
           orden.infoRecepcion.toLowerCase().includes(filtro) ||
-          orden.fechaEntrega.toLowerCase().includes(filtro)
+          this.transformarFecha(orden.fechaEntrega).includes(filtro) ||
+          this.transformarFecha(orden.fechaEmision).includes(filtro)
         );
       };
     }
+  }
+
+  transformarFecha(fechaString: string) {
+    const [anio, mes, dia] = fechaString.split('-');
+    return `${dia}/${mes}/${anio}`;
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://img.freepik.com/vector-premium/foto-vacia-sombra-pegada-cinta-adhesiva-ilustracion_87543-3824.jpg';
   }
 }
