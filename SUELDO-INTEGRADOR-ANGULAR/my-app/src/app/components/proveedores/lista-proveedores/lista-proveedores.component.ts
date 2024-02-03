@@ -66,8 +66,6 @@ export class ListaProveedoresComponent implements OnInit {
       .obtenerTodosPorRubroYEstado(Number(this.rubroId), this.mostrarEliminados)
       .subscribe((res) => {
         this.proveedores = res;
-        console.log(this.proveedores);
-
         this.datosTabla = new MatTableDataSource(res);
         this.datosTabla.paginator = this.paginator;
         this.datosTabla.sort = this.sort;

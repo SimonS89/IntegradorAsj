@@ -64,8 +64,6 @@ export class FormOrdenCompraComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(this.ordenCompra);
-
     if (form.valid) {
       this.alertService
         .question(
@@ -244,9 +242,7 @@ export class FormOrdenCompraComponent implements OnInit {
           return EMPTY;
         })
       )
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 
   listarProveedores() {

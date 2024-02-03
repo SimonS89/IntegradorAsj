@@ -19,7 +19,6 @@ export class DetalleProductoComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id')!);
     this.productoService.obtenerPorIdDetalle(id).subscribe((res) => {
       this.producto = res;
-      console.log(this.producto);
     });
   }
 

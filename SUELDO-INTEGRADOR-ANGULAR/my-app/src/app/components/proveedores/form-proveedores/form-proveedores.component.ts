@@ -179,9 +179,7 @@ export class FormProveedoresComponent implements OnInit {
           return EMPTY;
         })
       )
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 
   validarCuit() {
@@ -196,8 +194,6 @@ export class FormProveedoresComponent implements OnInit {
           return EMPTY;
         })
       )
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 }

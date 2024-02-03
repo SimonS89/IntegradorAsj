@@ -141,8 +141,6 @@ export class FormProductosComponent implements OnInit {
           return EMPTY;
         })
       )
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 }

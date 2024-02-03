@@ -30,7 +30,6 @@ export class DetalleProveedorComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id')!);
     this.proveedorService.obtenerPorIdDetalle(id).subscribe((res) => {
       this.proveedor = res;
-      console.log(this.proveedor);
     });
   }
 
