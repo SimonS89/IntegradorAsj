@@ -5,6 +5,7 @@ import com.asj.integrador.dto.response.OrdenCompraResponseDTO;
 import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.service.OrdenCompraService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,13 @@ public class OrdenCompraController {
     }
 
     @PostMapping
-    public ResponseEntity<OrdenCompraResponseDTO> crearOrden(@RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException, ResourceNotFoundException {
+    public ResponseEntity<OrdenCompraResponseDTO> crearOrden(@Valid @RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws AlreadyExistsException, ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(ordenCompraService.crear(ordenCompraRequestDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrdenCompraResponseDTO> actualizarOrden(@PathVariable long id, @RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(ordenCompraService.actualizarOrden(id,ordenCompraRequestDTO));
+    public ResponseEntity<OrdenCompraResponseDTO> actualizarOrden(@PathVariable long id, @Valid @RequestBody OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(ordenCompraService.actualizarOrden(id, ordenCompraRequestDTO));
     }
 
     @GetMapping("/{id}")
@@ -40,7 +41,7 @@ public class OrdenCompraController {
     }
 
     @GetMapping("/estado/{id}")
-    public ResponseEntity<Map<String,String>> cambiarEstadoOrden(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, String>> cambiarEstadoOrden(@PathVariable long id) throws ResourceNotFoundException {
         ordenCompraService.cambiarEstadoOrden(id);
         HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de la orden  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);

@@ -8,6 +8,7 @@ import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.model.TipoIva;
 import com.asj.integrador.service.ProveedorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,12 @@ public class ProveedorController {
     }
 
     @PostMapping
-    public ResponseEntity<ProveedorResponseDTO> crearProveedor(@RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
+    public ResponseEntity<ProveedorResponseDTO> crearProveedor(@Valid @RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(proveedorService.crearProveedor(proveedorDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProveedorResponseDTO> actualizarProveedor(@PathVariable long id, @RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
+    public ResponseEntity<ProveedorResponseDTO> actualizarProveedor(@PathVariable long id, @Valid @RequestBody ProveedorDTO proveedorDTO) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(proveedorService.actualizarProveedor(id, proveedorDTO));
     }
 
@@ -68,7 +69,7 @@ public class ProveedorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String,String>> eliminarActivarProveedor(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, String>> eliminarActivarProveedor(@PathVariable long id) throws ResourceNotFoundException {
         proveedorService.eliminadoLogico(id);
         HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de eliminado del proveedor  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);

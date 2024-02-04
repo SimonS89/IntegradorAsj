@@ -70,9 +70,7 @@ export class FormProductosComponent implements OnInit {
           if (res) {
             this.id ? this.editarProducto() : this.crearProducto();
             this.alertService.notification(
-              `Producto, ${
-                this.producto.nombre ? 'editado' : 'Generado'
-              } exitosamente.`,
+              `Producto, ${this.id ? 'editado' : 'generado'} exitosamente.`,
               'success'
             );
           }

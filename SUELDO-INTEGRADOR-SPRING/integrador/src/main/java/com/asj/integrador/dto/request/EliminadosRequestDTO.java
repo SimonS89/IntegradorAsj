@@ -13,4 +13,5 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EliminadosRequestDTO {
     private boolean eliminados;
+
 }

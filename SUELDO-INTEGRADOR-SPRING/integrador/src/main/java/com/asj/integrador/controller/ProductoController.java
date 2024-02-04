@@ -5,6 +5,7 @@ import com.asj.integrador.dto.response.ProductoResponseDTO;
 import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
 import com.asj.integrador.service.ProductoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,12 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductoResponseDTO> crearProducto(@RequestBody ProductoDTO productoDTO) throws AlreadyExistsException, ResourceNotFoundException {
+    public ResponseEntity<ProductoResponseDTO> crearProducto(@Valid @RequestBody ProductoDTO productoDTO) throws AlreadyExistsException, ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.crearProducto(productoDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductoResponseDTO> actualizarProducto(@PathVariable long id, @RequestBody ProductoDTO productoDTO) throws ResourceNotFoundException {
+    public ResponseEntity<ProductoResponseDTO> actualizarProducto(@PathVariable long id, @Valid @RequestBody ProductoDTO productoDTO) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(productoService.actualizarProducto(id, productoDTO));
     }
 
@@ -64,7 +65,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String,String>> eliminarActivarProducto(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, String>> eliminarActivarProducto(@PathVariable long id) throws ResourceNotFoundException {
         productoService.eliminadoLogico(id);
         HashMap<String, String> resp = new HashMap<>(Map.of("mensaje", "Modificado el estado de eliminado del producto  " + id));
         return ResponseEntity.status(HttpStatus.OK).body(resp);

@@ -50,8 +50,8 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     }
 
     @Override
-    public OrdenCompraResponseDTO actualizarOrden(long id,OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException {
-      OrdenCompra ordenCompra = obtenerOrdenSiExiste(id);
+    public OrdenCompraResponseDTO actualizarOrden(long id, OrdenCompraRequestDTO ordenCompraRequestDTO) throws ResourceNotFoundException {
+        OrdenCompra ordenCompra = obtenerOrdenSiExiste(id);
         ordenCompra.setInfoRecepcion(ordenCompraRequestDTO.getInfoRecepcion());
         ordenCompra.setFechaEntrega(ordenCompraRequestDTO.getFechaEntrega());
         ordenCompra.setInfoAdicional(ordenCompraRequestDTO.getInfoAdicional());

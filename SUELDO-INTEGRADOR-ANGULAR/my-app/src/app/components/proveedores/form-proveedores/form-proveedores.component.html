@@ -149,7 +149,7 @@
             (error)="handleImageError($event)"
           />
           <div class="col-auto" *ngIf="logo.errors?.['pattern'] ||logo.errors">
-            <span class="form-text">Formato URL inválida.</span>
+            <span class="form-text">Formato URL inválido.</span>
           </div>
         </div>
         <h5 class="text-start mt-3 mb-0">Información de contacto:</h5>
@@ -171,7 +171,7 @@
             class="col-auto"
             *ngIf="sitioWeb.errors?.['pattern'] || sitioWeb.errors"
           >
-            <span class="form-text">Formato URL válida.</span>
+            <span class="form-text">Formato URL inválido.</span>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">

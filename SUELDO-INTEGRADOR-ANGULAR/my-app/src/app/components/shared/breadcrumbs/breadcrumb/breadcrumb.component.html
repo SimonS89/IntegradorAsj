@@ -1,1 +1,25 @@
-<p>breadcrumb works!</p>
+<section class="content-header" *ngIf="titulo != 'Home' && titulo != undefined">
+  <div class="container-fluid">
+    <div class="row mb-2 justify-content-between">
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <a routerLink="/index">Inicio</a>
+          </li>
+          <li *ngIf="titulo !== 'Home'" class="breadcrumb-item active">
+            {{ titulo }}
+          </li>
+          <li
+            *ngIf="titulo === 'Dashboard'"
+            class="breadcrumb-item active"
+          ></li>
+        </ol>
+      </div>
+      <div class="col-sm-2" *ngIf="titulo != 'Home'">
+        <button class="btn btn-sm fw-bold btn-primary" (click)="volverAtras()">
+          Volver
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
