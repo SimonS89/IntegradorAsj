@@ -40,6 +40,7 @@ import { DetalleProductoComponent } from './components/productos/detalle-product
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
 import { BreadcrumbComponent } from './components/shared/breadcrumbs/breadcrumb/breadcrumb.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { BreadcrumbComponent } from './components/shared/breadcrumbs/breadcrumb/
     DetalleProductoComponent,
     DetalleProveedorComponent,
     BreadcrumbComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,

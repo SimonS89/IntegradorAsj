@@ -14,4 +14,5 @@ import lombok.Setter;
 public class RubroResponseDTO {
     private long id;
     private String rubro;
+    private boolean eliminado;
 }

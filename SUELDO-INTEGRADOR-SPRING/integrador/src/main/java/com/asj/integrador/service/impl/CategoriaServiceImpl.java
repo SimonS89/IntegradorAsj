@@ -84,8 +84,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public void eliminadoLogico(Long id) throws ResourceNotFoundException {
+    public void eliminadoLogico(Long id) throws ResourceNotFoundException, AlreadyExistsException {
         Categoria categoria = obtenerCategoriaSiExiste(id);
+        if (categoriaRepository.countProductosByCategoriaId(id) > 0)
+            throw new AlreadyExistsException("La categoria tiene productos asociados.");
         categoria.setEliminado(!categoria.isEliminado());
         categoriaRepository.save(categoria);
     }

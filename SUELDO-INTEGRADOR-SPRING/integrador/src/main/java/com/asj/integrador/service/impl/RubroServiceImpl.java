@@ -83,8 +83,10 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
-    public void eliminadoLogico(Long id) throws ResourceNotFoundException {
+    public void eliminadoLogico(Long id) throws ResourceNotFoundException, AlreadyExistsException {
         Rubro rubro = obtenerRubroSiExiste(id);
+        if (rubroRepository.countProveedoresByRubroId(id) > 0)
+            throw new AlreadyExistsException("El rubro tiene proveedores asociados.");
         rubro.setEliminado(!rubro.isEliminado());
         rubroRepository.save(rubro);
     }
@@ -97,8 +99,7 @@ public class RubroServiceImpl implements RubroService {
     public void defaultData() {
         if (rubroRepository.count() == 0) {
             List<String> rubros = new ArrayList<>(Arrays.asList("Tecnología", "Alimentación", "Moda", "Salud", "Educación"));
-            if (rubroRepository.count() == 0)
-                rubroRepository.saveAll(rubros.stream().map(Rubro::new).toList());
+            if (rubroRepository.count() == 0) rubroRepository.saveAll(rubros.stream().map(Rubro::new).toList());
         }
     }
 }

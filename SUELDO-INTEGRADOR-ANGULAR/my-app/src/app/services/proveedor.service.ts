@@ -157,12 +157,14 @@ export class ProveedorService {
   }
 
   public obtenerRubros(): Observable<Rubro[]> {
-    return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`).pipe(
-      catchError((error) => {
-        console.error('Error al realizar la solicitud HTTP:', error);
-        throw error;
-      })
-    );
+    return this.http
+      .get<Rubro[]>(`${environment.apiUrl}/admin/rubros-activos`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
   }
 
   public obtenerTiposIva(): Observable<TipoIva[]> {

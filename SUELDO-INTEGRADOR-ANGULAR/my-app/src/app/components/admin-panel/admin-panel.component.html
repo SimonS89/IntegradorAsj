@@ -1,0 +1,53 @@
+<div class="gradient-custom rounded-5 shadow-lg pb-5" style="min-height: 60vh">
+  <div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-sm-10">
+      <h2 class="mt-4">Panel Administrador</h2>
+      <div class="row justify-content-center mb-3 mt-4 align-items-center">
+        <a
+          (click)="agregarRubro()"
+          type="button"
+          class="btnAdd fw-bolder col-3 btn col-10 col-md-3 mb-3 shadow"
+        >
+          <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
+          ><span>Agregar Rubro</span>
+        </a>
+        <ul class="d-block">
+          <li class="d-inline-block" *ngFor="let rubro of rubros">
+            <span>{{ rubro.rubro }}</span
+            ><button
+              (click)="eliminarRubro(rubro)"
+              class="btn btn-sm"
+              [ngClass]="rubro.eliminado ? 'btn-primary' : 'btn-danger'"
+            >
+              x
+            </button>
+            |
+          </li>
+        </ul>
+        <a
+          (click)="agregarCategoria()"
+          type="button"
+          class="btnAdd fw-bolder mt-5 col-3 btn col-10 col-md-3 mb-3 shadow"
+        >
+          <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
+          ><span>Agregar Categoria</span>
+        </a>
+        <ul class="d-block">
+          <li class="d-inline-block" *ngFor="let categoria of categorias">
+            <span (dblclick)="agregarCategoria(categoria)">{{
+              categoria.categoria
+            }}</span
+            ><button
+              (click)="eliminarCategoria(categoria)"
+              class="btn btn-sm"
+              [ngClass]="categoria.eliminado ? 'btn-primary' : 'btn-danger'"
+            >
+              x
+            </button>
+            |
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

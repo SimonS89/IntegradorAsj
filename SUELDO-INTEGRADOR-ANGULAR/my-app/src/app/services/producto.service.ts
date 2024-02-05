@@ -123,7 +123,7 @@ export class ProductoService {
 
   obtenerCategorias(): Observable<Categoria[]> {
     return this.http
-      .get<Categoria[]>(`${environment.apiUrl}/admin/categorias`)
+      .get<Categoria[]>(`${environment.apiUrl}/admin/categorias-activas`)
       .pipe(
         catchError((error) => {
           console.error('Error al realizar la solicitud HTTP:', error);

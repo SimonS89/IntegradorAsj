@@ -23,6 +23,7 @@ export interface Producto {
 }
 
 export interface Categoria {
-  id: number;
+  id?: number;
   categoria: string;
+  eliminado?: boolean;
 }

@@ -75,6 +75,7 @@ export interface Pais {
 }
 
 export interface Rubro {
-  id: number;
+  id?: number;
   rubro: string;
+  eliminado?: boolean;
 }

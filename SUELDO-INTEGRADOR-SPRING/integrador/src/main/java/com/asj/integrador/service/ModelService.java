@@ -18,5 +18,5 @@ public interface ModelService<T, K> {
 
     void eliminar(Long id) throws ResourceNotFoundException;
 
-    void eliminadoLogico(Long id) throws ResourceNotFoundException;
+    void eliminadoLogico(Long id) throws ResourceNotFoundException, AlreadyExistsException;
 }

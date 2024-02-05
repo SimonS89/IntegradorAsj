@@ -15,4 +15,5 @@ public class CategoriaResponseDTO {
 
     private long id;
     private String categoria;
+    private boolean eliminado;
 }

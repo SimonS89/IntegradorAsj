@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
 import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, title: 'ASJ Login' },
@@ -21,6 +22,12 @@ const routes: Routes = [
     component: IndexComponent,
     title: 'ASJ Servicios',
     data: { titulo: 'Home' },
+  },
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
+    title: 'Panel Administrador',
+    data: { titulo: 'Panel Administrador' },
   },
   {
     path: 'proveedores',
