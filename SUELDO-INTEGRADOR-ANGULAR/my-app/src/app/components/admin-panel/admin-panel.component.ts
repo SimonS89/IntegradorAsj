@@ -39,15 +39,15 @@ export class AdminPanelComponent implements OnInit {
 
   listarCategorias() {
     this.adminService.obtenerCategorias().subscribe((res) => {
-      this.categorias = res;
-      console.log(this.categorias);
+      this.categorias = res.sort((a, b) =>
+        a.categoria.localeCompare(b.categoria)
+      );
     });
   }
 
   listarRubros() {
     this.adminService.obtenerRubros().subscribe((res) => {
-      this.rubros = res;
-      console.log(this.rubros);
+      this.rubros = res.sort((a, b) => a.rubro.localeCompare(b.rubro));
     });
   }
 
@@ -91,16 +91,10 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
-  agregarCategoria(categoriaSeleccionada?: Categoria) {
-    console.log(categoriaSeleccionada);
-
+  agregarCategoria() {
     Swal.fire({
       title: 'Ingrese la Categoria',
       input: 'text',
-      inputValue: categoriaSeleccionada ? categoriaSeleccionada.categoria : '',
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
       showCancelButton: true,
       confirmButtonText: 'Enviar',
       cancelButtonText: 'Cancelar',
@@ -131,6 +125,81 @@ export class AdminPanelComponent implements OnInit {
               icon: 'success',
             });
             this.listarCategorias();
+          });
+      },
+    });
+  }
+
+  actualizarCategoria(categoria: Categoria) {
+    Swal.fire({
+      title: 'Editar Categoria',
+      input: 'text',
+      inputValue: categoria.categoria,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      showLoaderOnConfirm: true,
+      preConfirm: async (nuevaCategoria) => {
+        this.adminService
+          .actualizarCategoria(categoria.id!, { categoria: nuevaCategoria })
+          .pipe(
+            catchError((error: any) => {
+              Swal.fire({
+                title: `${
+                  error.error.errorMessage
+                    ? error.error.errorMessage
+                    : error.error.categoria
+                }`,
+                icon: 'error',
+              });
+              return EMPTY;
+            })
+          )
+          .subscribe((response) => {
+            Swal.fire({
+              title: `Categoria ${categoria.categoria} actualizada a ${nuevaCategoria} con éxito!`,
+              icon: 'success',
+            });
+            this.listarCategorias();
+          });
+      },
+    });
+  }
+
+  actualizarRubro(rubro: Rubro) {
+    Swal.fire({
+      title: 'Editar Rubro',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
+      },
+      inputValue: rubro.rubro,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      showLoaderOnConfirm: true,
+      preConfirm: async (nuevoRubro) => {
+        this.adminService
+          .actualizarRubro(rubro.id!, { rubro: nuevoRubro })
+          .pipe(
+            catchError((error: any) => {
+              Swal.fire({
+                title: `${
+                  error.error.errorMessage
+                    ? error.error.errorMessage
+                    : error.error.rubro
+                }`,
+                icon: 'error',
+              });
+              return EMPTY;
+            })
+          )
+          .subscribe((response) => {
+            Swal.fire({
+              title: `Rubro ${rubro.rubro} actualizado a ${nuevoRubro} con éxito!`,
+              icon: 'success',
+            });
+            this.listarRubros();
           });
       },
     });

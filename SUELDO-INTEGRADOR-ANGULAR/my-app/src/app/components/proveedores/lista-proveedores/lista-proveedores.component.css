@@ -1,6 +1,4 @@
 .gradient-custom {
-  /* background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6); */
   background: #dcdcdc;
 }
 
@@ -54,7 +52,7 @@ th {
 
 td {
   padding: 0.7em;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.15em;
 }
 

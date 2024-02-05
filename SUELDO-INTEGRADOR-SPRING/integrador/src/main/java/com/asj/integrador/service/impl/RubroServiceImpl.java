@@ -69,8 +69,10 @@ public class RubroServiceImpl implements RubroService {
     }
 
     @Override
-    public RubroResponseDTO actualizar(long id, RubroRequestDTO rubroRequestDTO) throws ResourceNotFoundException {
+    public RubroResponseDTO actualizar(long id, RubroRequestDTO rubroRequestDTO) throws ResourceNotFoundException, AlreadyExistsException {
         obtenerRubroSiExiste(id);
+        Optional<Rubro> rubroEncontrado = rubroRepository.findByRubroIgnoreCase(rubroRequestDTO.getRubro());
+        if(rubroEncontrado.isPresent())throw new AlreadyExistsException("Rubro existente");
         Rubro rubroActualizado = mapper.map(rubroRequestDTO, Rubro.class);
         rubroActualizado.setId(id);
         return mapper.map(rubroRepository.save(rubroActualizado), RubroResponseDTO.class);

@@ -1,10 +1,58 @@
 nav,
 ul {
-  background-color: whitesmoke;
+  background-color: #2e3f4c;
 }
 
 a,
 span,
 fa-icon {
-  color: #2e3f4c;
+  color: whitesmoke;
+}
+
+.nav-link {
+  color: whitesmoke !important;
+}
+
+.active {
+  color: #f17e27 !important;
+  background-color: #2e3f4c !important;
+}
+
+.nav-item > .nav-link:hover {
+  color: whitesmoke !important;
+}
+
+.dropdown-item:active {
+  background-color: whitesmoke !important;
+  color: #2e3f4c !important;
+}
+
+.underline > .nav-link {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+}
+
+.underline > .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  border-radius: 5px;
+  height: 0.05em;
+  bottom: 0;
+  left: 0;
+  background: currentcolor;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.underline > .nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.navbar-toggler {
+  color: whitesmoke !important;
+  background-color: whitesmoke;
 }

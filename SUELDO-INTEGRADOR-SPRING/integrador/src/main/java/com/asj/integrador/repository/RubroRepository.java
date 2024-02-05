@@ -17,4 +17,5 @@ public interface RubroRepository extends JpaRepository<Rubro, Long> {
     List<Rubro> findByEliminado(boolean eliminado);
     @Query("SELECT COUNT(p) FROM Proveedor p WHERE p.rubro.id = ?1")
     Long countProveedoresByRubroId(Long rubroId);
+
 }

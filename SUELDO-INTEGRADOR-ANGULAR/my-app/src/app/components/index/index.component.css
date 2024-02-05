@@ -9,7 +9,7 @@ a:hover {
 }
 
 .why-us .content {
-  padding: 60px 100px 0 100px;
+  padding: 6vh 6vw 0 6vw;
 }
 
 .why-us .content h3 {
@@ -36,7 +36,7 @@ a:hover {
 }
 
 .why-us .accordion-list {
-  padding: 0 100px 60px 100px;
+  padding: 0 6vw 6vh 6vw;
 }
 
 .why-us .accordion-list ul {

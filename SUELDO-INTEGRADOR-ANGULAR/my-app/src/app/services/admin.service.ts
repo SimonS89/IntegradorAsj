@@ -34,6 +34,28 @@ export class AdminService {
       );
   }
 
+  actualizarCategoria(id: number, categoria: Categoria) {
+    return this.http
+      .put<Categoria>(`${environment.apiUrl}/admin/categorias/${id}`, categoria)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
+  actualizarRubro(id: number, rubro: Rubro) {
+    return this.http
+      .put<Rubro>(`${environment.apiUrl}/admin/rubros/${id}`, rubro)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
   public obtenerRubros(): Observable<Rubro[]> {
     return this.http.get<Rubro[]>(`${environment.apiUrl}/admin/rubros`).pipe(
       catchError((error) => {

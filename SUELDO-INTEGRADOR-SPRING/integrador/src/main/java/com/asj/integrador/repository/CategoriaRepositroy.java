@@ -15,4 +15,5 @@ public interface CategoriaRepositroy extends JpaRepository<Categoria, Long> {
     List<Categoria> findByEliminado(boolean eliminado);
     @Query("SELECT COUNT(p) FROM Producto p WHERE p.categoria.id = ?1")
     Long countProductosByCategoriaId(Long categoriaId);
+
 }

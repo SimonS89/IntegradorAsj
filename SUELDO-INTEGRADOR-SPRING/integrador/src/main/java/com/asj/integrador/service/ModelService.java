@@ -14,7 +14,7 @@ public interface ModelService<T, K> {
 
     List<K> listarTodo() throws ResourceNotFoundException;
 
-    K actualizar(long id, T t) throws ResourceNotFoundException;
+    K actualizar(long id, T t) throws ResourceNotFoundException, AlreadyExistsException;
 
     void eliminar(Long id) throws ResourceNotFoundException;
 

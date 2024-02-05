@@ -15,7 +15,6 @@ export class BreadcrumbComponent implements OnDestroy {
     this.tituloSubs$ = this.obtenerArgumentos().subscribe(({ titulo }) => {
       this.titulo = titulo;
       document.title = `ASJ - ${titulo}`;
-      console.log(titulo);
     });
   }
   ngOnDestroy(): void {

@@ -1,52 +1,75 @@
 <div class="gradient-custom rounded-5 shadow-lg pb-5" style="min-height: 60vh">
   <div class="row d-flex flex-column justify-content-center align-items-center">
     <div class="col-sm-10">
-      <h2 class="mt-4">Panel Administrador</h2>
-      <div class="row justify-content-center mb-3 mt-4 align-items-center">
-        <a
-          (click)="agregarRubro()"
-          type="button"
-          class="btnAdd fw-bolder col-3 btn col-10 col-md-3 mb-3 shadow"
-        >
-          <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
-          ><span>Agregar Rubro</span>
-        </a>
-        <ul class="d-block">
-          <li class="d-inline-block" *ngFor="let rubro of rubros">
-            <span>{{ rubro.rubro }}</span
-            ><button
-              (click)="eliminarRubro(rubro)"
-              class="btn btn-sm"
-              [ngClass]="rubro.eliminado ? 'btn-primary' : 'btn-danger'"
-            >
-              x
-            </button>
-            |
-          </li>
-        </ul>
-        <a
-          (click)="agregarCategoria()"
-          type="button"
-          class="btnAdd fw-bolder mt-5 col-3 btn col-10 col-md-3 mb-3 shadow"
-        >
-          <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
-          ><span>Agregar Categoria</span>
-        </a>
-        <ul class="d-block">
-          <li class="d-inline-block" *ngFor="let categoria of categorias">
-            <span (dblclick)="agregarCategoria(categoria)">{{
-              categoria.categoria
-            }}</span
-            ><button
-              (click)="eliminarCategoria(categoria)"
-              class="btn btn-sm"
-              [ngClass]="categoria.eliminado ? 'btn-primary' : 'btn-danger'"
-            >
-              x
-            </button>
-            |
-          </li>
-        </ul>
+      <div class="row justify-content-center mb-3 mt-4 align-items-start">
+        <div class="col-md-6 col-sm-12">
+          <a
+            (click)="agregarRubro()"
+            type="button"
+            class="btnAdd fw-bolder mt-5 mb-5 btn btn-sm col-10 col-md-5 mb-3 shadow"
+          >
+            <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
+            ><span>Agregar Rubro</span>
+          </a>
+          <ul class="d-block">
+            <li class="d-inline-block" *ngFor="let rubro of rubros">
+              <button
+                type="button"
+                class="btn btn-sm fw-normal btn-light mb-3 position-relative me-3"
+                (dblclick)="actualizarRubro(rubro)"
+                title="Doble click para editar"
+              >
+                {{ rubro.rubro }}
+                <span
+                  (click)="eliminarRubro(rubro)"
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
+                  [ngClass]="rubro.eliminado ? 'bg-primary' : 'bg-danger'"
+                  [title]="
+                    !rubro.eliminado
+                      ? 'Eliminar rubro - ' + rubro.rubro
+                      : 'Activar rubro - ' + rubro.rubro
+                  "
+                >
+                  {{ rubro.eliminado ? "✔" : "x" }}
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <a
+            (click)="agregarCategoria()"
+            type="button"
+            class="btnAdd fw-bolder mt-5 mb-5 btn btn-sm col-10 col-md-5 mb-3 shadow"
+          >
+            <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
+            ><span>Agregar Categoria</span>
+          </a>
+          <ul class="d-block">
+            <li class="d-inline-block" *ngFor="let categoria of categorias">
+              <button
+                type="button"
+                class="btn btn-sm fw-normal btn-light position-relative me-3 mb-3"
+                (dblclick)="actualizarCategoria(categoria)"
+                title="Doble click para editar"
+              >
+                {{ categoria.categoria }}
+                <span
+                  (click)="eliminarCategoria(categoria)"
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
+                  [ngClass]="categoria.eliminado ? 'bg-primary' : 'bg-danger'"
+                  [title]="
+                    !categoria.eliminado
+                      ? 'Eliminar categoria - ' + categoria.categoria
+                      : 'Activar categoria - ' + categoria.categoria
+                  "
+                >
+                  {{ categoria.eliminado ? "✔" : "x" }}
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

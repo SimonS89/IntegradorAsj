@@ -24,7 +24,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
+        <li class="nav-item underline dropdown">
           <a
             class="nav-link"
             href="#"
@@ -32,6 +32,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            [ngClass]="rutaActual.includes('proveedores') ? 'active' : ''"
           >
             Proveedores
           </a>
@@ -50,7 +51,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown underline">
           <a
             class="nav-link"
             href="#"
@@ -58,6 +59,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            [ngClass]="rutaActual.includes('productos') ? 'active' : ''"
           >
             Productos y Servicios
           </a>
@@ -76,7 +78,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown underline">
           <a
             class="nav-link"
             href="#"
@@ -84,6 +86,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            [ngClass]="rutaActual.includes('ordenes') ? 'active' : ''"
           >
             Ordenes de compra
           </a>
@@ -104,12 +107,13 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item underline">
           <a
             class="nav-link"
             [routerLink]="['/admin-panel']"
             role="button"
             aria-expanded="false"
+            [ngClass]="rutaActual.includes('admin') ? 'active' : ''"
           >
             Panel administrador
           </a>

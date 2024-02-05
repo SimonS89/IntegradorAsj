@@ -70,8 +70,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public CategoriaResponseDTO actualizar(long id, CategoriaRequestDTO categoriaRequestDTO) throws ResourceNotFoundException {
+    public CategoriaResponseDTO actualizar(long id, CategoriaRequestDTO categoriaRequestDTO) throws ResourceNotFoundException, AlreadyExistsException {
         obtenerCategoriaSiExiste(id);
+        Optional<Categoria> categoriaEncontrada = categoriaRepository.findByCategoriaIgnoreCase(categoriaRequestDTO.getCategoria());
+        if(categoriaEncontrada.isPresent())throw new AlreadyExistsException("Categoria existente");
         Categoria categoriaActualizada = mapper.map(categoriaRequestDTO, Categoria.class);
         categoriaActualizada.setId(id);
         return mapper.map(categoriaRepository.save(categoriaActualizada), CategoriaResponseDTO.class);

@@ -1,0 +1,13 @@
+.gradient-custom {
+  background: #dcdcdc;
+}
+.btnAdd {
+  background-color: #40916c !important;
+  color: white;
+  border: none;
+}
+
+.btnAdd:hover {
+  background-color: #407a52 !important;
+  color: white;
+}
