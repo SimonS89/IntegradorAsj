@@ -13,6 +13,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { DetalleProductoComponent } from './components/productos/detalle-producto/detalle-producto.component';
 import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, title: 'ASJ Login' },
@@ -22,15 +24,18 @@ const routes: Routes = [
     component: IndexComponent,
     title: 'ASJ Servicios',
     data: { titulo: 'Home' },
+    canActivate: [authGuard],
   },
   {
     path: 'admin-panel',
     component: AdminPanelComponent,
     title: 'Panel Administrador',
     data: { titulo: 'Panel Administrador' },
+    canActivate: [authGuard],
   },
   {
     path: 'proveedores',
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -60,6 +65,7 @@ const routes: Routes = [
   },
   {
     path: 'productos',
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -89,6 +95,7 @@ const routes: Routes = [
   },
   {
     path: 'ordenes-compra',
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -116,6 +123,7 @@ const routes: Routes = [
       },
     ],
   },
+  { path: '**', component: NotFoundComponent, title: 'Not Found' },
 ];
 
 @NgModule({

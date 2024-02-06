@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,11 @@ export class NavbarComponent implements OnInit {
   user: string = '';
   rutaActual: string = '';
 
-  constructor(private router: Router, public alertService: AlertService) {}
+  constructor(
+    private router: Router,
+    public alertService: AlertService,
+    public authService: AuthService
+  ) {}
   ngOnInit(): void {
     this.user = localStorage.getItem('user')!;
     this.router.events.subscribe((event) => {
@@ -35,7 +40,7 @@ export class NavbarComponent implements OnInit {
       )
       .then((res) => {
         if (res) {
-          this.router.navigate(['']);
+          this.authService.logout();
         }
       });
   }

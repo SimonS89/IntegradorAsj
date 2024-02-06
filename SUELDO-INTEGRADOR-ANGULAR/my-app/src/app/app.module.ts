@@ -41,6 +41,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DetalleProveedorComponent } from './components/proveedores/detalle-proveedor/detalle-proveedor.component';
 import { BreadcrumbComponent } from './components/shared/breadcrumbs/breadcrumb/breadcrumb.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     DetalleProveedorComponent,
     BreadcrumbComponent,
     AdminPanelComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

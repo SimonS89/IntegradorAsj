@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,23 +13,20 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   username!: string;
   password!: string;
-  usuario: string = 'user1';
-  contrasena: string = 'user1';
   faeye = faEye;
   mostrarPassword: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public authService: AuthService) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      if (this.username === this.usuario && this.contrasena === this.password) {
+      if (this.authService.login(this.username, this.password)) {
         Swal.fire({
           title: 'Bienvenido/a a ASJ servicios',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          localStorage.setItem('user', this.username);
           this.router.navigate(['index']);
         });
       } else {
