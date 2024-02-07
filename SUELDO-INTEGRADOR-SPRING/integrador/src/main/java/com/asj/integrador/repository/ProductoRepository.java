@@ -4,6 +4,7 @@ import com.asj.integrador.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByProveedorIdAndEliminadoFalse(Long proveedorId);
 
     List<Producto> findByProveedorId(long id);
-
+    int countByFechaCreacionRegistroAfter(LocalDateTime fechaLimite);
     List<Producto> findByCategoriaIdAndEliminado(Long categoriaId, boolean eliminado);
 }

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { DashBoard } from '../models/DashBoard';
 
 @Injectable({
   providedIn: 'root',
@@ -94,5 +95,16 @@ export class AdminService {
         throw error;
       })
     );
+  }
+
+  public obtenerInfoDashboard(): Observable<DashBoard> {
+    return this.http
+      .get<DashBoard>(`${environment.apiUrl}/admin/dashboard`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
   }
 }

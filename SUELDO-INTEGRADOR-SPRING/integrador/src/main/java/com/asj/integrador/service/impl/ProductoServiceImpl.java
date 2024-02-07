@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,6 +102,16 @@ public class ProductoServiceImpl implements ProductoService {
         Optional<Producto> producto = productoRepository.findBySku(sku);
         if (producto.isPresent()) throw new AlreadyExistsException("SKU existente.");
         return mapper.map(producto, ProductoResponseDTO.class);
+    }
+
+    @Override
+    public int obtenerTotalProductos() {
+        return (int) productoRepository.count();
+    }
+
+    @Override
+    public int obtenerProductosCreadosUltimoMes() {
+        return productoRepository.countByFechaCreacionRegistroAfter(LocalDateTime.now().minusDays(30));
     }
 
     private List<ProductoResponseDTO> productosAProductosResponseDTO(List<Producto> productos) throws ResourceNotFoundException {

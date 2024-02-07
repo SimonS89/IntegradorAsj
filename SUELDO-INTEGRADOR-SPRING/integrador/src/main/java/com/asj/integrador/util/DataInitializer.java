@@ -15,14 +15,16 @@ public class DataInitializer {
     private final RubroService rubroService;
     private final CategoriaService categoriaService;
     private final RolUsuarioService rolService;
+    private final EmailService emailService;
     Logger logger = LoggerFactory.getLogger(DataInitializer.class);
 
-    public DataInitializer(PaisService paisService, TipoIvaService tipoIvaService, RubroService rubroService, CategoriaService categoriaService, RolUsuarioService rolService) {
+    public DataInitializer(PaisService paisService, TipoIvaService tipoIvaService, RubroService rubroService, CategoriaService categoriaService, RolUsuarioService rolService, EmailService emailService) {
         this.paisService = paisService;
         this.tipoIvaService = tipoIvaService;
         this.rubroService = rubroService;
         this.categoriaService = categoriaService;
         this.rolService = rolService;
+        this.emailService = emailService;
     }
 
     @EventListener(ApplicationReadyEvent.class)

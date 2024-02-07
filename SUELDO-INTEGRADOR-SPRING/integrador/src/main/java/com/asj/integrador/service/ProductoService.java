@@ -27,4 +27,8 @@ public interface ProductoService {
     void eliminadoLogico(long id) throws ResourceNotFoundException;
 
     ProductoResponseDTO validarSkuExistente(String sku) throws AlreadyExistsException;
+
+    int obtenerTotalProductos();
+
+    int obtenerProductosCreadosUltimoMes();
 }

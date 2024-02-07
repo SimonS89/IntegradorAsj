@@ -103,11 +103,14 @@
             <div class="card-body">
               <blockquote class="px-3 pt-2">
                 <h2 class="text-start">Proveedores</h2>
-                <p class="mb-0 font-italic fs-2 text-end">10</p>
+                <p class="mb-0 font-italic fs-2 text-end">
+                  {{ dashboard.cantProveedores }}
+                </p>
                 <p class="mb-0 mt-3 font-italic text-center">
                   <span>
                     <fa-icon [icon]="faUsers" class="me-1 fs-5"></fa-icon
-                    >Productos por proveedor: 25</span
+                    >Creados último mes:
+                    {{ dashboard.provCreadosUltimoMes }}</span
                   >
                 </p>
               </blockquote>
@@ -117,11 +120,14 @@
             <div class="card-body">
               <blockquote class="px-3 pt-2">
                 <h2 class="text-start">Productos</h2>
-                <p class="mb-0 mt-1 font-italic fs-2 text-end">32</p>
+                <p class="mb-0 mt-1 font-italic fs-2 text-end">
+                  {{ dashboard.cantProductos }}
+                </p>
                 <p class="mb-0 mt-3 font-italic text-center">
                   <span>
                     <fa-icon [icon]="faCartShopping" class="me-1 fs-5"></fa-icon
-                    >Precio promedio: $125</span
+                    >Creados último mes:
+                    {{ dashboard.prodCreadosUltimoMes }}</span
                   >
                 </p>
               </blockquote>
@@ -131,19 +137,22 @@
             <div class="card-body">
               <blockquote class="px-3 pt-2">
                 <h2 class="text-start">Ordenes de compra</h2>
-                <p class="mb-0 mt-1 font-italic fs-2 text-end">45</p>
+                <p class="mb-0 mt-1 font-italic fs-2 text-end">
+                  {{ dashboard.cantOrdenesCompra }}
+                </p>
                 <p class="mb-0 mt-3 font-italic text-center">
                   <span class="d-block mb-1">
                     <fa-icon [icon]="faCoins" class="me-1 fs-5"></fa-icon>Ticket
-                    promedio: $25</span
-                  >
+                    promedio: {{ dashboard.ticketPromedio | currency : "USD" }}
+                  </span>
 
                   <span class="d-block"
                     ><fa-icon
                       [icon]="faArrowUpWideShort"
                       class="me-1 fs-5"
                     ></fa-icon
-                    >Prod promedio por ticket: 65</span
+                    >Prod promedio por ticket:
+                    {{ dashboard.prodPromedioTicket.toFixed(2) }}</span
                   >
                 </p>
               </blockquote>

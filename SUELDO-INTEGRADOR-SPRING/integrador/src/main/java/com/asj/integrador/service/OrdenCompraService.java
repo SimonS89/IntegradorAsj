@@ -1,6 +1,7 @@
 package com.asj.integrador.service;
 
 import com.asj.integrador.dto.request.OrdenCompraRequestDTO;
+import com.asj.integrador.dto.response.DashboardResponseDTO;
 import com.asj.integrador.dto.response.OrdenCompraResponseDTO;
 import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
@@ -17,6 +18,8 @@ public interface OrdenCompraService {
     OrdenCompraResponseDTO buscarPorId(long id) throws ResourceNotFoundException;
 
     void cambiarEstadoOrden(long id) throws ResourceNotFoundException;
+
+    DashboardResponseDTO obtenerInfoDashboard();
 
     List<OrdenCompraResponseDTO> listarOrdenesFiltradas(boolean activas) throws ResourceNotFoundException;
 

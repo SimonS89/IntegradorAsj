@@ -39,4 +39,8 @@ public interface ProveedorService {
     ProveedorResponseDTO validarCodigoExistente(String codigo) throws AlreadyExistsException;
 
     ProveedorResponseDTO validarCuitExistente(String cuit) throws AlreadyExistsException;
+
+    int obtenerTotalProveedores();
+
+    int obtenerProveedoresCreadosUltimoMes();
 }

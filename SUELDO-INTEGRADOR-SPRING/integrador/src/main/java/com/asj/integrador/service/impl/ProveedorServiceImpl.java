@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -127,6 +128,16 @@ public class ProveedorServiceImpl implements ProveedorService {
         Optional<Proveedor> proveedor = proveedorRepository.findByCuit(cuit);
         if (proveedor.isPresent()) throw new AlreadyExistsException("CUIT existente.");
         return mapper.map(proveedor, ProveedorResponseDTO.class);
+    }
+
+    @Override
+    public int obtenerTotalProveedores(){
+        return (int)proveedorRepository.count();
+    }
+
+    @Override
+    public int obtenerProveedoresCreadosUltimoMes(){
+        return proveedorRepository.countByFechaCreacionRegistroAfter(LocalDateTime.now().minusDays(30));
     }
 
     private List<ProveedorResponseDTO> proveedoresAProveedoresResponseDTO(List<Proveedor> proveedores) throws ResourceNotFoundException {

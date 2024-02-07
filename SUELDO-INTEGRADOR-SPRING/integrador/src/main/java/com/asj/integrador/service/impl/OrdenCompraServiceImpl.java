@@ -1,6 +1,7 @@
 package com.asj.integrador.service.impl;
 
 import com.asj.integrador.dto.request.OrdenCompraRequestDTO;
+import com.asj.integrador.dto.response.DashboardResponseDTO;
 import com.asj.integrador.dto.response.OrdenCompraResponseDTO;
 import com.asj.integrador.exception.AlreadyExistsException;
 import com.asj.integrador.exception.ResourceNotFoundException;
@@ -9,6 +10,7 @@ import com.asj.integrador.model.OrdenCompra;
 import com.asj.integrador.repository.OrdenCompraRepository;
 import com.asj.integrador.service.DetalleOrdenService;
 import com.asj.integrador.service.OrdenCompraService;
+import com.asj.integrador.service.ProductoService;
 import com.asj.integrador.service.ProveedorService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -25,13 +27,15 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     private final DetalleOrdenService detalleOrdenService;
     private final ModelMapper mapper;
     private final ProveedorService proveedorService;
+    private final ProductoService productoService;
     private final Logger logger = LoggerFactory.getLogger(OrdenCompraServiceImpl.class);
 
-    public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository, DetalleOrdenService detalleOrdenService, ModelMapper mapper, ProveedorService proveedorService) {
+    public OrdenCompraServiceImpl(OrdenCompraRepository ordenCompraRepository, DetalleOrdenService detalleOrdenService, ModelMapper mapper, ProveedorService proveedorService, ProductoService productoService) {
         this.ordenCompraRepository = ordenCompraRepository;
         this.detalleOrdenService = detalleOrdenService;
         this.mapper = mapper;
         this.proveedorService = proveedorService;
+        this.productoService = productoService;
     }
 
     @Override
@@ -75,6 +79,19 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
         OrdenCompra orden = obtenerOrdenSiExiste(id);
         orden.setActiva(!orden.getActiva());
         ordenCompraRepository.save(orden);
+    }
+
+    @Override
+    public DashboardResponseDTO obtenerInfoDashboard(){
+        DashboardResponseDTO info = new DashboardResponseDTO();
+        info.setCantOrdenesCompra((int)ordenCompraRepository.count());
+        info.setTicketPromedio(ordenCompraRepository.calcularPromedioTotal());
+        info.setProdPromedioTicket(ordenCompraRepository.calcularPromedioCantidadItems());
+        info.setCantProveedores(proveedorService.obtenerTotalProveedores());
+        info.setProvCreadosUltimoMes(proveedorService.obtenerProveedoresCreadosUltimoMes());
+        info.setCantProductos(productoService.obtenerTotalProductos());
+        info.setProdCreadosUltimoMes(productoService.obtenerProductosCreadosUltimoMes());
+        return info;
     }
 
     @Override
