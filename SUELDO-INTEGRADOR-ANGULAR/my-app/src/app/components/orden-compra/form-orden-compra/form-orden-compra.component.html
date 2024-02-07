@@ -1,16 +1,9 @@
 <div class="gradient-custom rounded-5 shadow-lg">
   <div class="row d-flex flex-column justify-content-center align-items-center">
-    <div class="col-lg-10">
-      <h2 class="mt-4 mb-5">
-        {{
-          id
-            ? "Editar Orden " + ordenCompra.numeroOrden
-            : "Generar Orden de Compra"
-        }}
-      </h2>
+    <div class="col-lg-10 pt-2">
       <form
         #ordenCompraForm="ngForm"
-        class="row g-3 p-3 col-md-10 col-sm-12 offset-md-1 offset-sm-0 border border-dark mb-5 rounded-4 shadow-lg"
+        class="row g-3 p-3 col-md-10 mt-5 mb-5 col-sm-12 offset-md-1 offset-sm-0 border border-dark rounded-4 shadow-lg"
         (ngSubmit)="onSubmit(ordenCompraForm)"
       >
         <div class="row">

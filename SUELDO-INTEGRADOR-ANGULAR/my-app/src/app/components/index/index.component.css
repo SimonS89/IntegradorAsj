@@ -29,12 +29,6 @@ a:hover {
   color: #2e3f4c;
 }
 
-.why-us .img {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
 .why-us .accordion-list {
   padding: 0 6vw 6vh 6vw;
 }
@@ -106,6 +100,29 @@ a:hover {
 }
 
 .gradient-custom {
-  background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6);
+  /* background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
+  background: linear-gradient(to left, #6cbdb8, #acdbc6); */
+  background: #dcdcdc;
+}
+
+.proveedores,
+.productos,
+.ordenes {
+  color: whitesmoke;
+}
+
+.proveedores {
+  background-color: #f17e27;
+}
+
+.productos {
+  background-color: #2e3f4c;
+}
+
+.ordenes {
+  background-color: #6cbdb8;
+}
+
+p > span {
+  font-size: 0.9rem;
 }
