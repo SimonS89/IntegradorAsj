@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,4 +23,7 @@ public class Usuario {
     private String email;
     private String password;
     private boolean eliminado;
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = RolUsuario.class, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private List<RolUsuario> roles;
 }

@@ -84,7 +84,6 @@ public class ProveedorServiceImpl implements ProveedorService {
     public void eliminadoLogico(Long id) throws ResourceNotFoundException {
         Proveedor proveedor = obtenerProveedorSiExiste(id);
         proveedor.setEliminado(!proveedor.isEliminado());
-        proveedorRepository.save(proveedor);
         proveedor.getProductos().stream().forEach(producto -> producto.setEliminado(proveedor.isEliminado()));
         proveedorRepository.save(proveedor);
     }

@@ -20,7 +20,7 @@ public class EmailSenderServiceImpl implements EmailService {
     }
 
     @Override
-    public String sendMail(String to, String subject, String body) throws ResourceNotFoundException {
+    public String enviarMail(String to, String subject, String body) throws ResourceNotFoundException {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -33,5 +33,20 @@ public class EmailSenderServiceImpl implements EmailService {
             throw new ResourceNotFoundException(ex.getMessage());
         }
         return "Email enviado con exito";
+    }
+
+    @Override
+    public String msgBienvenida(String username) {
+        return "Hola " + username + ",\n \n" + "Para iniciar sesión click aqui : http://localhost:4200/" + "\n \n" + "Saludos, ASJ servicios";
+    }
+
+    @Override
+    public String msgRecuperarContrasenia(String username,String hashedUsername) {
+        return "Hola " + username + ",\n \n" + "Para continuar con el restablecimiento de su contraseña haga click aquí: http://localhost:4200/recuperar_pass/" + hashedUsername + "\n \n" + "Si no has solicitado el restablecimiento descarta este correo. " + "\n \n" + "Saludos, ASJ servicios.";
+    }
+
+    @Override
+    public String msgResetearContrasenia(String username, String newPassword) {
+        return "Hola " + username + ",\n \n" + "Restablecimiento de contraseña exitoso." + "\n \n" + "Tu nueva contraseña es :  " + newPassword + "\n \n" + "Saludos, equipo de la 3ra Aceleracion.";
     }
 }
