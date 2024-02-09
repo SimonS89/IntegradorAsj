@@ -1,0 +1,2264 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/app/v1/proveedor/{id}": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "buscarPorId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProveedorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["proveedor-controller"],
+        "operationId": "actualizarProveedor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProveedorDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProveedorResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["proveedor-controller"],
+        "operationId": "eliminarActivarProveedor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/producto/{id}": {
+      "get": {
+        "tags": ["producto-controller"],
+        "operationId": "buscarPorId_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["producto-controller"],
+        "operationId": "actualizarProducto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductoDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["producto-controller"],
+        "operationId": "eliminarActivarProducto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/orden/{id}": {
+      "get": {
+        "tags": ["orden-compra-controller"],
+        "operationId": "buscarPorId_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenCompraResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["orden-compra-controller"],
+        "operationId": "actualizarOrden",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenCompraRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenCompraResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/rubros/{id}": {
+      "put": {
+        "tags": ["admin-controller"],
+        "operationId": "actualizarRubro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RubroRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RubroResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["admin-controller"],
+        "operationId": "eliminarRubro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/categorias/{id}": {
+      "put": {
+        "tags": ["admin-controller"],
+        "operationId": "actualizarCategoria",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["admin-controller"],
+        "operationId": "eliminarCategoria",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/usuario": {
+      "post": {
+        "tags": ["usuario-controller"],
+        "operationId": "crearUsuario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRegistroRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/usuario/autenticar": {
+      "post": {
+        "tags": ["usuario-controller"],
+        "operationId": "authenticateAndGetToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutenticacionUsuarioRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutenticacionUsuarioResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "obtenerProveedoresFiltrados",
+        "parameters": [
+          {
+            "name": "eliminados",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProveedorResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["proveedor-controller"],
+        "operationId": "crearProveedor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProveedorDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProveedorResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/producto": {
+      "get": {
+        "tags": ["producto-controller"],
+        "operationId": "obtenerProductosFiltrados",
+        "parameters": [
+          {
+            "name": "eliminados",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductoResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["producto-controller"],
+        "operationId": "crearProducto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductoDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/orden": {
+      "get": {
+        "tags": ["orden-compra-controller"],
+        "operationId": "obtenerOrdenesFiltradasPorEstado",
+        "parameters": [
+          {
+            "name": "activas",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenCompraResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["orden-compra-controller"],
+        "operationId": "crearOrden",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenCompraRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenCompraResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/rubros": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "listarRubros",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RubroResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["admin-controller"],
+        "operationId": "crearRubro",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RubroRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RubroResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/categorias": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "listarCategorias",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["admin-controller"],
+        "operationId": "crearCategoria",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/usuario/modificar_password": {
+      "patch": {
+        "tags": ["usuario-controller"],
+        "operationId": "modifyPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarPasswordRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/usuario/validar/{username}": {
+      "get": {
+        "tags": ["usuario-controller"],
+        "operationId": "validarUsernameExistente",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/usuario/resetear_password/{username}": {
+      "get": {
+        "tags": ["usuario-controller"],
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/usuario/recuperar_password/{username}": {
+      "get": {
+        "tags": ["usuario-controller"],
+        "operationId": "recuperarPassword",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/{id}/detalle": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "buscarPorIdDetalle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProveedorResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/validar_cuit/{cuit}": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "validarCuitExistente",
+        "parameters": [
+          {
+            "name": "cuit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProveedorResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/validar_codigo/{codigo}": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "validarCodigoExistente",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProveedorResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/tipos_iva": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "obtenerTiposIva",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TipoIva"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/rubro": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "obtenerProveedoresPorCategoriaYEstado",
+        "parameters": [
+          {
+            "name": "rubroId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "eliminado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProveedorResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/paises": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "obtenerPaises",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaisResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/proveedor/paises/{id}/provincias": {
+      "get": {
+        "tags": ["proveedor-controller"],
+        "operationId": "obtenerProvincias",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProvinciaResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/producto/{id}/proveedor": {
+      "get": {
+        "tags": ["producto-controller"],
+        "operationId": "obtenerProductosPorProveedor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductoResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/producto/{id}/detalle": {
+      "get": {
+        "tags": ["producto-controller"],
+        "operationId": "buscarPorIdDetalle_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/producto/validar/{sku}": {
+      "get": {
+        "tags": ["producto-controller"],
+        "operationId": "validarSkuExistente",
+        "parameters": [
+          {
+            "name": "sku",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/producto/categoria": {
+      "get": {
+        "tags": ["producto-controller"],
+        "operationId": "obtenerProductosPorCategoriaYEstado",
+        "parameters": [
+          {
+            "name": "categoriaId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "eliminado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductoResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/orden/validar/{numeroOrden}": {
+      "get": {
+        "tags": ["orden-compra-controller"],
+        "operationId": "validarNumeroOrdenExistente",
+        "parameters": [
+          {
+            "name": "numeroOrden",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenCompraResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/orden/estado/{id}": {
+      "get": {
+        "tags": ["orden-compra-controller"],
+        "operationId": "cambiarEstadoOrden",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/usuarios": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "obtenerUsuarios",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/usuarios/rol/{id}": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "asignarOQuitarRolAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/rubros-activos": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "listarRubrosFiltrados",
+        "parameters": [
+          {
+            "name": "eliminados",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RubroResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/dashboard": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "obtenerInfoDashboard",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/categorias-activas": {
+      "get": {
+        "tags": ["admin-controller"],
+        "operationId": "listarCategoriasFiltradas",
+        "parameters": [
+          {
+            "name": "eliminados",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/app/v1/admin/usuarios/{id}": {
+      "delete": {
+        "tags": ["admin-controller"],
+        "operationId": "eliminarUsuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DomicilioDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "calle": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "codigoPostal": {
+            "type": "string"
+          },
+          "localidad": {
+            "type": "string"
+          }
+        }
+      },
+      "ProveedorDTO": {
+        "required": [
+          "codigo",
+          "cuit",
+          "email",
+          "logo",
+          "razonSocial",
+          "sitioWeb",
+          "telefono"
+        ],
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "pattern": "[a-zA-Z0-9]+",
+            "type": "string"
+          },
+          "logo": {
+            "pattern": "^(https?|ftp):\\/\\/[^\\s/$.?#].[^\\s]",
+            "type": "string"
+          },
+          "razonSocial": {
+            "type": "string"
+          },
+          "telefono": {
+            "pattern": "^[0-9\\-]+$",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cuit": {
+            "pattern": "\\d{2}-\\d{8}-\\d{1}",
+            "type": "string"
+          },
+          "sitioWeb": {
+            "pattern": "https?://.+",
+            "type": "string"
+          },
+          "tipoIvaId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rubroId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "provinciaId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "paisId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "domicilio": {
+            "$ref": "#/components/schemas/DomicilioDTO"
+          },
+          "representanteContacto": {
+            "$ref": "#/components/schemas/RepresentanteContacto"
+          }
+        }
+      },
+      "RepresentanteContacto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "apellido": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string"
+          },
+          "rol": {
+            "type": "string"
+          }
+        }
+      },
+      "Domicilio": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "calle": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "codigoPostal": {
+            "type": "string"
+          },
+          "localidad": {
+            "type": "string"
+          },
+          "provincia": {
+            "$ref": "#/components/schemas/Provincia"
+          }
+        }
+      },
+      "Pais": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          }
+        }
+      },
+      "ProveedorResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "codigo": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "razonSocial": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cuit": {
+            "type": "string"
+          },
+          "sitioWeb": {
+            "type": "string"
+          },
+          "tipoIva": {
+            "$ref": "#/components/schemas/TipoIva"
+          },
+          "rubro": {
+            "$ref": "#/components/schemas/RubroResponseDTO"
+          },
+          "domicilio": {
+            "$ref": "#/components/schemas/Domicilio"
+          },
+          "representanteContacto": {
+            "$ref": "#/components/schemas/RepresentanteContacto"
+          }
+        }
+      },
+      "Provincia": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "pais": {
+            "$ref": "#/components/schemas/Pais"
+          }
+        }
+      },
+      "RubroResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rubro": {
+            "type": "string"
+          },
+          "eliminado": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TipoIva": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tipoIva": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductoDTO": {
+        "required": ["descripcion", "imagen", "nombre", "sku"],
+        "type": "object",
+        "properties": {
+          "sku": {
+            "pattern": "^[A-Z]{3}-[A-Z]\\d{5}$",
+            "type": "string"
+          },
+          "imagen": {
+            "type": "string"
+          },
+          "nombre": {
+            "maxLength": 2147483647,
+            "minLength": 5,
+            "type": "string"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "descripcion": {
+            "pattern": "^([,\\wáéíóúüñ\\s\\.\\-,;]+[.,;]?\\s){4,}[,\\wáéíóúüñ\\s\\.\\-,;]+[.,;]?$",
+            "type": "string"
+          },
+          "categoriaId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "proveedorId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CategoriaResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoria": {
+            "type": "string"
+          },
+          "eliminado": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ProductoResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "imagen": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "proveedor": {
+            "$ref": "#/components/schemas/ProveedorProductoResponseDTO"
+          },
+          "categoria": {
+            "$ref": "#/components/schemas/CategoriaResponseDTO"
+          }
+        }
+      },
+      "ProveedorProductoResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "codigo": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "razonSocial": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cuit": {
+            "type": "string"
+          },
+          "sitioWeb": {
+            "type": "string"
+          }
+        }
+      },
+      "Categoria": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoria": {
+            "type": "string"
+          },
+          "eliminado": {
+            "type": "boolean"
+          },
+          "fechaActualizacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaCreacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DetalleOrden": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ordenCompra": {
+            "$ref": "#/components/schemas/OrdenCompra"
+          },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          }
+        }
+      },
+      "OrdenCompra": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "numeroOrden": {
+            "type": "string"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "infoRecepcion": {
+            "type": "string"
+          },
+          "infoAdicional": {
+            "type": "string"
+          },
+          "activa": {
+            "type": "boolean"
+          },
+          "fechaEmision": {
+            "type": "string",
+            "format": "date"
+          },
+          "fechaEntrega": {
+            "type": "string",
+            "format": "date"
+          },
+          "fechaActualizacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaCreacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "proveedor": {
+            "$ref": "#/components/schemas/Proveedor"
+          },
+          "detallesOrden": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalleOrden"
+            }
+          }
+        }
+      },
+      "OrdenCompraRequestDTO": {
+        "required": [
+          "fechaEmision",
+          "fechaEntrega",
+          "infoRecepcion",
+          "numeroOrden",
+          "total"
+        ],
+        "type": "object",
+        "properties": {
+          "numeroOrden": {
+            "pattern": "^[A-Z]{2}-[A-Z]\\d{4}$",
+            "type": "string"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "infoRecepcion": {
+            "pattern": "^[A-Za-zÁ-ú\\s]{3,}(?:\\s[A-Za-zÁ-ú\\s]{3,})+$",
+            "type": "string"
+          },
+          "infoAdicional": {
+            "type": "string"
+          },
+          "fechaEmision": {
+            "type": "string",
+            "format": "date"
+          },
+          "fechaEntrega": {
+            "type": "string",
+            "format": "date"
+          },
+          "detallesOrden": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalleOrden"
+            }
+          }
+        }
+      },
+      "Producto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "imagen": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "eliminado": {
+            "type": "boolean"
+          },
+          "fechaActualizacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaCreacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "proveedor": {
+            "$ref": "#/components/schemas/Proveedor"
+          },
+          "categoria": {
+            "$ref": "#/components/schemas/Categoria"
+          }
+        }
+      },
+      "Proveedor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "codigo": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "razonSocial": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cuit": {
+            "type": "string"
+          },
+          "sitioWeb": {
+            "type": "string"
+          },
+          "tipoIva": {
+            "$ref": "#/components/schemas/TipoIva"
+          },
+          "rubro": {
+            "$ref": "#/components/schemas/Rubro"
+          },
+          "domicilio": {
+            "$ref": "#/components/schemas/Domicilio"
+          },
+          "representanteContacto": {
+            "$ref": "#/components/schemas/RepresentanteContacto"
+          },
+          "fechaActualizacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaCreacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "productos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Producto"
+            }
+          },
+          "eliminado": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Rubro": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rubro": {
+            "type": "string"
+          },
+          "eliminado": {
+            "type": "boolean"
+          },
+          "fechaActualizacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaCreacionRegistro": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DetalleOrdenResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "producto": {
+            "$ref": "#/components/schemas/ProductoDTO"
+          }
+        }
+      },
+      "OrdenCompraResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "numeroOrden": {
+            "type": "string"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "infoRecepcion": {
+            "type": "string"
+          },
+          "infoAdicional": {
+            "type": "string"
+          },
+          "fechaEmision": {
+            "type": "string",
+            "format": "date"
+          },
+          "fechaEntrega": {
+            "type": "string",
+            "format": "date"
+          },
+          "detallesOrden": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalleOrdenResponseDTO"
+            }
+          },
+          "proveedor": {
+            "$ref": "#/components/schemas/ProveedorResponseDTO"
+          },
+          "activa": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RubroRequestDTO": {
+        "required": ["rubro"],
+        "type": "object",
+        "properties": {
+          "rubro": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
+          }
+        }
+      },
+      "CategoriaRequestDTO": {
+        "required": ["categoria"],
+        "type": "object",
+        "properties": {
+          "categoria": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
+          }
+        }
+      },
+      "UsuarioRegistroRequestDTO": {
+        "required": ["email", "password", "rePassword", "username"],
+        "type": "object",
+        "properties": {
+          "username": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
+          },
+          "rePassword": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "RolUsuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rol": {
+            "type": "string",
+            "enum": ["ADMIN", "USER"]
+          }
+        }
+      },
+      "UsuarioResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RolUsuario"
+            }
+          }
+        }
+      },
+      "AutenticacionUsuarioRequestDTO": {
+        "required": ["password", "username"],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "AutenticacionUsuarioResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RolUsuario"
+            }
+          }
+        }
+      },
+      "ActualizarPasswordRequestDTO": {
+        "required": ["currentPassword", "password", "rePassword"],
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
+          },
+          "rePassword": {
+            "type": "string"
+          }
+        }
+      },
+      "PaisResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          }
+        }
+      },
+      "ProvinciaResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          }
+        }
+      },
+      "DashboardResponseDTO": {
+        "type": "object",
+        "properties": {
+          "cantProveedores": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "provCreadosUltimoMes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cantProductos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prodCreadosUltimoMes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cantOrdenesCompra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ticketPromedio": {
+            "type": "number",
+            "format": "double"
+          },
+          "prodPromedioTicket": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "AppResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
