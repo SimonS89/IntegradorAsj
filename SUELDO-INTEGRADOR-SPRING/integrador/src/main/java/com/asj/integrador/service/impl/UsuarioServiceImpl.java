@@ -108,7 +108,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Map<String, String> resetearPassword(String hashedUsername) throws ResourceNotFoundException {
         Usuario usuario = obtenerUsuarioPorUsername(encriptador.decrypt(hashedUsername));
-        logger.info(encriptador.decrypt(hashedUsername));
         String newPassword = String.valueOf(UUID.randomUUID()).substring(0, 7);
         usuario.setPassword(passwordEncoder.encode(newPassword));
         emailService.enviarMail(usuario.getEmail(), "Restablecer la contraseña", emailService.msgResetearContrasenia(usuario.getUsername(), newPassword));
@@ -159,7 +158,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void defaultAdmin() throws ResourceNotFoundException {
-        if (usuarioRepository.findAll().isEmpty()) {
+        if (usuarioRepository.count()==0) {
             Usuario admin = new Usuario();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("Admin123"));
