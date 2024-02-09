@@ -19,7 +19,7 @@ Desarrollo de un *Sistema de Gestión de Inventario* para manejar información d
 - **Backend**   
     - Java 21
     - Spring Boot
-    
+      
 - **Base de datos**   
     - H2 SQL
 
@@ -49,12 +49,13 @@ Pasos necesarios para ejecutar el proyecto localmente
 
 ## Aclaraciones sobre Login ❗
 
-La primer pantalla es el **Login**, con la aplicación se crea un usuario por defecto con ambos roles (ADMIN,USER), con las siguientes credenciales:
+La primer pantalla es el **Login**, debe crearse un usuario y se recibirá un mail de bienvenida a la dirección de correo registrada. Para acceder al panel de administrador, luego deben loguearse con el usuario admin que se crea por defecto al levantar la aplicación, con las siguientes credenciales:
 
 ```
 Username: admin
 Password: Admin123
 ```
+
 
 ## Desarrollador 🧠
 Este proyecto fue desarrollado por [Sueldo, Simón](https://www.linkedin.com/in/simonsueldo/) para el BootCamp de ASJ
