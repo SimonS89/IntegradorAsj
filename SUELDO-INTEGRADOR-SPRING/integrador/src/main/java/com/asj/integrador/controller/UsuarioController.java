@@ -38,12 +38,6 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.crearUsuario(usuario));
     }
 
-    @GetMapping
-    @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<List<UsuarioResponseDTO>> obtenerUsuarios() throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarios());
-    }
-
     @PostMapping("/autenticar")
     public ResponseEntity<AutenticacionUsuarioResponseDTO> authenticateAndGetToken(@Valid @RequestBody AutenticacionUsuarioRequestDTO authRequestDTO) throws ResourceNotFoundException {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
@@ -61,11 +55,6 @@ public class UsuarioController {
     @GetMapping("/resetear_password/{username}")
     public ResponseEntity<Map<String, String>> resetPassword(@PathVariable String username) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.resetearPassword(username));
-    }
-
-    @PatchMapping("/rol/{id}")
-    public ResponseEntity<UsuarioResponseDTO> asignarOQuitarRolAdmin(@PathVariable Long id) throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.asignarOQuitarRolAdmin(id));
     }
 
     @GetMapping("/validar/{username}")

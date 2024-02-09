@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { DashBoard } from '../models/DashBoard';
+import { GenericResponse, Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -100,6 +101,39 @@ export class AdminService {
   public obtenerInfoDashboard(): Observable<DashBoard> {
     return this.http
       .get<DashBoard>(`${environment.apiUrl}/admin/dashboard`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
+  public obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http
+      .get<Usuario[]>(`${environment.apiUrl}/admin/usuarios`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
+  public asignarOQuitarRolAdmin(id: number): Observable<Usuario> {
+    return this.http
+      .get<Usuario>(`${environment.apiUrl}/admin/usuarios/rol/${id}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al realizar la solicitud HTTP:', error);
+          throw error;
+        })
+      );
+  }
+
+  public eliminarUsuario(id: number): Observable<GenericResponse> {
+    return this.http
+      .delete<GenericResponse>(`${environment.apiUrl}/admin/usuarios/${id}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.error('Error al realizar la solicitud HTTP:', error);

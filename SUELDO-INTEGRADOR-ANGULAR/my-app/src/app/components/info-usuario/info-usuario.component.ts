@@ -26,7 +26,6 @@ export class InfoUsuarioComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    console.log('asd');
   }
   onSubmit(form: NgForm) {
     if (form.valid) {

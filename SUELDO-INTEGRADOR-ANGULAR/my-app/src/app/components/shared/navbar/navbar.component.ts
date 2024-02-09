@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   faUser = faUser;
   user: string = '';
   rutaActual: string = '';
+  isAdmin: boolean = false;
 
   constructor(
     private router: Router,
@@ -20,6 +21,9 @@ export class NavbarComponent implements OnInit {
     public authService: AuthService
   ) {}
   ngOnInit(): void {
+    this.isAdmin = this.authService
+      .obtenerRoles()
+      .some((rol) => rol.rol == 'ADMIN');
     this.user = localStorage.getItem('user')!;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

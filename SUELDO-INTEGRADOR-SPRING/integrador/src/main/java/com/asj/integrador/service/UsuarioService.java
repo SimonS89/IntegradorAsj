@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface UsuarioService {
+    void defaultAdmin() throws ResourceNotFoundException;
+
     UsuarioResponseDTO crearUsuario(UsuarioRegistroRequestDTO userRegisterRequestDTO) throws ResourceNotFoundException, AlreadyExistsException;
 
     UsuarioResponseDTO buscarPorId(Long id) throws ResourceNotFoundException;
@@ -18,6 +20,8 @@ public interface UsuarioService {
     List<UsuarioResponseDTO> listarUsuarios() throws ResourceNotFoundException;
 
     void eliminadoLogico(Long id) throws ResourceNotFoundException;
+
+    Map<String, String> eliminarUsuario(Long id) throws ResourceNotFoundException;
 
     UsuarioResponseDTO asignarOQuitarRolAdmin(Long id) throws ResourceNotFoundException;
 

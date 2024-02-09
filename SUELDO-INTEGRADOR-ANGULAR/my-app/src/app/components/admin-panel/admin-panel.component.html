@@ -63,9 +63,9 @@
             placeholder="Buscar Categoría"
             class="form-control mb-5 search-input text-center"
           />
-          <ul class="d-block">
+          <ul class="d-flex justify-content-between flex-wrap">
             <li
-              class="d-inline-block"
+              class=""
               *ngFor="
                 let categoria of categorias
                   | filter : categoriaFilter : 'categoria'
@@ -73,7 +73,7 @@
             >
               <button
                 type="button"
-                class="btn btn-sm fw-normal btn-light position-relative me-3 mb-3"
+                class="btn btn-sm fw-normal btn-light me-1 position-relative mb-3"
                 (dblclick)="actualizarCategoria(categoria)"
                 title="Doble click para editar"
                 [ngClass]="
@@ -98,6 +98,100 @@
               </button>
             </li>
           </ul>
+        </div>
+      </div>
+      <div class="row mb-3 mt-4 align-items-start">
+        <div class="col-12 text-light">
+          <h2>Administrar usuarios</h2>
+          <input
+            [(ngModel)]="usuarioFilter"
+            placeholder="Buscar Usuarios"
+            class="form-control mb-5 search-input text-center"
+          />
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  Presione para Listar los usuarios
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  <div class="table-fluid">
+                    <table class="table">
+                      <thead class="table-success">
+                        <tr>
+                          <th scope="col">Username</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Roles</th>
+                          <th scope="col">Funcionalidades</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let usuario of usuarios
+                              | usernameFilter : usuarioFilter
+                          "
+                        >
+                          <th scope="row">{{ usuario.username }}</th>
+                          <td>{{ usuario.email }}</td>
+                          <td>{{ mostrarRoles(usuario.roles) }}</td>
+                          <td>
+                            <div class="d-flex justify-content-center gap-3">
+                              <button
+                                type="button"
+                                class="deleteBtn btn btn-outline-danger"
+                                (click)="eliminarUsuario(usuario)"
+                                [title]="'Eliminar usuario ' + usuario.username"
+                              >
+                                <fa-icon
+                                  [icon]="faTrashCan"
+                                  class="fw-bolder fs-5"
+                                ></fa-icon>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn"
+                                (click)="agregarOQuitarRol(usuario)"
+                                [title]="
+                                  usuario.roles.length == 1
+                                    ? 'Agregar rol Admin'
+                                    : 'Quitar rol Admin'
+                                "
+                                [ngClass]="
+                                  usuario.roles.length == 1
+                                    ? 'addBtn'
+                                    : 'removeBtn'
+                                "
+                              >
+                                <fa-icon
+                                  [icon]="faPenToSquare"
+                                  class="fw-bolder fs-5"
+                                ></fa-icon>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

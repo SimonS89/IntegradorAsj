@@ -1,5 +1,5 @@
 .gradient-custom {
-  background: #dcdcdc;
+  background: #2e3f4c;
 }
 .btnAdd {
   background-color: #40916c !important;
@@ -20,4 +20,38 @@
 .eliminado {
   background-color: lightgray;
   border: lightgray;
+}
+
+.addBtn {
+  border: 1px solid #6cbdb8;
+  color: #6cbdb8;
+}
+
+.addBtn:hover {
+  background-color: #6cbdb8;
+  color: white;
+}
+
+.removeBtn {
+  background-color: #6cbdb8;
+  color: white;
+}
+
+.removeBtn:hover {
+  background-color: white;
+  border: 1px solid #6cbdb8;
+  color: #6cbdb8;
+}
+
+li {
+  list-style-type: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #f17e27 !important;
+  color: white;
+  font-weight: normal;
+}
+h2 > button > .accordion-button:focus {
+  border: none !important;
 }

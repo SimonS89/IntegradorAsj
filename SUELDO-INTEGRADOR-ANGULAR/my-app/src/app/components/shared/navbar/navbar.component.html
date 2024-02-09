@@ -107,7 +107,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item underline">
+        <li class="nav-item underline" *ngIf="isAdmin">
           <a
             class="nav-link"
             [routerLink]="['/admin-panel']"

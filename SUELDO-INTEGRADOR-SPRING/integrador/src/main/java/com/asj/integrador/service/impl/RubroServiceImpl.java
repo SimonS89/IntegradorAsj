@@ -100,7 +100,7 @@ public class RubroServiceImpl implements RubroService {
     @Override
     public void defaultData() {
         if (rubroRepository.count() == 0) {
-            List<String> rubros = new ArrayList<>(Arrays.asList("Tecnología", "Alimentación", "Moda", "Salud", "Educación"));
+            List<String> rubros = new ArrayList<>(Arrays.asList("Tecnología", "Alimentación", "Moda", "Salud", "Educación","Deportes"));
             if (rubroRepository.count() == 0) rubroRepository.saveAll(rubros.stream().map(Rubro::new).toList());
         }
     }

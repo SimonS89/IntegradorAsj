@@ -51,6 +51,9 @@
           name="connected"
           class="form-check-input"
           id="connected"
+          value="true"
+          checked
+          (change)="mantenerConectadoChanged($event)"
         />
         <label for="connected" class="form-check-label"
           >Mantenerme conectado</label

@@ -46,6 +46,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         this.encriptador = encriptador;
     }
 
+
+
     @Override
     public UsuarioResponseDTO crearUsuario(UsuarioRegistroRequestDTO userRegisterRequestDTO) throws ResourceNotFoundException, AlreadyExistsException {
         if (!userRegisterRequestDTO.getPassword().equals(userRegisterRequestDTO.getRePassword()))
@@ -77,6 +79,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = obtenerUsuarioSiExiste(id);
         usuario.setEliminado(!usuario.isEliminado());
         usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Map<String, String> eliminarUsuario(Long id) throws ResourceNotFoundException {
+        Usuario usuario = obtenerUsuarioSiExiste(id);
+        usuarioRepository.deleteById(id);
+        return Map.of("message", "Usuario " + usuario.getUsername() + " eliminado exitosamente");
     }
 
     @Override
@@ -146,5 +155,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private Usuario obtenerUsuarioSiExiste(Long id) throws ResourceNotFoundException {
         return usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(NO_ENCONTRADO));
+    }
+
+    @Override
+    public void defaultAdmin() throws ResourceNotFoundException {
+        if (usuarioRepository.findAll().isEmpty()) {
+            Usuario admin = new Usuario();
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("Admin123"));
+            admin.setEmail("ssueldo@asjservicios.com");
+            admin.setRoles((new ArrayList<>(Arrays.asList(rolService.buscarPorRol(Rol.ADMIN), rolService.buscarPorRol(Rol.USER)))));
+            usuarioRepository.save(admin);
+        }
     }
 }

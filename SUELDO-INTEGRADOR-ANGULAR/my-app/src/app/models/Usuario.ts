@@ -12,7 +12,7 @@ export interface Usuario {
   roles: RolUsuario[];
 }
 
-interface RolUsuario {
+export interface RolUsuario {
   id: number;
   rol: string;
 }
@@ -22,9 +22,10 @@ export interface UsuarioLogin {
   username: string;
   email: string;
   token: string;
+  roles: RolUsuario[];
 }
 
-export interface RecPasswordResponse {
+export interface GenericResponse {
   message: string;
 }
 

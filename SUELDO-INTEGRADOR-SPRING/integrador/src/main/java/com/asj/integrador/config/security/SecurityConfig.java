@@ -2,6 +2,7 @@ package com.asj.integrador.config.security;
 
 import com.asj.integrador.config.security.filter.JwtAuthFilter;
 import com.asj.integrador.config.security.service.UsuarioDetalleService;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,11 +33,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/app/v1/**","/h2-ui/**").permitAll()
+        return http
+                .authorizeHttpRequests(auth -> auth.requestMatchers( PathRequest.toH2Console()).permitAll()
+                        .requestMatchers("/app/v1/**","/v3/api-docs/**", "/swagger-ui/**", "/v2/api-docs/**", "/swagger-resources/**")
+                        .permitAll()
                         .anyRequest()
                         .authenticated()
-                ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers((headers) -> headers.frameOptions((frame) -> frame.sameOrigin()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

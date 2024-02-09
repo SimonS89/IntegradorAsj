@@ -61,8 +61,6 @@ export class ListaOrdenCompraComponent implements OnInit {
       .obtenerTodos(this.mostrarOrdenesActivas)
       .subscribe((res) => {
         this.ordenesCompra = res;
-        console.log(this.ordenesCompra);
-
         this.datosTabla = new MatTableDataSource(res);
         this.datosTabla.paginator = this.paginator;
         this.datosTabla.sort = this.sort;

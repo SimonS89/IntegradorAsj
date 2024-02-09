@@ -132,4 +132,9 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+
+  mantenerConectadoChanged(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    this.authService.mantenerConectado(checkbox.checked);
+  }
 }

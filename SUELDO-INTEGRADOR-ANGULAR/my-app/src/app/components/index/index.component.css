@@ -15,7 +15,7 @@ a:hover {
 .why-us .content h3 {
   font-weight: 400;
   font-size: 27px;
-  color: #37517e;
+  color: white;
 }
 
 .why-us .content h4 {
@@ -26,7 +26,7 @@ a:hover {
 
 .why-us .content p {
   font-size: 15px;
-  color: #2e3f4c;
+  color: white;
 }
 
 .why-us .accordion-list {
@@ -60,7 +60,7 @@ a:hover {
   cursor: pointer;
 }
 
-.why-us .accordion-list span {
+.why-us .accordion-list .number {
   color: #47b2e4;
   font-weight: 600;
   font-size: 18px;
@@ -100,9 +100,7 @@ a:hover {
 }
 
 .gradient-custom {
-  /* background: -webkit-linear-gradient(to left, #6cbdb8, #acdbc6);
-  background: linear-gradient(to left, #6cbdb8, #acdbc6); */
-  background: #dcdcdc;
+  background: #2e3f4c;
 }
 
 .proveedores,
@@ -116,7 +114,7 @@ a:hover {
 }
 
 .productos {
-  background-color: #2e3f4c;
+  background-color: gray;
 }
 
 .ordenes {

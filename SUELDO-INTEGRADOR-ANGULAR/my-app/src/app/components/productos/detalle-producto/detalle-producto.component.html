@@ -33,7 +33,9 @@
                   </div>
 
                   <div class="mb-3 align-self-start">
-                    <span class="h5 fw-bold">${{ producto.precio }}</span>
+                    <span class="h5 fw-bold">{{
+                      producto.precio | currency : "USD"
+                    }}</span>
                   </div>
 
                   <p class="fw-normal text-start">

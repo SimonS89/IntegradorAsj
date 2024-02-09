@@ -29,29 +29,29 @@
                         class="img-fluid my-5"
                         style="width: 80px"
                       />
-                      <h4>{{ proveedor.razonSocial }}</h4>
-                      <h5>
+                      <h3>{{ proveedor.razonSocial }}</h3>
+                      <h4>
                         <a href="#" class="text-light">{{
                           proveedor.sitioWeb
                         }}</a>
-                      </h5>
+                      </h4>
                       <p>{{ proveedor.rubro.rubro }}</p>
                       <i class="far fa-edit mb-5"></i>
                     </div>
                     <div class="col-md-8">
                       <div class="card-body p-4">
-                        <h6>Contacto</h6>
+                        <h5>Contacto</h5>
                         <hr class="mt-0 mb-4" />
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
-                            <h6>Persona responsable</h6>
+                            <h5>Persona responsable</h5>
                             <p class="text-muted">
                               {{ proveedor.representanteContacto.apellido }}
                               {{ proveedor.representanteContacto.nombre }}
                             </p>
                           </div>
                           <div class="col-6 mb-3">
-                            <h6>Rol</h6>
+                            <h5>Rol</h5>
                             <p class="text-muted">
                               {{ proveedor.representanteContacto.rol }}
                             </p>
@@ -59,26 +59,26 @@
                         </div>
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
-                            <h6>Email</h6>
+                            <h5>Email</h5>
                             <p class="text-muted">{{ proveedor.email }}</p>
                           </div>
                           <div class="col-6 mb-3">
-                            <h6>Teléfono</h6>
+                            <h5>Teléfono</h5>
                             <p class="text-muted">{{ proveedor.telefono }}</p>
                           </div>
                         </div>
-                        <h6>Información</h6>
+                        <h5>Información</h5>
                         <hr class="mt-0 mb-4" />
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
-                            <h6>Ubicación</h6>
+                            <h5>Ubicación</h5>
                             <p class="text-muted">
                               {{ proveedor.domicilio.provincia.nombre }},
                               {{ proveedor.domicilio.provincia.pais.nombre }}
                             </p>
                           </div>
                           <div class="col-6 mb-3">
-                            <h6>Domicilio</h6>
+                            <h5>Domicilio</h5>
                             <p class="text-muted">
                               {{ proveedor.domicilio.calle }}
                               {{ proveedor.domicilio.numero }},
@@ -88,45 +88,17 @@
                         </div>
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
-                            <h6>CUIT</h6>
+                            <h5>CUIT</h5>
                             <p class="text-muted">
                               {{ proveedor.cuit }}
                             </p>
                           </div>
                           <div class="col-6 mb-3">
-                            <h6>Condición IVA</h6>
+                            <h5>Condición IVA</h5>
                             <p class="text-muted">
                               {{ proveedor.tipoIva.tipoIva }}
                             </p>
                           </div>
-                        </div>
-                        <div class="d-flex justify-content-center gap-3">
-                          <button
-                            type="button"
-                            class="deleteBtn btn btn-sm btn-outline-danger"
-                            (click)="eliminarProveedor(proveedor)"
-                            [title]="
-                              'Eliminar Proveedor - ' + proveedor.razonSocial
-                            "
-                          >
-                            <fa-icon
-                              [icon]="faTrashCan"
-                              class="fw-bolder fs-5"
-                            ></fa-icon>
-                          </button>
-                          <button
-                            type="button"
-                            class="editBtn btn btn-sm"
-                            (click)="editarProveedor(proveedor.id)"
-                            [title]="
-                              'Editar Proveedor - ' + proveedor.razonSocial
-                            "
-                          >
-                            <fa-icon
-                              [icon]="faPenToSquare"
-                              class="fw-bolder fs-5"
-                            ></fa-icon>
-                          </button>
                         </div>
                       </div>
                     </div>

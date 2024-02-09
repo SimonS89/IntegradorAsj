@@ -45,6 +45,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import { InfoUsuarioComponent } from './components/info-usuario/info-usuario.component';
+import { UsernameFilterPipe } from './pipes/username-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { InfoUsuarioComponent } from './components/info-usuario/info-usuario.com
     NotFoundComponent,
     FilterPipePipe,
     InfoUsuarioComponent,
+    UsernameFilterPipe,
   ],
   imports: [
     BrowserModule,
