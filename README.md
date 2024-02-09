@@ -1,5 +1,5 @@
 # Proyecto Integrador Final 🚀
-## Descripción del Proyecto
+
 ![LOGO](brand3.png)
 
 Desarrollo de un *Sistema de Gestión de Inventario* para manejar información de Proveedores, Productos y Órdenes de compra simplificando la administración de los inventarios. Posee una capa de seguridad para prevenir errores y notificaciones via Email al usuario.
