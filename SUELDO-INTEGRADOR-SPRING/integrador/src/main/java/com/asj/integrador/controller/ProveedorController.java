@@ -58,7 +58,7 @@ public class ProveedorController {
         return ResponseEntity.status(HttpStatus.OK).body(proveedorService.listarProductosPorRubro(rubroId, eliminado));
     }
 
-    @GetMapping("/validar_sku/{codigo}")
+    @GetMapping("/validar_codigo/{codigo}")
     public ResponseEntity<ProveedorResponseDTO> validarCodigoExistente(@PathVariable String codigo) throws AlreadyExistsException {
         return ResponseEntity.status(HttpStatus.OK).body(proveedorService.validarCodigoExistente(codigo));
     }

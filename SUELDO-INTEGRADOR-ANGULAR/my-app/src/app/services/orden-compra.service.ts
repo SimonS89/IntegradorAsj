@@ -28,8 +28,6 @@ export class OrdenCompraService {
   }
 
   actualizar(id: number, ordenCompra: OrdenCompra): Observable<OrdenCompra> {
-    console.log(ordenCompra);
-
     return this.http
       .put<OrdenCompra>(`${environment.apiUrl}/orden/${id}`, ordenCompra)
       .pipe(

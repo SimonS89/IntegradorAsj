@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { AppComponent } from './app.component';
@@ -42,6 +42,9 @@ import { DetalleProveedorComponent } from './components/proveedores/detalle-prov
 import { BreadcrumbComponent } from './components/shared/breadcrumbs/breadcrumb/breadcrumb.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AuthInterceptor } from './services/auth-interceptor.service';
+import { FilterPipePipe } from './pipes/filter-pipe.pipe';
+import { InfoUsuarioComponent } from './components/info-usuario/info-usuario.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     BreadcrumbComponent,
     AdminPanelComponent,
     NotFoundComponent,
+    FilterPipePipe,
+    InfoUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +96,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatSliderModule,
     MatTooltipModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

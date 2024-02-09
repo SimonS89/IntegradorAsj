@@ -11,3 +11,13 @@
   background-color: #407a52 !important;
   color: white;
 }
+
+.search-input {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.eliminado {
+  background-color: lightgray;
+  border: lightgray;
+}

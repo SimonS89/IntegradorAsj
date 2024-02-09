@@ -1,0 +1,84 @@
+<div class="gradient-custom rounded-5 shadow" style="min-height: 60vh">
+  <div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-10 pt-2">
+      <form
+        #actualizarPasswordForm="ngForm"
+        class="row justify-content-center g-3 p-3 col-md-10 mt-5 mb-5 col-sm-12 offset-md-1 offset-sm-0 border border-dark rounded-4"
+        (ngSubmit)="onSubmit(actualizarPasswordForm)"
+      >
+        <div class="col-md-7 col-10">
+          <label for="inputCurrentPassword" class="form-label"
+            >Contraseña actual</label
+          >
+          <input
+            type="password"
+            class="form-control border border-dark"
+            id="inputCurrentPassword"
+            name="currentPassword"
+            [(ngModel)]="usuario.currentPassword"
+            #contraseniaActual="ngModel"
+            required
+            [ngClass]="contraseniaActual.errors ? 'is-invalid' : 'is-valid'"
+            placeholder="Ingrese su contraseña actual"
+          />
+        </div>
+        <div class="col-md-7 col-10">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            [(ngModel)]="usuario.password"
+            required
+            minlength="6"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$"
+            #contrasenia="ngModel"
+            [ngClass]="contrasenia.errors ? 'is-invalid' : 'is-valid'"
+            placeholder="Ingrese su nueva contraseña"
+          />
+          <div *ngIf="contrasenia.errors?.['pattern']" class="invalid-feedback">
+            Debe tener al menos 6 caracteres, una mayúscula, una minúscula y un
+            número.
+          </div>
+        </div>
+        <div class="col-md-7 col-10">
+          <label for="rePassword" class="form-label">Repetir contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="rePassword"
+            name="rePassword"
+            [(ngModel)]="usuario.rePassword"
+            required
+            [ngClass]="
+              usuario.rePassword !== usuario.password ||
+              usuario.rePassword == ''
+                ? 'is-invalid'
+                : 'is-valid'
+            "
+            placeholder="Repita la contraseña"
+          />
+          <div
+            *ngIf="usuario.rePassword !== usuario.password"
+            class="invalid-feedback"
+          >
+            Las contraseñas no coinciden.
+          </div>
+        </div>
+        <div class="row text-center justify-content-center gap-3 mt-4">
+          <button
+            type="submit"
+            class="col-md-6 btn btn-primary fw-bold"
+            [disabled]="
+              !actualizarPasswordForm.valid ||
+              usuario.rePassword !== usuario.password
+            "
+          >
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

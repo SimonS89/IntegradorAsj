@@ -68,9 +68,14 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.asignarOQuitarRolAdmin(id));
     }
 
+    @GetMapping("/validar/{username}")
+    public ResponseEntity<UsuarioResponseDTO> validarUsernameExistente(@PathVariable String username) throws AlreadyExistsException {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.validarUsernameExistente(username));
+    }
+
     @PatchMapping("/modificar_password")
     @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
-    public ResponseEntity<Map<String, String>> modifyPassword(@RequestBody ActualizarPasswordRequestDTO actualizarPasswordRequestDTO, Authentication authentication) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, String>> modifyPassword(@Valid @RequestBody ActualizarPasswordRequestDTO actualizarPasswordRequestDTO, Authentication authentication) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.actualizarPassword(actualizarPasswordRequestDTO, authentication.getName()));
     }
 }

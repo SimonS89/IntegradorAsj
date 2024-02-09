@@ -16,6 +16,8 @@ import com.asj.integrador.service.UsuarioService;
 import com.asj.integrador.util.Encriptador;
 import com.asj.integrador.util.Rol;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final EmailService emailService;
     private final JwtService jwtService;
     private final Encriptador encriptador;
+    private final Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, ModelMapper mapper, RolUsuarioService rolService, EmailService emailService, JwtService jwtService, Encriptador encriptador) {
         this.usuarioRepository = usuarioRepository;
@@ -89,36 +92,37 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Map<String, String> recuperarPassword(String username) throws ResourceNotFoundException {
         Usuario usuario = obtenerUsuarioPorUsername(username);
         String hashedUsername = encriptador.encrypt(username);
-        emailService.enviarMail(usuario.getEmail(), "Recuperar contraseña", emailService.msgRecuperarContrasenia(username,hashedUsername));
+        emailService.enviarMail(usuario.getEmail(), "Recuperar contraseña", emailService.msgRecuperarContrasenia(username, hashedUsername));
         return Map.of("message", "Correo electrónico de recuperación de contraseña enviado correctamente a " + username);
     }
 
     @Override
     public Map<String, String> resetearPassword(String hashedUsername) throws ResourceNotFoundException {
-        System.out.println(encriptador.decrypt(hashedUsername));
         Usuario usuario = obtenerUsuarioPorUsername(encriptador.decrypt(hashedUsername));
+        logger.info(encriptador.decrypt(hashedUsername));
         String newPassword = String.valueOf(UUID.randomUUID()).substring(0, 7);
         usuario.setPassword(passwordEncoder.encode(newPassword));
-        emailService.enviarMail(usuario.getEmail(), "Restablecer la contraseña", emailService.msgResetearContrasenia(hashedUsername, newPassword));
+        emailService.enviarMail(usuario.getEmail(), "Restablecer la contraseña", emailService.msgResetearContrasenia(usuario.getUsername(), newPassword));
         usuarioRepository.save(usuario);
-        return Map.of("message", "Correo electrónico para restablecer la contraseña enviado correctamente a" + hashedUsername);
+        return Map.of("message", "Correo electrónico para restablecer la contraseña enviado correctamente a " + usuario.getUsername());
     }
 
     @Override
     public AutenticacionUsuarioResponseDTO findByUsername(String username) throws ResourceNotFoundException {
-       Usuario usuario = obtenerUsuarioPorUsername(username);
+        Usuario usuario = obtenerUsuarioPorUsername(username);
         return mapper.map(usuario, AutenticacionUsuarioResponseDTO.class);
     }
 
     @Override
     public Map<String, String> actualizarPassword(ActualizarPasswordRequestDTO actualizarPassRequestDTO, String username) throws ResourceNotFoundException {
         Usuario usuario = obtenerUsuarioPorUsername(username);
-        if (!actualizarPassRequestDTO.getPassword().equals(actualizarPassRequestDTO.getRePassword()))
-            throw new ResourceNotFoundException("Las nuevas contraseñas no coinciden.");
         if (!passwordEncoder.matches(actualizarPassRequestDTO.getCurrentPassword(), usuario.getPassword()))
             throw new ResourceNotFoundException("La contraseña actual es incorrecta.");
+        if (!actualizarPassRequestDTO.getPassword().equals(actualizarPassRequestDTO.getRePassword()))
+            throw new ResourceNotFoundException("Las nuevas contraseñas no coinciden.");
         usuario.setPassword(passwordEncoder.encode(actualizarPassRequestDTO.getPassword()));
         usuarioRepository.save(usuario);
+        emailService.enviarMail(usuario.getEmail(), "Actualizar contraseña", emailService.actualizarContrasenia(username));
         return Map.of("message", "Contraseña actualizada correctamente.");
     }
 
@@ -127,6 +131,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         AutenticacionUsuarioResponseDTO autenticacionResponseDTO = findByUsername(username);
         autenticacionResponseDTO.setToken(jwtService.generateToken(username));
         return autenticacionResponseDTO;
+    }
+
+    @Override
+    public UsuarioResponseDTO validarUsernameExistente(String username) throws AlreadyExistsException {
+        Optional<Usuario> usuario = usuarioRepository.findByUsername(username);
+        if (usuario.isPresent()) throw new AlreadyExistsException("Username existente.");
+        return mapper.map(usuario, UsuarioResponseDTO.class);
     }
 
     private Usuario obtenerUsuarioPorUsername(String username) throws ResourceNotFoundException {

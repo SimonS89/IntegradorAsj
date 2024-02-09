@@ -82,9 +82,9 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     }
 
     @Override
-    public DashboardResponseDTO obtenerInfoDashboard(){
+    public DashboardResponseDTO obtenerInfoDashboard() {
         DashboardResponseDTO info = new DashboardResponseDTO();
-        info.setCantOrdenesCompra((int)ordenCompraRepository.count());
+        info.setCantOrdenesCompra((int) ordenCompraRepository.count());
         info.setTicketPromedio(ordenCompraRepository.calcularPromedioTotal());
         info.setProdPromedioTicket(ordenCompraRepository.calcularPromedioCantidadItems());
         info.setCantProveedores(proveedorService.obtenerTotalProveedores());

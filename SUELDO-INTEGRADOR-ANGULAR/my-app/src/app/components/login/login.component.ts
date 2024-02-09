@@ -1,44 +1,85 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { EMPTY, Subject, catchError, takeUntil } from 'rxjs';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   username!: string;
   password!: string;
   faeye = faEye;
   mostrarPassword: boolean = false;
+  recuperarPassword!: string;
+  private destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private router: Router, public authService: AuthService) {}
+  constructor(
+    private router: Router,
+    public authService: AuthService,
+    public usuarioService: UsuarioService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((data) => {
+      this.recuperarPassword = data['username'];
+      if (this.recuperarPassword) {
+        Swal.showLoading();
+        this.usuarioService
+          .resetearPassword(this.recuperarPassword)
+          .pipe(
+            catchError((error: any) => {
+              Swal.fire({
+                title: `${
+                  error.error.errorMessage
+                    ? error.error.errorMessage
+                    : error.error.rubro
+                }`,
+                icon: 'error',
+              });
+              return EMPTY;
+            }),
+            takeUntil(this.destroy$)
+          )
+          .subscribe((response) => {
+            Swal.close();
+            Swal.fire({
+              title: response.message,
+              icon: 'success',
+            });
+          });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      if (this.authService.login(this.username, this.password)) {
-        Swal.fire({
-          title: 'Bienvenido/a a ASJ servicios',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        }).then(() => {
+      this.authService
+        .login(this.username, this.password)
+        .pipe(
+          catchError((error: any) => {
+            Swal.fire({
+              title: `${error.error.access_denied_reason}`,
+              icon: 'error',
+            });
+            return EMPTY;
+          })
+        )
+        .subscribe((res) => {
           this.router.navigate(['index']);
         });
-      } else {
-        Swal.fire({
-          title: 'Usuario o contraseña incorrecta',
-          text: 'Verifica tus credenciales',
-          icon: 'error',
-        }).then(() => {
-          this.username = '';
-          this.password = '';
-        });
-      }
     }
   }
 
@@ -61,32 +102,34 @@ export class LoginComponent {
       confirmButtonText: 'Enviar',
       cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
-      preConfirm: async (login) => {
-        try {
-          const githubUrl = `
-            https://api.github.com/users/${login}
-          `;
-          const response = await fetch(githubUrl);
-          if (!response.ok) {
-            return Swal.showValidationMessage(`
-              ${JSON.stringify(await response.json())}
-            `);
-          }
-          return response.json();
-        } catch (error) {
-          Swal.showValidationMessage(`
-            Request failed: ${error}
-          `);
-        }
+      preConfirm: async (username) => {
+        Swal.showLoading();
+        return this.usuarioService
+          .recuperarPassword(username)
+          .pipe(
+            catchError((error: any) => {
+              Swal.fire({
+                title: `${
+                  error.error.errorMessage
+                    ? error.error.errorMessage
+                    : error.error.rubro
+                }`,
+                icon: 'error',
+              });
+              return EMPTY;
+            })
+          )
+          .toPromise()
+          .then((response) => {
+            Swal.fire({
+              title: response!.message,
+              icon: 'success',
+            });
+          })
+          .finally(() => {
+            Swal.hideLoading();
+          });
       },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url,
-        });
-      }
     });
   }
 }

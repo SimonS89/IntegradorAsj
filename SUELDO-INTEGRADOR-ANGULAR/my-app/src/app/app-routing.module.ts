@@ -15,8 +15,21 @@ import { DetalleProveedorComponent } from './components/proveedores/detalle-prov
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { authGuard } from './guards/auth.guard';
+import { InfoUsuarioComponent } from './components/info-usuario/info-usuario.component';
 
 const routes: Routes = [
+  {
+    path: 'info_usuario',
+    component: InfoUsuarioComponent,
+    title: 'Actualizar contraseña',
+    canActivate: [authGuard],
+    data: { titulo: 'Actualizar contraseña' },
+  },
+  {
+    path: 'recuperar_pass/:username',
+    component: LoginComponent,
+    title: 'Recuperar password',
+  },
   { path: '', component: LoginComponent, title: 'ASJ Login' },
   { path: 'register', component: RegisterComponent, title: 'ASJ Register' },
   {

@@ -1,23 +1,36 @@
-<div class="gradient-custom rounded-5 shadow-lg pb-5" style="min-height: 60vh">
+<div class="gradient-custom rounded-5 shadow pb-5" style="min-height: 60vh">
   <div class="row d-flex flex-column justify-content-center align-items-center">
     <div class="col-sm-10">
-      <div class="row justify-content-center mb-3 mt-4 align-items-start">
+      <div class="row mb-3 mt-4 align-items-start">
         <div class="col-md-6 col-sm-12">
           <a
             (click)="agregarRubro()"
             type="button"
-            class="btnAdd fw-bolder mt-5 mb-5 btn btn-sm col-10 col-md-5 mb-3 shadow"
+            class="btnAdd fw-bolder mt-5 mb-3 btn btn-sm col-10 col-md-5 shadow"
           >
             <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
             ><span>Agregar Rubro</span>
           </a>
+          <input
+            [(ngModel)]="rubroFilter"
+            placeholder="Buscar Rubro"
+            class="form-control mb-5 search-input text-center"
+          />
           <ul class="d-block">
-            <li class="d-inline-block" *ngFor="let rubro of rubros">
+            <li
+              class="d-inline-block"
+              *ngFor="let rubro of rubros | filter : rubroFilter : 'rubro'"
+            >
               <button
                 type="button"
                 class="btn btn-sm fw-normal btn-light mb-3 position-relative me-3"
                 (dblclick)="actualizarRubro(rubro)"
                 title="Doble click para editar"
+                [ngClass]="
+                  rubro.eliminado
+                    ? 'text-decoration-line-through eliminado'
+                    : ''
+                "
               >
                 {{ rubro.rubro }}
                 <span
@@ -40,18 +53,34 @@
           <a
             (click)="agregarCategoria()"
             type="button"
-            class="btnAdd fw-bolder mt-5 mb-5 btn btn-sm col-10 col-md-5 mb-3 shadow"
+            class="btnAdd fw-bolder mt-5 mb-3 btn btn-sm col-10 col-md-5 shadow"
           >
             <fa-icon [icon]="faCirclePlus" class="me-3"></fa-icon
             ><span>Agregar Categoria</span>
           </a>
+          <input
+            [(ngModel)]="categoriaFilter"
+            placeholder="Buscar Categoría"
+            class="form-control mb-5 search-input text-center"
+          />
           <ul class="d-block">
-            <li class="d-inline-block" *ngFor="let categoria of categorias">
+            <li
+              class="d-inline-block"
+              *ngFor="
+                let categoria of categorias
+                  | filter : categoriaFilter : 'categoria'
+              "
+            >
               <button
                 type="button"
                 class="btn btn-sm fw-normal btn-light position-relative me-3 mb-3"
                 (dblclick)="actualizarCategoria(categoria)"
                 title="Doble click para editar"
+                [ngClass]="
+                  categoria.eliminado
+                    ? ' text-decoration-line-through eliminado'
+                    : ''
+                "
               >
                 {{ categoria.categoria }}
                 <span

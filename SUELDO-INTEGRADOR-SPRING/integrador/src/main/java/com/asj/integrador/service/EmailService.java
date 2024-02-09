@@ -10,4 +10,6 @@ public interface EmailService {
     String msgRecuperarContrasenia(String username,String hashedUsername);
 
     String msgResetearContrasenia(String username, String newPassword);
+
+    String actualizarContrasenia(String username);
 }

@@ -30,4 +30,6 @@ public interface UsuarioService {
     Map<String, String> actualizarPassword(ActualizarPasswordRequestDTO actualizarPassRequestDTO, String username) throws ResourceNotFoundException;
 
     AutenticacionUsuarioResponseDTO autenticarUsuarioYObtenerToken(String username) throws ResourceNotFoundException;
+
+    UsuarioResponseDTO validarUsernameExistente(String username) throws AlreadyExistsException;
 }

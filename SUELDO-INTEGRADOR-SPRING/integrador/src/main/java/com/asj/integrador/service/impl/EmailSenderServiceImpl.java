@@ -47,6 +47,11 @@ public class EmailSenderServiceImpl implements EmailService {
 
     @Override
     public String msgResetearContrasenia(String username, String newPassword) {
-        return "Hola " + username + ",\n \n" + "Restablecimiento de contraseña exitoso." + "\n \n" + "Tu nueva contraseña es :  " + newPassword + "\n \n" + "Saludos, equipo de la 3ra Aceleracion.";
+        return "Hola " + username + ",\n \n" + "Restablecimiento de contraseña exitoso." + "\n \n" + "Tu nueva contraseña es :  " + newPassword + "\n \n" + "Saludos, ASJ servicios.";
+    }
+
+    @Override
+    public String actualizarContrasenia(String username) {
+        return "Hola " + username + ",\n \n" + "Tu contraseña se ha actualizado exitosamente." + "\n \n"  + "Saludos, ASJ servicios.";
     }
 }

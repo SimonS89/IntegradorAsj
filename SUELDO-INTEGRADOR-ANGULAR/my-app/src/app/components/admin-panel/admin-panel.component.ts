@@ -32,6 +32,9 @@ export class AdminPanelComponent implements OnInit {
   ) {}
   categorias: Categoria[] = [];
   rubros: Rubro[] = [];
+  rubroFilter: string = '';
+  categoriaFilter: string = '';
+
   ngOnInit(): void {
     this.listarRubros();
     this.listarCategorias();

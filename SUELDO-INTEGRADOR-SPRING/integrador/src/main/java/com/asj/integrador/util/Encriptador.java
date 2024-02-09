@@ -16,9 +16,9 @@ public class Encriptador {
             Key key = new SecretKeySpec(SECRET_KEY.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes()));
+            return Base64.getUrlEncoder().withoutPadding().encodeToString(cipher.doFinal(strToEncrypt.getBytes()));
         } catch (Exception e) {
-            System.out.println("Error al encriptar: " + e.toString());
+            System.out.println("Error al encriptar: " + e);
         }
         return null;
     }
@@ -28,9 +28,9 @@ public class Encriptador {
             Key key = new SecretKeySpec(SECRET_KEY.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
             cipher.init(Cipher.DECRYPT_MODE, key);
-            return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
+            return new String(cipher.doFinal(Base64.getUrlDecoder().decode(strToDecrypt)));
         } catch (Exception e) {
-            System.out.println("Error al desencriptar: " + e.toString());
+            System.out.println("Error al desencriptar: " + e);
         }
         return null;
     }

@@ -68,19 +68,19 @@ public class AppExceptionHandler {
         ProblemDetail errorDetail = null;
         if (ex instanceof BadCredentialsException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-            errorDetail.setProperty(ACCESS_DENIED, "Authentication Failure");
+            errorDetail.setProperty(ACCESS_DENIED, "Credenciales incorrectas");
         }
         if (ex instanceof AccessDeniedException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
-            errorDetail.setProperty(ACCESS_DENIED, "not_authorized!");
+            errorDetail.setProperty(ACCESS_DENIED, "Autorización denegada");
         }
         if (ex instanceof SignatureException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
-            errorDetail.setProperty(ACCESS_DENIED, "JWT signature not valid!");
+            errorDetail.setProperty(ACCESS_DENIED, "Token inválido");
         }
         if (ex instanceof ExpiredJwtException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
-            errorDetail.setProperty(ACCESS_DENIED, "JWT token alredy expired!");
+            errorDetail.setProperty(ACCESS_DENIED, "Token expirado");
         }
         return errorDetail;
     }
