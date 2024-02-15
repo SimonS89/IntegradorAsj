@@ -63,9 +63,9 @@
             placeholder="Buscar Categoría"
             class="form-control mb-5 search-input text-center"
           />
-          <ul class="d-flex justify-content-between flex-wrap">
+          <ul class="d-flex justify-content-start flex-wrap">
             <li
-              class=""
+              class="me-2"
               *ngFor="
                 let categoria of categorias
                   | filter : categoriaFilter : 'categoria'
@@ -146,10 +146,14 @@
                               | usernameFilter : usuarioFilter
                           "
                         >
-                          <th scope="row">{{ usuario.username }}</th>
-                          <td>{{ usuario.email }}</td>
-                          <td>{{ mostrarRoles(usuario.roles) }}</td>
-                          <td>
+                          <th class="align-middle" scope="row">
+                            {{ usuario.username }}
+                          </th>
+                          <td class="align-middle">{{ usuario.email }}</td>
+                          <td class="align-middle">
+                            {{ mostrarRoles(usuario.roles) }}
+                          </td>
+                          <td class="align-middle">
                             <div class="d-flex justify-content-center gap-3">
                               <button
                                 type="button"

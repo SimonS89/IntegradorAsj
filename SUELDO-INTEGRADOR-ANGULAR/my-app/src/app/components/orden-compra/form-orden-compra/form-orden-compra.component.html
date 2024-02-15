@@ -93,6 +93,7 @@
               [(ngModel)]="ordenCompra.fechaEntrega"
               #fechaEntrega="ngModel"
               [ngClass]="fechaEntrega.errors ? 'is-invalid' : 'is-valid'"
+              [disabled]="esFechaEntregaMenorALaActual()"
             />
             <div class="col-auto" *ngIf="fechaEntrega.errors">
               <span class="form-text">
@@ -175,7 +176,7 @@
                   Selecciona un producto
                 </option>
                 <option *ngFor="let p of productos" [value]="p.id">
-                  {{ p.nombre }}
+                  {{ p.nombre + " - " + (p.precio | currency : "USD") }}
                 </option>
               </ng-container>
               <ng-template #noProductos>

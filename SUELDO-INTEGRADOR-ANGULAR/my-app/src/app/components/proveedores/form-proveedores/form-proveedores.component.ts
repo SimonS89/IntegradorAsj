@@ -102,6 +102,9 @@ export class FormProveedoresComponent implements OnInit {
   }
 
   editarProveedor() {
+    console.log(this.proveedor);
+    console.log(this.id);
+
     this.proveedorService
       .actualizar(this.id, this.proveedor)
       .subscribe((res) => this.irAProveedores());

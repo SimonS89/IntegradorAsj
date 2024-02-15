@@ -44,6 +44,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('conectado');
+    localStorage.removeItem('roles');
     this.router.navigate(['']);
   }
 

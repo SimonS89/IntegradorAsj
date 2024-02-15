@@ -79,9 +79,7 @@ export class FormOrdenCompraComponent implements OnInit {
           if (res) {
             this.id ? this.editarOrden() : this.crearOrden();
             this.alertService.notification(
-              `Orden, ${
-                this.ordenCompra.numeroOrden ? 'editada' : 'Generada'
-              } exitosamente.`,
+              `Orden, ${this.id ? 'editada' : 'Generada'} exitosamente.`,
               'success'
             );
           }
@@ -111,6 +109,14 @@ export class FormOrdenCompraComponent implements OnInit {
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 5);
     return currentDate.toISOString().split('T')[0];
+  }
+
+  esFechaEntregaMenorALaActual(): boolean {
+    if (!this.ordenCompra.fechaEntrega)return false;
+    
+    const fechaEntrega = new Date(this.ordenCompra.fechaEntrega);
+    const fechaActual = new Date();
+    return fechaEntrega < fechaActual;
   }
 
   listarProductos(id: number) {

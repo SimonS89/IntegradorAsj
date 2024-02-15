@@ -34,11 +34,11 @@
             class="alert alert-success fs-5 col-8"
             role="alert"
           >
-            No hay productos eliminados disponibles.
+            No hay ordenes inactivas disponibles.
           </div>
           <ng-template #noProductosMessage>
             <div class="alert alert-success fs-5 col-8" role="alert">
-              No hay productos disponibles.
+              No hay ordenes disponibles.
             </div>
           </ng-template>
         </div>
@@ -137,7 +137,7 @@
               </td>
             </ng-container>
             <ng-container matColumnDef="estado">
-              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <th mat-header-cell *matHeaderCellDef>Envío</th>
               <td
                 mat-cell
                 *matCellDef="let orden"
