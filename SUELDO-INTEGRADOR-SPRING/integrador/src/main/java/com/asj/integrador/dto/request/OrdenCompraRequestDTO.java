@@ -19,20 +19,17 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdenCompraRequestDTO {
     @NotBlank
-    @Pattern(regexp = "^[A-Z]{2}-[A-Z]\\d{4}$", message = "Ingresar formato válido.")
     private String numeroOrden;
     @NotNull
     @Positive
     private Double total;
     @NotBlank
-    @Pattern(regexp = "^[A-Za-zÁ-ú\\s]{3,}(?:\\s[A-Za-zÁ-ú\\s]{3,})+$", message = "Debe ingresar un nombre y apellido válido.")
     private String infoRecepcion;
     private String infoAdicional;
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEmision;
     @NotNull
-    @Future
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEntrega;
     private List<DetalleOrden> detallesOrden;

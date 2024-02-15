@@ -18,7 +18,6 @@ import lombok.Setter;
 public class ProductoDTO {
 
     @NotBlank
-    @Pattern(regexp = "^[A-Z]{3}-[A-Z]\\d{5}$", message = "Ingrese formato válido.")
     private String sku;
     @NotBlank
     private String imagen;
@@ -28,7 +27,6 @@ public class ProductoDTO {
     @Positive
     private double precio;
     @NotBlank
-    @Pattern(regexp = "^([,\\wáéíóúüñ\\s\\.\\-,;]+[.,;]?\\s){4,}[,\\wáéíóúüñ\\s\\.\\-,;]+[.,;]?$", message = "La descripción debe tener al menos 5 palabras.")
     private String descripcion;
     @Positive
     private long categoriaId;
